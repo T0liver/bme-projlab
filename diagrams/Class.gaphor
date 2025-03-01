@@ -2236,6 +2236,11 @@ existing classes or even new classes with specific responsibilities.</val>
 <name>
 <val>mozog</val>
 </name>
+<ownedParameter>
+<reflist>
+<ref refid="514199fe-f6a0-11ef-a649-00155d380100"/>
+</reflist>
+</ownedParameter>
 </UML:Operation>
 <UML:Operation id="701842ff-f5bb-11ef-99dd-079c23bc34e6">
 <class_>
@@ -3045,6 +3050,17 @@ existing classes or even new classes with specific responsibilities.</val>
 </name>
 <ownerFormalParam>
 <ref refid="57128700-f690-11ef-8f51-00155d380100"/>
+</ownerFormalParam>
+</UML:Parameter>
+<UML:Parameter id="514199fe-f6a0-11ef-a649-00155d380100">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>Mező</val>
+</name>
+<ownerFormalParam>
+<ref refid="6e47a90c-f5bb-11ef-a0f3-079c23bc34e6"/>
 </ownerFormalParam>
 </UML:Parameter>
 </model>
