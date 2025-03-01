@@ -841,6 +841,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="fa4bb960-f5bc-11ef-95a7-079c23bc34e6"/>
 <ref refid="01bcd1e5-f5d2-11ef-9e31-001a7dda7113"/>
 <ref refid="23caef72-f68a-11ef-ae17-00155d380100"/>
+<ref refid="ad5fb6a0-f6a3-11ef-9749-00155d380100"/>
 </reflist>
 </ownedAttribute>
 <ownedOperation>
@@ -864,7 +865,7 @@ existing classes or even new classes with specific responsibilities.</val>
 </UML:Class>
 <UML:ClassItem id="ab679b77-f5b3-11ef-a209-079c23bc34e6">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 234.0447252692449, 792.9503881504037)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 234.04472526924496, 792.9503881504037)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -873,7 +874,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>162.0</val>
 </width>
 <height>
-<val>176.0</val>
+<val>193.0</val>
 </height>
 <diagram>
 <ref refid="06ecc092-71b4-11ec-a409-f47b099bf663"/>
@@ -3063,5 +3064,16 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="6e47a90c-f5bb-11ef-a0f3-079c23bc34e6"/>
 </ownerFormalParam>
 </UML:Parameter>
+<UML:Property id="ad5fb6a0-f6a3-11ef-9749-00155d380100">
+<class_>
+<ref refid="ab671041-f5b3-11ef-ab69-079c23bc34e6"/>
+</class_>
+<name>
+<val>fejlettség</val>
+</name>
+<typeValue>
+<val>int</val>
+</typeValue>
+</UML:Property>
 </model>
 </gaphor>
