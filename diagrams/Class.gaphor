@@ -2992,6 +2992,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedParameter>
 <reflist>
 <ref refid="0087ed66-f68f-11ef-a8a9-00155d380100"/>
+<ref refid="57a85081-f6a9-11ef-ac06-00155d380100"/>
 </reflist>
 </ownedParameter>
 </UML:Operation>
@@ -3075,5 +3076,16 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>int</val>
 </typeValue>
 </UML:Property>
+<UML:Parameter id="57a85081-f6a9-11ef-ac06-00155d380100">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>int</val>
+</name>
+<ownerFormalParam>
+<ref refid="fade3f66-f68e-11ef-ab11-00155d380100"/>
+</ownerFormalParam>
+</UML:Parameter>
 </model>
 </gaphor>
