@@ -2511,7 +2511,6 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedParameter>
 <reflist>
 <ref refid="af04bfc7-f5de-11ef-aedf-695a143bac25"/>
-<ref refid="f064f470-f5e0-11ef-a381-695a143bac25"/>
 </reflist>
 </ownedParameter>
 </UML:Operation>
@@ -2520,7 +2519,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>in</val>
 </direction>
 <name>
-<val>GombaTest</val>
+<val>Tekton</val>
 </name>
 <ownerFormalParam>
 <ref refid="af007dcc-f5de-11ef-bb74-695a143bac25"/>
@@ -2617,17 +2616,6 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>List&lt;Spóra&gt;</val>
 </typeValue>
 </UML:Property>
-<UML:Parameter id="f064f470-f5e0-11ef-a381-695a143bac25">
-<direction>
-<val>in</val>
-</direction>
-<name>
-<val>Tekton</val>
-</name>
-<ownerFormalParam>
-<ref refid="af007dcc-f5de-11ef-bb74-695a143bac25"/>
-</ownerFormalParam>
-</UML:Parameter>
 <UML:Operation id="0b1c6769-f5e1-11ef-8d97-695a143bac25">
 <class_>
 <ref refid="a6589bf3-f5b3-11ef-afbf-079c23bc34e6"/>
