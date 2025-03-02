@@ -2339,6 +2339,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedOperation>
 <reflist>
 <ref refid="cd439f00-f68c-11ef-9580-00155d380100"/>
+<ref refid="346132b8-f784-11ef-8a74-001a7dda7113"/>
 </reflist>
 </ownedOperation>
 <owningPackage>
@@ -2364,7 +2365,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>211.0</val>
 </width>
 <height>
-<val>94.0</val>
+<val>112.0</val>
 </height>
 <diagram>
 <ref refid="06ecc092-71b4-11ec-a409-f47b099bf663"/>
@@ -2887,7 +2888,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 729.3823452629008, 659.7781626020679)</val>
 </matrix>
 <points>
-<val>[(2.2673961258783493, 5.213889851529757), (2.2673961258782356, 72.7083219779197), (-126.86440117078166, 72.70832197791958), (-126.8644011707811, 125.64243258988131)]</val>
+<val>[(2.2673961258783493, 23.213889851529757), (2.2673961258782356, 72.7083219779197), (-126.86440117078166, 72.70832197791958), (-126.8644011707811, 125.64243258988131)]</val>
 </points>
 <head-connection>
 <ref refid="5b488308-f5d0-11ef-b03b-001a7dda7113"/>
@@ -3375,5 +3376,29 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>init</val>
 </name>
 </UML:Operation>
+<UML:Operation id="346132b8-f784-11ef-8a74-001a7dda7113">
+<class_>
+<ref refid="5b48553c-f5d0-11ef-afaa-001a7dda7113"/>
+</class_>
+<name>
+<val>addFonál</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="34626926-f784-11ef-85a7-001a7dda7113"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="34626926-f784-11ef-85a7-001a7dda7113">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>GombaFonál</val>
+</name>
+<ownerFormalParam>
+<ref refid="346132b8-f784-11ef-8a74-001a7dda7113"/>
+</ownerFormalParam>
+</UML:Parameter>
 </model>
 </gaphor>
