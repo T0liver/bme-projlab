@@ -26,3 +26,6 @@ replay_pid*
 # Maven compile, build and test files
 *.lst
 pom.properties
+
+# VSCode folder
+.vscode/*
