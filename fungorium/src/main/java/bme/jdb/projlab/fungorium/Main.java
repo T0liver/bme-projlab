@@ -6,7 +6,7 @@ import bme.jdb.projlab.fungorium.tesztek.SporaTeszt;
 
 public class Main {
   public static void main(String[] args) {
-      System.out.println("JDB tesztelő program v1.0");
+      System.out.println("\nJDB tesztelő program v1.0\n");
 
       //itt meghívjuk a tesztfüggvényeket
       TektonTeszt.megadottTeszt();
