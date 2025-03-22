@@ -25,8 +25,13 @@ public class Main {
       RovarVagTeszt.RovarVagTeszt();
 
 
+
       TektonHasadasTeszt1.TektonHasadasTeszt1();
       TektonHasadasTeszt2.TektonHasadasTeszt2();
+
+      FonalAthidal.FonalAthidal1();
+      FonalAthidal.FonalAthidal2();
+      FonalAthidal.FonalAthidal3();
 
       //végén összegzés
       JDBtesttool.jdbSummary();
