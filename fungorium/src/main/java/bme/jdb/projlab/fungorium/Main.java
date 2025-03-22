@@ -1,6 +1,7 @@
 package bme.jdb.projlab.fungorium;
 
 import bme.jdb.projlab.fungorium.tesztek.JDBtesttool;
+import bme.jdb.projlab.fungorium.tesztek.SporatEszikTeszt;
 import bme.jdb.projlab.fungorium.tesztek.TektonTeszt;
 
 public class Main {
@@ -10,6 +11,7 @@ public class Main {
       //itt meghívjuk a tesztfüggvényeket
       TektonTeszt.megadottTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();
+      SporatEszikTeszt.NormalSporaTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();

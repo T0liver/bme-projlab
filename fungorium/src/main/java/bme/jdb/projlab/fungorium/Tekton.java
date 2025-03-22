@@ -46,6 +46,8 @@ public class Tekton {
     return fonalak;
   }
 
+  public List<Spora> getSporak() { return sporak;}
+
   /**
    * A tekton szomszédjainak beállításához hasznos függvény
    *
@@ -101,6 +103,17 @@ public class Tekton {
   public boolean /* miért boolean */ addSpora(int mennyiseg /* TODO: , + valam faj jelölés */) {
     // TODO: sporak.add(spora); valami
     return true;
+  }
+
+
+
+  /**
+   * Az adott spórát elhelyezi a tektonon
+   * @param spora hozzáadódik a tektonhoz
+   * @return nem ad vissza semmit sem
+   */
+  public void add(Spora spora) {
+    sporak.add(spora);
   }
 
   /**
