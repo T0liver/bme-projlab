@@ -1,9 +1,6 @@
 package bme.jdb.projlab.fungorium.tesztek;
 
-import bme.jdb.projlab.fungorium.EgyetlenFonalTekton;
-import bme.jdb.projlab.fungorium.GombaFonal;
-import bme.jdb.projlab.fungorium.GombaTest;
-import bme.jdb.projlab.fungorium.Tekton;
+import bme.jdb.projlab.fungorium.*;
 
 import java.util.List;
 
@@ -62,5 +59,26 @@ public class TektonTeszt {
 
         tekton8.fonalNo(gombaFonal1);
         teszt.jdbNotEqual("Másik Gombafonal elhelyezése sikertelen", tekton8.getFonalak().size(), 2);
+    }
+
+    /**
+     * FelszívóTekton teszt: megadott számú tick() után felszívja a fonalakat
+     */
+    public static void felszivoTektonTeszt(){
+        JDBtesttool teszt = new JDBtesttool("Felszivotekton teszt");
+
+        Tekton tekton1 = new FelszivoTekton(2);
+        teszt.jdbNotEqual("FelszívóTekton létrehoz 2 hátralévő idővel", tekton1, null);
+
+        GombaFonal gombaFonal1 = new GombaFonal();
+        teszt.jdbNotEqual("Gombafonal létrejött", gombaFonal1, null);
+
+        tekton1.getFonalak().add(gombaFonal1);
+        teszt.jdbEquals("Gombafonal elhelyezve a tektonon", tekton1.getFonalak().getFirst(), gombaFonal1);
+
+        tekton1.tick();
+        teszt.jdbEquals("tick() 1 : még van fonál", tekton1.getFonalak().contains(gombaFonal1), true);
+        tekton1.tick();
+        teszt.jdbNotEqual("tick() 2 : fonál felszívódott", tekton1.getFonalak().contains(gombaFonal1), true);
     }
 }
