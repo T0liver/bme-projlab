@@ -140,6 +140,7 @@ public class SporatEszikTeszt {
         // Ellenőrizzük, hogy a rovar sebessége valóban lecsökkent
         teszt.jdbEquals("A Rovar lebénult", rovar.getSebesseg(), 0);
 
+
     }
 
 
