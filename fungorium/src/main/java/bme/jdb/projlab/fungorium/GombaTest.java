@@ -6,6 +6,13 @@ import java.util.Random;
 /**
  * GombaTest osztály definíciója.
  * 
+ * A gombatest egy tektonon élősködő organizmus, amelyből gombafonalak nőnek.
+ * Bizonyos idő elteltével spórákat termel, melyeket a szomszédos tektonokra képes szóri,
+ * ezáltal segíti elő a gombafonalak terjedését. Idővel a gombatest elkezd fejlődni
+ * és fejlettebb állapotában már a szomszédos tektonok szomszédjaira is képes spórákat szórni.
+ * Minden tektonon csupán egyetlen gombatest fejlődhet, amely elpusztul miután elég spórát szórt.
+ * A gombafonalak révén új gombatestek alakulhatnak ki, ha elegendő spóra halmozódik fel azon a tektonon,
+ * ahol új testet szeretnénk létrehozni.
  * @author Oliver
  */
 public class GombaTest {
