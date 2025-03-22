@@ -16,6 +16,8 @@ public class Main {
       SporatEszikTeszt.CsorbitoSporaTeszt();
       GombaTestHalalaTeszt.GombaTestHalalaTeszt();
       GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
+    GombaTestHalalaTeszt.GombaTestHalalaTeszt();
+    GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();
