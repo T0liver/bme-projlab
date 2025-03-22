@@ -33,12 +33,16 @@ public class Tekton {
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    */
-  Tekton() {
+  public Tekton() {
     foglalt = false;
     szomszedok = new ArrayList<>();
     sporak = new ArrayList<>();
     fonalak = new ArrayList<>();
   }
+
+  public void setFoglalt(boolean foglaltsagi) {
+    foglalt = foglaltsagi;
+  } 
 
   /**
    * A tekton szomszédjainak beállításához hasznos függvény

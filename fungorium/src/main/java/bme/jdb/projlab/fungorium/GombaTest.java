@@ -1,5 +1,8 @@
 package bme.jdb.projlab.fungorium;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  * GombaTest osztály definíciója.
  * 
@@ -22,6 +25,7 @@ public class GombaTest {
         fejlett = false;
         fejlettseg = 0;
         tartozkodik = hely;
+        hely.setFoglalt(true);
     }
 
     /**
@@ -71,31 +75,78 @@ public class GombaTest {
         return fejlettseg;
     }
 
+
+    /**
+     * Publikus getter függvény a gombatest tartózkodási helyének lekérdezésére.
+     * @return a tekton, ahol a gombatest tartózkodik
+     */
     public Tekton getTartozkodik() {
         return tartozkodik;
     }
 
+    /**
+     * Publikus setter függvény, beállítja a gombatest spóraszámát.
+     * @param db a gombatest spóraszáma
+     */
     public void setSporaDarab(int db) {
         sporadarab = db;
     }
 
+    /**
+     * Publikus setter függvény, beállítja a gombatest élettartamát.
+     * @param ido a kezdeti élettartam
+     */
     public void setElettartam(int ido) {
         elettartam = ido;
     }
 
-    public void sporatSzor(Tekton hova) {
-
+    /**
+     * Elindítja a spóraszórást.
+     * Spóra szórását kezdeményezi egy szomszédos tektonra.
+     * Ekkor csökken a saját spórakészlete és az élettartama is.
+     * @param hova melyik tektonra szórjon spórát
+     */
+    public boolean sporatSzor(Tekton hova) {
+        if (fejlett) {
+            List<Tekton> szomszedok = hova.getSzomszed(2);
+            if (szomszedok.contains(hova)) {
+                int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+                hova.addSpora(db);
+                eletcsokken();
+                sporadarab -= db;
+                return true;
+            }
+        }
+        List<Tekton> szomszedok = hova.getSzomszed(1);
+        if (szomszedok.contains(hova)) {
+            int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+            hova.addSpora(db);
+            eletcsokken();
+            sporadarab -= db;
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * Eggyel fejleszti a gombatestet, és növeli a fejlettség értékét.
+     */
     public void novekszik() {
-
+        fejlettseg++;
     }
 
+    /**
+     * Megsemmisül a gombatest, törlődik a listából, és felszabadítja a tektont, ahol eddig tartózkodott
+     */
     public void elpusztul() {
-
+        tartozkodik.setFoglalt(false);
+        tartozkodik = null;
     }
 
+    /**
+     * Csökkenti az élettartamot, mert spóraszórás után csökken.
+     */
     public void eletcsokken() {
-
+        elettartam--;
     }
 }
