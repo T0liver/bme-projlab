@@ -2,10 +2,10 @@ package bme.jdb.projlab.proto_kod;
 
 /**
  * EgyetlenFonalTekton osztály definíciója.
- * 
- * Ez az osztály felelős azon tektonokért, amik csak egyetlen
- * gombafaj fonalát engedik a felszínükre, több gombafajba tartozó fonál egyidejűleg nem
- * tartózkodhat, vagy vezethet ennek a tektonnak a felszínén.
+ *
+ * <p>Ez az osztály felelős azon tektonokért, amik csak egyetlen gombafaj fonalát engedik a
+ * felszínükre, több gombafajba tartozó fonál egyidejűleg nem tartózkodhat, vagy vezethet ennek a
+ * tektonnak a felszínén.
  */
 public class EgyetlenFonalTekton extends Tekton {
 
@@ -17,7 +17,7 @@ public class EgyetlenFonalTekton extends Tekton {
   @Override
   public void fonalNo(GombaFonal melyik) {
     if (fonalak.size() > 0) // ha van már nyilvántartott fonál a tektonon, nem lehet új
-      return;
+    return;
     super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
   }
 }

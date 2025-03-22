@@ -36,9 +36,7 @@ public class FelszivoTekton extends Tekton {
     hatralevoido--;
     if (hatralevoido == 0) {
       for (int i = 0; i < fonalak.size(); ++i) {
-        fonalak
-            .get(i)
-            .elvagodik(this);
+        fonalak.get(i).elvagodik(this);
         // valahogy ki kell szedni erről a tektonról, majd az általa
         // elérhető gombatestektől és a vezet listában maradt tektonokból
         // egy gráfbejárással új listát építünk
