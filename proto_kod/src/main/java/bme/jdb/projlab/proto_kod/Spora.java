@@ -86,5 +86,10 @@ public class Spora {
     darabszam += mennyivel;
   }
 
-  // TODO: hatas(Rovar mire), amikor már megvan a Rovar osztály
+  /**
+   * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
+   * 
+   * @param mire a rovar, amire kifejti a hatását
+   */
+  public void hatas(Rovar mire) {}
 }
