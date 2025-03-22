@@ -5,4 +5,4 @@ Jody Domingre bandája csapat Szoftverprojekt laboratórium repositoryja.
 
 Erre a branch-re kerülnek a prototípushoz tartozó tesztesetek.
 
-**pls kódolsá előtt ``git fetch && git pull``, így nem lesz annyi egymásra szerkesztgetés!**
+**pls kódolás előtt ``git fetch && git pull``, így nem lesz annyi egymásra szerkesztgetés!**
