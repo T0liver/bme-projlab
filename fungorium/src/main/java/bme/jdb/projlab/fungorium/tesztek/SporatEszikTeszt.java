@@ -36,6 +36,13 @@ public class SporatEszikTeszt {
 
     }
 
+
+    /**
+     * A teszt leellnőrzi, hogy az adott Rovar valóban elfogyasztja-e a Bénító spórát.
+     * Ezen kívül a spóra elfogyasztása után megvizsgálja a hatást [felgyorsul-e az adott Rovar].
+     */
+
+
     public static void GyorsitoSporaTeszt() {
 
         JDBtesttool teszt = new JDBtesttool("Gyorsító spórát eszik teszt");
@@ -71,9 +78,10 @@ public class SporatEszikTeszt {
     }
 
 
-
-
-
+    /**
+     * A teszt leellnőrzi, hogy az adott Rovar valóban elfogyasztja-e a Lassító spórát.
+     * Ezen kívül a spóra elfogyasztása után megvizsgálja a hatást [lelassul-e az adott Rovar].
+     */
 
     public static void LassitoSporaTeszt() {
         JDBtesttool teszt = new JDBtesttool("Lassító spórát eszik teszt");
@@ -106,6 +114,12 @@ public class SporatEszikTeszt {
         // Ellenőrizzük, hogy a rovar sebessége valóban lecsökkent
         teszt.jdbEquals("A Rovar lelassult", rovar.getSebesseg(), (int) Math.ceil(alapsebesseg * 0.5));
     }
+
+
+    /**
+     * A teszt leellnőrzi, hogy az adott Rovar valóban elfogyasztja-e a Bénító spórát.
+     * Ezen kívül a spóra elfogyasztása után megvizsgálja a hatást [mozgásképtelen lesz-e az adott Rovar].
+     */
 
 
     public static void BenitoSporaTeszt() {
@@ -143,6 +157,14 @@ public class SporatEszikTeszt {
 
     }
 
+
+
+
+
+    /**
+     * A teszt leellnőrzi, hogy az adott Rovar valóban elfogyasztja-e a Csorbító spórát.
+     * Ezen kívül a spóra elfogyasztása után megvizsgálja a hatást [képtelen lesz e vágni az adott Rovar].
+     */
 
     public static void CsorbitoSporaTeszt() {
 
