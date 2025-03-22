@@ -12,7 +12,10 @@ public class Main {
       TektonTeszt.megadottTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();
       SporatEszikTeszt.NormalSporaTeszt();
+      SporatEszikTeszt.GyorsitoSporaTeszt();
       SporatEszikTeszt.LassitoSporaTeszt();
+      SporatEszikTeszt.BenitoSporaTeszt();
+      SporatEszikTeszt.CsorbitoSporaTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();
