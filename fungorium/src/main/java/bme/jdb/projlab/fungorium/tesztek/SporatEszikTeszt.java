@@ -1,4 +1,5 @@
 package bme.jdb.projlab.fungorium.tesztek;
+import bme.jdb.projlab.fungorium.LassitoSpora;
 import bme.jdb.projlab.fungorium.Rovar;
 import bme.jdb.projlab.fungorium.Spora;
 import bme.jdb.projlab.fungorium.Tekton;
@@ -15,8 +16,6 @@ public class SporatEszikTeszt {
         teszt.jdbNotEqual("Tekton Létrehozás", tekton, null);
 
         Rovar rovar = new Rovar(tekton);
-
-
 
         Spora spora = new Spora(3,5);
         tekton.add(spora);
@@ -39,4 +38,41 @@ public class SporatEszikTeszt {
 
 
     }
+
+
+    public static void LassitoSporaTeszt() {
+        JDBtesttool teszt = new JDBtesttool("Lassító spórát eszik teszt");
+
+        Tekton tekton = new Tekton();
+        teszt.jdbNotEqual("Tekton Létrehozás", tekton, null);
+
+        Rovar rovar = new Rovar(tekton);
+        LassitoSpora lassitoSporaspora = new LassitoSpora(3, 5);
+        tekton.add(lassitoSporaspora);
+
+        teszt.jdbNotEqual("Rovar létrejött", rovar, null);
+        teszt.jdbNotEqual("Spóra létrejött", lassitoSporaspora, null);
+        teszt.jdbEquals("Spóra elhelyezés...Tekton1", tekton.getSporak().getFirst(), lassitoSporaspora);
+
+        // Mentsük el a rovar alap sebességét, mielőtt bármit is változtatnánk
+
+
+
+        int alapsebesseg = rovar.getSebesseg();
+        int eredmeny = rovar.eszik(lassitoSporaspora); // A rovar eszik a spórából
+
+
+        // Ellenőrizzük, hogy a rovar elfogyasztotta-e a spórát és csökkentette annak mennyiségét.
+        teszt.jdbEquals("Rovar megette a Lassító spórát", eredmeny, 15); // 3 * 5 = 15 tápanyag
+
+        // Ellenőrizzük, hogy a spóra darabszáma most 0 (mert elfogyott)
+        teszt.jdbEquals("Spóra csökkenés ellenőrzése", lassitoSporaspora.getDarabszam(), 0);
+
+        // Ellenőrizzük, hogy a rovar sebessége valóban lecsökkent
+        teszt.jdbEquals("A Rovar lelassult", rovar.getSebesseg(), (int) Math.ceil(alapsebesseg * 0.5));
+    }
+
+
+
+
 }
