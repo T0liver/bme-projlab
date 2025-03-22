@@ -10,7 +10,7 @@ public class Main {
 
       //itt meghívjuk a tesztfüggvényeket
       TektonTeszt.megadottTeszt();
-      TektonTeszt.egyetlenFonalTektonTeszt();
+
       SporatEszikTeszt.NormalSporaTeszt();
       SporatEszikTeszt.GyorsitoSporaTeszt();
       SporatEszikTeszt.LassitoSporaTeszt();
@@ -27,6 +27,9 @@ public class Main {
 
       TektonHasadasTeszt1.TektonHasadasTeszt1();
       TektonHasadasTeszt2.TektonHasadasTeszt2();
+
+      TektonTeszt.felszivoTektonTeszt();
+      TektonTeszt.egyetlenFonalTektonTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();

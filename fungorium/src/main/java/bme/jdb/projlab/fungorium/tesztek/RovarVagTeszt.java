@@ -17,8 +17,8 @@ public class RovarVagTeszt {
         tekton1.addSzomszed(tekton2);
         tekton2.addSzomszed(tekton1);
 
-        test.jdbEquals("tekton1 szomszedja beallitva", tekton1.getSzomszed(1), tekton2);
-        test.jdbEquals("tekton2 szomszedja beallitva", tekton2.getSzomszed(1), tekton1);
+        test.jdbEquals("tekton1 szomszedja beallitva", tekton1.getSzomszed(1).contains(tekton2), true);
+        test.jdbEquals("tekton2 szomszedja beallitva", tekton2.getSzomszed(1).contains(tekton1), true);
 
         GombaFonal gombaFonal = new GombaFonal();
         test.jdbNotEqual("Gombafonal létrehozása", gombaFonal, null );

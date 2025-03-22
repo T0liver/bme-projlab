@@ -19,8 +19,8 @@ public class SporaTeszt {
         tekton1.addSzomszed(tekton2);
         tekton2.addSzomszed(tekton1);
 
-        test.jdbEquals("tekton1 szomszedja beallitva", tekton1.getSzomszed(1), tekton2);
-        test.jdbEquals("tekton2 szomszedja beallitva", tekton2.getSzomszed(1), tekton1);
+        test.jdbEquals("tekton1 szomszedja beallitva", tekton1.getSzomszed(1).contains(tekton2), true);
+        test.jdbEquals("tekton2 szomszedja beallitva", tekton2.getSzomszed(1).contains(tekton1), true);
 
         GombaTest gombatest;
 
@@ -60,9 +60,9 @@ public class SporaTeszt {
         tekton2.addSzomszed(tekton3);
         tekton3.addSzomszed(tekton2);
 
-        test.jdbEquals("tekton1 szomszedja beallitva (tekton2)", tekton1.getSzomszed(1), tekton2);
-        test.jdbEquals("tekton2 szomszedja beallitva (tekton1, tekton3)", tekton2.getSzomszed(1), tekton1);
-        test.jdbEquals("tekton3 szomszedja beallitva (tekton2)", tekton3.getSzomszed(1), tekton2);
+        test.jdbEquals("tekton1 szomszedja beallitva (tekton2)", tekton1.getSzomszed(1).contains(tekton2), true);
+        test.jdbEquals("tekton2 szomszedja beallitva (tekton1, tekton3)", tekton2.getSzomszed(1).contains(tekton1), true);
+        test.jdbEquals("tekton3 szomszedja beallitva (tekton2)", tekton3.getSzomszed(1).contains(tekton2), true);
 
         GombaTest gombatest;
 
