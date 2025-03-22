@@ -3,17 +3,11 @@ package bme.jdb.projlab.fungorium;
 /**
  * Spóra osztály definíciója.
  *
- * <p>
- * Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak
- * elhelyezni.
- * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra
- * található. A spórák
- * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert
- * fajtái felgyorsítják,
- * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó
- * rovarokat. A spórák különböző
- * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok
- * szerzésében.
+ * <p>Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak elhelyezni.
+ * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra található. A spórák
+ * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert fajtái felgyorsítják,
+ * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó rovarokat. A spórák különböző
+ * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok szerzésében.
  *
  * @author Oliver
  */
@@ -28,7 +22,7 @@ public class Spora {
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    *
    * @param kcal a spóra tápanyagtartalma
-   * @param db   a spóra darabszáma
+   * @param db a spóra darabszáma
    */
   public Spora(int kcal, int db) {
     tapanyagtartalom = kcal;
@@ -54,10 +48,8 @@ public class Spora {
   }
 
   /**
-   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a
-   * mennyivel értéke,
-   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető
-   * mennyiséget adja vissza.
+   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a mennyivel értéke,
+   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető mennyiséget adja vissza.
    *
    * @param mennyivel annak a száma, hogy mennyivel csökken a spóra.
    * @return a megevett spóraák tápanyagértéke.
@@ -79,7 +71,7 @@ public class Spora {
 
   /**
    * Növeli a spóra darabszámát a megadott értékkel.
-   * 
+   *
    * @param mennyivel amennyivel növelni kell a spóra darabszámát.
    */
   public void novel(int mennyivel) {
@@ -88,7 +80,7 @@ public class Spora {
 
   /**
    * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
-   * 
+   *
    * @param mire a rovar, amire kifejti a hatását
    */
   public void hatas(Rovar mire) {}

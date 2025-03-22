@@ -56,14 +56,16 @@ public class GombaFonal {
    */
   public boolean athidal(Tekton hova) {
     for (Tekton t : vezet) {
-      int i = 0;
-      List<Tekton> szomszedok = t.getSzomszed(i);
-      while (!szomszedok.isEmpty()) {
-        if (szomszedok.contains(hova)) {
-          vezet.add(hova);
-          hova.fonalak.add(this);
-          return true;
-        }
+      List<Tekton> szomszedok = t.getSzomszed(1);
+
+      if (szomszedok.isEmpty()) {
+        return false;
+      }
+
+      if (szomszedok.contains(hova)) {
+        vezet.add(hova);
+        hova.fonalak.add(this);
+        return true;
       }
     }
     return false;
