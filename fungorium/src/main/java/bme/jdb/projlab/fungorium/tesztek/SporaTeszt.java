@@ -25,7 +25,7 @@ public class SporaTeszt {
         GombaTest gombatest;
 
         try {
-            gombatest = new GombaTest(5, tekton2);
+            gombatest = new GombaTest(5, 5, true, 5, tekton2);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

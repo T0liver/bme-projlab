@@ -10,7 +10,7 @@ public class Main {
 
       //itt meghívjuk a tesztfüggvényeket
       TektonTeszt.megadottTeszt();
-
+      TektonTeszt.egyetlenFonalTektonTeszt();
       SporatEszikTeszt.NormalSporaTeszt();
       SporatEszikTeszt.GyorsitoSporaTeszt();
       SporatEszikTeszt.LassitoSporaTeszt();
@@ -25,8 +25,13 @@ public class Main {
       RovarVagTeszt.RovarVagTeszt();
 
 
+
       TektonHasadasTeszt1.TektonHasadasTeszt1();
       TektonHasadasTeszt2.TektonHasadasTeszt2();
+
+      FonalAthidalTeszt.FonalAthidal1();
+      FonalAthidalTeszt.FonalAthidal2();
+      FonalAthidalTeszt.FonalAthidal3();
 
       TektonTeszt.felszivoTektonTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();
