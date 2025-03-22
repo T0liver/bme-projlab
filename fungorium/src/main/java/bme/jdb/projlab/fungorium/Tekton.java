@@ -88,8 +88,12 @@ public class Tekton {
     if (hanyadik <= 0) return ret;
     for (int i = 0; i < szomszedok.size(); ++i) {
       ret.add(szomszedok.get(i));
-      List<Tekton> check = szomszedok.get(i).getSzomszed(hanyadik);
-      for (int e = 0; e < check.size(); ++e) if (!ret.contains(check.get(i))) ret.add(check.get(i));
+      List<Tekton> check = szomszedok.get(i).getSzomszed(hanyadik-1);
+      for (int e = 0; e < check.size(); ++e){
+          if (!ret.contains(check.get(e))){
+              ret.add(check.get(e));
+          }
+      }
     }
     return ret;
   }
