@@ -30,6 +30,7 @@ public class Main {
 
       TektonTeszt.felszivoTektonTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();
+      TektonTeszt.termeketlenTektonTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();
