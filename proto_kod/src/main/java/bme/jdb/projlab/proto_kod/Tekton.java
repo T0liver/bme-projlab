@@ -123,7 +123,7 @@ public class Tekton {
     for (int i = 0; i < szomszedok.size(); ++i) {
       if (melyik.getVezet().contains(szomszedok.get(i))) {
         fonalak.add(melyik);
-        melyik.atHidal(this);
+        melyik.athidal(this);
       }
     }
   }
