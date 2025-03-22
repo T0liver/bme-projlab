@@ -119,6 +119,15 @@ public class GombaTest {
   }
 
   /**
+   * Publikus setter függvény, beállítja a gombatest fejlettségét.
+   *
+   * @param fejlett jelzi, hogy fejlett gombatestről beszélünk-e
+   */
+  public void setFejlett(boolean fejlett) {
+    this.fejlett = fejlett;
+  }
+
+  /**
    * Publikus setter függvény, beállítja a gombatest élettartamát.
    *
    * @param ido a kezdeti élettartam
