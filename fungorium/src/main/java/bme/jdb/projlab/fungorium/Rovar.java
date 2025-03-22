@@ -49,6 +49,12 @@ public class Rovar {
     sebesseg = s;
   }
 
+  /**
+   * publikus getter a rovar tartozkodasi helyenek lekerdezesehez
+   * @return a tekton amin a rovar van
+   */
+  public Tekton getTartozkodik() {return tartozkodik;}
+
   /** publikus setter a rovar fonál vágására való készségének letiltására */
   public void nemVaghat() {
     vaghat = false;

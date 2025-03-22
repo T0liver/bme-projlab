@@ -1,6 +1,8 @@
 package bme.jdb.projlab.fungorium;
 
 import bme.jdb.projlab.fungorium.tesztek.*;
+import bme.jdb.projlab.fungorium.tesztek.SporaTeszt;
+
 
 public class Main {
   public static void main(String[] args) {
@@ -14,12 +16,13 @@ public class Main {
       SporatEszikTeszt.LassitoSporaTeszt();
       SporatEszikTeszt.BenitoSporaTeszt();
       SporatEszikTeszt.CsorbitoSporaTeszt();
-      GombaTestHalalaTeszt.GombaTestHalalaTeszt();
       GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
       SporaTeszt.SporatSzorTeszt();
       SporaTeszt.FejlettenSporatSzorTeszt();
-    GombaTestHalalaTeszt.GombaTestHalalaTeszt();
-    GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
+      RovarTektonValtTeszt.RoarAtlepTeszt();
+      RovarTektonValtTeszt.RovarNemTudAtlepniTeszt();
+
+
 
       //végén összegzés
       JDBtesttool.jdbSummary();
