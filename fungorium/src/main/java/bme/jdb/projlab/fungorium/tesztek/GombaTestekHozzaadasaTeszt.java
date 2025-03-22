@@ -43,6 +43,7 @@ public class GombaTestekHozzaadasaTeszt {
             exceptionThrown = true;  // Ha kivétel keletkezik, akkor az exceptionThrown változó igaz lesz
         }
 
+
         // Ellenőrzés: kivétel történt, tehát új GombaTest nem jöhetett létre
         teszt.jdbEquals("Gombatest2 létrehozása sikertelen (kivétel dobódott)", exceptionThrown, true);
 
