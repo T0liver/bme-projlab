@@ -33,6 +33,10 @@ public class Main {
       FonalAthidal.FonalAthidal2();
       FonalAthidal.FonalAthidal3();
 
+      TektonTeszt.felszivoTektonTeszt();
+      TektonTeszt.egyetlenFonalTektonTeszt();
+      TektonTeszt.termeketlenTektonTeszt();
+
       //végén összegzés
       JDBtesttool.jdbSummary();
   }
