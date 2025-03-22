@@ -29,5 +29,7 @@ public class TektonHasadasTeszt1 {
 
         // Ha a hasadás után az eredeti objektumnak meg kell szűnnie
         // teszt.jdbEquals("Az eredeti tekton megszűnt", tekton, null);
+
+
     }
 }

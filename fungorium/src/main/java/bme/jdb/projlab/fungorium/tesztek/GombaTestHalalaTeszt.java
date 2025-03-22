@@ -47,5 +47,6 @@ public class GombaTestHalalaTeszt {
 
         // Ellenőrzés: a GombaTestnek el kell pusztulnia a folyamat végén
         teszt.jdbNotEqual("Gombatest elpusztult", gombaTest, null);
+
     }
 }

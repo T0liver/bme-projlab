@@ -49,6 +49,7 @@ public class GombaTestekHozzaadasaTeszt {
         // Ha a gombaTest2 létrejött volna, akkor ellenőrzés, hogy nem lehetett volna sikeres
         if (gombaTest2 != null) {
             teszt.jdbNotEqual("Gombatest2 nem jött létre", gombaTest2, null);
+
         }
     }
 }
