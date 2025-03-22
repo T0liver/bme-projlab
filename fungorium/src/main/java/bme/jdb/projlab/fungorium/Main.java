@@ -5,14 +5,13 @@ import bme.jdb.projlab.fungorium.tesztek.TektonTeszt;
 
 public class Main {
   public static void main(String[] args) {
-    System.out.println("JDB tesztelő program v1.0");
+      System.out.println("JDB tesztelő program v1.0");
 
-    //itt meghívjuk a tesztfüggvényeket
-    TektonTeszt.megadottTeszt();
+      //itt meghívjuk a tesztfüggvényeket
+      TektonTeszt.megadottTeszt();
+      TektonTeszt.egyetlenFonalTektonTeszt();
 
-
-
-    //végén összegzés
-    JDBtesttool.jdbSummary();
+      //végén összegzés
+      JDBtesttool.jdbSummary();
   }
 }

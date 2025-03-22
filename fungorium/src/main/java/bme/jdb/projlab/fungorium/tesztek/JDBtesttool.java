@@ -16,7 +16,7 @@ public class JDBtesttool {
     public JDBtesttool(String testName){
         this.testName = testName;
         testCount++;
-        System.out.println("---| "+testName+" |---");
+        System.out.println("\n---| "+testName+" |---");
     }
     /**
      * Két érték megegyezésének vizsgálata
@@ -31,10 +31,10 @@ public class JDBtesttool {
         info.append(name);
 
         if (actual.equals(expected)) {
-            info.append("...OK");
+            info.append("...\tOK");
         } else {
             fail();
-            info.append("...SIKERTELEN")
+            info.append("...\tSIKERTELEN")
             .append("\n\t> Elvárt: ")
             .append(expected)
             .append("\n\t> Kapott: ")
@@ -49,20 +49,20 @@ public class JDBtesttool {
      *
      * @param name értékvizsgálat neve
      * @param actual aktuális érték
-     * @param expected elvárt érték
+     * @param notThis tiltott érték
      */
-    public void jdbNotEqual(String name, Object actual, Object expected) {
+    public void jdbNotEqual(String name, Object actual, Object notThis) {
 
         StringBuilder info = new StringBuilder();
         info.append(name);
 
-        if (!actual.equals(expected)) {
-            info.append("...OK");
+        if (!actual.equals(notThis)) {
+            info.append("...\tOK");
         } else {
             fail();
-            info.append("...SIKERTELEN")
+            info.append("...\tSIKERTELEN")
                     .append("\n\t> Elvárt: ")
-                    .append(expected)
+                    .append(notThis)
                     .append("\n\t> Kapott: ")
                     .append(actual);
         }
