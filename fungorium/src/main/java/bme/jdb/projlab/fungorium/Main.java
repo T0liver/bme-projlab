@@ -29,9 +29,9 @@ public class Main {
       TektonHasadasTeszt1.TektonHasadasTeszt1();
       TektonHasadasTeszt2.TektonHasadasTeszt2();
 
-      FonalAthidal.FonalAthidal1();
-      FonalAthidal.FonalAthidal2();
-      FonalAthidal.FonalAthidal3();
+      FonalAthidalTeszt.FonalAthidal1();
+      FonalAthidalTeszt.FonalAthidal2();
+      FonalAthidalTeszt.FonalAthidal3();
 
       TektonTeszt.felszivoTektonTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();

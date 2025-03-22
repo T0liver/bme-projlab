@@ -4,7 +4,7 @@ import bme.jdb.projlab.fungorium.EgyetlenFonalTekton;
 import bme.jdb.projlab.fungorium.GombaFonal;
 import bme.jdb.projlab.fungorium.Tekton;
 
-public class FonalAthidal {
+public class FonalAthidalTeszt {
 
     public static void FonalAthidal1() {
 
