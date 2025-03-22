@@ -42,6 +42,10 @@ public class Tekton {
     foglalt = foglaltsagi;
   }
 
+  public List<GombaFonal> getFonalak() {
+    return fonalak;
+  }
+
   /**
    * A tekton szomszédjainak beállításához hasznos függvény
    *

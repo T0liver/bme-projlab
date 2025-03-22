@@ -4,6 +4,8 @@ import bme.jdb.projlab.fungorium.GombaFonal;
 import bme.jdb.projlab.fungorium.GombaTest;
 import bme.jdb.projlab.fungorium.Tekton;
 
+import java.util.List;
+
 public class TektonTeszt {
 
     public static void megadottTeszt(){
@@ -26,6 +28,11 @@ public class TektonTeszt {
 
         teszt.jdbNotEqual("Gombafonal létrehozása", gombaFonal, null );
 
-        //fonálnő kell
+        tekton.getFonalak().add(gombaFonal);
+
+        teszt.jdbEquals("Gombafonal vezet...Tekton1", gombaFonal, tekton.getFonalak().getFirst());
+
+        List<Tekton> hasadasUtan = tekton.hasad();
+        teszt.jdbEquals("Tekton hasad", hasadasUtan.getFirst(), tekton);
     }
 }
