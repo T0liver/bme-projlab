@@ -40,6 +40,10 @@ public class Tekton {
     fonalak = new ArrayList<>();
   }
 
+  public boolean getFoglalt() {
+    return foglalt;
+  }
+
   public void setFoglalt(boolean foglaltsagi) {
     foglalt = foglaltsagi;
   } 

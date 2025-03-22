@@ -23,16 +23,21 @@ public class GombaTest {
     private Tekton tartozkodik;
 
     /**
-     * * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap tulajdonságait.
+     * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap tulajdonságait.
      * @param elett a gombatest alap élettartama
-     */
-    public GombaTest(int elett, Tekton hely) {
-        sporadarab = 0;
-        elettartam = elett;
-        fejlett = false;
-        fejlettseg = 0;
-        tartozkodik = hely;
-        hely.setFoglalt(true);
+     * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
+    */
+    public GombaTest(int elett, Tekton hely) throws Exception {
+        if (!hely.getFoglalt()) {
+            sporadarab = 0;
+            elettartam = elett;
+            fejlett = false;
+            fejlettseg = 0;
+            tartozkodik = hely;
+            hely.setFoglalt(true);
+        } else {
+            throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
+        }
     }
 
     /**
@@ -41,13 +46,18 @@ public class GombaTest {
      * @param elett a gombatest kezdeti élettartama
      * @param fejlett jelző, hogy a gombatest fejlett-e
      * @param fejlettseg a gombatest fejlettségi szintje
+     * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
      */
-    public GombaTest(int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely) {
-        sporadarab = sporadb;
-        elettartam = elett;
-        this. fejlett = fejlett;
-        this.fejlettseg = fejlettseg;
-        tartozkodik = hely;
+    public GombaTest(int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely) throws Exception {
+        if (!hely.getFoglalt()) {
+            sporadarab = sporadb;
+            elettartam = elett;
+            this. fejlett = fejlett;
+            this.fejlettseg = fejlettseg;
+            tartozkodik = hely;
+        } else {
+            throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
+        }
     }
 
     /**
