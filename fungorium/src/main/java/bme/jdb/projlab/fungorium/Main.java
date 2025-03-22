@@ -21,6 +21,7 @@ public class Main {
       SporaTeszt.FejlettenSporatSzorTeszt();
       RovarTektonValtTeszt.RoarAtlepTeszt();
       RovarTektonValtTeszt.RovarNemTudAtlepniTeszt();
+      RovarVagTeszt.RovarVagTeszt();
 
 
 
