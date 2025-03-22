@@ -1,6 +1,7 @@
 package bme.jdb.projlab.fungorium;
 
 import bme.jdb.projlab.fungorium.tesztek.JDBtesttool;
+import bme.jdb.projlab.fungorium.tesztek.SporaTeszt;
 import bme.jdb.projlab.fungorium.tesztek.SporatEszikTeszt;
 import bme.jdb.projlab.fungorium.tesztek.TektonTeszt;
 
@@ -16,6 +17,8 @@ public class Main {
       SporatEszikTeszt.LassitoSporaTeszt();
       SporatEszikTeszt.BenitoSporaTeszt();
       SporatEszikTeszt.CsorbitoSporaTeszt();
+      SporaTeszt.SporatSzorTeszt();
+      SporaTeszt.FejlettenSporatSzorTeszt();
 
       //végén összegzés
       JDBtesttool.jdbSummary();
