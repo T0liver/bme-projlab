@@ -1,5 +1,4 @@
 package bme.jdb.projlab.fungorium;
-
 import bme.jdb.projlab.fungorium.tesztek.*;
 import java.util.Scanner;
 
@@ -29,25 +28,11 @@ public class Main {
             }
 
             switch (choice) {
-                case 1 -> {
-                    TektonTesztek();
-                    JDBtesttool.jdbSummary();
-                }
-                case 2 -> {
-                    SporaTesztek();
-                    JDBtesttool.jdbSummary();
-                }
-                case 3 -> {
-                    GombanTesztek();
-                    JDBtesttool.jdbSummary();
-                }
-                case 4 -> {
-                    RovarTesztek();
-                    JDBtesttool.jdbSummary();
-                }
-                case 5 ->
-                    FonalTesztek();
-
+                case 1 -> TektonTesztek();
+                case 2 -> SporaTesztek();
+                case 3 -> GombanTesztek();
+                case 4 -> RovarTesztek();
+                case 5 -> FonalTesztek();
                 case 6 -> {
                     TektonTesztek();
                     SporaTesztek();
