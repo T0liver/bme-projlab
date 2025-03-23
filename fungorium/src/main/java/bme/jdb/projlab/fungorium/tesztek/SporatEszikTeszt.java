@@ -164,4 +164,24 @@ public class SporatEszikTeszt {
     // Ellenőrizzük, hogy a rovar sebessége valóban lecsökkent
     teszt.jdbEquals("A Rovar lebénult", rovar.getVaghat(), false);
   }
+
+  public static void RovarOdaVisszaall() {
+      JDBtesttool teszt = new JDBtesttool("Rovar oda-visszaáll");
+
+      Tekton tekton = new Tekton();
+      Rovar rovar = new Rovar(tekton);
+
+      teszt.jdbEquals("Rovar elhelyezve tektonra", rovar.getTartozkodik(), tekton);
+
+      Spora s1 = new LassitoSpora(3, 1);
+      Spora s2 = new GyorsitoSpora(3, 1);
+
+      int initialV = rovar.getSebesseg();
+
+      rovar.eszik(s2);
+      teszt.jdbEquals("Gyorsító spóra gyorsítja", rovar.getSebesseg(), initialV*2);
+
+      rovar.eszik(s1);
+      teszt.jdbEquals("Lassító spóra lassítja", rovar.getSebesseg(), initialV);
+  }
 }

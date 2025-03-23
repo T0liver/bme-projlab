@@ -60,17 +60,18 @@ public class Main {
     TektonHasadasTeszt2.TektonHasadasTeszt2();
   }
 
-  private static void SporaTesztek() {
-    SporatEszikTeszt.NormalSporaTeszt();
-    SporatEszikTeszt.GyorsitoSporaTeszt();
-    SporatEszikTeszt.LassitoSporaTeszt();
-    SporatEszikTeszt.BenitoSporaTeszt();
-    SporatEszikTeszt.CsorbitoSporaTeszt();
-    SporaTeszt.SporatSzorTeszt();
-    SporaTeszt.FejlettenSporatSzorTeszt();
-    SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
-    SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
-  }
+    private static void SporaTesztek(){
+        SporatEszikTeszt.NormalSporaTeszt();
+        SporatEszikTeszt.GyorsitoSporaTeszt();
+        SporatEszikTeszt.LassitoSporaTeszt();
+        SporatEszikTeszt.BenitoSporaTeszt();
+        SporatEszikTeszt.CsorbitoSporaTeszt();
+        SporaTeszt.SporatSzorTeszt();
+        SporaTeszt.FejlettenSporatSzorTeszt();
+        SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
+        SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
+        SporatEszikTeszt.RovarOdaVisszaall();
+    }
 
   private static void GombanTesztek() {
     GombaTestHalalaTeszt.GombaTestHalalaTeszt();

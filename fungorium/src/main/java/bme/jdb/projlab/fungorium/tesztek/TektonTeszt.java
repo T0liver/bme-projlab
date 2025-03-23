@@ -13,7 +13,7 @@ public class TektonTeszt {
     JDBtesttool teszt = new JDBtesttool("Megadott teszt");
 
     Tekton tekton = new Tekton();
-    teszt.jdbNotEqual("Tekton Létrehozás", tekton, null);
+    teszt.jdbNotEqual("Tekton Létrehozás...Tekton1", tekton, null);
 
     GombaTest gombaTest;
     try {
@@ -22,19 +22,19 @@ public class TektonTeszt {
       throw new RuntimeException(e);
     }
 
-    teszt.jdbNotEqual("Gombatest létrehozása", gombaTest, null);
+    teszt.jdbNotEqual("Gombatest létrehozása...GombaTest1", gombaTest, null);
     teszt.jdbEquals("Gombatest elhelyezés...Tekton1", tekton.getFoglalt(), true);
 
     GombaFonal gombaFonal = new GombaFonal();
 
-    teszt.jdbNotEqual("Gombafonal létrehozása", gombaFonal, null);
+    teszt.jdbNotEqual("Gombafonal létrehozása...Fonal1", gombaFonal, null);
 
     tekton.getFonalak().add(gombaFonal);
 
     teszt.jdbEquals("Gombafonal vezet...Tekton1", gombaFonal, tekton.getFonalak().get(0));
 
     List<Tekton> hasadasUtan = tekton.hasad();
-    teszt.jdbEquals("Tekton hasad (Sikertelenül)", hasadasUtan.get(0), tekton);
+    teszt.jdbEquals("Tekton1 hasad() sikertelen", hasadasUtan.get(0), tekton);
   }
 
   /** EgyetlenFonálTektonon csak egy fonál lehet */
