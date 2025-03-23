@@ -108,7 +108,7 @@ public class FonalAthidalTeszt {
         tekton1.getFonalak().add(gombaFonal1);
         gombaFonal1.getVezet().add(tekton1);
 
-        gombaFonal1.athidal(tekton2);
+        tekton2.fonalNo(gombaFonal1);
 
         test.jdbEquals("gombafonal nem tud athidalni, mert tekton2-n csak egy fonal lehet", gombaFonal1.getVezet().contains(tekton2), false);
 
