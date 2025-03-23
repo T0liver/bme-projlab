@@ -6,11 +6,11 @@ import bme.jdb.projlab.fungorium.tesztek.SporaTeszt;
 
 public class Main {
   public static void main(String[] args) {
-      System.out.println("\nJDB tesztelő program v1.0\n");
+      System.out.println("JDB tesztelő program v1.0");
 
       //itt meghívjuk a tesztfüggvényeket
       TektonTeszt.megadottTeszt();
-
+      TektonTeszt.egyetlenFonalTektonTeszt();
       SporatEszikTeszt.NormalSporaTeszt();
       SporatEszikTeszt.GyorsitoSporaTeszt();
       SporatEszikTeszt.LassitoSporaTeszt();
@@ -25,11 +25,20 @@ public class Main {
       RovarVagTeszt.RovarVagTeszt();
 
 
+
       TektonHasadasTeszt1.TektonHasadasTeszt1();
       TektonHasadasTeszt2.TektonHasadasTeszt2();
 
+      FonalAthidalTeszt.FonalAthidal1();
+      FonalAthidalTeszt.FonalAthidal2();
+      FonalAthidalTeszt.FonalAthidal3();
+
       TektonTeszt.felszivoTektonTeszt();
       TektonTeszt.egyetlenFonalTektonTeszt();
+      TektonTeszt.termeketlenTektonTeszt();
+
+      SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
+      SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
 
       //végén összegzés
       JDBtesttool.jdbSummary();

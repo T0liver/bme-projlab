@@ -81,4 +81,20 @@ public class TektonTeszt {
         tekton1.tick();
         teszt.jdbNotEqual("tick() 2 : fonál felszívódott", tekton1.getFonalak().contains(gombaFonal1), true);
     }
+
+    /**
+     * TermeketlenTekton teszt: spórátfelhasznál-t nem engedi
+     */
+    public static void termeketlenTektonTeszt(){
+        JDBtesttool teszt = new JDBtesttool("Termeketlen tektont teszt");
+
+        Tekton tekton1 = new TermeketlenTekton();
+
+        Spora spora1 = new Spora(10, 40);
+        tekton1.getSporak().add(spora1);
+
+        teszt.jdbEquals("Spóra elhelyezve a tektonon", tekton1.getBestSpora(), spora1);
+
+        teszt.jdbEquals("Spórátfelhasznál false-ot ad", tekton1.sporatFelhasznal(spora1), false);
+    }
 }

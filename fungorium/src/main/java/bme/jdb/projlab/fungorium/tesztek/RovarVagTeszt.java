@@ -6,7 +6,7 @@ import bme.jdb.projlab.fungorium.Tekton;
 
 public class RovarVagTeszt {
     public static void RovarVagTeszt() {
-        JDBtesttool test = new JDBtesttool("Rovar atlep egyik tektonrol a masikra");
+        JDBtesttool test = new JDBtesttool("Rovar elvagja a gombafonalat");
 
         Tekton tekton1 = new Tekton();
         Tekton tekton2 = new Tekton();

@@ -1,5 +1,8 @@
 package bme.jdb.projlab.fungorium.tesztek;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Egyszerű teszt keret
  */
@@ -8,15 +11,26 @@ public class JDBtesttool {
     static int testCount = 0;
     /** Sikertelen tesztek száma*/
     static int failedCount = 0;
-
+    /** Sikertelen tesztek nevei*/
+    static List<String> failList = new ArrayList<>();
     /** Teszt neve*/
     String testName;
+    /** Teszt id*/
+    int id;
+    /** Teszt sikeresseg*/
     boolean failed;
+    /** Konzolra iras formazo*/
+    String leftAlignFormat = "     %-50s  %-4s %n";
 
+    /**
+     * ÚJ teszt létrehozására használt konstruktor
+     * @param testName teszt neve
+     */
     public JDBtesttool(String testName){
         this.testName = testName;
         testCount++;
-        System.out.println("\n---| "+testName+" |---");
+        this.id = testCount;
+        System.out.println(System.lineSeparator()+"["+id+"] ---| "+testName+" |---");
     }
     /**
      * Két érték megegyezésének vizsgálata
@@ -28,20 +42,16 @@ public class JDBtesttool {
     public void jdbEquals(String name, Object actual, Object expected) {
 
         StringBuilder info = new StringBuilder();
-        info.append(name);
+        info.append(name).append("...");
 
         if (actual.equals(expected)) {
-            info.append("...\tOK");
+            System.out.format(leftAlignFormat, info, "OK");
         } else {
             fail();
-            info.append("...\tSIKERTELEN")
-            .append("\n\t> Elvárt: ")
-            .append(expected)
-            .append("\n\t> Kapott: ")
-            .append(actual);
+            System.out.format(leftAlignFormat, info, "SIKERTELEN");
+            System.out.println("        > Elvárt: "+expected);
+            System.out.println("        > Kapott: "+actual);
         }
-
-        System.out.println(info);
     }
 
     /**
@@ -54,20 +64,16 @@ public class JDBtesttool {
     public void jdbNotEqual(String name, Object actual, Object notThis) {
 
         StringBuilder info = new StringBuilder();
-        info.append(name);
+        info.append(name).append("...");
 
         if (!actual.equals(notThis)) {
-            info.append("...\tOK");
+            System.out.format(leftAlignFormat, info, "OK");
         } else {
             fail();
-            info.append("...\tSIKERTELEN")
-                    .append("\n\t> Elvárt: ")
-                    .append(notThis)
-                    .append("\n\t> Kapott: ")
-                    .append(actual);
+            System.out.format(leftAlignFormat, info, "SIKERTELEN");
+            System.out.println("        > Tiltott: "+notThis);
+            System.out.println("        > Kapott: "+actual);
         }
-
-        System.out.println(info);
     }
 
     /**
@@ -75,16 +81,25 @@ public class JDBtesttool {
      */
     public static void jdbSummary(){
         StringBuilder info = new StringBuilder();
+        System.out.println();
 
         if (testCount > 0) {
             if (failedCount == 0) {
                 info.append("Teszt sikeres! ").append(testCount).append("/").append(testCount);
+                System.out.println(info);
             } else {
-                info.append("Teszt sikertelen! ").append(failedCount).append("/").append(testCount);
+                info.append("Teszt sikertelen! ").append(testCount).append("/").append(testCount - failedCount);
+
+                System.out.println(info);
+
+                System.out.println("Sikertelen tesztek:");
+                for (String fail : failList) {
+                    System.out.println("    "+fail);
+                }
             }
+
         }
 
-        System.out.println(info);
     }
 
     /**
@@ -94,6 +109,7 @@ public class JDBtesttool {
         if (!failed) {
             failed = true;
             failedCount++;
+            failList.add("["+id+"] : "+ testName);
         }
     }
 
