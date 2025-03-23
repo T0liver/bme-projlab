@@ -46,7 +46,9 @@ public class Tekton {
     return fonalak;
   }
 
-  public List<Spora> getSporak() { return sporak;}
+  public List<Spora> getSporak() {
+    return sporak;
+  }
 
   /**
    * A tekton szomszédjainak beállításához hasznos függvény
@@ -88,11 +90,11 @@ public class Tekton {
     if (hanyadik <= 0) return ret;
     for (int i = 0; i < szomszedok.size(); ++i) {
       ret.add(szomszedok.get(i));
-      List<Tekton> check = szomszedok.get(i).getSzomszed(hanyadik-1);
-      for (int e = 0; e < check.size(); ++e){
-          if (!ret.contains(check.get(e))){
-              ret.add(check.get(e));
-          }
+      List<Tekton> check = szomszedok.get(i).getSzomszed(hanyadik - 1);
+      for (int e = 0; e < check.size(); ++e) {
+        if (!ret.contains(check.get(e))) {
+          ret.add(check.get(e));
+        }
       }
     }
     return ret;
@@ -109,10 +111,9 @@ public class Tekton {
     return true;
   }
 
-
-
   /**
    * Az adott spórát elhelyezi a tektonon
+   *
    * @param spora hozzáadódik a tektonhoz
    * @return nem ad vissza semmit sem
    */

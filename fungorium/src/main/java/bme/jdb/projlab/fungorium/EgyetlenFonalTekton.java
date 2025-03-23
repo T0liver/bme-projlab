@@ -16,7 +16,7 @@ public class EgyetlenFonalTekton extends Tekton {
    */
   @Override
   public void fonalNo(GombaFonal melyik) {
-    if (fonalak.size() > 0){ // ha van már nyilvántartott fonál a tektonon, nem lehet új
+    if (fonalak.size() > 0) { // ha van már nyilvántartott fonál a tektonon, nem lehet új
       return;
     }
     super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
