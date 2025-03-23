@@ -58,7 +58,7 @@ public class Rovar {
   /** publikus setter a rovar fonál vágására való készségének letiltására */
   public void nemVaghat() {
     vaghat = false;
-    ujravaghat = 5; // TODO: placeholder, mennyi idő múlva vághat újra
+    ujravaghat = 5; // placeholder, mennyi idő múlva vághat újra
   }
 
   /**
@@ -80,7 +80,12 @@ public class Rovar {
    * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal áthidalt tekton
    */
   public void mozog(Tekton tekton) {
-    tartozkodik = tekton;
+    for (GombaFonal gf : tartozkodik.fonalak) {
+      if (gf.getVezet().contains(tekton)) {
+        tartozkodik = tekton;
+        return;
+      }
+    }
   }
 
   /**
