@@ -100,6 +100,7 @@ public class JDBtesttool {
         }
         testCount = 0;
         failedCount = 0;
+        failList.clear();
     }
 
     /**
