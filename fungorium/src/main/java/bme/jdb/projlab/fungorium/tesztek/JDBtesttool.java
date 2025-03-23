@@ -97,9 +97,9 @@ public class JDBtesttool {
                     System.out.println("    "+fail);
                 }
             }
-
         }
-
+        testCount = 0;
+        failedCount = 0;
     }
 
     /**
