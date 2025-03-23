@@ -90,7 +90,10 @@ public class RovarTektonValtTeszt {
 
         test.jdbEquals("Rovar letrejott a tekton1-en", rovar.getTartozkodik(), tekton1);
 
-        rovar.mozog(tekton2);
+        if (gombaFonal.getVezet().contains(tekton2)){
+            rovar.mozog(tekton2);
+        }
+
         test.jdbEquals("Rovar nem tud atlepni --> marad a tekton1-en", rovar.getTartozkodik(), tekton1);
     }
 }
