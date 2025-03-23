@@ -148,6 +148,7 @@ public class GombaTest {
       List<Tekton> szomszedok = hova.getSzomszed(2);
       if (szomszedok.contains(hova)) {
         int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+        if (db == 0) { ++db;}
         hova.addSpora(db);
         eletcsokken();
         sporadarab -= db;
@@ -157,6 +158,7 @@ public class GombaTest {
     List<Tekton> szomszedok = hova.getSzomszed(1);
     if (szomszedok.contains(hova)) {
       int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+      if (db == 0) { ++db;}
       hova.addSpora(db);
       eletcsokken();
       sporadarab -= db;
