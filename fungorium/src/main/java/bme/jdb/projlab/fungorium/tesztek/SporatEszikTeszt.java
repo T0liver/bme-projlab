@@ -20,7 +20,7 @@ public class SporatEszikTeszt {
         teszt.jdbNotEqual("Rovar létrejött", rovar, null );
 
         teszt.jdbNotEqual("Spóra létrejött", spora, null);
-        teszt.jdbEquals("Spóra elhelyezés...Tekton1", tekton.getSporak().getFirst(), spora);
+        teszt.jdbEquals("Spóra elhelyezés...Tekton1", tekton.getSporak().get(0), spora);
 
 
 

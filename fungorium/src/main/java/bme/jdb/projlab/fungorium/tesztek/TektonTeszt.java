@@ -32,10 +32,10 @@ public class TektonTeszt {
 
         tekton.getFonalak().add(gombaFonal);
 
-        teszt.jdbEquals("Gombafonal vezet...Tekton1", gombaFonal, tekton.getFonalak().getFirst());
+        teszt.jdbEquals("Gombafonal vezet...Tekton1", gombaFonal, tekton.getFonalak().get(0));
 
         List<Tekton> hasadasUtan = tekton.hasad();
-        teszt.jdbEquals("Tekton hasad (Sikertelenül)", hasadasUtan.getFirst(), tekton);
+        teszt.jdbEquals("Tekton hasad (Sikertelenül)", hasadasUtan.get(0), tekton);
     }
 
     /**
@@ -55,7 +55,7 @@ public class TektonTeszt {
         teszt.jdbNotEqual("Gombafonal létrehoz", gombaFonal2, null);
 
         tekton8.getFonalak().add(gombaFonal1);
-        teszt.jdbEquals("Egyik Gombafonal elhelyez", tekton8.getFonalak().getFirst(), gombaFonal1);
+        teszt.jdbEquals("Egyik Gombafonal elhelyez", tekton8.getFonalak().get(0), gombaFonal1);
 
         tekton8.fonalNo(gombaFonal1);
         teszt.jdbNotEqual("Másik Gombafonal elhelyezése sikertelen", tekton8.getFonalak().size(), 2);
@@ -74,7 +74,7 @@ public class TektonTeszt {
         teszt.jdbNotEqual("Gombafonal létrejött", gombaFonal1, null);
 
         tekton1.getFonalak().add(gombaFonal1);
-        teszt.jdbEquals("Gombafonal elhelyezve a tektonon", tekton1.getFonalak().getFirst(), gombaFonal1);
+        teszt.jdbEquals("Gombafonal elhelyezve a tektonon", tekton1.getFonalak().get(0), gombaFonal1);
 
         tekton1.tick();
         teszt.jdbEquals("tick() 1 : még van fonál", tekton1.getFonalak().contains(gombaFonal1), true);

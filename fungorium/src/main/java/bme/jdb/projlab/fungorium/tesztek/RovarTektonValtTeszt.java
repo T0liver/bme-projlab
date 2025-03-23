@@ -6,6 +6,12 @@ import bme.jdb.projlab.fungorium.Tekton;
 
 public class RovarTektonValtTeszt {
 
+    /**
+     * Teszt a rovar egyik tektonrol masikra lepesere
+     * 2 tekton letrehozasa melyek szomszedosak es koztuk vezet gombafonal
+     * tekton1-en a rovar ami atlep tekton1-re
+     *
+     */
     public static void RoarAtlepTeszt() {
 
         JDBtesttool test = new JDBtesttool("Rovar atlep egyik tektonrol a masikra");
@@ -34,8 +40,8 @@ public class RovarTektonValtTeszt {
 
 
 
-        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().getFirst());
-        test.jdbEquals("gombafonal vezet tekton2-be", gombaFonal, tekton2.getFonalak().getFirst());
+        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().get(0));
+        test.jdbEquals("gombafonal vezet tekton2-be", gombaFonal, tekton2.getFonalak().get(0));
 
         Rovar rovar = new Rovar(tekton1);
 
@@ -46,6 +52,13 @@ public class RovarTektonValtTeszt {
 
     }
 
+
+    /**
+     * Teszt a rovar nem tud az egyik tektonrol a masikra lepni
+     * 2 tekton letrehozasa melyek nem szomszedosak
+     * tekton1-en a rovar ami atlepne tekton2-re de nem tud mivel nincs osszekottetes a 2 tekton kozt
+     *
+     */
     public static void RovarNemTudAtlepniTeszt() {
         JDBtesttool test = new JDBtesttool("Rovar nem tud atlepni mert nincs osszekottetes");
 
@@ -70,8 +83,8 @@ public class RovarTektonValtTeszt {
         gombaFonal.getVezet().add(tekton1);
 
 
-        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().getFirst());
-        //test.jdbNotEqual("gombafonal nem vezet tekton2-be", gombaFonal, tekton2.getFonalak().getFirst());
+        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().get(0));
+        //test.jdbNotEqual("gombafonal nem vezet tekton2-be", gombaFonal, tekton2.getFonalak().get(0));
 
         Rovar rovar = new Rovar(tekton1);
 

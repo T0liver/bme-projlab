@@ -6,6 +6,13 @@ import bme.jdb.projlab.fungorium.Tekton;
 
 public class FonalAthidalTeszt {
 
+
+    /**
+     * Teszt amely a fonalak athidalasat teszteli 2 tekton kozott
+     * tekton1 szomszedos tekton2-vel
+     * tekton1-re mar vezet a gombafonal, onnan athidal metodus tekton2-re
+     * a fonal mar a tekton2-re is vezetni fog
+     */
     public static void FonalAthidal1() {
 
         JDBtesttool test = new JDBtesttool("Gombafonal athidal szomszedos tektonok kozott");
@@ -32,6 +39,13 @@ public class FonalAthidalTeszt {
         test.jdbEquals("gombafonal athidal tekton1-rol tekton2-re --> oda is vezet", gombaFonal.getVezet().contains(tekton2), true);
     }
 
+
+    /**
+     * Teszt amely a fonalak athidalasat teszteli 2 tekton kozott
+     * tekton1 nem szomszedos tekton2-vel
+     * tekton1-re mar vezet a gombafonal, onnan athidal metodus tekton2-re
+     * a fonal nem tud athidalni mert a 2 tekton nem szomszedos --> nem fog vezetni tekton2-re
+     */
     public static void FonalAthidal2() {
         JDBtesttool test = new JDBtesttool("Gombafonal nem hidal at nem szomszedos tektonok kozott");
 
@@ -55,6 +69,15 @@ public class FonalAthidalTeszt {
         test.jdbEquals("gombafonal athidal tekton1-rol tekton2-re --> oda is vezet", gombaFonal.getVezet().contains(tekton2), false);
     }
 
+
+    /**
+     * Teszt amely a fonalak athidalasat teszteli 2 tekton kozott
+     * tekton1 szomszedos tekton2-vel
+     * tekton 2 EgyetlenFOnalTEkton
+     * tekton2-n  van mar gombafonal2
+     * tekton1-re mar vezet a gombafonal1, onnan athidal metodus tekton2-re
+     * a fonal nem fog tudni athidalni mert tekton2-n mar van fonal
+     */
     public static void FonalAthidal3() {
 
         JDBtesttool test = new JDBtesttool("Gombafonal nem hidal at  szomszedos tektonra, ha azon csak egy fonal lehet es van is");
