@@ -7,6 +7,11 @@ import bme.jdb.projlab.fungorium.TermeketlenTekton;
 
 public class SporaTeszt {
 
+
+    /**
+     * A tesz a spora szorasa szomszedra funkciot teszteli
+     * 2 tekton melyek szomsedosak, egyiken gombatest, mely a szomszedjara szor sporat
+     */
     public static void SporatSzorTeszt() {
         JDBtesttool test = new JDBtesttool("Spora szorasa szomszedra");
 
@@ -44,6 +49,11 @@ public class SporaTeszt {
     }
 
 
+    /**
+     * Fejlett gombatest sporat szor szomszed szomszedjara
+     * 3 tekton melybol tekton2 szomszedos tekton1-el es tekton2-vel
+     * tekton1-en gombatest mely fejlett ezert sporazhat tekton3-ra
+     */
     public static void FejlettenSporatSzorTeszt() {
         JDBtesttool test = new JDBtesttool("Fejlett gombatest Spora szorasa szomszed szomszedjara");
 

@@ -4,6 +4,12 @@ import bme.jdb.projlab.fungorium.GombaFonal;
 import bme.jdb.projlab.fungorium.Rovar;
 import bme.jdb.projlab.fungorium.Tekton;
 
+
+/**
+ * Teszt a rovar elvag egy fonalat funkciora
+ * 2 tekton, melyek szomszedosak es koztuk vezet fonal
+ * tekton2-n levo rovar elvagja a fonalat --> tekton2-re mar nem vezet a fonal
+ */
 public class RovarVagTeszt {
     public static void RovarVagTeszt() {
         JDBtesttool test = new JDBtesttool("Rovar elvagja a gombafonalat");
@@ -32,8 +38,8 @@ public class RovarVagTeszt {
 
 
 
-        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().getFirst());
-        test.jdbEquals("gombafonal vezet tekton2-be", gombaFonal, tekton2.getFonalak().getFirst());
+        test.jdbEquals("gombafonal vezet tekton1-be", gombaFonal, tekton1.getFonalak().get(0));
+        test.jdbEquals("gombafonal vezet tekton2-be", gombaFonal, tekton2.getFonalak().get(0));
 
         Rovar rovar = new Rovar(tekton2);
 
