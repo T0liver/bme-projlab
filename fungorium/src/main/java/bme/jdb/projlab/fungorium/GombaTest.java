@@ -59,6 +59,7 @@ public class GombaTest {
       this.fejlett = fejlett;
       this.fejlettseg = fejlettseg;
       tartozkodik = hely;
+      hely.setFoglalt(true);
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
     }
