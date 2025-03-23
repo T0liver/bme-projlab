@@ -14,6 +14,7 @@ public class TektonHasadasTeszt2 {
     public static void TektonHasadasTeszt2() {
 
 
+
         // Teszt inicializálása
         JDBtesttool teszt = new JDBtesttool("TektonHasadasTeszt2");
 

@@ -35,6 +35,7 @@ public class GombaTestHalalaTeszt {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        gombaTest.setFejlett(true);
 
         // Ellenőrzés: a létrehozott GombaTest objektum nem lehet null
         teszt.jdbNotEqual("Gombatest létrehozása", gombaTest, null);
@@ -47,6 +48,7 @@ public class GombaTestHalalaTeszt {
 
         // Ellenőrzés: a GombaTestnek el kell pusztulnia a folyamat végén
         teszt.jdbNotEqual("Gombatest elpusztult", gombaTest, null);
+
 
     }
 }

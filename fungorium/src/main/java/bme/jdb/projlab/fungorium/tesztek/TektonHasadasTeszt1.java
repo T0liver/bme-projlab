@@ -31,5 +31,6 @@ public class TektonHasadasTeszt1 {
         // teszt.jdbEquals("Az eredeti tekton megszűnt", tekton, null);
 
 
+
     }
 }
