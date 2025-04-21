@@ -1,0 +1,7 @@
+new	Gombász(1)
+new Tekton(1)
+new	Gombatest(2)
+Gombatest (2) tartózkodik: [ ] --> [Tekton(1)]
+new Gombatest(3)
+
+INSTRUCTION FAIL “/addgt 3 –tart 1 –a 1” (Tekton foglalt)

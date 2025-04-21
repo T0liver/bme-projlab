@@ -1,0 +1,6 @@
+/adda -i 1 –n “Gombász” -f g
+/addtk 1
+/addtk 2 –nei 1
+/addtk 3 –nei 2
+/addgt 1 –a 1 –tart 1 –fjl 10 –sp 5 –life 1 –fj Y
+spor –if 1 –tk 3
