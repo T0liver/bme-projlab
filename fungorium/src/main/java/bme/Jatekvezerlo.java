@@ -46,7 +46,7 @@ public class Jatekvezerlo {
         // TODO: log id of winners
     }
 
-    public static void jatekKezdes(int hossz) {
+    public static void jatekKezdes(int hossz) throws InvalidAttributeValueException {
         int gombaszok = 0;
         int rovaraszok = 0;
         jatekHossz = hossz;
@@ -55,7 +55,7 @@ public class Jatekvezerlo {
             rovaraszok += jatekosok.get(i).getType();
         }
         if (gombaszok < 2 || rovaraszok < 2)
-            throw new InvalidAttributeValueException("nincs elég ilyen vagy olyan játékos")
+            throw new InvalidAttributeValueException("nincs elég ilyen vagy olyan játékos");
         init();
         for (jelenlegiKor = 0; jelenlegiKor < hossz; ++jelenlegiKor)
             korVege();
