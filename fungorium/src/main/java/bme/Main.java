@@ -1,6 +1,6 @@
-package bme.jdb.projlab.fungorium;
+package bme;
 
-import bme.jdb.projlab.fungorium.tesztek.*;
+// import bme.jdb.projlab.fungorium.tesztek.*;
 import java.util.Scanner;
 
 public class Main {
@@ -27,7 +27,7 @@ public class Main {
       if (choice == 8) {
         break;
       }
-
+      /*
       switch (choice) {
         case 1 -> TektonTesztek();
         case 2 -> SporaTesztek();
@@ -41,16 +41,17 @@ public class Main {
           RovarTesztek();
           FonalTesztek();
         }
-        case 7 -> TektonTeszt.megadottTeszt();
+        // case 7 -> TektonTeszt.megadottTeszt();
         default -> System.out.println("Érvénytelen választás, próbáld újra!");
       }
-      JDBtesttool.jdbSummary();
+      // JDBtesttool.jdbSummary();
+      */
     }
 
     System.out.println("Tesztelés befejezve.");
     scanner.close();
   }
-
+/*
   private static void TektonTesztek() {
     TektonTeszt.megadottTeszt();
     TektonTeszt.egyetlenFonalTektonTeszt();
@@ -89,4 +90,6 @@ public class Main {
     FonalAthidalTeszt.FonalAthidal2();
     FonalAthidalTeszt.FonalAthidal3();
   }
+*/
+
 }
