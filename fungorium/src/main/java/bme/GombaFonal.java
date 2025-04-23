@@ -97,17 +97,10 @@ public class GombaFonal {
    * @param hol az a tekton, ahol elvágták a gombafonalat
    */
   public void elvagodik(Tekton honnan, Tekton hova) {
-    vezet.removeIf(par ->
-      (par.getKey().equals(honnan) && par.getValue().equals(hova)) ||
-      (par.getKey().equals(hova) && par.getValue().equals(honnan))
-    );
+    vezet.removeIf(par -> (par.getKey().equals(honnan) && par.getValue().equals(hova)) || (par.getKey().equals(hova) && par.getValue().equals(honnan)));
   
-    if (vezet.stream().noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan))) {
-      honnan.fonalak.remove(this);
-    }
-    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova))) {
-      hova.fonalak.remove(this);
-    }
+    if (vezet.stream().noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan))) honnan.fonalak.remove(this);
+    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova))) hova.fonalak.remove(this);
   }
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
