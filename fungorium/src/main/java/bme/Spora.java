@@ -12,11 +12,14 @@ package bme;
  * @author Oliver
  */
 public class Spora {
-  /** A tápanyagtartalom, amit a spóra tartalmaz. */
-  private int tapanyagtartalom;
-
   /** A spóra darabszáma. */
   private int darabszam;
+
+  /** Megadja, hogy melyik gombászhoz tartozik */
+  // private Gombasz gombasz;
+
+  /** A tápanyagtartalom, amit a spóra tartalmaz. */
+  private int tapanyagtartalom;
 
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
@@ -55,7 +58,7 @@ public class Spora {
    * @return a megevett spóraák tápanyagértéke.
    */
   public int csokken(int mennyivel) {
-    if (darabszam == 0) {
+    if (darabszam <= 0) {
       return 0;
     }
     if (darabszam >= mennyivel) {
@@ -70,6 +73,13 @@ public class Spora {
   }
 
   /**
+   * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
+   *
+   * @param mire a rovar, amire kifejti a hatását
+   */
+  public void hatas(Rovar mire) {}
+
+  /**
    * Növeli a spóra darabszámát a megadott értékkel.
    *
    * @param mennyivel amennyivel növelni kell a spóra darabszámát.
@@ -77,11 +87,4 @@ public class Spora {
   public void novel(int mennyivel) {
     darabszam += mennyivel;
   }
-
-  /**
-   * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
-   *
-   * @param mire a rovar, amire kifejti a hatását
-   */
-  public void hatas(Rovar mire) {}
 }
