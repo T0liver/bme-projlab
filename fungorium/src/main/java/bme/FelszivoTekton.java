@@ -1,6 +1,7 @@
 package bme;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * FelszivoTekton osztály definíciója.
@@ -35,12 +36,12 @@ public class FelszivoTekton extends Tekton {
   public void tick() {
     hatralevoido--;
     if (hatralevoido == 0) {
-      for (int i = 0; i < fonalak.size(); ++i) {
-        fonalak.get(i).elvagodik(this);
-        // TODO: valahogy ki kell szedni erről a tektonról, majd az általa
-        // TODO: elérhető gombatestektől és a vezet listában maradt tektonokból
-        // TODO: egy gráfbejárással új listát építünk (ezt a gombafonal függvénye
-        // TODO: csinálja)
+      for (GombaFonal fonal : fonalak) {
+        List<Tekton> szomszedok = this.getSzomszed(1);
+        for (Tekton tekton : szomszedok) {
+          fonal.elvagodik(this, tekton);
+        }
+        fonal.elvagodik(this, this);
       }
       for (int i = 0; i < sporak.size(); ++i) {
         sporak
