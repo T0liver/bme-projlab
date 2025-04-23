@@ -17,11 +17,12 @@ import java.util.Random;
  * @author Oliver
  */
 public class GombaTest {
-  private int sporadarab;
-  private int elettartam;
   private boolean fejlett;
   private int fejlettseg;
+  // private Gombasz gombasz;
+  private int sporadarab;
   private Tekton tartozkodik;
+  private int elettartam;
 
   /**
    * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap tulajdonságait.
@@ -146,29 +147,22 @@ public class GombaTest {
   public boolean sporatSzor(Tekton hova) {
     if (fejlett) {
       List<Tekton> szomszedok = hova.getSzomszed(2);
-      if (szomszedok.contains(hova)) {
-        int db = Random.from(new Random()).nextInt() % sporadarab % 5;
-        if (db == 0) {
-          ++db;
-        }
-        hova.addSpora(db);
-        eletcsokken();
-        sporadarab -= db;
-        return true;
+      if (!szomszedok.contains(hova)) {
+        return false;
       }
     }
     List<Tekton> szomszedok = hova.getSzomszed(1);
-    if (szomszedok.contains(hova)) {
-      int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+    if (!szomszedok.contains(hova)) {
+      return false;
+    }
+    int db = Random.from(new Random()).nextInt() % sporadarab % 5;
       if (db == 0) {
         ++db;
       }
-      hova.addSpora(db);
+      hova.addSpora(db, this);
       eletcsokken();
       sporadarab -= db;
       return true;
-    }
-    return false;
   }
 
   /** Eggyel fejleszti a gombatestet, és növeli a fejlettség értékét. */
@@ -188,5 +182,10 @@ public class GombaTest {
   /** Csökkenti az élettartamot, mert spóraszórás után csökken. */
   public void eletcsokken() {
     elettartam--;
+  }
+
+  /** Növeli a spóradarab értékét, a kör elején meghívódik. */
+  public void tick() {
+    sporadarab++;
   }
 }
