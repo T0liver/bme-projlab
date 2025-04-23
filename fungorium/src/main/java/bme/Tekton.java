@@ -73,7 +73,7 @@ public class Tekton {
   public int milyenszomszed(Tekton tekton) {
     if (!szomszedok.contains(tekton)) return 0;
     for (int i = 0; i < fonalak.size(); ++i)
-      if (fonalak.get(i).vezet(this, tekton)) return 2;
+      if (fonalak.get(i).getVezet(this, tekton)) return 2;
     return 1;
   }
 
@@ -131,8 +131,7 @@ public class Tekton {
       }
     }
     // TODO: spora hozzadasa gt játékosával megegyező játékossal és spóratípus radom vagy normál, ha nincs random, egyenlőre ez
-    Spora ujSpora = new Spora(3, mennyi);
-    ujSpora.setGombasz(gt.getGombasz); 
+    Spora ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
     add(ujSpora);
     return true; //kellett újat hozzáadni
   }
@@ -178,7 +177,7 @@ public class Tekton {
    */
   public void fonalNo(GombaFonal melyik) {
     for (int i = 0; i < szomszedok.size(); ++i) {
-      if (melyik.getVezet().contains(szomszedok.get(i), szomszedok.get(i))) { //TODO, ez nem biztos, hogy jó így, minden tektonra, amire vezet el kell tárolni a tekton1, tekton1 párt...
+      if (melyik.getVezet(szomszedok.get(i), szomszedok.get(i))) { //TODO, ez nem biztos, hogy jó így, minden tektonra, amire vezet el kell tárolni a tekton1, tekton1 párt...
         fonalak.add(melyik);
         melyik.athidal(this);
       }
