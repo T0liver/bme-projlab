@@ -6,7 +6,7 @@ package bme;
  * <p>Rovarok tektonokon mozognak, tektonok között vezető gombafonalakon átkelnek, azokat
  * elvághatják és spóákat esznek, melyek különböző hatásall vannak rájuk
  *
- * @author Vid
+ * @author Oliver
  */
 public class Rovar {
 
@@ -21,6 +21,9 @@ public class Rovar {
 
   /** A tekton, amin tartózkodik */
   private Tekton tartozkodik;
+
+  /** Megadja, hogy melyik rovarászhoz tartozik */
+  // private Rovarasz rovarasz;
 
   /**
    * publikus getter a rovar sebességének lekérdezésére
@@ -38,6 +41,33 @@ public class Rovar {
    */
   public boolean getVaghat() {
     return vaghat;
+  }
+
+  /**
+   * publikus setter a rovar vághatóságának beállítására
+   *
+   * @param v az új vágási lehetőség
+   */
+  public void setVaghat(boolean v) {
+    vaghat = v;
+  }
+
+  /**
+   * publikus getter a rovar nem-vágahtósági időtartamának lekérdezésére
+   *
+   * @return a rovar nem-vágahtósági időtartama
+   */
+  public int getUjravaghat() {
+    return ujravaghat;
+  }
+
+  /**
+   * publikus setter a rovar nem-vághatóságának időtartamára
+   *
+   * @param v az új nem-vágási időtartam
+   */
+  public void setUjravaghat(int u) {
+    ujravaghat = u;
   }
 
   /**
@@ -65,6 +95,15 @@ public class Rovar {
   }
 
   /**
+   * publikus getter a rovarhoz tartozó rovarász lekérdezésére
+   *
+   * @return a tekton amin a rovar van
+   */
+  public void getRovarasz() {
+    // return rovarasz;
+  }
+
+  /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    *
    * @param tekton a kezdő tartózkodási hely
@@ -84,7 +123,7 @@ public class Rovar {
    */
   public void mozog(Tekton tekton) {
     for (GombaFonal gf : tartozkodik.fonalak) {
-      if (gf.getVezet().contains(tekton)) {
+      if (gf.getVezet(tartozkodik, tekton)) {
         tartozkodik = tekton;
         return;
       }
@@ -97,14 +136,15 @@ public class Rovar {
    *
    * @param gombaFonal az elvágandó GombaFonal
    */
-  public void vag(GombaFonal gombaFonal) {
-    if (vaghat) gombaFonal.elvagodik(tartozkodik);
+  public void vag(GombaFonal gombaFonal, Tekton merre) {
+    if (vaghat) {
+      gombaFonal.elvagodik(tartozkodik, merre);
+    }
   }
 
   public int eszik(Spora spora) {
     spora.hatas(this);
-    return spora.csokken(
-        5); // TODO: jelenleg 5 placeholder érték, hatás még nincs, ahhoz az öröklést várom
+    return spora.csokken(5);
   }
 
   /**
