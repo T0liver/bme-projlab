@@ -23,7 +23,7 @@ public class Rovar {
   private Tekton tartozkodik;
 
   /** Megadja, hogy melyik rovarászhoz tartozik */
-  // private Rovarasz rovarasz;
+  private Rovarasz rovarasz;
 
   /**
    * publikus getter a rovar sebességének lekérdezésére
@@ -99,8 +99,8 @@ public class Rovar {
    *
    * @return a tekton amin a rovar van
    */
-  public void getRovarasz() {
-    // return rovarasz;
+  public Rovarasz getRovarasz() {
+    return rovarasz;
   }
 
   /**
@@ -108,11 +108,12 @@ public class Rovar {
    *
    * @param tekton a kezdő tartózkodási hely
    */
-  public Rovar(Tekton tekton) {
+  public Rovar(Rovarasz rovarasz, Tekton tekton) {
     sebesseg = 1;
     vaghat = true;
     ujravaghat = 0;
     tartozkodik = tekton;
+    this.rovarasz = rovarasz;
   }
 
   /**
