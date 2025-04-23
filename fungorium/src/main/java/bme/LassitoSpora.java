@@ -1,4 +1,4 @@
-package bme.jdb.projlab.fungorium;
+package bme;
 
 /**
  * GyorsítóSpóra osztály definíciója.

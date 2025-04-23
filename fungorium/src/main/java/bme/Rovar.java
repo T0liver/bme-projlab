@@ -1,4 +1,4 @@
-package bme.jdb.projlab.fungorium;
+package bme;
 
 /**
  * Rovar osztály definíciója.
