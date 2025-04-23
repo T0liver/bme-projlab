@@ -17,11 +17,12 @@ import java.util.Random;
  * @author Oliver
  */
 public class GombaTest {
-  private int sporadarab;
-  private int elettartam;
   private boolean fejlett;
   private int fejlettseg;
+  private Gombasz gombasz;
+  private int sporadarab;
   private Tekton tartozkodik;
+  private int elettartam;
 
   /**
    * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap tulajdonságait.
@@ -29,13 +30,14 @@ public class GombaTest {
    * @param elett a gombatest alap élettartama
    * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
    */
-  public GombaTest(int elett, Tekton hely) throws Exception {
+  public GombaTest(Gombasz gombasz, int elett, Tekton hely) throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = 0;
       elettartam = elett;
       fejlett = false;
       fejlettseg = 0;
       tartozkodik = hely;
+      this.gombasz = gombasz;
       hely.setFoglalt(true);
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
@@ -51,7 +53,8 @@ public class GombaTest {
    * @param fejlettseg a gombatest fejlettségi szintje
    * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
    */
-  public GombaTest(int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
+  public GombaTest(
+      Gombasz gombasz, int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
       throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = sporadb;
@@ -59,6 +62,8 @@ public class GombaTest {
       this.fejlett = fejlett;
       this.fejlettseg = fejlettseg;
       tartozkodik = hely;
+      this.gombasz = gombasz;
+      hely.setFoglalt(true);
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
     }
@@ -119,12 +124,30 @@ public class GombaTest {
   }
 
   /**
+   * Publikus setter függvény, beállítja a gombatest fejlettségét.
+   *
+   * @param fejlett jelzi, hogy fejlett gombatestről beszélünk-e
+   */
+  public void setFejlett(boolean fejlett) {
+    this.fejlett = fejlett;
+  }
+
+  /**
    * Publikus setter függvény, beállítja a gombatest élettartamát.
    *
    * @param ido a kezdeti élettartam
    */
   public void setElettartam(int ido) {
     elettartam = ido;
+  }
+
+  /*
+   * Publikus getteter függvény a gombatest gombaszának lekérdezésére.
+   *
+   * @return a gombatest gombaszája
+   */
+  public Gombasz getGombasz() {
+    return gombasz;
   }
 
   /**
@@ -136,23 +159,22 @@ public class GombaTest {
   public boolean sporatSzor(Tekton hova) {
     if (fejlett) {
       List<Tekton> szomszedok = hova.getSzomszed(2);
-      if (szomszedok.contains(hova)) {
-        int db = Random.from(new Random()).nextInt() % sporadarab % 5;
-        hova.addSpora(db);
-        eletcsokken();
-        sporadarab -= db;
-        return true;
+      if (!szomszedok.contains(hova)) {
+        return false;
       }
     }
     List<Tekton> szomszedok = hova.getSzomszed(1);
-    if (szomszedok.contains(hova)) {
-      int db = Random.from(new Random()).nextInt() % sporadarab % 5;
-      hova.addSpora(db);
-      eletcsokken();
-      sporadarab -= db;
-      return true;
+    if (!szomszedok.contains(hova)) {
+      return false;
     }
-    return false;
+    int db = Random.from(new Random()).nextInt() % sporadarab % 5;
+    if (db == 0) {
+      ++db;
+    }
+    hova.addSpora(db, this);
+    eletcsokken();
+    sporadarab -= db;
+    return true;
   }
 
   /** Eggyel fejleszti a gombatestet, és növeli a fejlettség értékét. */
@@ -172,5 +194,10 @@ public class GombaTest {
   /** Csökkenti az élettartamot, mert spóraszórás után csökken. */
   public void eletcsokken() {
     elettartam--;
+  }
+
+  /** Növeli a spóradarab értékét, a kör elején meghívódik. */
+  public void tick() {
+    sporadarab++;
   }
 }

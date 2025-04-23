@@ -12,11 +12,14 @@ package bme;
  * @author Oliver
  */
 public class Spora {
-  /** A tápanyagtartalom, amit a spóra tartalmaz. */
-  private int tapanyagtartalom;
-
   /** A spóra darabszáma. */
   private int darabszam;
+
+  /** Megadja, hogy melyik gombászhoz tartozik */
+  private Gombasz gombasz;
+
+  /** A tápanyagtartalom, amit a spóra tartalmaz. */
+  private int tapanyagtartalom;
 
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
@@ -24,9 +27,10 @@ public class Spora {
    * @param kcal a spóra tápanyagtartalma
    * @param db a spóra darabszáma
    */
-  public Spora(int kcal, int db) {
+  public Spora(int kcal, int db, Gombasz gombasz) {
     tapanyagtartalom = kcal;
     darabszam = db;
+    this.gombasz = gombasz;
   }
 
   /**
@@ -48,6 +52,15 @@ public class Spora {
   }
 
   /**
+   * Publikus getter függvény a spóra gombászának a lekérdezésére.
+   *
+   * @return a spóra gombásza
+   */
+  public Gombasz getGombasz() {
+    return gombasz;
+  }
+
+  /**
    * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a mennyivel értéke,
    * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető mennyiséget adja vissza.
    *
@@ -55,7 +68,7 @@ public class Spora {
    * @return a megevett spóraák tápanyagértéke.
    */
   public int csokken(int mennyivel) {
-    if (darabszam == 0) {
+    if (darabszam <= 0) {
       return 0;
     }
     if (darabszam >= mennyivel) {
@@ -70,6 +83,13 @@ public class Spora {
   }
 
   /**
+   * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
+   *
+   * @param mire a rovar, amire kifejti a hatását
+   */
+  public void hatas(Rovar mire) {}
+
+  /**
    * Növeli a spóra darabszámát a megadott értékkel.
    *
    * @param mennyivel amennyivel növelni kell a spóra darabszámát.
@@ -77,11 +97,4 @@ public class Spora {
   public void novel(int mennyivel) {
     darabszam += mennyivel;
   }
-
-  /**
-   * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
-   *
-   * @param mire a rovar, amire kifejti a hatását
-   */
-  public void hatas(Rovar mire) {}
 }

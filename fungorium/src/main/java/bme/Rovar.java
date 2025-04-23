@@ -6,7 +6,7 @@ package bme;
  * <p>Rovarok tektonokon mozognak, tektonok között vezető gombafonalakon átkelnek, azokat
  * elvághatják és spóákat esznek, melyek különböző hatásall vannak rájuk
  *
- * @author Vid
+ * @author Oliver
  */
 public class Rovar {
 
@@ -21,6 +21,9 @@ public class Rovar {
 
   /** A tekton, amin tartózkodik */
   private Tekton tartozkodik;
+
+  /** Megadja, hogy melyik rovarászhoz tartozik */
+  private Rovarasz rovarasz;
 
   /**
    * publikus getter a rovar sebességének lekérdezésére
@@ -41,6 +44,33 @@ public class Rovar {
   }
 
   /**
+   * publikus setter a rovar vághatóságának beállítására
+   *
+   * @param v az új vágási lehetőség
+   */
+  public void setVaghat(boolean v) {
+    vaghat = v;
+  }
+
+  /**
+   * publikus getter a rovar nem-vágahtósági időtartamának lekérdezésére
+   *
+   * @return a rovar nem-vágahtósági időtartama
+   */
+  public int getUjravaghat() {
+    return ujravaghat;
+  }
+
+  /**
+   * publikus setter a rovar nem-vághatóságának időtartamára
+   *
+   * @param v az új nem-vágási időtartam
+   */
+  public void setUjravaghat(int u) {
+    ujravaghat = u;
+  }
+
+  /**
    * publikus setter a rovár sebességének beállítására
    *
    * @param s az új sebesség
@@ -49,10 +79,28 @@ public class Rovar {
     sebesseg = s;
   }
 
+  /**
+   * publikus getter a rovar tartozkodasi helyenek lekerdezesehez
+   *
+   * @return a tekton amin a rovar van
+   */
+  public Tekton getTartozkodik() {
+    return tartozkodik;
+  }
+
   /** publikus setter a rovar fonál vágására való készségének letiltására */
   public void nemVaghat() {
     vaghat = false;
-    ujravaghat = 5; // TODO: placeholder, mennyi idő múlva vághat újra
+    ujravaghat = 5; // placeholder, mennyi idő múlva vághat újra
+  }
+
+  /**
+   * publikus getter a rovarhoz tartozó rovarász lekérdezésére
+   *
+   * @return a tekton amin a rovar van
+   */
+  public Rovarasz getRovarasz() {
+    return rovarasz;
   }
 
   /**
@@ -60,11 +108,12 @@ public class Rovar {
    *
    * @param tekton a kezdő tartózkodási hely
    */
-  public Rovar(Tekton tekton) {
+  public Rovar(Rovarasz rovarasz, Tekton tekton) {
     sebesseg = 1;
     vaghat = true;
     ujravaghat = 0;
     tartozkodik = tekton;
+    this.rovarasz = rovarasz;
   }
 
   /**
@@ -74,7 +123,12 @@ public class Rovar {
    * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal áthidalt tekton
    */
   public void mozog(Tekton tekton) {
-    tartozkodik = tekton;
+    for (GombaFonal gf : tartozkodik.fonalak) {
+      if (gf.getVezet(tartozkodik, tekton)) {
+        tartozkodik = tekton;
+        return;
+      }
+    }
   }
 
   /**
@@ -83,14 +137,15 @@ public class Rovar {
    *
    * @param gombaFonal az elvágandó GombaFonal
    */
-  public void vag(GombaFonal gombaFonal) {
-    if (vaghat) gombaFonal.elvagodik(tartozkodik);
+  public void vag(GombaFonal gombaFonal, Tekton merre) {
+    if (vaghat) {
+      gombaFonal.elvagodik(tartozkodik, merre);
+    }
   }
 
   public int eszik(Spora spora) {
     spora.hatas(this);
-    return spora.csokken(
-        5); // TODO: jelenleg 5 placeholder érték, hatás még nincs, ahhoz az öröklést várom
+    return spora.csokken(5);
   }
 
   /**

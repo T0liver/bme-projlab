@@ -2,6 +2,7 @@ package bme;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.util.Pair;
 
 /**
  * GombaFonal osztály definíciója.
@@ -15,14 +16,14 @@ import java.util.List;
  */
 public class GombaFonal {
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
-  private ArrayList<Tekton> vezet;
+  private ArrayList<Pair<Tekton, Tekton>> vezet;
 
   /**
    * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a GombaFonalat egy üres
    * listából.
    */
   public GombaFonal() {
-    vezet = new ArrayList<Tekton>();
+    vezet = new ArrayList<Pair<Tekton, Tekton>>();
   }
 
   /**
@@ -32,9 +33,14 @@ public class GombaFonal {
    * @param kezdet a tekton, ahonnan a gombafonal kiindul.
    */
   public GombaFonal(Tekton kezdet) {
-    vezet = new ArrayList<Tekton>();
-    vezet.add(kezdet);
+    vezet = new ArrayList<Pair<Tekton, Tekton>>();
+    vezet.add(new Pair(kezdet, kezdet));
     kezdet.fonalak.add(this);
+  }
+
+  public void addVezet(Tekton honnan, Tekton hova) {
+    vezet.add(new Pair(honnan, hova));
+    honnan.fonalak.add(this);
   }
 
   /**
@@ -42,8 +48,8 @@ public class GombaFonal {
    *
    * @return azon tektonok listája, ahová vezet a gombafonal.
    */
-  public ArrayList<Tekton> getVezet() {
-    return vezet;
+  public boolean getVezet(Tekton honnan, Tekton hova) {
+    return vezet.containsAll(List.of(new Pair(honnan, hova), new Pair(hova, honnan)));
   }
 
   /**
@@ -55,15 +61,28 @@ public class GombaFonal {
    *     művelet.
    */
   public boolean athidal(Tekton hova) {
-    for (Tekton t : vezet) {
-      List<Tekton> szomszedok = t.getSzomszed(1);
+    for (Pair t : vezet) {
+      Tekton t1 = (Tekton) t.getKey();
+      List<Tekton> szomszedok = t1.getSzomszed(1);
 
       if (szomszedok.isEmpty()) {
         return false;
       }
 
-      if (szomszedok.contains(hova)) {
-        vezet.add(hova);
+      if (szomszedok.indexOf(hova) != -1) {
+        vezet.add(new Pair(t1, hova));
+        hova.fonalak.add(this);
+        return true;
+      }
+      Tekton t2 = (Tekton) t.getValue();
+      szomszedok = t2.getSzomszed(1);
+
+      if (szomszedok.isEmpty()) {
+        return false;
+      }
+
+      if (szomszedok.indexOf(hova) != -1) {
+        vezet.add(new Pair(t2, hova));
         hova.fonalak.add(this);
         return true;
       }
@@ -77,24 +96,35 @@ public class GombaFonal {
    *
    * @param hol az a tekton, ahol elvágták a gombafonalat
    */
-  public void elvagodik(Tekton hol) {
-    if (vezet.contains(hol)) {
-      vezet.remove(hol);
-      hol.fonalak.remove(this);
-    }
-    return;
+  public void elvagodik(Tekton honnan, Tekton hova) {
+    vezet.removeIf(
+        par ->
+            (par.getKey().equals(honnan) && par.getValue().equals(hova))
+                || (par.getKey().equals(hova) && par.getValue().equals(honnan)));
+
+    if (vezet.stream()
+        .noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan)))
+      honnan.fonalak.remove(this);
+    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova)))
+      hova.fonalak.remove(this);
   }
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
   public void elpusztul() {
-    for (Tekton t : vezet) {
-      t.fonalak.remove(this);
+    for (Pair t : vezet) {
+      Tekton t1 = (Tekton) t.getKey();
+      t1.fonalak.remove(this);
+      Tekton t2 = (Tekton) t.getKey();
+      t2.fonalak.remove(this);
     }
   }
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
-    // Ez mit akar csinálni, hogyan tartjuk nyilván azt, hogy egy fonal "mennyire" van egy tektonon?
-    // TODO: kitalálni ez mit csinál
+    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje
+    // változónk, amit lehetne növelni.
+    int novekves = 0;
+    novekves++;
+    return;
   }
 }

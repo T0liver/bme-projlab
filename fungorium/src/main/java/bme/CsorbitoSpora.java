@@ -15,8 +15,8 @@ public class CsorbitoSpora extends Spora {
    * @param kcal a spóra tápanyagtartalma
    * @param db a spóra darabszáma
    */
-  public CsorbitoSpora(int kcal, int db) {
-    super(kcal, db);
+  public CsorbitoSpora(int kcal, int db, Gombasz gombasz) {
+    super(kcal, db, gombasz);
   }
 
   /**

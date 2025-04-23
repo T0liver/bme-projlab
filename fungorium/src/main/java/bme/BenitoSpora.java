@@ -16,8 +16,8 @@ public class BenitoSpora extends Spora {
    * @param kcal a spóra tápanyagtartalma
    * @param db a spóra darabszáma
    */
-  public BenitoSpora(int kcal, int db) {
-    super(kcal, db);
+  public BenitoSpora(int kcal, int db, Gombasz gombasz) {
+    super(kcal, db, gombasz);
   }
 
   /**
