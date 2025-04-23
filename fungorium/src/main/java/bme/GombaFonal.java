@@ -115,6 +115,7 @@ public class GombaFonal {
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
+    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje változónk, amit lehetne növelni.
     int novekves = 0;
     novekves++;
     return;
