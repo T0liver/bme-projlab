@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>25-ea+12</version>
+            <version>25-ea+10</version>
         </dependency>
     </dependencies>
 
