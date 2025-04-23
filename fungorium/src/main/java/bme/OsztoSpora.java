@@ -17,8 +17,8 @@ public class OsztoSpora extends Spora {
    * @param kcal a spóra tápanyagtartalma
    * @param db a spóra darabszáma
    */
-  public OsztoSpora(int kcal, int db) {
-    super(kcal, db);
+  public OsztoSpora(int kcal, int db, Gombasz gombasz) {
+    super(kcal, db, gombasz);
   }
 
   /**
@@ -29,10 +29,10 @@ public class OsztoSpora extends Spora {
    */
   @Override
   public void hatas(Rovar mire) {
-    Rovar r2 = new Rovar(mire.getTartozkodik());
+    Rovar r2 = new Rovar(mire.getRovarasz(), mire.getTartozkodik());
     r2.setSebesseg(mire.getSebesseg());
     r2.setVaghat(mire.getVaghat());
     r2.setUjravaghat(mire.getUjravaghat());
-    // mire.getRovarasz().addRovar(r2);
+    mire.getRovarasz().addRovar(r2);
   }
 }

@@ -16,7 +16,7 @@ public class Spora {
   private int darabszam;
 
   /** Megadja, hogy melyik gombászhoz tartozik */
-  // private Gombasz gombasz;
+  private Gombasz gombasz;
 
   /** A tápanyagtartalom, amit a spóra tartalmaz. */
   private int tapanyagtartalom;
@@ -27,9 +27,10 @@ public class Spora {
    * @param kcal a spóra tápanyagtartalma
    * @param db a spóra darabszáma
    */
-  public Spora(int kcal, int db) {
+  public Spora(int kcal, int db, Gombasz gombasz) {
     tapanyagtartalom = kcal;
     darabszam = db;
+    this.gombasz = gombasz;
   }
 
   /**
@@ -48,6 +49,15 @@ public class Spora {
    */
   public int getDarabszam() {
     return darabszam;
+  }
+
+  /**
+   * Publikus getter függvény a spóra gombászának a lekérdezésére.
+   *
+   * @return a spóra gombásza
+   */
+  public Gombasz getGombasz() {
+    return gombasz;
   }
 
   /**

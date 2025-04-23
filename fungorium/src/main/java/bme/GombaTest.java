@@ -19,7 +19,7 @@ import java.util.Random;
 public class GombaTest {
   private boolean fejlett;
   private int fejlettseg;
-  // private Gombasz gombasz;
+  private Gombasz gombasz;
   private int sporadarab;
   private Tekton tartozkodik;
   private int elettartam;
@@ -30,13 +30,14 @@ public class GombaTest {
    * @param elett a gombatest alap élettartama
    * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
    */
-  public GombaTest(int elett, Tekton hely) throws Exception {
+  public GombaTest(Gombasz gombasz, int elett, Tekton hely) throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = 0;
       elettartam = elett;
       fejlett = false;
       fejlettseg = 0;
       tartozkodik = hely;
+      this.gombasz = gombasz;
       hely.setFoglalt(true);
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
@@ -52,7 +53,7 @@ public class GombaTest {
    * @param fejlettseg a gombatest fejlettségi szintje
    * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
    */
-  public GombaTest(int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
+  public GombaTest(Gombasz gombasz, int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
       throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = sporadb;
@@ -60,6 +61,7 @@ public class GombaTest {
       this.fejlett = fejlett;
       this.fejlettseg = fejlettseg;
       tartozkodik = hely;
+      this.gombasz = gombasz;
       hely.setFoglalt(true);
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
@@ -136,6 +138,15 @@ public class GombaTest {
    */
   public void setElettartam(int ido) {
     elettartam = ido;
+  }
+
+  /*
+   * Publikus getteter függvény a gombatest gombaszának lekérdezésére.
+   * 
+   * @return a gombatest gombaszája
+   */
+  public Gombasz getGombasz() {
+    return gombasz;
   }
 
   /**
