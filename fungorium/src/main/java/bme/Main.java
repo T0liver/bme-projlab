@@ -51,45 +51,45 @@ public class Main {
     System.out.println("Tesztelés befejezve.");
     scanner.close();
   }
-/*
-  private static void TektonTesztek() {
-    TektonTeszt.megadottTeszt();
-    TektonTeszt.egyetlenFonalTektonTeszt();
-    TektonTeszt.termeketlenTektonTeszt();
-    TektonTeszt.felszivoTektonTeszt();
-    TektonHasadasTeszt1.TektonHasadasTeszt1();
-    TektonHasadasTeszt2.TektonHasadasTeszt2();
-  }
-
-    private static void SporaTesztek(){
-        SporatEszikTeszt.NormalSporaTeszt();
-        SporatEszikTeszt.GyorsitoSporaTeszt();
-        SporatEszikTeszt.LassitoSporaTeszt();
-        SporatEszikTeszt.BenitoSporaTeszt();
-        SporatEszikTeszt.CsorbitoSporaTeszt();
-        SporaTeszt.SporatSzorTeszt();
-        SporaTeszt.FejlettenSporatSzorTeszt();
-        SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
-        SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
-        SporatEszikTeszt.RovarOdaVisszaall();
+  /*
+    private static void TektonTesztek() {
+      TektonTeszt.megadottTeszt();
+      TektonTeszt.egyetlenFonalTektonTeszt();
+      TektonTeszt.termeketlenTektonTeszt();
+      TektonTeszt.felszivoTektonTeszt();
+      TektonHasadasTeszt1.TektonHasadasTeszt1();
+      TektonHasadasTeszt2.TektonHasadasTeszt2();
     }
 
-  private static void GombanTesztek() {
-    GombaTestHalalaTeszt.GombaTestHalalaTeszt();
-    GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
-  }
+      private static void SporaTesztek(){
+          SporatEszikTeszt.NormalSporaTeszt();
+          SporatEszikTeszt.GyorsitoSporaTeszt();
+          SporatEszikTeszt.LassitoSporaTeszt();
+          SporatEszikTeszt.BenitoSporaTeszt();
+          SporatEszikTeszt.CsorbitoSporaTeszt();
+          SporaTeszt.SporatSzorTeszt();
+          SporaTeszt.FejlettenSporatSzorTeszt();
+          SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
+          SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
+          SporatEszikTeszt.RovarOdaVisszaall();
+      }
 
-  private static void RovarTesztek() {
-    RovarTektonValtTeszt.RoarAtlepTeszt();
-    RovarTektonValtTeszt.RovarNemTudAtlepniTeszt();
-    RovarVagTeszt.RovarVagTeszt();
-  }
+    private static void GombanTesztek() {
+      GombaTestHalalaTeszt.GombaTestHalalaTeszt();
+      GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
+    }
 
-  private static void FonalTesztek() {
-    FonalAthidalTeszt.FonalAthidal1();
-    FonalAthidalTeszt.FonalAthidal2();
-    FonalAthidalTeszt.FonalAthidal3();
-  }
-*/
+    private static void RovarTesztek() {
+      RovarTektonValtTeszt.RoarAtlepTeszt();
+      RovarTektonValtTeszt.RovarNemTudAtlepniTeszt();
+      RovarVagTeszt.RovarVagTeszt();
+    }
+
+    private static void FonalTesztek() {
+      FonalAthidalTeszt.FonalAthidal1();
+      FonalAthidalTeszt.FonalAthidal2();
+      FonalAthidalTeszt.FonalAthidal3();
+    }
+  */
 
 }

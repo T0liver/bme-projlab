@@ -3,9 +3,9 @@ package bme;
 /**
  * OsztóSpóra osztály definíciója.
  *
- * <p>A spórák egy adott fajtája, ami a tulajdonságokat a Spóra osztályból örökli, azonban kiegészíti
- * / felülírja azokat. Ez az osztály felelős azon spórákért, amelyeket ha a rovar megeszik, akkor
- * létrehoz egy másik ugyanolyan rovart a tektonon
+ * <p>A spórák egy adott fajtája, ami a tulajdonságokat a Spóra osztályból örökli, azonban
+ * kiegészíti / felülírja azokat. Ez az osztály felelős azon spórákért, amelyeket ha a rovar
+ * megeszik, akkor létrehoz egy másik ugyanolyan rovart a tektonon
  *
  * @author Oliver
  */
@@ -22,8 +22,7 @@ public class OsztoSpora extends Spora {
   }
 
   /**
-   * A spóra kifejti a hatását a rovarra, azaz létrehoz egy másik
-   * ugyanolyan rovart a tektonon.
+   * A spóra kifejti a hatását a rovarra, azaz létrehoz egy másik ugyanolyan rovart a tektonon.
    *
    * @param mire a rovar, amire kifejti a hatását
    */

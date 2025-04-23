@@ -65,15 +65,12 @@ public class Tekton {
    * A tekton másik tektonhoz való kapcsolatát megadó függvény
    *
    * @param tekton a másik tekton
-   * @return a szomszédsági státus:
-   *         0 - nem szomszéd,
-   *         1 - szomszéd és fonállal össze nem kötött,
-   *         2 szomszéd és fonállal összekötött
+   * @return a szomszédsági státus: 0 - nem szomszéd, 1 - szomszéd és fonállal össze nem kötött, 2
+   *     szomszéd és fonállal összekötött
    */
   public int milyenszomszed(Tekton tekton) {
     if (!szomszedok.contains(tekton)) return 0;
-    for (int i = 0; i < fonalak.size(); ++i)
-      if (fonalak.get(i).getVezet(this, tekton)) return 2;
+    for (int i = 0; i < fonalak.size(); ++i) if (fonalak.get(i).getVezet(this, tekton)) return 2;
     return 1;
   }
 
@@ -125,15 +122,16 @@ public class Tekton {
    */
   public boolean addSpora(int mennyiseg, GombaTest gt /*spóratípus paraméterként?*/) {
     for (int i = 0; i < sporak.size(); ++i) {
-      if (sporak.get(i).getGombasz() ==  gt.getGombasz()) { //keresünk azonos fajú spórát
+      if (sporak.get(i).getGombasz() == gt.getGombasz()) { // keresünk azonos fajú spórát
         sporak.get(i).novel(mennyiseg);
         return false;
       }
     }
-    // TODO: spora hozzadasa gt játékosával megegyező játékossal és spóratípus radom vagy normál, ha nincs random, egyenlőre ez
+    // TODO: spora hozzadasa gt játékosával megegyező játékossal és spóratípus radom vagy normál, ha
+    // nincs random, egyenlőre ez
     Spora ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
     add(ujSpora);
-    return true; //kellett újat hozzáadni
+    return true; // kellett újat hozzáadni
   }
 
   /**
@@ -177,7 +175,11 @@ public class Tekton {
    */
   public void fonalNo(GombaFonal melyik) {
     for (int i = 0; i < szomszedok.size(); ++i) {
-      if (melyik.getVezet(szomszedok.get(i), szomszedok.get(i))) { //TODO, ez nem biztos, hogy jó így, minden tektonra, amire vezet el kell tárolni a tekton1, tekton1 párt...
+      if (melyik.getVezet(
+          szomszedok.get(i),
+          szomszedok.get(
+              i))) { // TODO, ez nem biztos, hogy jó így, minden tektonra, amire vezet el kell
+                     // tárolni a tekton1, tekton1 párt...
         fonalak.add(melyik);
         melyik.athidal(this);
       }

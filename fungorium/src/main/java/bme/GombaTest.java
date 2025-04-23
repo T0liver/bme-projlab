@@ -53,7 +53,8 @@ public class GombaTest {
    * @param fejlettseg a gombatest fejlettségi szintje
    * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
    */
-  public GombaTest(Gombasz gombasz, int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
+  public GombaTest(
+      Gombasz gombasz, int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
       throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = sporadb;
@@ -142,7 +143,7 @@ public class GombaTest {
 
   /*
    * Publikus getteter függvény a gombatest gombaszának lekérdezésére.
-   * 
+   *
    * @return a gombatest gombaszája
    */
   public Gombasz getGombasz() {
@@ -167,13 +168,13 @@ public class GombaTest {
       return false;
     }
     int db = Random.from(new Random()).nextInt() % sporadarab % 5;
-      if (db == 0) {
-        ++db;
-      }
-      hova.addSpora(db, this);
-      eletcsokken();
-      sporadarab -= db;
-      return true;
+    if (db == 0) {
+      ++db;
+    }
+    hova.addSpora(db, this);
+    eletcsokken();
+    sporadarab -= db;
+    return true;
   }
 
   /** Eggyel fejleszti a gombatestet, és növeli a fejlettség értékét. */

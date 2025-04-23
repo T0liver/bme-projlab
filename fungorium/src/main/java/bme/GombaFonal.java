@@ -97,10 +97,16 @@ public class GombaFonal {
    * @param hol az a tekton, ahol elvágták a gombafonalat
    */
   public void elvagodik(Tekton honnan, Tekton hova) {
-    vezet.removeIf(par -> (par.getKey().equals(honnan) && par.getValue().equals(hova)) || (par.getKey().equals(hova) && par.getValue().equals(honnan)));
-  
-    if (vezet.stream().noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan))) honnan.fonalak.remove(this);
-    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova))) hova.fonalak.remove(this);
+    vezet.removeIf(
+        par ->
+            (par.getKey().equals(honnan) && par.getValue().equals(hova))
+                || (par.getKey().equals(hova) && par.getValue().equals(honnan)));
+
+    if (vezet.stream()
+        .noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan)))
+      honnan.fonalak.remove(this);
+    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova)))
+      hova.fonalak.remove(this);
   }
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
@@ -115,7 +121,8 @@ public class GombaFonal {
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
-    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje változónk, amit lehetne növelni.
+    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje
+    // változónk, amit lehetne növelni.
     int novekves = 0;
     novekves++;
     return;
