@@ -25,4 +25,22 @@ public class Rovarasz extends Jatekos {
     public int getType() {
         return 1;
     }
+
+    /*
+     * Publikus getter függvény a Rovarász rovarjainak listájának lekérdezésére.
+     * 
+     * @return a Rovarász rovarjainak listája
+     */
+    public List<Rovar> getRovarok() {
+        return rovarok;
+    }
+
+    /*
+     * Publikus setter függvény a Rovarász rovarjainak listájának beállítására.
+     * 
+     * @param rovarok a Rovarász új rovarjainak listája
+     */
+    public void addRovar(Rovar rovar) {
+        rovarok.add(rovar);
+    }
 }
