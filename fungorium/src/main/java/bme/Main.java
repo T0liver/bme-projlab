@@ -7,7 +7,7 @@ public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("JDB tesztelő program v1.0");
+    System.out.println("JDB tesztelő program v2.0");
 
     while (true) {
       System.out.println(System.lineSeparator() + "Válassz egy tesztcsoportot:");
@@ -21,12 +21,14 @@ public class Main {
       System.out.println("    8 - Kilépés" + System.lineSeparator());
 
       System.out.print("testing@JDB:$ ");
-      int choice = scanner.nextInt();
+      String[] choice = scanner.nextLine().strip().split(" ");
       scanner.nextLine();
 
-      if (choice == 8) {
+      //KILEPES
+      if (choice[0].equals("8")) {
         break;
       }
+
       /*
       switch (choice) {
         case 1 -> TektonTesztek();

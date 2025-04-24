@@ -64,7 +64,7 @@ public class Rovar {
   /**
    * publikus setter a rovar nem-vághatóságának időtartamára
    *
-   * @param v az új nem-vágási időtartam
+   * @param u az új nem-vágási időtartam
    */
   public void setUjravaghat(int u) {
     ujravaghat = u;
