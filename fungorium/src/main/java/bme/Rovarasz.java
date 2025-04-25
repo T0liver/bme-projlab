@@ -6,6 +6,7 @@ import java.util.List;
 public class Rovarasz extends Jatekos {
   private List<Rovar> rovarok = new ArrayList<Rovar>();
 
+
   /**
    * @param nev Konstruktorában megadható a név paraméter
    *            A leszármazottakban fognak kezelődni
@@ -13,6 +14,7 @@ public class Rovarasz extends Jatekos {
   public Rovarasz(String nev) {
     super(nev);
   }
+
 
   @Override
   public void lep() {

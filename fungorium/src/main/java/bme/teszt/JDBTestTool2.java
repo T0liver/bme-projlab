@@ -1,21 +1,24 @@
 package bme.teszt;
 
-import bme.Gombasz;
-import bme.Rovarasz;
-import bme.Tekton;
+import bme.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class JDBTestTool2 {
 
     File input, expected, out;
     boolean fromFile;
 
-    ArrayList<Gombasz> gombaszok = new ArrayList<>();
-    ArrayList<Rovarasz> rovaraszok = new ArrayList<>();
-    ArrayList<Tekton> tektonok = new ArrayList<>();
+    HashMap<Integer, Gombasz> gombaszok = new HashMap<>();
+    HashMap<Integer, GombaFonal> gombaFonalak = new HashMap<>();
+    HashMap<Integer, GombaTest> gombaTestek = new HashMap<>();
+    HashMap<Integer, Spora> sporak = new HashMap<>();
+
+    HashMap<Integer, Rovarasz> rovaraszok = new HashMap<>();
+    HashMap<Integer, Rovar> rovarok = new HashMap<>();
+
+    HashMap<Integer, Tekton> tektonok = new HashMap<>();
 
     /// TesztFile futtató teszt
     /// @param file tesztfájl
@@ -112,7 +115,26 @@ public class JDBTestTool2 {
     private void AltGombatest(String[] args) {
     }
 
-    private void Help(String[] args) {}
+    private void Help(String[] args) {
+        System.out.println("/adda: aktor hozzaadasa \n");
+        System.out.println("/addtk: tekton hozzaadasa \n");
+        System.out.println("/addsp: spora hozzaadasa \n");
+        System.out.println("/addgt: gombatest hozzaadasa \n");
+        System.out.println("/addgf: gombafonal hozzaadasa \n");
+        System.out.println("/addrov: rovara hozzaadasa \n");
+        System.out.println("/alttk: tekton adatainak modositasa \n");
+        System.out.println("/altgf: gombafonal adatainak modositasa \n");
+        System.out.println("/altgt: gombatest adatainak modositasa \n");
+        System.out.println("/altrov: rovara adatainak modositasa \n");
+        System.out.println("/random: random ertekek engedelyezese/letiltasa \n");
+        System.out.println("/script: script futtatasa \n");
+        System.out.println("/lsa: Aktorok listazasa \n");
+        System.out.println("/lsr: Rovarok listazasa \n");
+        System.out.println("/lsf: Gombafonalak listazasa \n");
+        System.out.println("/lsg: Gombatestek listazasa \n");
+        System.out.println("/lst: Tektonok listazasa \n");
+
+    }
 
     private void AltRovar(String[] args) {
     }
@@ -142,23 +164,221 @@ public class JDBTestTool2 {
     }
 
     private void AddTekton(String[] args) {
-        System.out.println(args[0]);
-        AppendOutput("Tektonnak lenni jó");
-        AppendOutput("juhé");
+        Tekton tekton = new Tekton();
+        if (args.length > 2) {
+
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].equals("-t")) {
+                    switch (args[++i]) {
+                        case "egy":
+                            tekton = new EgyetlenFonalTekton();
+                            break;
+                        case "flsz":
+                            tekton = new FelszivoTekton(3);
+                            break;
+                        case "trm":
+                            tekton = new TermeketlenTekton();
+                            break;
+                        //case "el": tekton = new
+                        // NINCS ELETBENTARTO TEKTON
+                    }
+                    AppendOutput("new " + tekton.getClass() + " (" + args[1] + ")");
+                }
+
+                if (args[i].equals("-f")) {
+                    tekton.setFoglalt(args[++i].equals("Y"));
+                }
+                if (args[i].equals("-nei")) {
+                    tekton.addSzomszed(tektonok.get(Integer.parseInt(args[++i])));
+
+                    List<Tekton> szomszedRegiSzomszedai = tektonok.get(Integer.parseInt(args[i])).getSzomszed(1);
+
+                    List<Tekton> szomszedUjSzomszedai = szomszedRegiSzomszedai;
+                    szomszedUjSzomszedai.add(tekton);
+
+                    AppendOutput(tekton.getSzomszed(1).get(0).getClass()+ "("+404+") szomszédok: "
+                            + Arrays.toString(szomszedRegiSzomszedai.toArray())
+                            +" --> "+ Arrays.toString(szomszedUjSzomszedai.toArray()));
+
+                }
+                if (args[i].equals("-sp")) {
+                    tekton.getSporak().add(sporak.get(Integer.parseInt(args[++i])));
+                }
+                //-fn nincs használva
+            }
+        } else {
+            AppendOutput("new " + tekton.getClass() + " (" + args[1] + ")");
+        }
+        tektonok.put(Integer.parseInt(args[1]), tekton);
     }
 
     private void AddAktor(String[] args) {
 
+        if (args.length < 6) {
+            System.out.println("Használat: /adda -i <ID> -n <név> -f <g|r>");
+            return;
+        }
+
+        if (args[6].equals("g")) {
+            gombaszok.put(Integer.parseInt(args[2]), new Gombasz(args[4]));
+            AppendOutput("new Gombász (" + args[2] + ")");
+
+        } else if (args[6].equals("r")) {
+            rovaraszok.put( Integer.parseInt(args[2]),new Rovarasz(args[4]));
+            AppendOutput("new Rovarász (" + args[2] + ")");
+        } else {
+            System.out.println("Ismeretlen típus: " + args[6]);
+        }
     }
+
 
     private void AddSpora(String[] args) {
+        Spora spora = null;
+        Gombasz gombasz = null;
+        int db = 5;
+        int tp = 5;
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-a")) {
+                gombasz = gombaszok.get(Integer.parseInt(args[i + 1]));
+            }
+
+            if (args[i].equals("-t")) {
+                switch (args[i + 1]) {
+                    case "gyrs":
+                        spora = new GyorsitoSpora(tp, db, gombasz);
+                        AppendOutput("new GyorsítóSpóra(" + args[1] + ")");
+                        break;
+                    case "ls":
+                        spora = new LassitoSpora(tp, db, gombasz);
+                        AppendOutput("new LassítóSpóra(" + args[1] + ")");
+                        break;
+                    case "bnt":
+                        spora = new BenitoSpora(tp, db, gombasz);
+                        AppendOutput("new BénítóSpóra(" + args[1] + ")");
+                        break;
+                    case "csrb":
+                        spora = new CsorbitoSpora(tp, db, gombasz);
+                        AppendOutput("new CsorbítóSpóra(" + args[1] + ")");
+                        break;
+                    case "oszt":
+                        spora = new OsztoSpora(tp, db, gombasz);
+                        AppendOutput("new OsztódóSpóra(" + args[1] + ")");
+                        break;
+                    default:
+                        spora = new Spora(tp, db, gombasz);
+                        AppendOutput("new Spóra(" + args[1] + ")");
+                        break;
+                }
+
+            }
+
+            if (args[i].equals("-db")) {
+                assert spora != null;
+                spora.setDarabszam(Integer.parseInt(args[i + 1]));
+            }
+
+            if (args[i].equals("-tp")) {
+                spora.setTapanyag(Integer.parseInt(args[i + 1]));
+            }
+
+        }
+
+        sporak.put(Integer.parseInt(args[1]), spora);
+
     }
 
-    private void AddGombatest(String[] args) {}
+    private void AddGombatest(String[] args){
+        int sporak = 0;
+        int elettartam = 0;
+        int fejlettseg = 0;
+        boolean fejlett = false;
+        Tekton hely = null;
+        Gombasz gombasz = null;
+
+        int ID = Integer.parseInt(args[1]);
+        AppendOutput("new   Gombatest("+ ID +")");
+
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "-a":
+                    int aktorID = Integer.parseInt(args[i + 1]);
+                    gombasz = gombaszok.get(aktorID);
+                    break;
+                case "-tart":
+                    Integer tektonId = Integer.parseInt(args[i + 1]);
+                    hely = tektonok.get(tektonId);
+                    break;
+                case "-sp":
+                    sporak = Integer.parseInt(args[i + 1]);
+                    break;
+                case "-life":
+                    elettartam = Integer.parseInt(args[i + 1]);
+                    break;
+                case "-fjl":
+                    fejlettseg = Integer.parseInt(args[i + 1]);
+                    break;
+                case "-fj":
+                    fejlett = args[i + 1].equalsIgnoreCase("Y");
+                    break;
+            }
+        }
+
+        try {
+            GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
+            gombaTestek.put(ID, gombatest);
+        } catch (Exception e) {
+            AppendOutput("INSTRUCTION FAIL "+ Arrays.toString(args) +" ("+e.getMessage()+")");
+        }
+
+
+    }
+
 
     private void AddGombafonal(String[] args) {}
 
-    private void AddRovar(String[] args) {}
+    private void AddRovar(String[] args) {
+
+        Rovar rovar = null;
+        Rovarasz rovarasz = null;
+        Tekton tekton = null;
+        int seb = 5;
+        boolean vaghat = false;
+        int ujv = 5;
+
+        for(int i = 0; i < args.length; i++) {
+            if (args[i].equals("-a")) {
+                rovarasz = rovaraszok.get(Integer.parseInt(args[i + 1]));
+            }
+
+            if (args[i].equals("-tk")){
+                tekton = tektonok.get(Integer.parseInt(args[i + 1]));
+            }
+
+            if (args[i].equals("-seb")){
+                seb = Integer.parseInt(args[i + 1]);
+            }
+
+            if (args[i].equals("-vag")) {
+                if (args[i + 1].equalsIgnoreCase("Y")) vaghat = true;
+                else vaghat = false;
+            }
+
+            if (args[i].equals("-ujv")) {
+                ujv = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        rovar = new Rovar(rovarasz, tekton);
+        AppendOutput("new Rovar(" + args[1] + ")");
+
+        rovar.setSebesseg(seb);
+        rovar.setVaghat(vaghat);
+        rovar.setUjravaghat(ujv);
+
+        rovarok.put(Integer.parseInt(args[1]), rovar);
+
+    }
 
     private void ListAktor(String[] args) {}
 

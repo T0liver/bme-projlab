@@ -11,6 +11,14 @@ public abstract class Jatekos {
   private int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
 
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+
   /**
    *
    * @param nev

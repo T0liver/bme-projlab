@@ -14,6 +14,14 @@ import java.util.List;
  */
 public class Tekton {
 
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
   private boolean foglalt;
 

@@ -17,6 +17,42 @@ public class Gombasz extends Jatekos {
     super(nev);
   }
 
+  /**
+   *
+   * @return visszaadja a GombaTestek listáját
+   */
+  public List<GombaTest> getGombaTestek() { return gombaTestek; }
+
+  /**
+   *
+   * @return visszaadja a Spórák listáját
+   */
+  public List<Spora> getSporak() { return sporak; }
+
+  /**
+   *
+   * @return visszaadja a Gombafonalak listáját
+   */
+  public List<GombaFonal> getGombaFonalak() {return gombaFonalak;}
+
+  /**
+   *
+   * @param gombaTestek megadható a Gombatestek listája
+   */
+  public void setGombaTestek(List<GombaTest> gombaTestek) { this.gombaTestek = gombaTestek; }
+
+  /**
+   *
+   * @param sporak megadható a Srórák listája
+   */
+  public void setSporak(List<Spora> sporak) {this.sporak = sporak; }
+
+  /**
+   * @param gombaFonalak megadható a GombaFonalak listája
+   */
+
+  public void setGombaFonalak(List<GombaFonal> gombaFonalak){this.gombaFonalak = gombaFonalak;  }
+
   @Override
   public void lep() {
     List<Boolean> testCselekedett = new ArrayList<Boolean>();

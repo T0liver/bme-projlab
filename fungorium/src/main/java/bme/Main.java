@@ -75,7 +75,7 @@ public class Main {
   }
 
   private static void RovarTesztek() {
-
+    ExecuteTest("Rovar_Tektont_Valt");
   }
 
   private static void FonalTesztek() {

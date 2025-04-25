@@ -42,6 +42,8 @@ public class Spora {
     return tapanyagtartalom;
   }
 
+  public void setTapanyag(int tapanyag) {tapanyagtartalom = tapanyag;}
+
   /**
    * Publikus getter függvény a spóra darabszámának a lekérdezésére.
    *
@@ -50,6 +52,8 @@ public class Spora {
   public int getDarabszam() {
     return darabszam;
   }
+
+  public void setDarabszam(int darabszam) {darabszam = darabszam;}
 
   /**
    * Publikus getter függvény a spóra gombászának a lekérdezésére.
