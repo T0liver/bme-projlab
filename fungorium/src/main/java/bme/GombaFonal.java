@@ -41,6 +41,7 @@ public class GombaFonal {
   public void addVezet(Tekton honnan, Tekton hova) {
     vezet.put(honnan, hova);
     vezet.put(hova, honnan);
+    vezet.put(hova, hova);
     honnan.fonalak.add(this);
   }
 
