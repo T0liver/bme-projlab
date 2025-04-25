@@ -1,0 +1,9 @@
+/adda -i 1 –n “Gombász” -f g
+/adda -i 2 –n “Rovarász” -f r
+/addtk 1 –t el
+/addtk 2 –nei 1
+/addtk 3 –nei 1
+/addgt 1 –a 1 –tart 2 –sp 5
+/addgf 1 –a 1 –tart 1 –vez 2;1 3;1
+/addrov 1 –a 2 –tk 1 –seb 5 –vag Y
+cutf 1 –if 1 –tk 2

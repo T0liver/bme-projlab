@@ -1,0 +1,4 @@
+/adda -i 1 –n “Gombasz” -f g 
+/addsp 3 -db 100 –tp 5 
+/addtk 2 –t trm –sp 3 
+growg 4 –a 1 –tk 2 
