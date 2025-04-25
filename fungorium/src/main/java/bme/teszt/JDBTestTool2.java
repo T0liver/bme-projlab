@@ -49,8 +49,37 @@ public class JDBTestTool2 {
 
             //MINDEN PARANCS EGY FUGGVENY
             switch (args[0]) {
-                case "adda":    AddAktor(args); break;
-                case "addtk":   AddTekton(args); break;
+                case "/adda":    AddAktor(args); break;
+                case "/addtk":   AddTekton(args); break;
+                case "/addsp":  AddSpora(args); break;
+                case "/addgt":  AddGombatest(args); break;
+                case "/addgf":  AddGombafonal(args); break;
+                case "/addrov": AddRovar(args); break;
+                case "/alttk": AltTekton(args); break;
+                case "/altgf": AltGombafonal(args); break;
+                case "/altgt": AltGombatest(args); break;
+                case "/altrov" AltRovar(args); break;
+                case "/help": Help(args); break;
+                case "/random": Random(args); break;
+                case "/script": Script(args); break;
+                case "/lsa": ListAktor(args); break;
+                case "/trig": Trig(args); break;
+                case "/print": Print(args); break;
+                case "/save": Save(args); break;
+                case "/load": Load(args); break;
+                case "/lst": ListTekton(args); break;
+                case "/lsg": ListGombatest(args); break;
+                case "/lsf": ListGombafonal(args); break;
+                case "/lsr": ListRovar(args); break;
+                case "cutf": CutFonal(args); break;
+                case "spor": SporaSzoras(args); break;
+                case "has": Hasadas(args); break;
+                case "ontekton": OnTekton(args); break;
+                case "movr": MoveRovar(args); break;
+                case "growf": GrowFonal(args); break;
+                case "eats": Eats(args); break;
+                case "growg": GrowGombatest(args); break;
+                default: System.out.println("Unknown command: " + args[0]); break;
             }
         }
         scanner.close();
