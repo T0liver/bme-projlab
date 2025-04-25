@@ -58,7 +58,7 @@ public class JDBTestTool2 {
                 case "/alttk": AltTekton(args); break;
                 case "/altgf": AltGombafonal(args); break;
                 case "/altgt": AltGombatest(args); break;
-                case "/altrov" AltRovar(args); break;
+                case "/altrov": AltRovar(args); break;
                 case "/help": Help(args); break;
                 case "/random": Random(args); break;
                 case "/script": Script(args); break;
@@ -85,9 +85,82 @@ public class JDBTestTool2 {
         scanner.close();
     }
 
+    private void AltGombatest(String[] args) {
+    }
+
+    private void Help(String[] args) {}
+
+    private void AltRovar(String[] args) {
+    }
+
+    private void Random(String[] args) {
+    }
+
+    private void Script(String[] args) {
+    }
+
+    private void Trig(String[] args) {
+    }
+
+    private void Load(String[] args) {
+    }
+
+    private void Save(String[] args) {
+    }
+
+    private void GrowGombatest(String[] args) {
+    }
+
+    private void AltGombafonal(String[] args) {
+    }
+
+    private void AltTekton(String[] args) {
+    }
+
     private void AddTekton(String[] args) {
     }
 
     private void AddAktor(String[] args) {
     }
+
+    private void AddSpora(String[] args) {
+    }
+
+    private void AddGombatest(String[] args) {}
+
+    private void AddGombafonal(String[] args) {}
+
+    private void AddRovar(String[] args) {}
+
+    private void ListAktor(String[] args) {}
+
+    private void MoveRovar(String[] args) {}
+
+    private void GrowFonal(String[] args) {}
+
+    private void Eats(String[] args) {}
+
+    private void CutFonal(String[] args) {}
+
+    private void SporaSzoras(String[] args) {}
+
+    private void Hasadas(String[] args) {}
+
+    private void OnTekton(String[] args) {}
+
+    private void Print(String[] args) {}
+
+    private void ListGombafonal(String[] args) {}
+
+    private void ListGombatest(String[] args) {}
+
+    private void ListRovar(String[] args) {}
+
+    private void ListTekton(String[] args) {}
+
+
+
+
+
+
 }
