@@ -1,6 +1,10 @@
 package bme;
 
 // import bme.jdb.projlab.fungorium.tesztek.*;
+import bme.teszt.JDBTestTool2;
+
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Main {
@@ -21,14 +25,13 @@ public class Main {
       System.out.println("    8 - Kilépés" + System.lineSeparator());
 
       System.out.print("testing@JDB:$ ");
-      String[] choice = scanner.nextLine().strip().split(" ");
+      int choice = scanner.nextInt();
 
       //KILEPES
-      if (choice[0].equals("8")) {
+      if (choice == 8) {
         break;
       }
 
-      /*
       switch (choice) {
         case 1 -> TektonTesztek();
         case 2 -> SporaTesztek();
@@ -46,51 +49,37 @@ public class Main {
         default -> System.out.println("Érvénytelen választás, próbáld újra!");
       }
       // JDBtesttool.jdbSummary();
-      */
     }
 
     System.out.println("Tesztelés befejezve.");
     scanner.close();
   }
-  /*
-    private static void TektonTesztek() {
-      TektonTeszt.megadottTeszt();
-      TektonTeszt.egyetlenFonalTektonTeszt();
-      TektonTeszt.termeketlenTektonTeszt();
-      TektonTeszt.felszivoTektonTeszt();
-      TektonHasadasTeszt1.TektonHasadasTeszt1();
-      TektonHasadasTeszt2.TektonHasadasTeszt2();
-    }
 
-      private static void SporaTesztek(){
-          SporatEszikTeszt.NormalSporaTeszt();
-          SporatEszikTeszt.GyorsitoSporaTeszt();
-          SporatEszikTeszt.LassitoSporaTeszt();
-          SporatEszikTeszt.BenitoSporaTeszt();
-          SporatEszikTeszt.CsorbitoSporaTeszt();
-          SporaTeszt.SporatSzorTeszt();
-          SporaTeszt.FejlettenSporatSzorTeszt();
-          SporatFelhasznalTeszt.sporatFelhasznalTeszt1();
-          SporatFelhasznalTeszt.sporatFelhasznalTeszt2();
-          SporatEszikTeszt.RovarOdaVisszaall();
-      }
+  private static void ExecuteTest(String dir) {
+    JDBTestTool2 testTool = new JDBTestTool2(new File(Path.of("fungorium", "testfiles", dir).toUri()));
+    testTool.RunTest();
+  }
 
-    private static void GombanTesztek() {
-      GombaTestHalalaTeszt.GombaTestHalalaTeszt();
-      GombaTestekHozzaadasaTeszt.GombaTestekHozzaadasaTeszt();
-    }
+  private static void TektonTesztek() {
+    ExecuteTest("Tekton_hasadas_teszt1");
+    ExecuteTest("Tekton_hasadas_teszt2");
+    ExecuteTest("Termeketlentektont_tesztel");
+  }
 
-    private static void RovarTesztek() {
-      RovarTektonValtTeszt.RoarAtlepTeszt();
-      RovarTektonValtTeszt.RovarNemTudAtlepniTeszt();
-      RovarVagTeszt.RovarVagTeszt();
-    }
+  private static void SporaTesztek(){
 
-    private static void FonalTesztek() {
-      FonalAthidalTeszt.FonalAthidal1();
-      FonalAthidalTeszt.FonalAthidal2();
-      FonalAthidalTeszt.FonalAthidal3();
-    }
-  */
+  }
+
+  private static void GombanTesztek() {
+
+  }
+
+  private static void RovarTesztek() {
+
+  }
+
+  private static void FonalTesztek() {
+
+  }
 
 }

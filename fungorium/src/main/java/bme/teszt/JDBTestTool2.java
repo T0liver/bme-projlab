@@ -4,15 +4,13 @@ import bme.Gombasz;
 import bme.Rovarasz;
 import bme.Tekton;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JDBTestTool2 {
 
-    File testFile;
+    File input, expected, out;
     boolean fromFile;
 
     ArrayList<Gombasz> gombaszok = new ArrayList<>();
@@ -22,7 +20,21 @@ public class JDBTestTool2 {
     /// TesztFile futtató teszt
     /// @param file tesztfájl
     public JDBTestTool2(File file) {
-        testFile = file;
+        input = new File(file.getAbsolutePath(), "input.txt");
+        expected = new File(file.getAbsolutePath(), "expected.txt");
+        out = new File(file.getAbsolutePath(), "output.txt");
+        try {
+            if (!out.exists()) {
+                out.createNewFile();
+            } else {
+                out.delete();
+                out.createNewFile();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Kimenet fájl készítése sikertelen! "+out.getAbsolutePath());
+        }
+
         fromFile = true;
     }
 
@@ -35,9 +47,9 @@ public class JDBTestTool2 {
         Scanner scanner;
         if (fromFile) {
             try {
-                scanner = new Scanner(new FileReader(testFile));
+                scanner = new Scanner(new FileReader(input));
             } catch (FileNotFoundException e) {
-                System.out.println("Tesztfájl megnyitása sikertelen " + testFile.getAbsolutePath());
+                System.out.println("Tesztfájl megnyitása sikertelen " + input.getAbsolutePath());
                 return;
             }
         } else {
@@ -83,6 +95,18 @@ public class JDBTestTool2 {
             }
         }
         scanner.close();
+
+        CheckOutput();
+    }
+
+    private void AppendOutput(String line){
+        try {
+            FileWriter fw = new FileWriter(out, true);
+            fw.write(line + System.lineSeparator());
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+        }
     }
 
     private void AltGombatest(String[] args) {
@@ -118,6 +142,9 @@ public class JDBTestTool2 {
     }
 
     private void AddTekton(String[] args) {
+        System.out.println(args[0]);
+        AppendOutput("Tektonnak lenni jó");
+        AppendOutput("juhé");
     }
 
     private void AddAktor(String[] args) {
@@ -159,7 +186,9 @@ public class JDBTestTool2 {
     private void ListTekton(String[] args) {}
 
 
+    private void CheckOutput() {
 
+    }
 
 
 
