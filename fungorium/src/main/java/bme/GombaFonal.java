@@ -1,8 +1,8 @@
 package bme;
 
-import java.util.ArrayList;
 import java.util.List;
-//import javafx.util.Pair; # SAJAT PAIR -> SPair
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * GombaFonal osztály definíciója.
@@ -16,14 +16,14 @@ import java.util.List;
  */
 public class GombaFonal {
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
-  private ArrayList<SPair<Tekton, Tekton>> vezet;
+  private Map<Tekton, Tekton> vezet;
 
   /**
    * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a GombaFonalat egy üres
    * listából.
    */
   public GombaFonal() {
-    vezet = new ArrayList<SPair<Tekton, Tekton>>();
+    vezet = new HashMap<>();
   }
 
   /**
@@ -33,13 +33,14 @@ public class GombaFonal {
    * @param kezdet a tekton, ahonnan a gombafonal kiindul.
    */
   public GombaFonal(Tekton kezdet) {
-    vezet = new ArrayList<SPair<Tekton, Tekton>>();
-    vezet.add(new SPair(kezdet, kezdet));
+    vezet = new HashMap<>();
+    vezet.put(kezdet, kezdet);
     kezdet.fonalak.add(this);
   }
 
   public void addVezet(Tekton honnan, Tekton hova) {
-    vezet.add(new SPair(honnan, hova));
+    vezet.put(honnan, hova);
+    vezet.put(hova, honnan);
     honnan.fonalak.add(this);
   }
 
@@ -49,7 +50,9 @@ public class GombaFonal {
    * @return azon tektonok listája, ahová vezet a gombafonal.
    */
   public boolean getVezet(Tekton honnan, Tekton hova) {
-    return vezet.containsAll(List.of(new SPair(honnan, hova), new SPair(hova, honnan)));
+    return (vezet.containsKey(honnan) && vezet.get(honnan).equals(hova)) ||
+           (vezet.containsKey(hova) && vezet.get(hova).equals(honnan));
+
   }
 
   /**
@@ -61,29 +64,19 @@ public class GombaFonal {
    *     művelet.
    */
   public boolean athidal(Tekton hova) {
-    for (SPair t : vezet) {
-      Tekton t1 = (Tekton) t.getKey();
-      List<Tekton> szomszedok = t1.getSzomszed(1);
+    for (Map.Entry<Tekton, Tekton> entry : vezet.entrySet()) {
+      Tekton t1 = entry.getKey();
+      Tekton t2 = entry.getValue();
 
-      if (szomszedok.isEmpty()) {
-        return false;
-      }
-
-      if (szomszedok.indexOf(hova) != -1) {
-        vezet.add(new SPair(t1, hova));
-        hova.fonalak.add(this);
+      List<Tekton> szomszedok1 = t1.getSzomszed(1);
+      if (szomszedok1.contains(hova)) {
+        addVezet(t1, hova);
         return true;
       }
-      Tekton t2 = (Tekton) t.getValue();
-      szomszedok = t2.getSzomszed(1);
 
-      if (szomszedok.isEmpty()) {
-        return false;
-      }
-
-      if (szomszedok.indexOf(hova) != -1) {
-        vezet.add(new SPair(t2, hova));
-        hova.fonalak.add(this);
+      List<Tekton> szomszedok2 = t2.getSzomszed(1);
+      if (szomszedok2.contains(hova)) {
+        addVezet(t2, hova);
         return true;
       }
     }
@@ -94,29 +87,29 @@ public class GombaFonal {
    * A gombafonalat elvágták az adott tektonon, ekkor kiveszi az elért tektonjai közül az adott
    * tektont.
    *
-   * @param ?? az a tekton, ahol elvágták a gombafonalat
+   * @param hol az a tekton, ahol elvágták a gombafonalat
    */
   public void elvagodik(Tekton honnan, Tekton hova) {
-    vezet.removeIf(
-        par ->
-            (par.getKey().equals(honnan) && par.getValue().equals(hova))
-                || (par.getKey().equals(hova) && par.getValue().equals(honnan)));
+    vezet.entrySet().removeIf(entry -> (entry.getKey().equals(honnan) && entry.getValue().equals(hova)) || (entry.getKey().equals(hova) && entry.getValue().equals(honnan)));
 
-    if (vezet.stream()
-        .noneMatch(par -> par.getKey().equals(honnan) || par.getValue().equals(honnan)))
+    if (vezet.entrySet().stream().noneMatch(entry ->
+        entry.getKey().equals(honnan) || entry.getValue().equals(honnan))) {
       honnan.fonalak.remove(this);
-    if (vezet.stream().noneMatch(par -> par.getKey().equals(hova) || par.getValue().equals(hova)))
+    }
+
+    if (vezet.entrySet().stream().noneMatch(entry ->
+        entry.getKey().equals(hova) || entry.getValue().equals(hova))) {
       hova.fonalak.remove(this);
+    }
   }
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
   public void elpusztul() {
-    for (SPair t : vezet) {
-      Tekton t1 = (Tekton) t.getKey();
-      t1.fonalak.remove(this);
-      Tekton t2 = (Tekton) t.getKey();
-      t2.fonalak.remove(this);
+    for (Map.Entry<Tekton, Tekton> entry : vezet.entrySet()) {
+      entry.getKey().fonalak.remove(this);
+      entry.getValue().fonalak.remove(this);
     }
+    vezet.clear();
   }
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
