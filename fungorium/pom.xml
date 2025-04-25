@@ -13,13 +13,4 @@
         <maven.compiler.target>20</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>21</version>
-        </dependency>
-    </dependencies>
-
 </project>
