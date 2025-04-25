@@ -9,6 +9,14 @@ public class Gombasz extends Jatekos {
   private List<GombaFonal> gombaFonalak = new ArrayList<GombaFonal>();
   private List<Spora> sporak = new ArrayList<Spora>();
 
+  /**
+   * @param nev Konstruktorában megadható a név paraméter
+   *            A leszármazottakban fognak kezelődni
+   */
+  public Gombasz(String nev) {
+    super(nev);
+  }
+
   @Override
   public void lep() {
     List<Boolean> testCselekedett = new ArrayList<Boolean>();

@@ -9,6 +9,25 @@ package bme;
 public abstract class Jatekos {
 
   private int pontok = 0; // -ról indul a játék
+  private String nev; // a játékos neve
+
+  /**
+   *
+   * @param nev
+   * Konstruktorában megadható a név paraméter
+   * A leszármazottakban fognak kezelődni
+   */
+  public Jatekos(String nev) {
+    this.nev = nev;
+  }
+
+  /**
+   * Publikus getter függvény a Játékos nevének lekérdezésére.
+   * @return a játékos neve
+   */
+  public String getNev() {
+    return nev;
+  }
 
   /**
    * Publikus getter függvény a Játékos pontszámának lekérdezésére.

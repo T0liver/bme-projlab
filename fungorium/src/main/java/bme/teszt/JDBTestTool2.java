@@ -121,6 +121,20 @@ public class JDBTestTool2 {
     }
 
     private void AddAktor(String[] args) {
+        if (args.length < 3) {
+            System.out.println("Használat: /adda <g|r> <id>");
+            return;
+        }
+
+        if (args[1].equals("g")) {
+            gombaszok.add(new Gombasz(args[2]));
+            System.out.println("Gombász hozzáadva: " + args[2]);
+        } else if (args[1].equals("r")) {
+            rovaraszok.add(new Rovarasz(args[2]));
+            System.out.println("Rovarász hozzáadva: " + args[2]);
+        } else {
+            System.out.println("Ismeretlen típus: " + args[1]);
+        }
     }
 
     private void AddSpora(String[] args) {
