@@ -1,0 +1,4 @@
+/adda -i 1 –n “Gombász” -f g
+/addtk 1 –f N
+/addgt 2 –tart 1 –a 1
+/addgt 3 –tart 1 –a 1

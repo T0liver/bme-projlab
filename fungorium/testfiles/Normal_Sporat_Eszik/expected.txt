@@ -1,0 +1,8 @@
+new Rovarász(1)
+new Spóra(1)
+new Tekton(1)
+new Rovar(1)
+
+EVENT Spóra evés
+Spóra (1) darabszám 5 --> 3
+Rovarász (1) pontok: 0 --> 10

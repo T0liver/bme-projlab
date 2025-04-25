@@ -1,0 +1,14 @@
+new Rovarász (1) 
+new GyorsítóSpóra (2) 
+new LassítóSpóra (3) 
+new Tekton (4) 
+new Rovar (5) 
+
+EVENT Rovar eszik 
+remove GyorsítóSpóra (2) 
+Rovar (5) sebesség: 1 --> 2 
+Rovarász (1) pontok: 0 --> 5 
+EVENT Rovar eszik 
+remove LassítóSpóra (3) 
+Rovar (5) sebesség: 2 --> 1 
+Rovarász (1) pontok: 5 --> 10 

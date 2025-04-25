@@ -1,0 +1,5 @@
+new Gombász (1) 
+new Spóra (3) 
+new TerméketlenTekton (2) 
+
+INSTRUCTION FAIL “growg 4 –a 1 –tk 2” (Terméketlen a tekton) 
