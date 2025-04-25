@@ -1,0 +1,6 @@
+/adda -i 1 –n “Rovarasz” -f r
+/addtk 2
+/addtk 3 –nei 2
+/addgf 4 –vez 2;3
+/addrov 5 –tk 2 –a 1
+movr 5 –tk 3
