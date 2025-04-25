@@ -22,7 +22,6 @@ public class Main {
 
       System.out.print("testing@JDB:$ ");
       String[] choice = scanner.nextLine().strip().split(" ");
-      scanner.nextLine();
 
       //KILEPES
       if (choice[0].equals("8")) {
