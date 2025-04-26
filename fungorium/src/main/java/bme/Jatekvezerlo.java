@@ -5,11 +5,12 @@ import java.util.List;
 import javax.naming.directory.InvalidAttributeValueException;
 
 public class Jatekvezerlo {
-  static int jelenlegiKor = 0;
-  static List<Tekton> tektonok = new ArrayList<Tekton>();
-  static List<Jatekos> jatekosok = new ArrayList<Jatekos>();
-  static int jelenlegiJatekos = 0;
-  static int jatekHossz = 50;
+  public static int jelenlegiKor = 0;
+  public static List<Tekton> tektonok = new ArrayList<Tekton>();
+  public static List<Jatekos> jatekosok = new ArrayList<Jatekos>();
+  public static int jelenlegiJatekos = 0;
+  public static int jatekHossz = 50;
+
 
   public static void tektontHasit() {
     // TODO random tekton hasad, vagy jelenlegikör % tektonok.size() indexű hasad

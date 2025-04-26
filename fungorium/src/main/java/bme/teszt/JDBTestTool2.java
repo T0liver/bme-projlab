@@ -5,7 +5,7 @@ import bme.*;
 import java.io.*;
 import java.util.*;
 
-public class JDBTestTool2 {
+public class JDBTestTool2 implements Serializable{
 
     File input, expected, out;
     boolean fromFile;
@@ -116,24 +116,23 @@ public class JDBTestTool2 {
     }
 
     private void Help(String[] args) {
-        System.out.println("/adda: aktor hozzaadasa \n");
-        System.out.println("/addtk: tekton hozzaadasa \n");
-        System.out.println("/addsp: spora hozzaadasa \n");
-        System.out.println("/addgt: gombatest hozzaadasa \n");
-        System.out.println("/addgf: gombafonal hozzaadasa \n");
-        System.out.println("/addrov: rovara hozzaadasa \n");
-        System.out.println("/alttk: tekton adatainak modositasa \n");
-        System.out.println("/altgf: gombafonal adatainak modositasa \n");
-        System.out.println("/altgt: gombatest adatainak modositasa \n");
-        System.out.println("/altrov: rovara adatainak modositasa \n");
-        System.out.println("/random: random ertekek engedelyezese/letiltasa \n");
-        System.out.println("/script: script futtatasa \n");
-        System.out.println("/lsa: Aktorok listazasa \n");
-        System.out.println("/lsr: Rovarok listazasa \n");
-        System.out.println("/lsf: Gombafonalak listazasa \n");
-        System.out.println("/lsg: Gombatestek listazasa \n");
-        System.out.println("/lst: Tektonok listazasa \n");
-
+            System.out.println("/adda: aktor hozzaadasa \n");
+            System.out.println("/addtk: tekton hozzaadasa \n");
+            System.out.println("/addsp: spora hozzaadasa \n");
+            System.out.println("/addgt: gombatest hozzaadasa \n");
+            System.out.println("/addgf: gombafonal hozzaadasa \n");
+            System.out.println("/addrov: rovara hozzaadasa \n");
+            System.out.println("/alttk: tekton adatainak modositasa \n");
+            System.out.println("/altgf: gombafonal adatainak modositasa \n");
+            System.out.println("/altgt: gombatest adatainak modositasa \n");
+            System.out.println("/altrov: rovara adatainak modositasa \n");
+            System.out.println("/random: random ertekek engedelyezese/letiltasa \n");
+            System.out.println("/script: script futtatasa \n");
+            System.out.println("/lsa: Aktorok listazasa \n");
+            System.out.println("/lsr: Rovarok listazasa \n");
+            System.out.println("/lsf: Gombafonalak listazasa \n");
+            System.out.println("/lsg: Gombatestek listazasa \n");
+            System.out.println("/lst: Tektonok listazasa \n");
     }
 
     private void AltRovar(String[] args) {
@@ -146,15 +145,79 @@ public class JDBTestTool2 {
     }
 
     private void Trig(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nincs megadva parancs.");
+            return;
+        }
+
+        switch (args[1]) {
+            case "-nr":
+                Jatekvezerlo.korVege();
+                System.out.println("EVENT tick");
+                break;
+            //TODO: EZ MIRE KELL?
+            case "-np":
+                Jatekvezerlo.jelenlegiJatekos = (Jatekvezerlo.jelenlegiJatekos + 1) % Jatekvezerlo.jatekosok.size();
+                System.out.println("Következő játékos: " + Jatekvezerlo.jatekosok.get(Jatekvezerlo.jelenlegiJatekos).getId());
+                break;
+
+            default:
+                System.out.println("Ismeretlen parancs: " + args[1]);
+                break;
+        }
     }
+
 
     private void Load(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nem adtál meg mentési fájlt.");
+            return;
+        }
+
+        String filePath = args[1];
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            // Feltételezve, hogy a Jatekvezerlo osztály statikus változóit tölti vissza
+            Jatekvezerlo.jelenlegiKor = ois.readInt();
+            Jatekvezerlo.jelenlegiJatekos = ois.readInt();
+            Jatekvezerlo.jatekHossz = ois.readInt();
+            Jatekvezerlo.tektonok = (List<Tekton>) ois.readObject();
+            Jatekvezerlo.jatekosok = (List<Jatekos>) ois.readObject();
+
+            System.out.println("Játék betöltve sikeresen: " + filePath);
+        } catch (Exception e) {
+            System.out.println("Hiba a játék betöltésekor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     private void Save(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nem adtál meg mentési fájlt.");
+            return;
+        }
+
+        String filePath = args[1];
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            // Játék állapotának mentése
+            oos.writeInt(Jatekvezerlo.jelenlegiKor);
+            oos.writeInt(Jatekvezerlo.jelenlegiJatekos);
+            oos.writeInt(Jatekvezerlo.jatekHossz);
+            oos.writeObject(Jatekvezerlo.tektonok);
+            oos.writeObject(Jatekvezerlo.jatekosok);
+
+            System.out.println("Játék elmentve sikeresen: " + filePath);
+        } catch (Exception e) {
+            System.out.println("Hiba a játék mentésekor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+
     private void GrowGombatest(String[] args) {
+
+
+
     }
 
     private void AltGombafonal(String[] args) {
@@ -385,15 +448,87 @@ public class JDBTestTool2 {
 
     private void ListAktor(String[] args) {}
 
-    private void MoveRovar(String[] args) {}
+    private void MoveRovar(String[] args) {
+
+        Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
+        int oldValue = rovar.getSebesseg();
+        int tektonID = 0;
+
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].equals("-tk")){
+                tektonID = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        rovar.mozog(tektonok.get(tektonID));
+        AppendOutput("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
+    }
 
     private void GrowFonal(String[] args) {}
 
-    private void Eats(String[] args) {}
+    private void Eats(String[] args) {
+
+        Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
+        Spora spora = rovar.getTartozkodik().getBestSpora();
+        Rovarasz rovarasz = rovar.getRovarasz();
+        int db = 0;
+        int sporaID = 0;
+        int oldValue = spora.getDarabszam();
+        int oldPont = rovarasz.getPontok();
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-sp")) {
+                spora = sporak.get(Integer.parseInt(args[i + 1]));
+                sporaID = Integer.parseInt(args[i + 1]);
+            }
+            if (args[i].equals("-db")) {
+                db = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        rovar.eszik(spora);
+        AppendOutput("EVENT Spóra evés\nSpóra (" + sporaID +") darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
+    }
 
     private void CutFonal(String[] args) {}
 
-    private void SporaSzoras(String[] args) {}
+    //Elegge gatya sok mindent kell meg benne csinalni
+    private void SporaSzoras(String[] args) {
+
+        GombaTest gombatest = null;
+        Tekton tekton = null;
+        Spora spora = null;
+        int TektonID = 0;
+        int GombatestID = 0;
+        int GTOldValue = 0;
+
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-if")) {
+                gombatest = gombaTestek.get(Integer.parseInt(args[i + 1]));
+                GombatestID = Integer.parseInt(args[i + 1]);
+                GTOldValue = gombatest.getElettartam();
+            }
+            if (args[i].equals("-tk")) {
+                tekton = tektonok.get(Integer.parseInt(args[i + 1]));
+                TektonID = Integer.parseInt(args[i + 1]);
+            }
+            if (args[i].equals("-type")){
+                switch (args[i + 1]) {
+                        case "gyrs": break;
+                        case "ls": break;
+                        case "bnt": break;
+                        case "csrb": break;
+                        case "oszt": break;
+                        default: break;
+                }
+            }
+        }
+
+        gombatest.sporatSzor(tekton);
+        AppendOutput("EVENT Spórázás\nnew Spóra ()\nSpóra (1) aktor: null --> Gombász (1)\nSpóra (1) tápanyagtartalom: 0 -> 5\n" +
+                "Spóra (1) darabszám: 0 -> 3\nTekton ("+ TektonID +") spórák: [ ] --> [Spóra (1)]\nGombatest (" + GombatestID + ") élettartam: "+ GTOldValue +" --> " + gombatest.getElettartam());
+    }
 
     private void Hasadas(String[] args) {}
 
@@ -403,11 +538,58 @@ public class JDBTestTool2 {
 
     private void ListGombafonal(String[] args) {}
 
-    private void ListGombatest(String[] args) {}
+    private void ListGombatest(String[] args) {
 
-    private void ListRovar(String[] args) {}
+        System.out.println("GombaTestek listaja:");
+        for (Map.Entry<Integer, GombaTest> entry : gombaTestek.entrySet()) {
+            Integer id = entry.getKey();
+            GombaTest gomba = entry.getValue();
 
-    private void ListTekton(String[] args) {}
+            System.out.println("ID: " + id);
+            System.out.println("Gombasz: " + gomba.getGombasz().getId());
+            System.out.println("Fejlett: " + (gomba.getFejlett() ? "Igen" : "Nem"));
+            System.out.println("Fejlettsegi szint: " + gomba.getFejlettseg());
+            System.out.println("Sporak szamat: " + gomba.getSporaDarab());
+            System.out.println("Tartozkodas: " + gomba.getTartozkodik().getId());
+            System.out.println("Elettartam: " + gomba.getElettartam());
+            System.out.println("------------------------");
+        }
+
+    }
+
+    private void ListRovar(String[] args) {
+        System.out.println("Rovarok listaja:");
+        for (Map.Entry<Integer, Rovar> entry : rovarok.entrySet()) {
+            Integer id = entry.getKey();
+            Rovar rovar = entry.getValue();
+
+            System.out.println("ID: " + id);
+            System.out.println("Sebesseg: " + rovar.getSebesseg());
+            System.out.println("Vaghat: " + (rovar.getVaghat() ? "Igen" : "Nem"));
+            System.out.println("Ujravaghat: " + rovar.getUjravaghat());
+            System.out.println("Tartozkodik: " + rovar.getTartozkodik().getId());
+            System.out.println("Rovarasz: " + rovar.getRovarasz().getId());
+            System.out.println("------------------------");
+        }
+
+    }
+
+    private void ListTekton(String[] args) {
+
+        System.out.println("Tektonok listaja:");
+        for (Map.Entry<Integer, Tekton> entry : tektonok.entrySet()) {
+            Integer id = entry.getKey();
+            Tekton tekton = entry.getValue();
+
+            System.out.println("ID: " + id);
+            System.out.println("Foglalt: " + (tekton.getFoglalt() ? "Igen" : "Nem"));
+            System.out.println("Szomszedok: ");
+            for (Tekton szomszed : tekton.getSzomszed(1)) {
+                System.out.println(szomszed.getId() + ",");
+            }
+            System.out.println("------------------------");
+        }
+    }
 
 
     private void CheckOutput() {
