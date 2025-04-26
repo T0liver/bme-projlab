@@ -241,15 +241,20 @@ public class JDBTestTool2 implements Serializable{
             }
         }
 
+        int cnt = 0;
+        for (int i = 0; i < hely.getSporak().size(); i++) {
+            cnt += hely.getSporak().get(i).getDarabszam();
+        }
+
         // Ellenőrzés, hogy elegendő spóra van-e a tektonton
-        if (hely.getSporak().size() < 5) {
-            AppendOutput("INSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs elég spóra)");
+        if (cnt < 5) {
+            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs elég spóra)");
             return;
         }
 
         // Kiválasztjuk a megfelelő spórát
         for (int i = 0; i < hely.getSporak().size(); i++) {
-            if (hely.getSporak().get(i).getId() == aktorID) {
+            if (hely.getSporak().get(i).getGombasz().getId() == aktorID) {
                 spora = hely.getSporak().get(i);
                 break;
             }
@@ -257,9 +262,15 @@ public class JDBTestTool2 implements Serializable{
 
         // Ha nem találunk spórát, hibaüzenetet adunk
         if (spora == null) {
-            AppendOutput("INSTRUCTION FAIL " + Arrays.toString(args) + " (Nem található megfelelő spóra)");
+            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nem található megfelelő spóra)");
             return;
         }
+
+        if (hely instanceof TermeketlenTekton) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Termeketlen a tekton)");
+            return;
+        }
+
 
         try {
             GombaTest gombatest = new GombaTest(gombasz, 10, hely);
@@ -361,8 +372,9 @@ public class JDBTestTool2 implements Serializable{
 
 
     private void AddSpora(String[] args) {
-        Spora spora = null;
         Gombasz gombasz = null;
+        Spora spora = null;
+        boolean normal = true;
         int db = 5;
         int tp = 5;
 
@@ -372,6 +384,7 @@ public class JDBTestTool2 implements Serializable{
             }
 
             if (args[i].equals("-t")) {
+                normal = false;
                 switch (args[i + 1]) {
                     case "gyrs":
                         spora = new GyorsitoSpora(tp, db, gombasz);
@@ -393,26 +406,31 @@ public class JDBTestTool2 implements Serializable{
                         spora = new OsztoSpora(tp, db, gombasz);
                         AppendOutput("new OsztódóSpóra(" + args[1] + ")");
                         break;
-                    default:
-                        spora = new Spora(tp, db, gombasz);
-                        AppendOutput("new Spóra(" + args[1] + ")");
-                        break;
                 }
-
+                spora.setId(Integer.parseInt(args[1]));
             }
 
             if (args[i].equals("-db")) {
-                assert spora != null;
-                spora.setDarabszam(Integer.parseInt(args[i + 1]));
+                db = Integer.parseInt(args[i + 1]);
             }
 
             if (args[i].equals("-tp")) {
-                spora.setTapanyag(Integer.parseInt(args[i + 1]));
+                tp = Integer.parseInt(args[i + 1]);
             }
 
         }
 
-        sporak.put(Integer.parseInt(args[1]), spora);
+        if (normal) {
+            spora = new Spora(tp, db, gombasz);
+            spora.setId(Integer.parseInt(args[1]));
+            AppendOutput("new " + Name(spora));
+        }
+
+        spora.setDarabszam(db);
+        spora.setTapanyag(tp);
+
+
+        sporak.put(spora.getId(), spora);
 
     }
 
@@ -684,7 +702,7 @@ public class JDBTestTool2 implements Serializable{
         tekton.hasad();
         AppendOutput("\nEVENT Tekton hasad");
 
-        AppendOutput("remove Tekton " + Name(tekton));
+        AppendOutput("remove " + Name(tekton));
 
         AddTekton(new String[] {"/addtk", "2"});
         AddTekton(new String[] {"/addtk", "3", "-nei", "2"});
