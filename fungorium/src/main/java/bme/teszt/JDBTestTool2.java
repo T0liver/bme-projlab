@@ -165,10 +165,11 @@ public class JDBTestTool2 {
 
     private void AddTekton(String[] args) {
         Tekton tekton = new Tekton();
+        System.out.println(Arrays.toString(args));
         if (args.length > 2) {
 
-            for (int i = 0; i < args.length; i++) {
-                if (args[i].equals("-t")) {
+            for (int i = 1; i < args.length; i++) {
+                if (args[i].equals("–t")) {
                     switch (args[++i]) {
                         case "egy":
                             tekton = new EgyetlenFonalTekton();
@@ -182,32 +183,34 @@ public class JDBTestTool2 {
                         //case "el": tekton = new
                         // NINCS ELETBENTARTO TEKTON
                     }
-                    AppendOutput("new " + tekton.getClass() + " (" + args[1] + ")");
+                    tekton.setId(Integer.parseInt(args[1]));
+                    AppendOutput("new " + ClassName(tekton) + " (" + args[1] + ")");
                 }
 
-                if (args[i].equals("-f")) {
-                    tekton.setFoglalt(args[++i].equals("Y"));
+                if (args[i].equals("–f")) {
+                    tekton.setFoglalt(args[i + 1].equals("Y"));
                 }
-                if (args[i].equals("-nei")) {
-                    tekton.addSzomszed(tektonok.get(Integer.parseInt(args[++i])));
+                if (args[i].equals("–nei")) {
+                    Tekton szomszed = tektonok.get(Integer.parseInt(args[i + 1]));
+                    tekton.addSzomszed(szomszed);
 
-                    List<Tekton> szomszedRegiSzomszedai = tektonok.get(Integer.parseInt(args[i])).getSzomszed(1);
+                    List<Tekton> szomszedRegiSzomszedai = szomszed.getSzomszed(1);
 
-                    List<Tekton> szomszedUjSzomszedai = szomszedRegiSzomszedai;
+                    List<Tekton> szomszedUjSzomszedai = new ArrayList<>(szomszedRegiSzomszedai);
                     szomszedUjSzomszedai.add(tekton);
 
-                    AppendOutput(tekton.getSzomszed(1).get(0).getClass()+ "("+404+") szomszédok: "
-                            + Arrays.toString(szomszedRegiSzomszedai.toArray())
-                            +" --> "+ Arrays.toString(szomszedUjSzomszedai.toArray()));
-
+                    AppendOutput(ClassName(szomszed)+ "("+szomszed.getId()+") szomszédok: "
+                            + ListToString(szomszedRegiSzomszedai)
+                            +" --> "+ ListToString(szomszedUjSzomszedai));
                 }
-                if (args[i].equals("-sp")) {
-                    tekton.getSporak().add(sporak.get(Integer.parseInt(args[++i])));
+                if (args[i].equals("–sp")) {
+                    tekton.getSporak().add(sporak.get(Integer.parseInt(args[i + 1])));
                 }
                 //-fn nincs használva
             }
         } else {
-            AppendOutput("new " + tekton.getClass() + " (" + args[1] + ")");
+            tekton.setId(Integer.parseInt(args[1]));
+            AppendOutput("new " + ClassName(tekton) + " (" + args[1] + ")");
         }
         tektonok.put(Integer.parseInt(args[1]), tekton);
     }
@@ -411,6 +414,25 @@ public class JDBTestTool2 {
 
     }
 
+    private String ClassName(Object o) {
+        String className = o.getClass().getName();
+        className = className.replace("class", "");
+        className = className.replace("bme.", "");
+        return className;
+    }
 
+    private<T extends Jatekelem> String ListToString(List<T> list) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        for (T o : list) {
+            sb.append(ClassName(o))
+                    .append("(").append(o.getId()).append(") ")
+                    .append(", ");
+        }
+        sb.append(" ]");
+
+        return sb.toString();
+    }
 
 }

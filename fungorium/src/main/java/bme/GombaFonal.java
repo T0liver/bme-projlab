@@ -14,7 +14,16 @@ import java.util.Map;
  *
  * @author Oliver
  */
-public class GombaFonal {
+public class GombaFonal implements Jatekelem{
+
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
   private Map<Tekton, Tekton> vezet;
 

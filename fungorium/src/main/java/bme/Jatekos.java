@@ -6,7 +6,7 @@ package bme;
  * <p>A kétféle játékos (Gombász és Rovarász) ősosztálya, tárolja a játékos pontszámát és deklarálja
  * a lépésért felelős függvényt
  */
-public abstract class Jatekos {
+public abstract class Jatekos implements Jatekelem{
 
   private int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve

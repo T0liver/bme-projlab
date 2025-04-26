@@ -11,7 +11,16 @@ package bme;
  *
  * @author Oliver
  */
-public class Spora {
+public class Spora implements Jatekelem{
+
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+
   /** A spóra darabszáma. */
   private int darabszam;
 

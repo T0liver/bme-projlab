@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Vid
  */
-public class Tekton {
+public class Tekton implements Jatekelem{
 
   private int id;
   public int getId() {
