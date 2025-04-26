@@ -567,7 +567,18 @@ public class JDBTestTool2 implements Serializable{
                 "Spóra (1) darabszám: 0 -> 3\nTekton ("+ TektonID +") spórák: [ ] --> [Spóra (1)]\nGombatest (" + GombatestID + ") élettartam: "+ GTOldValue +" --> " + gombatest.getElettartam());
     }
 
-    private void Hasadas(String[] args) {}
+    private void Hasadas(String[] args) {
+
+        Tekton tekton = tektonok.get(Integer.parseInt(args[1]));
+        tekton.hasad();
+        AppendOutput("EVENT Tekton hasad\n");
+
+        AppendOutput("Remove Tekton " + Name(tekton));
+
+        AddTekton(new String[] {"2"});
+        AddTekton(new String[] {"3", "-nei", "3"});
+
+    }
 
     private void OnTekton(String[] args) {}
 
