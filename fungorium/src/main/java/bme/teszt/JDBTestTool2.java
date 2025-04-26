@@ -247,7 +247,7 @@ public class JDBTestTool2 implements Serializable{
                         // NINCS ELETBENTARTO TEKTON
                     }
                     tekton.setId(Integer.parseInt(args[1]));
-                    AppendOutput("new " + ClassName(tekton) + " (" + args[1] + ")");
+                    AppendOutput("new " + Name(tekton));
                 }
 
                 if (args[i].equals("–f")) {
@@ -262,7 +262,7 @@ public class JDBTestTool2 implements Serializable{
                     List<Tekton> szomszedUjSzomszedai = new ArrayList<>(szomszedRegiSzomszedai);
                     szomszedUjSzomszedai.add(tekton);
 
-                    AppendOutput(ClassName(szomszed)+ "("+szomszed.getId()+") szomszédok: "
+                    AppendOutput(Name(szomszed)+" szomszédok: "
                             + ListToString(szomszedRegiSzomszedai)
                             +" --> "+ ListToString(szomszedUjSzomszedai));
                 }
@@ -273,9 +273,9 @@ public class JDBTestTool2 implements Serializable{
             }
         } else {
             tekton.setId(Integer.parseInt(args[1]));
-            AppendOutput("new " + ClassName(tekton) + " (" + args[1] + ")");
+            AppendOutput("new " + Name(tekton));
         }
-        tektonok.put(Integer.parseInt(args[1]), tekton);
+        tektonok.put(tekton.getId(), tekton);
     }
 
     private void AddAktor(String[] args) {
@@ -596,10 +596,12 @@ public class JDBTestTool2 implements Serializable{
 
     }
 
-    private String ClassName(Object o) {
+    private String Name(Jatekelem o) {
         String className = o.getClass().getName();
         className = className.replace("class", "");
         className = className.replace("bme.", "");
+
+        className = className + " ("+o.getId()+")";
         return className;
     }
 
@@ -608,11 +610,14 @@ public class JDBTestTool2 implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
         for (T o : list) {
-            sb.append(ClassName(o))
-                    .append("(").append(o.getId()).append(") ")
+            sb.append(Name(o))
                     .append(", ");
         }
-        sb.append(" ]");
+        if (!list.isEmpty()) {
+            sb.replace(sb.length()-2, sb.length()-1, " ]");
+        } else
+            sb.append("]");
+
 
         return sb.toString();
     }
