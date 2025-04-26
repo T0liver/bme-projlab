@@ -213,11 +213,63 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-
+//TODO: A kimenetében segítsetek
     private void GrowGombatest(String[] args) {
 
 
+        Gombasz gombasz = null;
+        Tekton hely = null;
+        int aktorID = -1;
+        Spora spora = null;
 
+        // Beolvassuk az ID-t (első argumentum: Gombatest ID)
+        int ID = Integer.parseInt(args[1]);
+
+        // Bemeneti argumentumok feldolgozása
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "-a":
+                    // AktorID beállítása
+                    aktorID = Integer.parseInt(args[i + 1]);
+                    gombasz = gombaszok.get(aktorID);
+                    break;
+                case "-tk":
+                    // Tekton ID beállítása
+                    Integer tektonId = Integer.parseInt(args[i + 1]);
+                    hely = tektonok.get(tektonId);
+                    break;
+            }
+        }
+
+        // Ellenőrzés, hogy elegendő spóra van-e a tektonton
+        if (hely.getSporak().size() < 5) {
+            AppendOutput("INSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs elég spóra)");
+            return;
+        }
+
+        // Kiválasztjuk a megfelelő spórát
+        for (int i = 0; i < hely.getSporak().size(); i++) {
+            if (hely.getSporak().get(i).getId() == aktorID) {
+                spora = hely.getSporak().get(i);
+                break;
+            }
+        }
+
+        // Ha nem találunk spórát, hibaüzenetet adunk
+        if (spora == null) {
+            AppendOutput("INSTRUCTION FAIL " + Arrays.toString(args) + " (Nem található megfelelő spóra)");
+            return;
+        }
+
+        try {
+            GombaTest gombatest = new GombaTest(gombasz, 10, hely);
+            gombaTestek.put(ID, gombatest);
+            hely.sporatFelhasznal(spora);
+        } catch (Exception e){
+            AppendOutput("INSTRUCTION FAIL "+ Arrays.toString(args) +" ("+e.getMessage()+")");
+        }
+
+        AppendOutput("EVENT Gombatest növesztés\n" + "remove Spóra("  );
     }
 
     private void AltGombafonal(String[] args) {
