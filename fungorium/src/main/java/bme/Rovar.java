@@ -153,7 +153,9 @@ public class Rovar implements Jatekelem{
 
   public int eszik(Spora spora) {
     spora.hatas(this);
-    return spora.csokken(5);
+    int db = spora.csokken(5);
+    this.rovarasz.addPontok(db);
+    return db;
   }
 
   /**
