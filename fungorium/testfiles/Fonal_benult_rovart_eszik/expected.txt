@@ -1,7 +1,8 @@
 new Gombász (1) 
 new Rovarász (2) 
 new Tekton (3) 
-new Tekton (4) 
+new Tekton (4)
+Tekton (3) szomszédok: [ ] --> [ Tekton (4) ]
 new Rovar (5) 
 new GombaFonal (6) 
 Tekton (3) vezet: [ ] --> [GombaFonal (6)] 

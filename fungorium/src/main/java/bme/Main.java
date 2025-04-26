@@ -79,7 +79,7 @@ public class Main {
   }
 
   private static void FonalTesztek() {
-
+    ExecuteTest("Fonal_benult_rovart_eszik");
   }
 
 }

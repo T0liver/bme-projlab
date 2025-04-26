@@ -238,7 +238,7 @@ public class JDBTestTool2 implements Serializable{
             }
 
             for (int i = 1; i < args.length; i++) {
-                if (args[i].equals("–t")) {
+                if (args[i].equals("-t")) {
                     switch (args[++i]) {
                         case "egy":
                             tekton = new EgyetlenFonalTekton();
@@ -256,10 +256,10 @@ public class JDBTestTool2 implements Serializable{
                     AppendOutput("new " + Name(tekton));
                 }
 
-                if (args[i].equals("–f")) {
+                if (args[i].equals("-f")) {
                     tekton.setFoglalt(args[i + 1].equals("Y"));
                 }
-                if (args[i].equals("–nei")) {
+                if (args[i].equals("-nei")) {
                     Tekton szomszed = tektonok.get(Integer.parseInt(args[i + 1]));
                     tekton.addSzomszed(szomszed);
 
@@ -272,7 +272,7 @@ public class JDBTestTool2 implements Serializable{
                             + ListToString(szomszedRegiSzomszedai)
                             +" --> "+ ListToString(szomszedUjSzomszedai));
                 }
-                if (args[i].equals("–sp")) {
+                if (args[i].equals("-sp")) {
                     tekton.getSporak().add(sporak.get(Integer.parseInt(args[i + 1])));
                 }
                 //-fn nincs használva
@@ -293,12 +293,16 @@ public class JDBTestTool2 implements Serializable{
         }
 
         if (args[6].equals("g")) {
-            gombaszok.put(Integer.parseInt(args[2]), new Gombasz(args[4]));
-            AppendOutput("new Gombász (" + args[2] + ")");
+            Gombasz g = new Gombasz(args[4]);
+            g.setId(Integer.parseInt(args[2]));
+            gombaszok.put(g.getId(), g);
+            AppendOutput("new "+Name(g));
 
         } else if (args[6].equals("r")) {
-            rovaraszok.put( Integer.parseInt(args[2]),new Rovarasz(args[4]));
-            AppendOutput("new Rovarász (" + args[2] + ")");
+            Rovarasz r = new Rovarasz(args[4]);
+            r.setId(Integer.parseInt(args[2]));
+            rovaraszok.put(r.getId(), r);
+            AppendOutput("new "+Name(r));
         } else {
             System.out.println("Ismeretlen típus: " + args[6]);
         }
@@ -410,7 +414,32 @@ public class JDBTestTool2 implements Serializable{
 
     private void AddGombafonal(String[] args) {
 
+        GombaFonal gf = new GombaFonal();
+        gf.setId(Integer.parseInt(args[1]));
+        AppendOutput("new "+Name(gf));
 
+        int aktorID = Integer.parseInt(args[3]);
+        gombaszok.get(aktorID).getGombaFonalak().add(gf);
+
+        for (int i = 5; i < args.length; i++) {
+            String[] tektonokIds = args[i].split(";");
+            int tId1 = Integer.parseInt(tektonokIds[0]);
+            int tId2 = Integer.parseInt(tektonokIds[1]);
+
+            Tekton t1 = tektonok.get(tId1);
+            List<GombaFonal> ujvezet = t1.getFonalak();
+            List<GombaFonal> vezet = new ArrayList<>(ujvezet);
+            ujvezet.add(gf);
+            AppendOutput(Name(t1)+" vezet: "+ListToString(ujvezet)+" --> "+ListToString(vezet));
+
+            Tekton t2 = tektonok.get(tId2);
+            ujvezet = t2.getFonalak();
+            vezet = new ArrayList<>(ujvezet);
+            ujvezet.add(gf);
+            AppendOutput(Name(t2)+" vezet: "+ListToString(ujvezet)+" --> "+ListToString(vezet));
+
+            gf.addVezet(t1, t2);
+        }
     }
 
     private void AddRovar(String[] args) {
