@@ -485,7 +485,34 @@ public class JDBTestTool2 implements Serializable{
 
     }
 
-    private void ListAktor(String[] args) {}
+    private void ListAktor(String[] args) {
+
+        System.out.println("Gombaszok listaja:");
+        for (Map.Entry<Integer, Gombasz> entry : gombaszok.entrySet()) {
+            Integer id = entry.getKey();
+            Gombasz gombasz = entry.getValue();
+
+            System.out.println("ID: " + id);
+            System.out.println("Gombatestek: ");
+            for (GombaTest gombatest : gombaTestek.values()) {
+                System.out.println("Gombatest: " + gombatest.getId());
+            }
+
+            System.out.println("GombaFonalak: ");
+            for (GombaFonal gombaFonal : gombaFonalak.values()) {
+                System.out.println("GombaFonal: " + gombaFonal.getId());
+            }
+
+            System.out.println("Sporak: " );
+            for (Spora spora : sporak.values()) {
+                System.out.println("Spora: " + spora.getId());
+            }
+
+            System.out.println("------------------------");
+        }
+
+
+    }
 
     private void MoveRovar(String[] args) {
 
@@ -569,7 +596,18 @@ public class JDBTestTool2 implements Serializable{
                 "Spóra (1) darabszám: 0 -> 3\nTekton ("+ TektonID +") spórák: [ ] --> [Spóra (1)]\nGombatest (" + GombatestID + ") élettartam: "+ GTOldValue +" --> " + gombatest.getElettartam());
     }
 
-    private void Hasadas(String[] args) {}
+    private void Hasadas(String[] args) {
+
+        Tekton tekton = tektonok.get(Integer.parseInt(args[1]));
+        tekton.hasad();
+        AppendOutput("EVENT Tekton hasad\n");
+
+        AppendOutput("Remove Tekton " + Name(tekton));
+
+        AddTekton(new String[] {"2"});
+        AddTekton(new String[] {"3", "-nei", "3"});
+
+    }
 
     private void OnTekton(String[] args) {}
 
@@ -626,6 +664,15 @@ public class JDBTestTool2 implements Serializable{
             for (Tekton szomszed : tekton.getSzomszed(1)) {
                 System.out.println(szomszed.getId() + ",");
             }
+            System.out.println("Sporak: ");
+            for (Spora spora : tekton.getSporak()) {
+                System.out.println(spora.getId() + ",");
+            }
+            System.out.println("Fonalak");
+            for (GombaFonal fonal : tekton.getFonalak()) {
+                System.out.println(fonal.getId() + ",");
+            }
+
             System.out.println("------------------------");
         }
     }
