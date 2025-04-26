@@ -1,5 +1,5 @@
-/adda -i 1 –n “Gombasz” -f g 
+/adda -i 1 -n “Gombasz” -f g
 /addtk 2 
 /addtk 3 
-/addgt 4 –a 1 –tart 2 
-growf 4 –vez 2;3 
+/addgt 4 -a 1 -tart 2
+growf 4 -vez 2;3

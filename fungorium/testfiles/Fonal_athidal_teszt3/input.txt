@@ -1,7 +1,7 @@
-/adda -i 1 –n “Gombasz” -f g 
+/adda -i 1 -n “Gombasz” -f g
 /addtk 2 
-/addtk 3 –nei 2 –t egy 
-/addtk 4 –nei 3 
-/addgf 5 –a 1 –vez 3;4 
-/addgt 6 –a 1 –tart 2 
-growf 6 –vez 2;3 
+/addtk 3 -nei 2 -t egy
+/addtk 4 -nei 3
+/addgf 5 -a 1 -vez 3;4
+/addgt 6 -a 1 -tart 2
+growf 6 -vez 2;3

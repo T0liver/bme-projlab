@@ -263,14 +263,13 @@ public class JDBTestTool2 implements Serializable{
                     Tekton szomszed = tektonok.get(Integer.parseInt(args[i + 1]));
                     tekton.addSzomszed(szomszed);
 
-                    List<Tekton> szomszedRegiSzomszedai = szomszed.getSzomszed(1);
-
-                    List<Tekton> szomszedUjSzomszedai = new ArrayList<>(szomszedRegiSzomszedai);
-                    szomszedUjSzomszedai.add(tekton);
+                    List<Tekton> szomszedRegiSzomszedai = new ArrayList<>(szomszed.getSzomszed(1));
+                    szomszed.addSzomszed(tekton);
+                    List<Tekton> szomszedSzomszedai = szomszed.getSzomszed(1);
 
                     AppendOutput(Name(szomszed)+" szomszédok: "
                             + ListToString(szomszedRegiSzomszedai)
-                            +" --> "+ ListToString(szomszedUjSzomszedai));
+                            +" --> "+ ListToString(szomszedSzomszedai));
                 }
                 if (args[i].equals("-sp")) {
                     tekton.getSporak().add(sporak.get(Integer.parseInt(args[i + 1])));
@@ -374,7 +373,7 @@ public class JDBTestTool2 implements Serializable{
         Gombasz gombasz = null;
 
         int ID = Integer.parseInt(args[1]);
-        AppendOutput("new   Gombatest("+ ID +")");
+        AppendOutput("new Gombatest("+ ID +")");
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -405,7 +404,7 @@ public class JDBTestTool2 implements Serializable{
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
             gombaTestek.put(ID, gombatest);
         } catch (Exception e) {
-            AppendOutput("INSTRUCTION FAIL "+ Arrays.toString(args) +" ("+e.getMessage()+")");
+            AppendOutput("INSTRUCTION FAIL \""+ String.join(" ", args) +"\" ("+e.getMessage()+")");
         }
 
 
@@ -430,15 +429,16 @@ public class JDBTestTool2 implements Serializable{
             List<GombaFonal> ujvezet = t1.getFonalak();
             List<GombaFonal> vezet = new ArrayList<>(ujvezet);
             ujvezet.add(gf);
-            AppendOutput(Name(t1)+" vezet: "+ListToString(ujvezet)+" --> "+ListToString(vezet));
+            AppendOutput(Name(t1)+" vezet: "+ListToString(vezet)+" --> "+ListToString(ujvezet));
 
             Tekton t2 = tektonok.get(tId2);
             ujvezet = t2.getFonalak();
             vezet = new ArrayList<>(ujvezet);
             ujvezet.add(gf);
-            AppendOutput(Name(t2)+" vezet: "+ListToString(ujvezet)+" --> "+ListToString(vezet));
+            AppendOutput(Name(t2)+" vezet: "+ListToString(vezet)+" --> "+ListToString(ujvezet));
 
             gf.addVezet(t1, t2);
+            gombaFonalak.put(Integer.parseInt(args[1]), gf);
         }
     }
 
@@ -530,7 +530,31 @@ public class JDBTestTool2 implements Serializable{
         AppendOutput("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
     }
 
-    private void GrowFonal(String[] args) {}
+    private void GrowFonal(String[] args) {
+
+        GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
+        Tekton gtt = gt.getTartozkodik();
+
+        int gombaszID = gt.getGombasz().getId();
+
+        String[] tektonokIds = args[3].split(";");
+        int tId1 = Integer.parseInt(tektonokIds[0]);
+        int tId2 = Integer.parseInt(tektonokIds[1]);
+
+        Tekton innen = tektonok.get(tId1);
+        Tekton ide = tektonok.get(tId2);
+
+        if (!gtt.getSzomszed(1).contains(ide)) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszédosak)");
+        } else {
+            AppendOutput("\nEVENT Fonal áthidal");
+
+            int gfId = gombaFonalak.size() + 1;
+            AddGombafonal(new String[]{"/addgf", String.valueOf(gfId), "-a", String.valueOf(gombaszID),"-vez", tektonokIds[0]+";"+tektonokIds[1]});
+
+            gombaFonalak.get(gfId).addVezet(innen, ide);
+        }
+    }
 
     private void Eats(String[] args) {
 
