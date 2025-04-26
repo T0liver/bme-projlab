@@ -62,7 +62,13 @@ public class Spora implements Jatekelem{
     return darabszam;
   }
 
-  public void setDarabszam(int darabszam) {darabszam = darabszam;}
+  /**
+   * Publikus setter függvény a spóra darabszámának beállítására.
+   * @param darabszam a spóra darabszáma
+   */
+  public void setDarabszam(int darabszam) {
+    this.darabszam = darabszam;
+  }
 
   /**
    * Publikus getter függvény a spóra gombászának a lekérdezésére.
