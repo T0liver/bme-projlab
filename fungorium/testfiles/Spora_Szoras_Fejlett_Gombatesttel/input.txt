@@ -1,6 +1,6 @@
-/adda -i 1 –n “Gombasz” -f g
+/adda -i 1 -n “Gombasz” -f g
 /addtk 2
-/addtk 3 –nei 2
-/addtk 4 –nei 3
-/addgt 5 –a 1 –tart 2 –fj Y –sp 5
-spor –if 5 –tk 4
+/addtk 3 -nei 2
+/addtk 4 -nei 3
+/addgt 5 -a 1 -tart 2 -fj Y -sp 5
+spor -if 5 -tk 4
