@@ -277,11 +277,24 @@ public class JDBTestTool2 implements Serializable{
             GombaTest gombatest = new GombaTest(gombasz, 10, hely);
             gombaTestek.put(ID, gombatest);
             hely.sporatFelhasznal(spora);
+            int pontok = gombasz.getPontok();
+            int ujpontok = gombasz.addPontok(10);
+
+
+            AppendOutput("\nEVENT Gombatest növesztés\n"
+                    + "remove Spóra (" + spora.getId() + ")\n"
+                    + "new Gombatest (" + ID + ")\n"
+                    + "Gombatest (" + ID + ") aktor: null --> Gombász (" + gombasz.getId() + ")\n"
+                    + "Gombatest (" + ID + ") tekton: null --> Tekton (" + hely.getId() + ")\n"
+                    + "Gombatest (" + ID + ") spóra: 0 --> " + gombatest.getSporaDarab() + "\n"
+                    + "Gombász (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
+            );
+
         } catch (Exception e){
             AppendOutput("INSTRUCTION FAIL "+ Arrays.toString(args) +" ("+e.getMessage()+")");
         }
 
-        AppendOutput("EVENT Gombatest növesztés\n" + "remove Spóra("  );
+
     }
 
     private void AltGombafonal(String[] args) {
@@ -348,28 +361,28 @@ public class JDBTestTool2 implements Serializable{
 
     }
 
-    private void AddAktor(String[] args) {
+        private void AddAktor(String[] args) {
 
-        if (args.length < 6) {
-            System.out.println("Használat: /adda -i <ID> -n <név> -f <g|r>");
-            return;
+            if (args.length < 6) {
+                System.out.println("Használat: /adda -i <ID> -n <név> -f <g|r>");
+                return;
+            }
+
+            if (args[6].equals("g")) {
+                Gombasz g = new Gombasz(args[4]);
+                g.setId(Integer.parseInt(args[2]));
+                gombaszok.put(g.getId(), g);
+                AppendOutput("new "+Name(g));
+
+            } else if (args[6].equals("r")) {
+                Rovarasz r = new Rovarasz(args[4]);
+                r.setId(Integer.parseInt(args[2]));
+                rovaraszok.put(r.getId(), r);
+                AppendOutput("new "+Name(r));
+            } else {
+                System.out.println("Ismeretlen típus: " + args[6]);
+            }
         }
-
-        if (args[6].equals("g")) {
-            Gombasz g = new Gombasz(args[4]);
-            g.setId(Integer.parseInt(args[2]));
-            gombaszok.put(g.getId(), g);
-            AppendOutput("new "+Name(g));
-
-        } else if (args[6].equals("r")) {
-            Rovarasz r = new Rovarasz(args[4]);
-            r.setId(Integer.parseInt(args[2]));
-            rovaraszok.put(r.getId(), r);
-            AppendOutput("new "+Name(r));
-        } else {
-            System.out.println("Ismeretlen típus: " + args[6]);
-        }
-    }
 
 
     private void AddSpora(String[] args) {

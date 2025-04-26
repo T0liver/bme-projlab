@@ -1,5 +1,5 @@
-new Gombász (1) 
-new Spóra (2) 
+new Gombasz (1) 
+new Spora (2) 
 new Tekton (3)	 
 
 EVENT Gombatest növesztés 
