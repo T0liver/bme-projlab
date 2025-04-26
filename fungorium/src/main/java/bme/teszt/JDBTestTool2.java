@@ -116,24 +116,23 @@ public class JDBTestTool2 {
     }
 
     private void Help(String[] args) {
-        System.out.println("/adda: aktor hozzaadasa \n");
-        System.out.println("/addtk: tekton hozzaadasa \n");
-        System.out.println("/addsp: spora hozzaadasa \n");
-        System.out.println("/addgt: gombatest hozzaadasa \n");
-        System.out.println("/addgf: gombafonal hozzaadasa \n");
-        System.out.println("/addrov: rovara hozzaadasa \n");
-        System.out.println("/alttk: tekton adatainak modositasa \n");
-        System.out.println("/altgf: gombafonal adatainak modositasa \n");
-        System.out.println("/altgt: gombatest adatainak modositasa \n");
-        System.out.println("/altrov: rovara adatainak modositasa \n");
-        System.out.println("/random: random ertekek engedelyezese/letiltasa \n");
-        System.out.println("/script: script futtatasa \n");
-        System.out.println("/lsa: Aktorok listazasa \n");
-        System.out.println("/lsr: Rovarok listazasa \n");
-        System.out.println("/lsf: Gombafonalak listazasa \n");
-        System.out.println("/lsg: Gombatestek listazasa \n");
-        System.out.println("/lst: Tektonok listazasa \n");
-
+            System.out.println("/adda: aktor hozzaadasa \n");
+            System.out.println("/addtk: tekton hozzaadasa \n");
+            System.out.println("/addsp: spora hozzaadasa \n");
+            System.out.println("/addgt: gombatest hozzaadasa \n");
+            System.out.println("/addgf: gombafonal hozzaadasa \n");
+            System.out.println("/addrov: rovara hozzaadasa \n");
+            System.out.println("/alttk: tekton adatainak modositasa \n");
+            System.out.println("/altgf: gombafonal adatainak modositasa \n");
+            System.out.println("/altgt: gombatest adatainak modositasa \n");
+            System.out.println("/altrov: rovara adatainak modositasa \n");
+            System.out.println("/random: random ertekek engedelyezese/letiltasa \n");
+            System.out.println("/script: script futtatasa \n");
+            System.out.println("/lsa: Aktorok listazasa \n");
+            System.out.println("/lsr: Rovarok listazasa \n");
+            System.out.println("/lsf: Gombafonalak listazasa \n");
+            System.out.println("/lsg: Gombatestek listazasa \n");
+            System.out.println("/lst: Tektonok listazasa \n");
     }
 
     private void AltRovar(String[] args) {
@@ -382,11 +381,47 @@ public class JDBTestTool2 {
 
     private void ListAktor(String[] args) {}
 
-    private void MoveRovar(String[] args) {}
+    private void MoveRovar(String[] args) {
+
+        Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
+        int oldValue = rovar.getSebesseg();
+        int tektonID = 0;
+
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].equals("-tk")){
+                tektonID = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        rovar.mozog(tektonok.get(tektonID));
+        AppendOutput("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
+    }
 
     private void GrowFonal(String[] args) {}
 
-    private void Eats(String[] args) {}
+    private void Eats(String[] args) {
+
+        Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
+        Spora spora = rovar.getTartozkodik().getBestSpora();
+        Rovarasz rovarasz = rovar.getRovarasz();
+        int db = 0;
+        int sporaID = 0;
+        int oldValue = spora.getDarabszam();
+        int oldPont = rovarasz.getPontok();
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-sp")) {
+                spora = sporak.get(Integer.parseInt(args[i + 1]));
+                sporaID = Integer.parseInt(args[i + 1]);
+            }
+            if (args[i].equals("-db")) {
+                db = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        rovar.eszik(spora);
+        AppendOutput("EVENT Spóra evés\nSpóra (" + sporaID +") darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
+    }
 
     private void CutFonal(String[] args) {}
 
