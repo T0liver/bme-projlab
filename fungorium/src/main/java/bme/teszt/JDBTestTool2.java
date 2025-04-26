@@ -20,6 +20,7 @@ public class JDBTestTool2 implements Serializable{
 
     HashMap<Integer, Tekton> tektonok = new HashMap<>();
 
+
     /// TesztFile futtató teszt
     /// @param file tesztfájl
     public JDBTestTool2(File file) {
@@ -693,7 +694,25 @@ public class JDBTestTool2 implements Serializable{
 
     private void OnTekton(String[] args) {}
 
-    private void Print(String[] args) {}
+    private void Print(String[] args) {
+        if (args.length < 2) {
+            System.out.println("Hiba: Nem adtál meg fájlnevet!");
+            return;
+        }
+
+        String fileName = args[1];
+
+        try {
+            // Itt feltételezem, hogy van egy StringBuilder output, amiben az eddigi konzolkimenetet tárolod.
+            File file = new File(fileName);
+            try (PrintWriter writer = new PrintWriter(file)) {
+                writer.print(out.toString()); // Vagy amit használsz a kimenet tárolására
+            }
+            System.out.println("Kimenet fájlba írva: " + fileName);
+        } catch (Exception e) {
+            System.out.println("Hiba történt a fájlírás során: " + e.getMessage());
+        }
+    }
 
     private void ListGombafonal(String[] args) {}
 

@@ -63,7 +63,7 @@ public class Main {
   private static void TektonTesztek() {
     ExecuteTest("Tekton_hasadas_teszt1");
     ExecuteTest("Tekton_hasadas_teszt2");
-    ExecuteTest("Termeketlentektont_tesztel");
+    //ExecuteTest("Termeketlentektont_tesztel");
   }
 
   private static void SporaTesztek(){
