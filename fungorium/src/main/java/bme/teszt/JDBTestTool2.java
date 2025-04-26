@@ -231,6 +231,12 @@ public class JDBTestTool2 implements Serializable{
         System.out.println(Arrays.toString(args));
         if (args.length > 2) {
 
+            String fullline = String.join("", args);
+            if (!fullline.contains("-t")){
+                tekton.setId(Integer.parseInt(args[1]));
+                AppendOutput("new " + Name(tekton));
+            }
+
             for (int i = 1; i < args.length; i++) {
                 if (args[i].equals("–t")) {
                     switch (args[++i]) {
@@ -276,6 +282,7 @@ public class JDBTestTool2 implements Serializable{
             AppendOutput("new " + Name(tekton));
         }
         tektonok.put(tekton.getId(), tekton);
+
     }
 
     private void AddAktor(String[] args) {
@@ -401,7 +408,10 @@ public class JDBTestTool2 implements Serializable{
     }
 
 
-    private void AddGombafonal(String[] args) {}
+    private void AddGombafonal(String[] args) {
+
+
+    }
 
     private void AddRovar(String[] args) {
 
