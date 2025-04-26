@@ -623,13 +623,21 @@ public class JDBTestTool2 implements Serializable{
     private void Hasadas(String[] args) {
 
         Tekton tekton = tektonok.get(Integer.parseInt(args[1]));
+
+        if (tekton.getFoglalt()) {
+            AppendOutput("\nINSTRUCTION FAIL \"" +String.join(" ", args)+ "\" (Nem tud hasadni, mert Gombatest van rajta)");
+            return;
+        }
+
+
+
         tekton.hasad();
-        AppendOutput("EVENT Tekton hasad\n");
+        AppendOutput("\nEVENT Tekton hasad");
 
-        AppendOutput("Remove Tekton " + Name(tekton));
+        AppendOutput("remove Tekton " + Name(tekton));
 
-        AddTekton(new String[] {"2"});
-        AddTekton(new String[] {"3", "-nei", "3"});
+        AddTekton(new String[] {"/addtk", "2"});
+        AddTekton(new String[] {"/addtk", "3", "-nei", "2"});
 
     }
 

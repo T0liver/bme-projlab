@@ -1,4 +1,4 @@
-/adda -i 1 –n “Gombasz” -f g 
+/adda -i 1 -n “Gombasz” -f g
 /addtk 2 
-/addgt 3 –a 1 –tart 2 
+/addgt 3 -a 1 -tart 2
 has 2 
