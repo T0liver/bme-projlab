@@ -5,7 +5,7 @@ import bme.*;
 import java.io.*;
 import java.util.*;
 
-public class JDBTestTool2 {
+public class JDBTestTool2 implements Serializable{
 
     File input, expected, out;
     boolean fromFile;
@@ -145,15 +145,79 @@ public class JDBTestTool2 {
     }
 
     private void Trig(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nincs megadva parancs.");
+            return;
+        }
+
+        switch (args[1]) {
+            case "-nr":
+                Jatekvezerlo.korVege();
+                System.out.println("EVENT tick");
+                break;
+            //TODO: EZ MIRE KELL?
+            case "-np":
+                Jatekvezerlo.jelenlegiJatekos = (Jatekvezerlo.jelenlegiJatekos + 1) % Jatekvezerlo.jatekosok.size();
+                System.out.println("Következő játékos: " + Jatekvezerlo.jatekosok.get(Jatekvezerlo.jelenlegiJatekos).getId());
+                break;
+
+            default:
+                System.out.println("Ismeretlen parancs: " + args[1]);
+                break;
+        }
     }
+
 
     private void Load(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nem adtál meg mentési fájlt.");
+            return;
+        }
+
+        String filePath = args[1];
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            // Feltételezve, hogy a Jatekvezerlo osztály statikus változóit tölti vissza
+            Jatekvezerlo.jelenlegiKor = ois.readInt();
+            Jatekvezerlo.jelenlegiJatekos = ois.readInt();
+            Jatekvezerlo.jatekHossz = ois.readInt();
+            Jatekvezerlo.tektonok = (List<Tekton>) ois.readObject();
+            Jatekvezerlo.jatekosok = (List<Jatekos>) ois.readObject();
+
+            System.out.println("Játék betöltve sikeresen: " + filePath);
+        } catch (Exception e) {
+            System.out.println("Hiba a játék betöltésekor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     private void Save(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Nem adtál meg mentési fájlt.");
+            return;
+        }
+
+        String filePath = args[1];
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            // Játék állapotának mentése
+            oos.writeInt(Jatekvezerlo.jelenlegiKor);
+            oos.writeInt(Jatekvezerlo.jelenlegiJatekos);
+            oos.writeInt(Jatekvezerlo.jatekHossz);
+            oos.writeObject(Jatekvezerlo.tektonok);
+            oos.writeObject(Jatekvezerlo.jatekosok);
+
+            System.out.println("Játék elmentve sikeresen: " + filePath);
+        } catch (Exception e) {
+            System.out.println("Hiba a játék mentésekor: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+
     private void GrowGombatest(String[] args) {
+
+
+
     }
 
     private void AltGombafonal(String[] args) {
