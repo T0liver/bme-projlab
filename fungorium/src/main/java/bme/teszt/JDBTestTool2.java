@@ -681,8 +681,6 @@ public class JDBTestTool2 implements Serializable{
             return;
         }
 
-
-
         tekton.hasad();
         AppendOutput("\nEVENT Tekton hasad");
 
