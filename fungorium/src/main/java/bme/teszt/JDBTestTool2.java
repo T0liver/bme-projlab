@@ -425,7 +425,43 @@ public class JDBTestTool2 {
 
     private void CutFonal(String[] args) {}
 
-    private void SporaSzoras(String[] args) {}
+    //Elegge gatya sok mindent kell meg benne csinalni
+    private void SporaSzoras(String[] args) {
+
+        GombaTest gombatest = null;
+        Tekton tekton = null;
+        Spora spora = null;
+        int TektonID = 0;
+        int GombatestID = 0;
+        int GTOldValue = 0;
+
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-if")) {
+                gombatest = gombaTestek.get(Integer.parseInt(args[i + 1]));
+                GombatestID = Integer.parseInt(args[i + 1]);
+                GTOldValue = gombatest.getElettartam();
+            }
+            if (args[i].equals("-tk")) {
+                tekton = tektonok.get(Integer.parseInt(args[i + 1]));
+                TektonID = Integer.parseInt(args[i + 1]);
+            }
+            if (args[i].equals("-type")){
+                switch (args[i + 1]) {
+                        case "gyrs": break;
+                        case "ls": break;
+                        case "bnt": break;
+                        case "csrb": break;
+                        case "oszt": break;
+                        default: break;
+                }
+            }
+        }
+
+        gombatest.sporatSzor(tekton);
+        AppendOutput("EVENT Spórázás\nnew Spóra ()\nSpóra (1) aktor: null --> Gombász (1)\nSpóra (1) tápanyagtartalom: 0 -> 5\n" +
+                "Spóra (1) darabszám: 0 -> 3\nTekton ("+ TektonID +") spórák: [ ] --> [Spóra (1)]\nGombatest (" + GombatestID + ") élettartam: "+ GTOldValue +" --> " + gombatest.getElettartam());
+    }
 
     private void Hasadas(String[] args) {}
 
@@ -435,11 +471,58 @@ public class JDBTestTool2 {
 
     private void ListGombafonal(String[] args) {}
 
-    private void ListGombatest(String[] args) {}
+    private void ListGombatest(String[] args) {
 
-    private void ListRovar(String[] args) {}
+        System.out.println("GombaTestek listaja:");
+        for (Map.Entry<Integer, GombaTest> entry : gombaTestek.entrySet()) {
+            Integer id = entry.getKey();
+            GombaTest gomba = entry.getValue();
 
-    private void ListTekton(String[] args) {}
+            System.out.println("ID: " + id);
+            System.out.println("Gombasz: " + gomba.getGombasz().getId());
+            System.out.println("Fejlett: " + (gomba.getFejlett() ? "Igen" : "Nem"));
+            System.out.println("Fejlettsegi szint: " + gomba.getFejlettseg());
+            System.out.println("Sporak szamat: " + gomba.getSporaDarab());
+            System.out.println("Tartozkodas: " + gomba.getTartozkodik().getId());
+            System.out.println("Elettartam: " + gomba.getElettartam());
+            System.out.println("------------------------");
+        }
+
+    }
+
+    private void ListRovar(String[] args) {
+        System.out.println("Rovarok listaja:");
+        for (Map.Entry<Integer, Rovar> entry : rovarok.entrySet()) {
+            Integer id = entry.getKey();
+            Rovar rovar = entry.getValue();
+
+            System.out.println("ID: " + id);
+            System.out.println("Sebesseg: " + rovar.getSebesseg());
+            System.out.println("Vaghat: " + (rovar.getVaghat() ? "Igen" : "Nem"));
+            System.out.println("Ujravaghat: " + rovar.getUjravaghat());
+            System.out.println("Tartozkodik: " + rovar.getTartozkodik().getId());
+            System.out.println("Rovarasz: " + rovar.getRovarasz().getId());
+            System.out.println("------------------------");
+        }
+
+    }
+
+    private void ListTekton(String[] args) {
+
+        System.out.println("Tektonok listaja:");
+        for (Map.Entry<Integer, Tekton> entry : tektonok.entrySet()) {
+            Integer id = entry.getKey();
+            Tekton tekton = entry.getValue();
+
+            System.out.println("ID: " + id);
+            System.out.println("Foglalt: " + (tekton.getFoglalt() ? "Igen" : "Nem"));
+            System.out.println("Szomszedok: ");
+            for (Tekton szomszed : tekton.getSzomszed(1)) {
+                System.out.println(szomszed.getId() + ",");
+            }
+            System.out.println("------------------------");
+        }
+    }
 
 
     private void CheckOutput() {
