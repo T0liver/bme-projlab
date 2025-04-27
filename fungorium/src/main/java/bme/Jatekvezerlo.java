@@ -226,11 +226,11 @@ public class Jatekvezerlo {
         for (int i = 0; i < jatekosok.size(); ++i) {
           if (jatekosok.get(i).getType() == 0) {
             GombaTest gt = null;
-            try {
-              gt = new GombaTest(jatekosok.get(i), 5, tektonok.get(tektonok.size()/jatekosok.size() * i));
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
+              try {
+                gt = new GombaTest(jatekosok.get(i), 5, tektonok.get(tektonok.size()/jatekosok.size() * i));
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
             GombaFonal gf = new GombaFonal();
             tektonok.get(tektonok.size()/jatekosok.size() * i).setFoglalt(true);
             gf.addVezet(tektonok.get(tektonok.size()/jatekosok.size() * i), tektonok.get(tektonok.size()/jatekosok.size() * i));

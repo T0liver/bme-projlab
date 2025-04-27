@@ -222,4 +222,11 @@ public class GombaTest implements Jatekelem{
   public void tick() {
     sporadarab++;
   }
+
+  /**
+   * a class adatait kiiro fuggveny
+   */
+  public void printData() {
+    System.out.println("Elhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab + "\nElettartam: " + elettartam + "\nFejlettseg: " + fejlett);
+  }
 }

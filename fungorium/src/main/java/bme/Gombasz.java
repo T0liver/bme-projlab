@@ -216,4 +216,12 @@ public class Gombasz extends Jatekos {
       }
     }
   }
-}
+
+  /** publikus tagfuggveny gombatest hozzaaadasahoz */
+  @Override
+  public void addGombaTest(GombaTest gt) {gombaTestek.add(gt);}
+
+  /** publikus tagfuggveny gombafonal hozzaaadasahoz */
+  @Override
+  public void addGombaFonal(GombaFonal gf) {gombaFonalak.add(gf);}
+} 
