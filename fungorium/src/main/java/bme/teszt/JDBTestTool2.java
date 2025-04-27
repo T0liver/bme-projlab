@@ -485,7 +485,7 @@ public class JDBTestTool2 implements Serializable{
                     fejlettseg = Integer.parseInt(args[i + 1]);
                     break;
                 case "-fj":
-                    fejlett = args[i + 1].equalsIgnoreCase("Y");
+                    if (args[i + 1].equals("Y")) fejlett = true;
                     break;
             }
         }
