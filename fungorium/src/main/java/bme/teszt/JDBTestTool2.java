@@ -221,7 +221,7 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-//TODO: A kimenetében segítsetek
+
     private void GrowGombatest(String[] args) {
 
         Gombasz gombasz = null;
@@ -608,6 +608,8 @@ public class JDBTestTool2 implements Serializable{
 
         Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
         int oldValue = rovar.getSebesseg();
+        Tekton tekton = rovar.getTartozkodik();
+
         int tektonID = 0;
 
         for (int i = 0; i < args.length; i++) {
@@ -616,8 +618,16 @@ public class JDBTestTool2 implements Serializable{
             }
         }
 
+        Integer tektonKey = null;
+        for (Map.Entry<Integer, Tekton> entry : tektonok.entrySet()) {
+            if (entry.getValue().equals(tekton)) {
+                tektonKey = entry.getKey();
+                break;
+            }
+        }
+
         rovar.mozog(tektonok.get(tektonID));
-        AppendOutput("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
+        AppendOutput("\nEVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: Tekton (" + tektonKey + ") --> Tekton (" + tektonID + ")");
     }
 
     private void GrowFonal(String[] args) {
