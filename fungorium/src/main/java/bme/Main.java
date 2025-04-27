@@ -80,7 +80,7 @@ public class Main {
   private static void SporaTesztek(){
   ExecuteTest("Spora_Szoras"); //Működik
   ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
-  ExecuteTest("Sporaevest_tesztel");
+  ExecuteTest("Sporaevest_tesztel"); //Működik
   }
 
   private static void GombanTesztek() {
