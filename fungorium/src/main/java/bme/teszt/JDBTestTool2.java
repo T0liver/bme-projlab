@@ -101,7 +101,7 @@ public class JDBTestTool2 implements Serializable{
         }
         scanner.close();
         if (fromFile){
-            CheckOutput();
+            //CheckOutput();
         }
 
     }

@@ -172,7 +172,7 @@ public class GombaTest implements Jatekelem{
         return false;
       }
     }
-    List<Tekton> szomszedok = hova.getSzomszed(1);
+    List<Tekton> szomszedok = tartozkodik.getSzomszed(1);
     if (!szomszedok.contains(hova)) {
       return false;
     }
