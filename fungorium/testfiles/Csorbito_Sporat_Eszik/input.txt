@@ -1,0 +1,5 @@
+/adda -i 0 -n “Rovarasz” -f r
+/addsp 1 -t csrb -db 10 -tp 5
+/addtk 2 -sp 1
+/addrov 3 -tk 2 -seb 5 -vag Y -ujv 10 -a 0
+eats 3 -sp 1 -db 1

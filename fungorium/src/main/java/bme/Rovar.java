@@ -8,7 +8,15 @@ package bme;
  *
  * @author Oliver
  */
-public class Rovar {
+public class Rovar  implements Jatekelem{
+
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
 
   /** A rovar sebessége */
   private int sebesseg;

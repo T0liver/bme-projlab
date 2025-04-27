@@ -1,0 +1,17 @@
+new Gombász (1) 
+new Rovarász (2) 
+new Tekton (3) 
+new Tekton (4)
+Tekton (3) szomszédok: [ ] --> [ Tekton (4) ]
+new Rovar (5) 
+new GombaFonal (6) 
+Tekton (3) vezet: [ ] --> [GombaFonal (6)] 
+Tekton (4) vezet: [ ] --> [GombaFonal (6)] 
+
+EVENT Gombatest növesztés 
+remove Rovar (5) 
+new Gombatest (7) 
+Gombatest (7) aktor: null --> Gombász (1) 
+Gombatest (7) tekton: null --> Tekton (3) 
+Gombatest (1) spóra: 0 --> 5 
+Gombász (1) pontok: 0 --> 10 

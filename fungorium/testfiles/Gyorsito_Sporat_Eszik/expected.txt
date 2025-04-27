@@ -1,0 +1,9 @@
+new Rovarasz (0)
+new GyorsítóSpóra (1)
+new Tekton (2)
+new Rovar (3)
+
+EVENT Spóra evés
+GyorsítóSpóra (1) darabszám 10 --> 5
+Rovarász (0) pontok: 0 --> 25
+Rovar (3) sebesség: 1 --> 2

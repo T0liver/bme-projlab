@@ -1,0 +1,5 @@
+new Gombasz (1)
+new Tekton (2)
+new GombaTest (3)
+
+INSTRUCTION FAIL “has 2” (Nem tud hasadni, mert Gombatest van rajta) 

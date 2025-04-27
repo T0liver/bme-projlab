@@ -13,6 +13,14 @@ public class Rovarasz extends Jatekos {
   //* Jatekos rovarainak listaja */
   private List<Rovar> rovarok = new ArrayList<Rovar>();
 
+    /**
+   * @param nev Konstruktorában megadható a név paraméter
+   *            A leszármazottakban fognak kezelődni
+   */
+  public Rovarasz(String nev) {
+    super(nev);
+  }
+  
   /**
    * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
    */

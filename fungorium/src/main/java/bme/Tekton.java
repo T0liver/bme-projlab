@@ -13,7 +13,15 @@ import java.util.Random;
  *
  * @author Vid
  */
-public class Tekton {
+public class Tekton implements Jatekelem{
+
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
 
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
   protected boolean foglalt;

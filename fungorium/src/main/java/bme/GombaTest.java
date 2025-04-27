@@ -16,7 +16,16 @@ import java.util.Random;
  *
  * @author Oliver
  */
-public class GombaTest {
+public class GombaTest implements Jatekelem{
+
+  private int id;
+  public int getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+
   private boolean fejlett;
   private int fejlettseg;
   private Gombasz gombasz;

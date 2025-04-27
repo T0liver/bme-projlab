@@ -1,0 +1,10 @@
+new Rovarász (0)
+new BénítóSpóra (1)
+new Tekton (2)
+new Rovar (3)
+
+EVENT Spóra evés
+BenitoSpora (1) darabszám 10 --> 5
+Rovarász (0) pontok: 0 --> 50
+Rovar (3) sebesség: 5 --> 0
+Rovar (3) vaghat: true --> false
