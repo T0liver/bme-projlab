@@ -137,6 +137,10 @@ public class Jatekvezerlo {
    */
   public static void addJatekos(String[] args) {
     Jatekos uj = null;
+    if (jatekosok.size() > 9) {
+      System.out.println("Jatek megtelt");
+      return;
+    }
     switch (args[1]) {
       case "r": uj = new Rovarasz(); break;
       case "g": uj = new Gombasz(); break;

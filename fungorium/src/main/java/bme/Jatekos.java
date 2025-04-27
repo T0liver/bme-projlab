@@ -1,5 +1,6 @@
 package bme;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,6 +101,7 @@ public abstract class Jatekos implements Jatekelem{
 
   /**
    * publikus fuggveny rovarok lekerdezesere, rovarasz hasznalja.
+   * @return rovarok üres listája
    */
-  public abstract List<Rovar> getRovarok();
+  public List<Rovar> getRovarok() {return new ArrayList<>();}
 }
