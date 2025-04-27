@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Rovarasz extends Jatekos {
   //* Jatekos rovarainak listaja */
-  private List<Rovar> rovarok = new ArrayList<Rovar>();
+  private List<Rovar> rovarok = new ArrayList<>();
 
     /**
    * @param nev Konstruktorában megadható a név paraméter
@@ -33,9 +33,9 @@ public class Rovarasz extends Jatekos {
    * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
    */
   @Override
-  public void lep() {
-    List<Boolean> cselekedhet = new ArrayList<Boolean>();
-    List<Integer> lepesek = new ArrayList<Integer>();
+  public boolean lep() {
+    List<Boolean> cselekedhet = new ArrayList<>();
+    List<Integer> lepesek = new ArrayList<>();
     boolean endOfTurn = false;
     for (int i = 0; i < rovarok.size(); ++i) {
       rovarok.get(i).tick();
@@ -47,7 +47,7 @@ public class Rovarasz extends Jatekos {
     System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
     System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
     System.out.println("/lst\t\tTektonok listazasa\n/lsr\t\tRovarok listazasa (aktiv jatekose)");
-    System.out.println("/help\t\t\tparancsok megjelenitese");
+    System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
     while(!endOfTurn) {
       String[] args = scanner.nextLine().strip().split(" ");
       switch (args[0]) {
@@ -64,10 +64,13 @@ public class Rovarasz extends Jatekos {
         System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
         System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
         System.out.println("/lst\t\tTektonok listazasa\n/lsr\t\tRovarok listazasa (aktiv jatekose)");
-        System.out.println("/help\t\t\tparancsok megjelenitese"); break;
+        System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
+        case "/exit": return true;
         default: System.out.println("Invalid command: " + args[0]); break;
       }
     }
+    scanner.close();
+    return false;
   }
 
   /**
@@ -102,7 +105,6 @@ public class Rovarasz extends Jatekos {
     Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
     Spora spora = rovar.getTartozkodik().getBestSpora();
     int db = 3;
-    int oldPont = pontok;
 
     for (int i = 0; i < args.length; i++) {
         if (args[i].equals("-db")) {

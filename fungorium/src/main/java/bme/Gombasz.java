@@ -12,13 +12,13 @@ import java.util.Scanner;
 public class Gombasz extends Jatekos {
 
   //* Jatekos gombatestjeinek listaja */
-  private List<GombaTest> gombaTestek = new ArrayList<GombaTest>();
+  private List<GombaTest> gombaTestek = new ArrayList<>();
   
   //* Jatekos gombafonalainak listaja */
-  private List<GombaFonal> gombaFonalak = new ArrayList<GombaFonal>();
+  private List<GombaFonal> gombaFonalak = new ArrayList<>();
   
   //* Jatekos sporainak listaja */
-  private List<Spora> sporak = new ArrayList<Spora>();
+  private List<Spora> sporak = new ArrayList<>();
 
   /**
    * @param nev Konstruktorában megadható a név paraméter
@@ -75,10 +75,10 @@ public class Gombasz extends Jatekos {
    * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
    */
   @Override
-  public void lep() {
-    List<Boolean> testCselekedett = new ArrayList<Boolean>();
+  public boolean lep() {
+    List<Boolean> testCselekedett = new ArrayList<>();
     int fonalCselekedetek = gombaTestek.size();
-    List<Boolean> sporaHasznalt = new ArrayList<Boolean>();
+    List<Boolean> sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) testCselekedett.add(false);
     for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).elpusztulGrafos();
@@ -90,13 +90,13 @@ public class Gombasz extends Jatekos {
     System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
     System.out.println("/lst\t\tTektonok listazasa\n/lsg\t\tGombatestek listazasa (aktiv jatekose)");
     System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose)\n/lss\t\tSporak listazasa (aktiv jatekose)");
-    System.out.println("/help\t\t\tparancsok megjelenitese");
+    System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
     while(!endOfTurn) {
       String[] args = scanner.nextLine().strip().split(" ");
       switch (args[0]) {
-        case "spor": if (!testCselekedett.get(Integer.parseInt(args[1]))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
+        case "spor": if (Boolean.FALSE.equals(testCselekedett.get(Integer.parseInt(args[1])))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
         case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
-        case "growg": if (!sporaHasznalt.get(Integer.parseInt(args[1]))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
+        case "growg": if (Boolean.FALSE.equals(sporaHasznalt.get(Integer.parseInt(args[1])))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
         case "/end": endOfTurn = true; break;
         case "/save": Jatekvezerlo.Save(args); break;
         case "/lsa": Jatekvezerlo.ListAktor(args); break;
@@ -111,10 +111,13 @@ public class Gombasz extends Jatekos {
         System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
         System.out.println("/lst\t\tTektonok listazasa\n/lsg\t\tGombatestek listazasa (aktiv jatekose)");
         System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose)\n/lss\t\tSporak listazasa (aktiv jatekose)");
-        System.out.println("/help\t\t\tparancsok megjelenitese"); break;
+        System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
+        case "/exit": return true;
         default: System.out.println("Invalid command: " + args[0]); break;
       }
     }
+    scanner.close();
+    return false;
   }
 
   /**
@@ -128,6 +131,7 @@ public class Gombasz extends Jatekos {
   /**
    * A class adatait kiiro fuggveny.
    */
+  @Override
   public void printData() {
     System.out.println("Gombasz\npontok: " + pontok);
     listTest();

@@ -61,7 +61,7 @@ public abstract class Jatekos implements Jatekelem{
   /**
    * A lépésért felelős függvény deklarációja, ezt felülírják a leszármazottak (gombász, rovarász)
    */
-  public abstract void lep();
+  public abstract boolean lep();
 
   /**
    * jatekos tipusat megado fuggveny

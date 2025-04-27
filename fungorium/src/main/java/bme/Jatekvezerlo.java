@@ -82,10 +82,11 @@ public class Jatekvezerlo {
   /**
    * fuggveny egy korben a jatekosok leptetesere
    */
-  public static void korMenete() {
+  public static boolean korMenete() {
     for (int i = 0; i < jatekosok.size(); ++i) {
-      jatekosok.get(i).lep();
+      if (jatekosok.get(i).lep()) return true;
     }
+    return false;
   }
 
   /**
@@ -116,11 +117,14 @@ public class Jatekvezerlo {
   public static void jatekKezdes() {
     jatekHossz = 50;
     try {
-      init();
+      if(init()) return;
     } catch (InvalidAttributeValueException e) {
       e.printStackTrace();
     }
-    for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {korMenete(); korVege();}
+    for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
+      if (korMenete()) return;
+      korVege();
+    }
   }
 
   /**
@@ -156,11 +160,11 @@ public class Jatekvezerlo {
    * fuggveny a jatek inicializalasahoz parancssorrol
       * @throws InvalidAttributeValueException 
       */
-     public static void init() throws InvalidAttributeValueException {
+     public static boolean init() throws InvalidAttributeValueException {
     jelenlegiJatekos = 0;
     int gombaszok = 0;
     int rovaraszok = 0;
-    System.out.println("parancsok:\n/random -set <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\r\rparancsok megjelenitese");
+    System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
     boolean startGame = false;
     boolean loaded = false;
     Scanner scanner = new Scanner(System.in);
@@ -171,7 +175,8 @@ public class Jatekvezerlo {
         case "/adda": addJatekos(args); break;
         case "/start": startGame = true; break;
         case "/load": if(Jatekvezerlo.Load(args)) loaded = true; break;
-        case "/help": System.out.println("parancsok:\n/random -set <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\r\rparancsok megjelenitese"); break;
+        case "/help": System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\t\tparancsok megjelenitese\\n/exit\t\t\tkilepes a jatekbol"); break;
+        case "/exit": return true;
         default: System.out.println("Invalid command: " + args[0]); break;
       }
     }
@@ -235,6 +240,8 @@ public class Jatekvezerlo {
           }
         }
     }
+    scanner.close();
+    return false;
   }
 
   /**
