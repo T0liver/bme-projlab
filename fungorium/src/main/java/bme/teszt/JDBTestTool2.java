@@ -460,6 +460,7 @@ public class JDBTestTool2 implements Serializable{
         boolean fejlett = false;
         Tekton hely = null;
         Gombasz gombasz = null;
+        Integer tektonId = 0;
 
         int ID = Integer.parseInt(args[1]);
         AppendOutput("new GombaTest ("+ ID +")");
@@ -471,7 +472,7 @@ public class JDBTestTool2 implements Serializable{
                     gombasz = gombaszok.get(aktorID);
                     break;
                 case "-tart":
-                    Integer tektonId = Integer.parseInt(args[i + 1]);
+                    tektonId = Integer.parseInt(args[i + 1]);
                     hely = tektonok.get(tektonId);
                     break;
                 case "-sp":
@@ -493,6 +494,8 @@ public class JDBTestTool2 implements Serializable{
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
             gombatest.setId(ID);
             gombaTestek.put(ID, gombatest);
+            AppendOutput("GombaTest ("+ ID +") tartózkodik: [ ] --> [Tekton(" + tektonId +")]");
+
         } catch (Exception e) {
             AppendOutput("INSTRUCTION FAIL \""+ String.join(" ", args) +"\" ("+e.getMessage()+")");
         }
