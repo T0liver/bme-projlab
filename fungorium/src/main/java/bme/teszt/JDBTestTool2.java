@@ -100,8 +100,10 @@ public class JDBTestTool2 implements Serializable{
             }
         }
         scanner.close();
+        if (fromFile){
+            CheckOutput();
+        }
 
-        CheckOutput();
     }
 
     private void AppendOutput(String line){
@@ -834,7 +836,32 @@ public class JDBTestTool2 implements Serializable{
 
 
     private void CheckOutput() {
+        String file1 = expected.getAbsolutePath();
+        String file2 = out.getAbsolutePath();
 
+        System.out.println(System.lineSeparator()+"Kimenet ellenőrzése...");
+        //FC
+        List<String> command = List.of("cmd.exe", "/c", "fc", file1, file2);
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+        try {
+            Process process = processBuilder.start();
+
+            // Read standard output
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("Process exited with code " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private String Name(Jatekelem o) {
