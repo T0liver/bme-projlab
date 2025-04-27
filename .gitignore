@@ -25,3 +25,5 @@ replay_pid*
 
 # VSCode things
 settings.json
+
+output.txt
