@@ -1,9 +1,9 @@
-new Rovarász(1)
-new OsztódóSpóra(1)
-new Tekton(1)
-new Rovar(1)
+new Rovarasz (1)
+new OsztódóSpóra (1)
+new Tekton (1)
+new Rovar (1)
 
 EVENT Spóra evés
-Remove OsztódóSpóra(1)
-new Rovar(2)
+OsztoSpora (1) darabszám 1 --> 0
 Rovarász (1) pontok: 0 --> 5
+new Rovar (2)

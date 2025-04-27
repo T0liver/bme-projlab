@@ -76,7 +76,17 @@ public class Main {
   }
 
   private static void RovarTesztek() {
-    ExecuteTest("Rovar_Tektont_Valt");
+
+    //ExecuteTest("Rovar_Tektont_Valt");
+    //ExecuteTest("Rovar_Atlepne");
+    //ExecuteTest("Rovar_oda_visszaall");
+    //ExecuteTest("Rovar_Vag");
+    ExecuteTest("Normal_Sporat_eszik");
+    ExecuteTest("Benito_Sporat_eszik");
+    ExecuteTest("Csorbito_Sporat_eszik");
+    ExecuteTest("Gyorsito_Sporat_eszik");
+    ExecuteTest("Lassito_Sporat_eszik");
+    ExecuteTest("Oszto_Sporat_eszik");
   }
 
   private static void FonalTesztek() {

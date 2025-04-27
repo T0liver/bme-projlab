@@ -2,6 +2,7 @@ package bme.teszt;
 
 import bme.*;
 
+import javax.print.attribute.standard.MediaSize;
 import java.io.*;
 import java.util.*;
 
@@ -344,7 +345,7 @@ public class JDBTestTool2 implements Serializable{
                     szomszed.addSzomszed(tekton);
                     List<Tekton> szomszedSzomszedai = szomszed.getSzomszed(1);
 
-                    AppendOutput(Name(szomszed)+" szomszédok: "
+                    AppendOutput(Name(szomszed)+" szomszedok: "
                             + ListToString(szomszedRegiSzomszedai)
                             +" --> "+ ListToString(szomszedSzomszedai));
                 }
@@ -402,23 +403,23 @@ public class JDBTestTool2 implements Serializable{
                 switch (args[i + 1]) {
                     case "gyrs":
                         spora = new GyorsitoSpora(tp, db, gombasz);
-                        AppendOutput("new GyorsítóSpóra(" + args[1] + ")");
+                        AppendOutput("new GyorsítóSpóra (" + args[1] + ")");
                         break;
                     case "ls":
                         spora = new LassitoSpora(tp, db, gombasz);
-                        AppendOutput("new LassítóSpóra(" + args[1] + ")");
+                        AppendOutput("new LassítóSpóra (" + args[1] + ")");
                         break;
                     case "bnt":
                         spora = new BenitoSpora(tp, db, gombasz);
-                        AppendOutput("new BénítóSpóra(" + args[1] + ")");
+                        AppendOutput("new BénítóSpóra (" + args[1] + ")");
                         break;
                     case "csrb":
                         spora = new CsorbitoSpora(tp, db, gombasz);
-                        AppendOutput("new CsorbítóSpóra(" + args[1] + ")");
+                        AppendOutput("new CsorbítóSpóra (" + args[1] + ")");
                         break;
                     case "oszt":
                         spora = new OsztoSpora(tp, db, gombasz);
-                        AppendOutput("new OsztódóSpóra(" + args[1] + ")");
+                        AppendOutput("new OsztódóSpóra (" + args[1] + ")");
                         break;
                 }
                 spora.setId(Integer.parseInt(args[1]));
@@ -457,7 +458,7 @@ public class JDBTestTool2 implements Serializable{
         Gombasz gombasz = null;
 
         int ID = Integer.parseInt(args[1]);
-        AppendOutput("new Gombatest("+ ID +")");
+        AppendOutput("new GombaTest ("+ ID +")");
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -559,8 +560,9 @@ public class JDBTestTool2 implements Serializable{
         }
 
         rovar = new Rovar(rovarasz, tekton);
-        AppendOutput("new Rovar(" + args[1] + ")");
+        AppendOutput("new Rovar (" + args[1] + ")");
 
+        rovar.setId(Integer.parseInt(args[1]));
         rovar.setSebesseg(seb);
         rovar.setVaghat(vaghat);
         rovar.setUjravaghat(ujv);
@@ -649,6 +651,8 @@ public class JDBTestTool2 implements Serializable{
         int sporaID = 0;
         int oldValue = spora.getDarabszam();
         int oldPont = rovarasz.getPontok();
+        int oldSeb = rovar.getSebesseg();
+        boolean plVaghat = rovar.getVaghat();
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-sp")) {
@@ -661,7 +665,23 @@ public class JDBTestTool2 implements Serializable{
         }
 
         rovar.eszik(spora);
-        AppendOutput("EVENT Spóra evés\nSpóra (" + sporaID +") darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
+        AppendOutput("\nEVENT Spóra evés\n" + Name(spora) + " darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
+
+        if (spora instanceof LassitoSpora || spora instanceof GyorsitoSpora) {
+            AppendOutput(Name(rovar) + " sebesség: " + oldSeb + " --> " + rovar.getSebesseg());
+        }
+        if (spora instanceof BenitoSpora) {
+            AppendOutput(Name(rovar) + " sebesség: " + oldSeb + " --> " + rovar.getSebesseg() + "\n" + Name(rovar) + " vaghat: " + plVaghat + " --> " + rovar.getVaghat());
+        }
+        if (spora instanceof CsorbitoSpora) {
+            AppendOutput(Name(rovar) + " vaghat: " + plVaghat + " --> " + rovar.getVaghat());
+        }
+        if (spora instanceof OsztoSpora) {
+            int id = rovar.getId() + 1;
+            AddRovar(new String[]{"/addrov", "" + id + "", "-a", "1", "-tk", "1", "-seb", "5", "-vag", "Y"});
+        }
+
+
     }
 
     private void CutFonal(String[] args) {}
