@@ -225,7 +225,6 @@ public class JDBTestTool2 implements Serializable{
 //TODO: A kimenetében segítsetek
     private void GrowGombatest(String[] args) {
 
-
         Gombasz gombasz = null;
         Tekton hely = null;
         int aktorID = -1;
@@ -624,6 +623,11 @@ public class JDBTestTool2 implements Serializable{
     private void GrowFonal(String[] args) {
 
         GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
+        if (gt == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (GombaTest nem létezik)");
+            return;
+        }
+
         Tekton gtt = gt.getTartozkodik();
 
         int gombaszID = gt.getGombasz().getId();
@@ -634,6 +638,10 @@ public class JDBTestTool2 implements Serializable{
 
         Tekton innen = tektonok.get(tId1);
         Tekton ide = tektonok.get(tId2);
+        if (innen == null || ide == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tekton nem létezik)");
+            return;
+        }
 
         if (!gtt.getSzomszed(1).contains(ide)) {
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszédosak)");
@@ -746,6 +754,7 @@ public class JDBTestTool2 implements Serializable{
         AddTekton(new String[] {"/addtk", "2"});
         AddTekton(new String[] {"/addtk", "3", "-nei", "2"});
 
+        tektonok.remove(Integer.parseInt(args[1]));
     }
 
     private void OnTekton(String[] args) {}
@@ -833,7 +842,6 @@ public class JDBTestTool2 implements Serializable{
             System.out.println("------------------------");
         }
     }
-
 
     private void CheckOutput() {
         String file1 = expected.getAbsolutePath();
