@@ -92,9 +92,9 @@ public class Main {
 
   private static void RovarTesztek() {
 
-    ExecuteTest("Rovar_Tektont_Valt");
-    //ExecuteTest("Rovar_Atlepne");
-    //ExecuteTest("Rovar_oda-visszaall");
+    ExecuteTest("Rovar_Tektont_Valt"); //Mukodik
+    ExecuteTest("Rovar_Atlepne");     //Mukodik
+    ExecuteTest("Rovar_oda-visszaall");   //Mukodik
     ExecuteTest("Rovar_Vag"); //Működik
     ExecuteTest("Eletben_Tarto_Tekton_Rovar_Vag");
     ExecuteTest("Normal_Sporat_Eszik"); //Működik
