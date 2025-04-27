@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
+
 /**
  * Jatekvezerlo osztaly definicioja
  */
