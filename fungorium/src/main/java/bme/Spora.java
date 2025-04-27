@@ -20,7 +20,7 @@ public class Spora implements Jatekelem{
   public void setId(int id) {
     this.id = id;
   }
-  
+
   /** A spóra darabszáma. */
   protected int darabszam;
 
@@ -44,8 +44,28 @@ public class Spora implements Jatekelem{
     this.gombasz = gombasz;
   }
 
+  /**
+   * Publikus getter a spora elhelyezkedesi tektonjanak megadasara.
+   * @param t a tekton
+   */
   public void setTartozkodik(Tekton t) {
     tartozkodik = t;
+  }
+
+  /**
+   * Publikus getter a spora darabszamanak megadasara.
+   * @param db a darabszam
+   */
+  public void setDarabszam(int db) {
+    darabszam = db;
+  }
+
+  /**
+   * Publikus getter a spora tapanyagertekenek megadasara.
+   * @param kcal a tapertek
+   */
+  public void setTapanyag(int kcal) {
+    tapanyagtartalom = kcal;
   }
 
   /**

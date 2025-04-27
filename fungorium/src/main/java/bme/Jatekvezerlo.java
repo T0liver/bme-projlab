@@ -18,19 +18,19 @@ import main.java.bme.EletbenTartoTekton;
  */
 public class Jatekvezerlo {
   /** jelenlegi kor szama */
-  static int jelenlegiKor = 0;
+  public static int jelenlegiKor = 0;
   /** tektonok listaja */
-  static List<Tekton> tektonok = new ArrayList<Tekton>();
+  public static List<Tekton> tektonok = new ArrayList<Tekton>();
   /** jatekosok listaja */
-  static List<Jatekos> jatekosok = new ArrayList<Jatekos>();
+  public static List<Jatekos> jatekosok = new ArrayList<Jatekos>();
   /** jelenlegi jatekos szama */
-  static int jelenlegiJatekos = 0;
+  public static int jelenlegiJatekos = 0;
   /** mennyi kor egy jatek */
-  static int jatekHossz = 50;
+  public static int jatekHossz = 50;
   /** engedelyezve van-e a random */
-  static boolean random = false;
+  public static boolean random = false;
   /** a random osztaly */
-  static Random r = new Random();
+  public static Random r = new Random();
 
   /**
   * privat konstruktor, mert warning
