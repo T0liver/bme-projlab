@@ -698,7 +698,71 @@ public class JDBTestTool2 implements Serializable{
 
     }
 
-    private void CutFonal(String[] args) {}
+    private void CutFonal(String[] args) {
+        int rovarID = Integer.parseInt(args[1]);
+        int gombafonalID = -1;
+        int tektonfeleID = -1;
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-if")) {
+                gombafonalID = Integer.parseInt(args[i + 1]);
+            }
+            if (args[i].equals("-tk")) {
+                tektonfeleID = Integer.parseInt(args[i + 1]);
+            }
+        }
+
+        GombaFonal gombaFonal = gombaFonalak.get(gombafonalID);
+        Tekton tekton = tektonok.get(tektonfeleID);
+        Rovar rovar = rovarok.get(rovarID);
+
+        if (rovar.getVaghat()) {
+            List<String> vezetElotte = new ArrayList<>();
+            // Tektonok rendezése, hogy biztosan az ID alapján helyes sorrendben jelenjenek meg
+            List<Tekton> tektonokSorted = new ArrayList<>(tektonok.values());
+            tektonokSorted.sort(Comparator.comparingInt(Tekton::getId));
+
+            for (Tekton honnan : tektonokSorted) {
+                for (Tekton hova : tektonokSorted) {
+                    if (honnan.getId() < hova.getId() && gombaFonal.getVezet(honnan, hova)) {
+                        vezetElotte.add("Tekton (" + honnan.getId() + "), Tekton (" + hova.getId() + ")");
+                    }
+                }
+            }
+
+            rovar.vag(gombaFonal, tekton);
+
+            AppendOutput("\nEVENT Rovar vág");
+
+            // Kiírjuk a GombaFonal vezetési kapcsolatokat
+            if (vezetElotte.isEmpty()) {
+                AppendOutput("GombaFonal (" + gombafonalID + ") vezet: [] --> [ ]");
+            } else {
+                AppendOutput("GombaFonal (" + gombafonalID + ") vezet: [{" + String.join("}, {", vezetElotte) + "}] --> [ ]");
+            }
+
+            // A Tektonok sorrendje fordítottan: először a Tekton (2), majd a Tekton (1)
+            for (int i = tektonokSorted.size() - 1; i >= 0; i--) {
+                Tekton t = tektonokSorted.get(i);
+                if (t.getFonalak().contains(gombaFonal) && t != tekton) {
+                    // A Tektonokat most már fordított sorrendben írjuk ki
+                    AppendOutput("Tekton (" + t.getId() + ") vezet: [GombaFonal (" + gombafonalID + ")] --> [ ]");
+                }
+            }
+
+            // Az alap tekton kiírása
+            AppendOutput("Tekton (" + tekton.getId() + ") vezet: [GombaFonal (" + gombafonalID + ")] --> [ ]");
+
+        } else {
+            AppendOutput("\nINSTRUCTION FAIL " + String.join(" ", args) + " (A rovar nem vághat)\n");
+        }
+    }
+
+
+
+
+
+
 
     //Elegge gatya sok mindent kell meg benne csinalni
     private void SporaSzoras(String[] args) {
