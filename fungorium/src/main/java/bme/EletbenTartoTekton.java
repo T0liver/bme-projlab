@@ -1,9 +1,4 @@
-package main.java.bme;
-
-import bme.GombaFonal;
-import bme.Jatekvezerlo;
-import bme.Tekton;
-
+package bme;
 /**
  * EletbenTartoTekton osztály definíciója.
  *

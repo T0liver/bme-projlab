@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
-import main.java.bme.EletbenTartoTekton;
 
 /**
  * Jatekvezerlo osztaly definicioja
