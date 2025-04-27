@@ -55,7 +55,7 @@ public class GombaFonal implements Jatekelem {
     vezet.putIfAbsent(hova, new ArrayList<>());
     vezet.get(hova).add(honnan);
 
-    honnan.fonalak.add(this);
+    //honnan.fonalak.add(this); //TODO ???
   }
 
   /**

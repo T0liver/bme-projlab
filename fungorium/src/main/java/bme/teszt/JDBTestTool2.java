@@ -1,7 +1,7 @@
 package bme.teszt;
 
 import bme.*;
-
+import static bme.Jatekvezerlo.tektonok;
 import java.io.*;
 import java.util.*;
 
@@ -317,26 +317,26 @@ public class JDBTestTool2 implements Serializable{
             if (!fullline.contains("-t")){
                 tekton.setId(Integer.parseInt(args[1]));
                 AppendOutput("new " + Name(tekton));
+            } else {
+                int typeID = 0;
+                for (int i = 1; i < args.length; i++) {
+                    if (args[i].equals("-t")){
+                        typeID = i + 1;
+                    }
+                }
+                //case "el": tekton = new
+                // NINCS ELETBENTARTO TEKTON
+                tekton = switch (args[typeID]) {
+                    case "egy" -> new EgyetlenFonalTekton();
+                    case "flsz" -> new FelszivoTekton(3);
+                    case "trm" -> new TermeketlenTekton();
+                    default -> tekton;
+                };
+                tekton.setId(Integer.parseInt(args[1]));
+                AppendOutput("new " + Name(tekton));
             }
 
             for (int i = 1; i < args.length; i++) {
-                if (args[i].equals("-t")) {
-                    switch (args[++i]) {
-                        case "egy":
-                            tekton = new EgyetlenFonalTekton();
-                            break;
-                        case "flsz":
-                            tekton = new FelszivoTekton(3);
-                            break;
-                        case "trm":
-                            tekton = new TermeketlenTekton();
-                            break;
-                        //case "el": tekton = new
-                        // NINCS ELETBENTARTO TEKTON
-                    }
-                    tekton.setId(Integer.parseInt(args[1]));
-                    AppendOutput("new " + Name(tekton));
-                }
 
                 if (args[i].equals("-f")) {
                     tekton.setFoglalt(args[i + 1].equals("Y"));
@@ -363,7 +363,7 @@ public class JDBTestTool2 implements Serializable{
             AppendOutput("new " + Name(tekton));
         }
         tektonok.put(tekton.getId(), tekton);
-
+        Jatekvezerlo.tektonok.add(tekton);
     }
 
         private void AddAktor(String[] args) {
