@@ -5,6 +5,6 @@ Tekton (2) szomszedok: [ ] --> [ Tekton (3) ]
 new GombaTest (4)
 
 EVENT Spórázás
-new Spora (1)
-Tekton (3) sporak: [] --> [Spóra (1)]
-Gombatest (4) élettartam: 2 --> 1
+new Spora (0)
+Tekton (3) sporak: [] --> [ Spora (0) ]
+GombaTest (4) elettartam: 2 --> 1

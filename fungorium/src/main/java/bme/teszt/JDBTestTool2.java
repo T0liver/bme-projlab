@@ -784,24 +784,21 @@ public class JDBTestTool2 implements Serializable{
                 tekton = tektonok.get(Integer.parseInt(args[i + 1]));
                 TektonID = Integer.parseInt(args[i + 1]);
             }
-            if (args[i].equals("-type")){
-                switch (args[i + 1]) {
-                        case "gyrs": break;
-                        case "ls": break;
-                        case "bnt": break;
-                        case "csrb": break;
-                        case "oszt": break;
-                        default: break;
-                }
-            }
+
         }
         int oldElet = gombatest.getElettartam();
 
-        gombatest.sporatSzor(tekton);
+
+
+        if (!gombatest.sporatSzor(tekton)) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nem szomszedos tekton)");
+            return;
+        }
+
         AppendOutput("\nEVENT Spórázás");
 
 
-        AddSpora(new String[]{"/addsp", "1", "-tk", "" + TektonID, "-a", "" + gombatest.getGombasz().getId()});
+        AddSpora(new String[]{"/addsp", "0", "-tk", "" + TektonID, "-a", "" + gombatest.getGombasz().getId()});
         AppendOutput("" + Name(tekton) + " sporak: [] --> " + ListToString(tekton.getSporak()));
 
 
