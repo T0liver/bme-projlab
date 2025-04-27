@@ -81,6 +81,7 @@ public class Gombasz extends Jatekos {
     List<Boolean> sporaHasznalt = new ArrayList<Boolean>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) testCselekedett.add(false);
+    for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).elpusztulGrafos();
     boolean endOfTurn = false;
     Scanner scanner = new Scanner(System.in);
     System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");

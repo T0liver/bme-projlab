@@ -15,6 +15,8 @@ import java.util.Random;
  */
 public class Tekton implements Jatekelem{
 
+  
+  Random r = new Random();
   private int id;
   public int getId() {
     return id;
@@ -111,6 +113,14 @@ public class Tekton implements Jatekelem{
         fonalak.get(i).elvagodik(this, szomszedok.get(e));
       }
     }
+    for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
+      if (Jatekvezerlo.jatekosok.get(i).getType() == 1) {
+        for (int e = 0; e < Jatekvezerlo.jatekosok.get(i).getRovarok().size(); ++e) {
+          if (Jatekvezerlo.jatekosok.get(i).getRovarok().get(e).getTartozkodik() == this)
+            Jatekvezerlo.jatekosok.get(i).getRovarok().get(e).setTartozkodik(t1);
+        }
+      }
+    }
     t1.addSzomszed(t2);
     t2.addSzomszed(t1);
     return ret;
@@ -155,7 +165,6 @@ public class Tekton implements Jatekelem{
     }
     Spora ujSpora;
     int adandoSporaTipus = 0;
-    Random r = new Random();
     if (random)
       adandoSporaTipus = r.nextInt(6);
     switch (adandoSporaTipus) {
@@ -291,6 +300,7 @@ public class Tekton implements Jatekelem{
     System.out.println("GombaFonalak:");
     for (int i = 0; i < fonalak.size(); ++i) {
       System.out.println("ID: " + i);
+      fonalak.get(i).printData(this);
       fonalak.get(i).printData();
     }
     System.out.println("Sporak:");

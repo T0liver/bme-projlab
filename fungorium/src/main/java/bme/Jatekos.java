@@ -1,5 +1,7 @@
 package bme;
 
+import java.util.List;
+
 /**
  * Játékos osztály definíciója.
  *
@@ -95,4 +97,9 @@ public abstract class Jatekos implements Jatekelem{
    * publikus fuggveny rovar hozzaadasara, rovarasz hasznalja.
    */
   public void addRovar(Rovar gt) {}
+
+  /**
+   * publikus fuggveny rovarok lekerdezesere, rovarasz hasznalja.
+   */
+  public abstract List<Rovar> getRovarok();
 }

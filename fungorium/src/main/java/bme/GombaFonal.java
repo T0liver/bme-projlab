@@ -160,6 +160,31 @@ public class GombaFonal implements Jatekelem {
     vezet.clear();
   }
 
+  
+  /** A gombafonal ellenorzi, mielyik tektont eri el, majd amit nem, onnan elpusztul. */
+  public void elpusztulGrafos() {
+    Map<Tekton, List<Tekton>> ujVezet = new HashMap<>();
+    for (Tekton entry : vezet.keySet()) {
+      if (entry.vanGombaTest(this)) {
+        ujVezet.put(entry, vezet.get(entry));
+      }
+    }
+    for (int i = 0; i < 25; ++i) { //overdoing it hardcoded, too bad
+      for (Tekton entry : vezet.keySet()) {
+        for (Tekton ujEntry : ujVezet.keySet()) {
+          if (ujVezet.get(ujEntry).contains(entry)) {
+            ujVezet.put(entry, vezet.get(entry));
+          }
+        }
+      }
+    }
+    for (Tekton entry : vezet.keySet()) {
+      if (!ujVezet.keySet().contains(entry))
+        entry.fonalak.remove(this);
+    }
+    vezet = ujVezet;
+  }
+
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
     // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje
@@ -178,5 +203,14 @@ public class GombaFonal implements Jatekelem {
       System.out.println("ID honnan: " + Jatekvezerlo.getIDof(name) + "\nIDk hova:");
       for (int i = 0; i < vezet.get(name).size(); ++i) System.out.println(Jatekvezerlo.getIDof(vezet.get(name).get(i)));
     }
+  }
+
+  /**
+   * A bizonyos tekton szomszedaival valo osszekotteteseket kiiro fuggveny.
+   */
+  public void printData(Tekton t) {
+    System.out.println("Osszekotott tektonok:");
+      System.out.println("ID honnan: " + Jatekvezerlo.getIDof(t) + "\nIDk hova:");
+      for (int i = 0; i < vezet.get(t).size(); ++i) System.out.println(Jatekvezerlo.getIDof(vezet.get(t).get(i)));
   }
 }

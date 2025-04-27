@@ -96,6 +96,15 @@ public class Rovar  implements Jatekelem{
     return tartozkodik;
   }
 
+  /**
+   * publikus setter a rovar tartozkodasi helyenek beallitasahoz
+   *
+   * @param t a tekton amin a rovar lesz
+   */
+  public void setTartozkodik(Tekton t) {
+    tartozkodik = t;
+  }
+
   /** publikus setter a rovar fonál vágására való készségének letiltására */
   public void nemVaghat() {
     vaghat = false;
