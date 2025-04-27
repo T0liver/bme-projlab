@@ -1,8 +1,17 @@
 package bme;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
 import javax.naming.directory.InvalidAttributeValueException;
+
+import main.java.bme.EletbenTartoTekton;
 
 /**
  * Jatekvezerlo osztaly definicioja
@@ -20,6 +29,8 @@ public class Jatekvezerlo {
   static int jatekHossz = 50;
   /** engedelyezve van-e a random */
   static boolean random = false;
+  /** a random osztaly */
+  static Random r = new Random();
 
   /**
   * privat konstruktor, mert warning
@@ -39,13 +50,14 @@ public class Jatekvezerlo {
    * ha nincs, minden 5. korben a korszamadikat
    */
   public static void tektontHasit() {
-    Tekton talalt;
-    if (random && Random.nextInt() % 5 == 0) {
-      talalt = tektonok.get(Random.nextInt() % tektonok.size());
+    Tekton talalt = null;
+    if (random && r.nextInt(4) == 0) {
+      talalt = tektonok.get(r.nextInt(tektonok.size()));
     }
     if (!random && jelenlegiKor % 5 == 4) {
       talalt = tektonok.get(jelenlegiKor % tektonok.size());
     }
+    if (talalt == null) return;
     List<Tekton> ujak = talalt.hasad();
     if (ujak.size() == 1) return;
     tektonok.remove(talalt);
@@ -120,12 +132,13 @@ public class Jatekvezerlo {
    * @param args parancssori argumentumok
    */
   public static void addJatekos(String[] args) {
-    Jatekos uj = new Jatekos();
+    Jatekos uj = null;
     switch (args[1]) {
       case "r": uj = new Rovarasz(); break;
       case "g": uj = new Gombasz(); break;
       default: System.out.println("rossz formátumú parancs");
     }
+    if (uj == null) return;
     if (uj.getType() != -1) addJatekos(uj);
     if (uj.getType() == 0) System.out.println("Gombász hozzáadva, id: " + (jatekosok.size() - 1));
     if (uj.getType() == 1) System.out.println("rovarász hozzáadva, id: " + (jatekosok.size() - 1));
@@ -141,12 +154,6 @@ public class Jatekvezerlo {
     System.out.println("parancsok:\n/random -set <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\r\rparancsok megjelenitese");
     boolean startGame = false;
     boolean loaded = false;
-    
-    for (int i = 0; i < rovarok.size(); ++i) {
-      rovarok.get(i).tick();
-      cselekedhet.add(true);
-      lepesek.add(rovarok.get(i).getSebesseg());
-    }
     Scanner scanner = new Scanner(System.in);
     while(!startGame) {
       String[] args = scanner.nextLine().strip().split(" ");
@@ -177,7 +184,7 @@ public class Jatekvezerlo {
         tektonok.set(21, new EletbenTartoTekton());
       } else {
         for (int i = 0; i < 25; ++i) {
-          switch(Random.nextInt() % 25) {
+          switch(r.nextInt(25)) {
             case 0: tektonok.add(new TermeketlenTekton()); break;
             case 1: tektonok.add(new EgyetlenFonalTekton()); break;
             case 2: tektonok.add(new FelszivoTekton()); break;
@@ -194,7 +201,7 @@ public class Jatekvezerlo {
               for (int k = -1; k < 2; ++k) {
                 int x = ((i + j) * 5 + 25) % 25;
                 int y = ((e + k) + 5) % 5;
-                tektonok.get(i).addSzomszed(x + y);
+                tektonok.get(i).addSzomszed(tektonok.get(x + y));
               }
             }
           }
@@ -202,17 +209,20 @@ public class Jatekvezerlo {
 
         for (int i = 0; i < jatekosok.size(); ++i) {
           if (jatekosok.get(i).getType() == 0) {
-            Gombatest gt = new GombaTest();
+            GombaTest gt = null;
+            try {
+              gt = new GombaTest(jatekosok.get(i), 5, tektonok.get(tektonok.size()/jatekosok.size() * i));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
             GombaFonal gf = new GombaFonal();
-            gt.setTartozkodik(tektonok.get(tektonok.size()/jatekosok.size * i));
-            tektonok.get(tektonok.size()/jatekosok.size * i).setFoglalt();
-            gf.addVezet(tektonok.get(tektonok.size()/jatekosok.size * i), tektonok.get(tektonok.size()/jatekosok.size * i));
+            tektonok.get(tektonok.size()/jatekosok.size() * i).setFoglalt(true);
+            gf.addVezet(tektonok.get(tektonok.size()/jatekosok.size() * i), tektonok.get(tektonok.size()/jatekosok.size() * i));
             jatekosok.get(i).addGombaTest(gt);
             jatekosok.get(i).addGombaFonal(gf);
           } else {
-            Rovar r = new Rovar();
+            Rovar r = new Rovar((Rovarasz) jatekosok.get(i), tektonok.get(tektonok.size()/jatekosok.size() * i));
             jatekosok.get(i).addRovar(r);
-            r.setTartozkodik(tektonok.get(tektonok.size()/jatekosok.size * i));
           }
         }
     }
@@ -292,7 +302,7 @@ public class Jatekvezerlo {
    */
   public static int getIDof(Jatekos j) {
     for (int i = 0; i < jatekosok.size(); ++i) {
-      if (t == jatekosok.get(i)) return i;
+      if (j == jatekosok.get(i)) return i;
     }
     return -1;
   } 

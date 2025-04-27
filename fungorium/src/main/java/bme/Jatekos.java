@@ -8,7 +8,7 @@ package bme;
  */
 public abstract class Jatekos implements Jatekelem{
 
-  private int pontok = 0; // -ról indul a játék
+  protected int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
 
   private int id;
@@ -80,4 +80,19 @@ public abstract class Jatekos implements Jatekelem{
     pontok += mennyit;
     return pontok;
   }
+
+  /**
+   * publikus fuggveny gombatest hozzaadasara, gombasz hasznalja.
+   */
+  public void addGombaTest(GombaTest gt) {}
+
+  /**
+   * publikus fuggveny gombafonal hozzaadasara, gombasz hasznalja.
+   */
+  public void addGombaFonal(GombaFonal gt) {}
+
+  /**
+   * publikus fuggveny rovar hozzaadasara, rovarasz hasznalja.
+   */
+  public void addRovar(Rovar gt) {}
 }

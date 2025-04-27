@@ -155,8 +155,9 @@ public class Tekton implements Jatekelem{
     }
     Spora ujSpora;
     int adandoSporaTipus = 0;
+    Random r = new Random();
     if (random)
-      adandoSporaTipus = Random.nextRandom() % 6;
+      adandoSporaTipus = r.nextInt(6);
     switch (adandoSporaTipus) {
       case 0:
         ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
@@ -169,7 +170,7 @@ public class Tekton implements Jatekelem{
         add(ujSpora);
         break;
       case 2:
-        ujSpora = new GyorsítóSpóra(3, mennyiseg, gt.getGombasz());
+        ujSpora = new GyorsitoSpora(3, mennyiseg, gt.getGombasz());
         ujSpora.setTartozkodik(this);
         add(ujSpora);
         break;
@@ -269,7 +270,12 @@ public class Tekton implements Jatekelem{
    * @return hogy van-e rajta olyan gombatest, ami kell a fonal túléléséhez
    */
   public boolean vanGombaTest(GombaFonal gombaFonal) {
-    return foglalt && gombatest.getGombasz() == gombaFonal.getGombasz();
+    if (foglalt) {
+       for (int i = 0; i < gombaFonal.getGombasz().getGombaTestek().size(); ++i) {
+          if (gombaFonal.getGombasz().getGombaTestek().get(i).getTartozkodik() == this) return true;
+       }
+    }
+    return false;
   }
 
   /** A kör elején meghívott függvény, felszívó tekton használja */

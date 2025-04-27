@@ -78,6 +78,19 @@ public class GombaTest implements Jatekelem{
     }
   }
 
+  public GombaTest(Jatekos gombasz, int elett, Tekton hely)  throws Exception {
+    if (!hely.getFoglalt()) {
+      sporadarab = 0;
+      elettartam = elett;
+      fejlett = false;
+      fejlettseg = 0;
+      tartozkodik = hely;
+      this.gombasz = (Gombasz) gombasz;
+      hely.setFoglalt(true);
+    } else {
+      throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
+    }
+}
   /**
    * Publikus getter függvény a gombatest spóra darabszámának lekérdezésére.
    *

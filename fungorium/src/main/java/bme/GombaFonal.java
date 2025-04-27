@@ -28,6 +28,19 @@ public class GombaFonal implements Jatekelem {
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
   private Map<Tekton, List<Tekton>> vezet;
 
+  /** Gombasz, amihez tartozik */
+  private Gombasz gombasz;
+
+  /**
+   *  Publikus setter a gombafonal jatekosanak beallitasara 
+   */
+  public void setGombasz(Gombasz j) {gombasz = j;}
+
+  /**
+   *  Publikus getter a gombafonal jatekosanak lekerdezesere 
+   */
+  public Gombasz getGombasz() {return gombasz;}
+
   /**
    * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a GombaFonalat egy üres
    * listából.
@@ -51,9 +64,11 @@ public class GombaFonal implements Jatekelem {
   public void addVezet(Tekton honnan, Tekton hova) {
     vezet.putIfAbsent(honnan, new ArrayList<>());
     vezet.get(honnan).add(hova);
+    vezet.get(honnan).add(honnan);
 
     vezet.putIfAbsent(hova, new ArrayList<>());
     vezet.get(hova).add(honnan);
+    vezet.get(hova).add(hova);
 
     //honnan.fonalak.add(this); //TODO ???
   }
@@ -83,6 +98,29 @@ public class GombaFonal implements Jatekelem {
 
       if (szomszedok1.contains(hova)) {
         addVezet(t1, hova);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a kapcsolat a két
+   * tekton között
+   * 
+   * @param honnan melyik tektonról akarunk átjutni.
+   * @param hova melyik tektonra akarunk átjutni.
+   * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor nem sikerül a
+   *     művelet.
+   */
+  public boolean athidal(Tekton honnan, Tekton hova) {
+    if (!honnan.getSzomszed(1).contains(hova) || honnan == hova) return false;
+    for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
+      if (entry.getKey() == honnan) {
+        addVezet(honnan, hova);
+        return true;
+      } else if (entry.getKey() == hova) {
+        addVezet(hova, honnan);
         return true;
       }
     }
@@ -135,9 +173,10 @@ public class GombaFonal implements Jatekelem {
    * A class adatait kiiro fuggveny.
    */
   public void printData() {
-    System.out.println("Osszekotott tektonok (ID parokkent):");
+    System.out.println("Osszekotott tektonok:");
     for (Tekton name: vezet.keySet()) {
-      System.our.println("(" + Jatekvezerlo.getIDof(name) + ", " + Jatekvezerlo.getIDof(vezet.get(name)) + ")");
+      System.out.println("ID honnan: " + Jatekvezerlo.getIDof(name) + "\nIDk hova:");
+      for (int i = 0; i < vezet.get(name).size(); ++i) System.out.println(Jatekvezerlo.getIDof(vezet.get(name).get(i)));
     }
   }
 }

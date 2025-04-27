@@ -20,7 +20,15 @@ public class Rovarasz extends Jatekos {
   public Rovarasz(String nev) {
     super(nev);
   }
-  
+
+  /**
+   * Parameter nelkuli konstruktor
+   */
+  public Rovarasz() {
+    super();
+  }
+
+
   /**
    * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
    */
@@ -28,6 +36,7 @@ public class Rovarasz extends Jatekos {
   public void lep() {
     List<Boolean> cselekedhet = new ArrayList<Boolean>();
     List<Integer> lepesek = new ArrayList<Integer>();
+    boolean endOfTurn = false;
     for (int i = 0; i < rovarok.size(); ++i) {
       rovarok.get(i).tick();
       cselekedhet.add(true);
@@ -42,7 +51,7 @@ public class Rovarasz extends Jatekos {
     while(!endOfTurn) {
       String[] args = scanner.nextLine().strip().split(" ");
       switch (args[0]) {
-        case "movr": if (lepesek.get(Integer.parseInt(args[1]) > 0)) lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)); break;
+        case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)); break;
         case "eats": if (cselekedhet.get(Integer.parseInt(args[1]))) pontok += megetet(args); cselekedhet.set(Integer.parseInt(args[1]), false); break;
         case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) elvagat(args); break;
         case "/end": endOfTurn = true; break;
@@ -77,7 +86,7 @@ public class Rovarasz extends Jatekos {
         }
     }
     if (tektonID == -1) return 0; 
-    rovar.mozog(tektonok.get(tektonID));
+    rovar.mozog(Jatekvezerlo.tektonok.get(tektonID));
     return 1;
     //System.out.println("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
   }
@@ -111,7 +120,7 @@ public class Rovarasz extends Jatekos {
    * @param args parancssori argumentumok
    * @return sikeresen vagott-e
    */
-  private bool elvagat(String[] args) {
+  private boolean elvagat(String[] args) {
     int tektonID = -1;
     int fonalID = -1;
     Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
@@ -123,13 +132,14 @@ public class Rovarasz extends Jatekos {
           fonalID = Integer.parseInt(args[i + 1]);
       }
     }
+    if (tektonID == -1 || fonalID == -1) return false;
 
     Tekton merre = rovar.getTartozkodik();
     GombaFonal gombaFonal = new GombaFonal();
     int oldID = -1;
 
     for (int i = 0; i < rovar.getTartozkodik().getFonalak().size(); ++i) {
-      if (Jatekvezerlo.getIDof(rovar.getTartozkodik().getFonalak().get(i).getJatekos()) == fonalID) {
+      if (Jatekvezerlo.getIDof(rovar.getTartozkodik().getFonalak().get(i).getGombasz()) == fonalID) {
         gombaFonal = rovar.getTartozkodik().getFonalak().get(i); break;
       }
     }
@@ -140,9 +150,8 @@ public class Rovarasz extends Jatekos {
         merre = rovar.getTartozkodik().getSzomszed(1).get(i); break;
       }
     }
-    if (merre = rovar.getTartozkodik()) return false;
+    if (merre == rovar.getTartozkodik()) return false;
 
-    if (tektonId == -1 || fonalID == -1) return false;
     return rovar.vag(gombaFonal, merre);
   }
 

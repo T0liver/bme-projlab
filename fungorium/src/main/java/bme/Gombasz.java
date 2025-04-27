@@ -29,6 +29,13 @@ public class Gombasz extends Jatekos {
   }
 
   /**
+   * Parameter nelkuli konstruktor
+   */
+  public Gombasz() {
+    super();
+  }
+
+  /**
    *
    * @return visszaadja a GombaTestek listáját
    */
@@ -74,6 +81,7 @@ public class Gombasz extends Jatekos {
     List<Boolean> sporaHasznalt = new ArrayList<Boolean>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) testCselekedett.add(false);
+    boolean endOfTurn = false;
     Scanner scanner = new Scanner(System.in);
     System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
     System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
@@ -131,7 +139,7 @@ public class Gombasz extends Jatekos {
    */
   private void listTest() {
     for (int i = 0; i < gombaTestek.size(); ++i) {
-      System.out.println("GombaTest:\nID: " + i + "\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(gombaTestek.get(i).getTartozkodik()) + "\nSpora db: " + rovarok.get(i).getSporaDarab() + "\nElettartam: " + gombaTestek.get(i).getElettartam() + "\nFejlettseg: " + gombaTestek.get(i).getFejlett() + "\n");
+      System.out.println("GombaTest:\nID: " + i + "\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(gombaTestek.get(i).getTartozkodik()) + "\nSpora db: " + gombaTestek.get(i).getSporaDarab() + "\nElettartam: " + gombaTestek.get(i).getElettartam() + "\nFejlettseg: " + gombaTestek.get(i).getFejlett() + "\n");
     }
   }
 
@@ -179,7 +187,7 @@ public class Gombasz extends Jatekos {
   */
   private int fonalatNoveszt(String[] args) {
       for (int i = 0; i < gombaFonalak.size(); ++i) {
-        if (gombaFonalak.athidal(Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])), Jatekvezerlo.tektonok.get(Integer.parseInt(args[2])))) return 1;
+        if (gombaFonalak.get(i).athidal(Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])), Jatekvezerlo.tektonok.get(Integer.parseInt(args[2])))) return 1;
       }
       return 0;
   }
@@ -191,8 +199,14 @@ public class Gombasz extends Jatekos {
   private void testetNoveszt(String[] args) {
     for (int i = 0; i < sporak.size(); ++i) {
       if (Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).sporatFelhasznal(sporak.get(i))) {
-        gombaTestek.add(new GombaTest(this, 0, 5, false, 0, Jatekvezerlo.tektonok.get(Integer.parseInt(args[1]))));
-        Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).addGombaTest(gombaTestek.get(gombaTestek.size() - 1));
+        try {
+          gombaTestek.add(new GombaTest(this, 0, 5, false, 0, Jatekvezerlo.tektonok.get(Integer.parseInt(args[1]))));
+        } catch (NumberFormatException e) {
+          e.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).setFoglalt(true); //addGombaTest(gombaTestek.get(gombaTestek.size() - 1));
       }
     }
   }
