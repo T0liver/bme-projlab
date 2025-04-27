@@ -30,4 +30,12 @@ public class GyorsitoSpora extends Spora {
   public void hatas(Rovar mire) {
     mire.setSebesseg((int) (Math.ceil(mire.getSebesseg() * 2)));
   }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  @Override
+  public void printData() {
+    System.out.println("Gyorsito Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
+  }
 }

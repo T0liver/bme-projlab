@@ -120,4 +120,14 @@ public class GombaFonal {
     novekves++;
     return;
   }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  public void printData() {
+    System.out.println("Osszekotott tektonok (ID parokkent):");
+    for (Tekton name: vezet.keySet()) {
+      System.our.println("(" + Jatekvezerlo.getIDof(name) + ", " + Jatekvezerlo.getIDof(vezet.get(name)) + ")");
+    }
+  }
 }

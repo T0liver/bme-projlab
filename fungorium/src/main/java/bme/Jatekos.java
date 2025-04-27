@@ -8,7 +8,7 @@ package bme;
  */
 public abstract class Jatekos {
 
-  private int pontok = 0; // -ról indul a játék
+  protected int pontok = 0; // -ról indul a játék
 
   /**
    * Publikus getter függvény a Játékos pontszámának lekérdezésére.
@@ -24,7 +24,15 @@ public abstract class Jatekos {
    */
   public abstract void lep();
 
-  public abstract int getType();
+  /**
+   * jatekos tipusat megado fuggveny
+   */
+  public int getType() {return -1;}
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  public void printData() {}
 
   /**
    * Publikus tagfüggvény a játékos pontszámának növelésére.

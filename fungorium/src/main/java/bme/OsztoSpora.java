@@ -34,4 +34,12 @@ public class OsztoSpora extends Spora {
     r2.setUjravaghat(mire.getUjravaghat());
     mire.getRovarasz().addRovar(r2);
   }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  @Override
+  public void printData() {
+    System.out.println("Oszto Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
+  }
 }

@@ -21,4 +21,26 @@ public class EgyetlenFonalTekton extends Tekton {
     }
     super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
   }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  @Override
+  public void printData() {
+    System.out.println("Egyetlen Fonal Tekton\nFoglalt: " + foglalt);
+    System.out.println("GombaFonalak:");
+    for (int i = 0; i < fonalak.size(); ++i) {
+      System.out.println("ID: " + i);
+      fonalak.get(i).printData();
+    }
+    System.out.println("Sporak:");
+    for (int i = 0; i < sporak.size(); ++i) {
+      System.out.println("ID: " + i);
+      sporak.get(i).printData();
+    }
+    System.out.println("Szomszed IDk:");
+    for (int i = 0; i < szomszedok.size(); ++i) {
+      System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
+    }
+  }
 }

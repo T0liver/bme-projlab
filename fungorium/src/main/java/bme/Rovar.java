@@ -136,13 +136,31 @@ public class Rovar {
    * között
    *
    * @param gombaFonal az elvágandó GombaFonal
+   * @return hogy elvágta-e a fonalat
    */
-  public void vag(GombaFonal gombaFonal, Tekton merre) {
-    if (vaghat) {
+  public boolean vag(GombaFonal gombaFonal, Tekton merre) {
+    if (vaghat && gombaFonal.getVezet(tartozkodik, merre)) {
       gombaFonal.elvagodik(tartozkodik, merre);
+      return true;
     }
+    return false;
+  }
+  /**
+   * Fuggveny spora megevesere
+   * @param spora melyik sporat
+   * @param db mennyit belole
+   * @return a kapott pontszam
+   */
+  public int eszik(Spora spora, int db) {
+    spora.hatas(this);
+    return spora.csokken(db);
   }
 
+  /**
+   * Fuggveny spora megevesere
+   * @param spora melyik sporat
+   * @return a kapott pontszam
+   */
   public int eszik(Spora spora) {
     spora.hatas(this);
     return spora.csokken(5);

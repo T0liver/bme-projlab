@@ -23,9 +23,13 @@ public class FelszivoTekton extends Tekton {
    *
    * @param tekton a kezdő tartózkodási hely
    */
-  public FelszivoTekton(int ido) { // TODO: majd hardcoded is lehet
+  public FelszivoTekton(int ido) { // majd hardcoded is lehet
     hatralevoido = ido;
     maxido = ido;
+  }
+  public FelszivoTekton() {
+    hatralevoido = 10;
+    maxido = 10;
   }
 
   /**
@@ -50,6 +54,28 @@ public class FelszivoTekton extends Tekton {
       }
       fonalak = new ArrayList<>();
       hatralevoido = maxido;
+    }
+  }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  @Override
+  public void printData() {
+    System.out.println("Felszivo Tekton\nFoglalt: " + foglalt);
+    System.out.println("GombaFonalak:");
+    for (int i = 0; i < fonalak.size(); ++i) {
+      System.out.println("ID: " + i);
+      fonalak.get(i).printData();
+    }
+    System.out.println("Sporak:");
+    for (int i = 0; i < sporak.size(); ++i) {
+      System.out.println("ID: " + i);
+      sporak.get(i).printData();
+    }
+    System.out.println("Szomszed IDk:");
+    for (int i = 0; i < szomszedok.size(); ++i) {
+      System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
   }
 }

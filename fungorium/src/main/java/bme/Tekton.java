@@ -2,6 +2,7 @@ package bme;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Tekton osztály definíciója.
@@ -15,10 +16,10 @@ import java.util.List;
 public class Tekton {
 
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
-  private boolean foglalt;
+  protected boolean foglalt;
 
   /** lista a tektonhoz szomszédos tektonokról */
-  private List<Tekton> szomszedok;
+  protected List<Tekton> szomszedok;
 
   /** lista a tektonon levő spórákról */
   protected List<Spora> sporak;
@@ -34,18 +35,22 @@ public class Tekton {
     fonalak = new ArrayList<>();
   }
 
+  /** Publikus getter a tekton foglaltsaganak lekerdezesere */
   public boolean getFoglalt() {
     return foglalt;
   }
 
+  /** Publikus setter a tekton foglaltsaganak megadasara */
   public void setFoglalt(boolean foglaltsagi) {
     foglalt = foglaltsagi;
   }
 
+  /** Publikus getter a tektonon tartozkodo gombafonalak lekerdezesere */
   public List<GombaFonal> getFonalak() {
     return fonalak;
   }
 
+  /** Publikus getter a tektonon tartozkodo sporak lekerdezesere */
   public List<Spora> getSporak() {
     return sporak;
   }
@@ -55,10 +60,11 @@ public class Tekton {
    *
    * @param tekton egy szomszédként beállítandó tekton
    */
-  public void addSzomszed(
-      Tekton tekton) { // TODO: legyen inkább csak setter? ez nincs az uml diagramon
-    if (!szomszedok.contains(tekton)) // TODO: ez redundáns?
-    szomszedok.add(tekton); // TODO: csináljuk visszairányba?
+  public void addSzomszed(Tekton tekton) { // legyen inkább csak setter? ez nincs az uml diagramon - jó ez [Vid]
+    if (!szomszedok.contains(tekton)) { // ellenőrzés, ne legyen loop (redundancia)
+      szomszedok.add(tekton); // csináljuk visszairányba
+      tekton.addSzomszed(this);
+    }
   }
 
   /**
@@ -85,9 +91,20 @@ public class Tekton {
       ret.add(this);
       return ret;
     }
-    ret.add(new Tekton());
-    ret.add(new Tekton());
-    // TODO set Szomszedok hasadás iránya szerint (mezők szerint, majd grafikánál)
+    Tekton t1 = new Tekton();
+    Tekton t2 = new Tekton();
+    for (int i = 0; i < fonalak.size(); ++i) {
+      for (int e = 0; e < szomszedok.size(); ++e) {
+        if (e <= szomszedok.size() / 2) { //ez a rész majd grafikusan más lesz
+          t1.addSzomszed(szomszedok.get(e));
+        } else {
+            t2.addSzomszed(szomszedok.get(e));
+        }
+        fonalak.get(i).elvagodik(this, szomszedok.get(e));
+      }
+    }
+    t1.addSzomszed(t2);
+    t2.addSzomszed(t1);
     return ret;
   }
 
@@ -118,18 +135,73 @@ public class Tekton {
    *
    * @param mennyiseg mennyi spórát rakunk rá
    * @param gt melyik gombatest szórta
+   * @param random random spóratípus-e, vagy csak alapértelmezett
    * @return valami booleant
    */
-  public boolean addSpora(int mennyiseg, GombaTest gt /*spóratípus paraméterként?*/) {
+  public boolean addSpora(int mennyiseg, GombaTest gt, boolean random) {
     for (int i = 0; i < sporak.size(); ++i) {
       if (sporak.get(i).getGombasz() == gt.getGombasz()) { // keresünk azonos fajú spórát
         sporak.get(i).novel(mennyiseg);
         return false;
       }
     }
-    // TODO: spora hozzadasa gt játékosával megegyező játékossal és spóratípus radom vagy normál, ha
-    // nincs random, egyenlőre ez
+    Spora ujSpora;
+    int adandoSporaTipus = 0;
+    if (random)
+      adandoSporaTipus = Random.nextRandom() % 6;
+    switch (adandoSporaTipus) {
+      case 0:
+        ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      case 1:
+        ujSpora = new LassitoSpora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      case 2:
+        ujSpora = new GyorsítóSpóra(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      case 3:
+        ujSpora = new CsorbitoSpora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      case 4:
+        ujSpora = new BenitoSpora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      case 5:
+        ujSpora = new OsztoSpora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
+        break;
+      default:
+        break;
+    }
+    return true; // kellett újat hozzáadni
+  }
+
+  /**
+   * Spórák tektonon való elhelyezését megoldó függvény
+   *
+   * @param mennyiseg mennyi spórát rakunk rá
+   * @param gt melyik gombatest szórta
+   * @return valami booleant
+   */
+  public boolean addSpora(int mennyiseg, GombaTest gt) {
+    for (int i = 0; i < sporak.size(); ++i) {
+      if (sporak.get(i).getGombasz() == gt.getGombasz()) { // keresünk azonos fajú spórát
+        sporak.get(i).novel(mennyiseg);
+        return false;
+      }
+    }
     Spora ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
+    ujSpora.setTartozkodik(this);
     add(ujSpora);
     return true; // kellett újat hozzáadni
   }
@@ -141,6 +213,7 @@ public class Tekton {
    * @return nem ad vissza semmit sem
    */
   public void add(Spora spora) {
+    spora.setTartozkodik(this);
     sporak.add(spora);
   }
 
@@ -175,19 +248,45 @@ public class Tekton {
    */
   public void fonalNo(GombaFonal melyik) {
     for (int i = 0; i < szomszedok.size(); ++i) {
-      if (melyik.getVezet(
-          szomszedok.get(i),
-          szomszedok.get(
-              i))) { // TODO, ez nem biztos, hogy jó így, minden tektonra, amire vezet el kell
-                     // tárolni a tekton1, tekton1 párt...
+      if (melyik.getVezet(szomszedok.get(i), szomszedok.get(i))) { //Ellenőrzés, hogy szomszédról hidal-e át
         fonalak.add(melyik);
-        melyik.athidal(this);
+        //melyik.athidal(this); //ez kérdőjeles
       }
     }
+  }
+
+  /** Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a tektonon
+   * 
+   * @param gombaFonal a gombafonal, amire vizsgájuk
+   * @return hogy van-e rajta olyan gombatest, ami kell a fonal túléléséhez
+   */
+  public boolean vanGombaTest(GombaFonal gombaFonal) {
+    return foglalt && gombatest.getGombasz() == gombaFonal.getGombasz();
   }
 
   /** A kör elején meghívott függvény, felszívó tekton használja */
   public void tick() {
     // A kör elején meghívott függvény, felszívó tekton használja
+  }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  public void printData() {
+    System.out.println("Normalis Tekton\nFoglalt: " + foglalt);
+    System.out.println("GombaFonalak:");
+    for (int i = 0; i < fonalak.size(); ++i) {
+      System.out.println("ID: " + i);
+      fonalak.get(i).printData();
+    }
+    System.out.println("Sporak:");
+    for (int i = 0; i < sporak.size(); ++i) {
+      System.out.println("ID: " + i);
+      sporak.get(i).printData();
+    }
+    System.out.println("Szomszed IDk:");
+    for (int i = 0; i < szomszedok.size(); ++i) {
+      System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
+    }
   }
 }

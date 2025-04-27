@@ -13,13 +13,15 @@ package bme;
  */
 public class Spora {
   /** A spóra darabszáma. */
-  private int darabszam;
+  protected int darabszam;
 
   /** Megadja, hogy melyik gombászhoz tartozik */
-  private Gombasz gombasz;
+  protected Gombasz gombasz;
 
   /** A tápanyagtartalom, amit a spóra tartalmaz. */
-  private int tapanyagtartalom;
+  protected int tapanyagtartalom;
+
+  protected Tekton tartozkodik;
 
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
@@ -31,6 +33,10 @@ public class Spora {
     tapanyagtartalom = kcal;
     darabszam = db;
     this.gombasz = gombasz;
+  }
+
+  public void setTartozkodik(Tekton t) {
+    tartozkodik = t;
   }
 
   /**
@@ -96,5 +102,12 @@ public class Spora {
    */
   public void novel(int mennyivel) {
     darabszam += mennyivel;
+  }
+
+  /**
+   * A class adatait kiiro fuggveny.
+   */
+  public void printData() {
+    System.out.println("Normalis Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
   }
 }
