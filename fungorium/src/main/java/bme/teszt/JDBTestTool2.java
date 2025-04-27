@@ -518,16 +518,20 @@ public class JDBTestTool2 implements Serializable{
             List<GombaFonal> ujvezet = t1.getFonalak();
             List<GombaFonal> vezet = new ArrayList<>(ujvezet);
             ujvezet.add(gf);
-            AppendOutput(Name(t1)+" vezet: "+ListToString(vezet)+" --> "+ListToString(ujvezet));
 
             Tekton t2 = tektonok.get(tId2);
-            ujvezet = t2.getFonalak();
-            vezet = new ArrayList<>(ujvezet);
-            ujvezet.add(gf);
-            AppendOutput(Name(t2)+" vezet: "+ListToString(vezet)+" --> "+ListToString(ujvezet));
+            List<GombaFonal> ujvezet2 = t2.getFonalak();
+            List<GombaFonal> vezet2 = new ArrayList<>(ujvezet2);
+            ujvezet2.add(gf);
 
             gf.addVezet(t1, t2);
+            AppendOutput(Name(t1)+" vezet: "+ListToString(vezet)+" --> "+ListToString(ujvezet));
+            AppendOutput(Name(t2)+" vezet: "+ListToString(vezet2)+" --> "+ListToString(ujvezet2));
+
             gombaFonalak.put(Integer.parseInt(args[1]), gf);
+
+            System.out.println(Name(t1)+" "+Arrays.toString(t1.getFonalak().toArray()));
+            System.out.println(Name(t2)+" "+Arrays.toString(t2.getFonalak().toArray()));
         }
     }
 
