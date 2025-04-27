@@ -623,7 +623,7 @@ public class JDBTestTool2 implements Serializable{
             return;
         }
 
-        AppendOutput("\nEVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + rovar.getTartozkodik().getId() + ")");
+        AppendOutput("\nEVENT Rovar mozog\nRovar (" + args[1] + ") mozog: Tekton (" + oldValue + ") --> Tekton (" + rovar.getTartozkodik().getId() + ")");
     }
 
     private void GrowFonal(String[] args) {
@@ -668,7 +668,7 @@ public class JDBTestTool2 implements Serializable{
         Rovarasz rovarasz = rovar.getRovarasz();
         int db = 0;
         int sporaID = 0;
-        int oldValue = spora.getDarabszam();
+
         int oldPont = rovarasz.getPontok();
         int oldSeb = rovar.getSebesseg();
         boolean plVaghat = rovar.getVaghat();
@@ -682,6 +682,7 @@ public class JDBTestTool2 implements Serializable{
                 db = Integer.parseInt(args[i + 1]);
             }
         }
+        int oldValue = spora.getDarabszam();
 
         rovar.eszik(spora);
         AppendOutput("\nEVENT Spóra evés\n" + Name(spora) + " darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
