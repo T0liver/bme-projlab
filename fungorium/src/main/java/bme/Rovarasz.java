@@ -49,27 +49,28 @@ public class Rovarasz extends Jatekos {
     System.out.println("/lst\t\tTektonok listazasa\n/lsr\t\tRovarok listazasa (aktiv jatekose)");
     System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
     while(!endOfTurn) {
-      String[] args = scanner.nextLine().strip().split(" ");
-      switch (args[0]) {
-        case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)); break;
-        case "eats": if (cselekedhet.get(Integer.parseInt(args[1]))) pontok += megetet(args); cselekedhet.set(Integer.parseInt(args[1]), false); break;
-        case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) elvagat(args); break;
-        case "/end": endOfTurn = true; break;
-        case "/save": Jatekvezerlo.Save(args); break;
-        case "/lsa": Jatekvezerlo.ListAktor(args); break;
-        case "/lst": Jatekvezerlo.ListTekton(args); break;
-        case "/lsr": listRovar(); break;
-        case "/help":
-        System.out.println("parancsok:\nmovr [rovarID] -tk [ID]\t\trovar mozgatása szomszédos tektonra\neats [rovarID] -db [int]\t\trovar megetetése [int] db spórával");
-        System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
-        System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
-        System.out.println("/lst\t\tTektonok listazasa\n/lsr\t\tRovarok listazasa (aktiv jatekose)");
-        System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
-        case "/exit": return true;
-        default: System.out.println("Invalid command: " + args[0]); break;
-      }
+      try {
+        String[] args = scanner.nextLine().strip().split(" ");
+        switch (args[0]) {
+          case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)); break;
+          case "eats": if (cselekedhet.get(Integer.parseInt(args[1]))) pontok += megetet(args); cselekedhet.set(Integer.parseInt(args[1]), false); break;
+          case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) elvagat(args); break;
+          case "/end": endOfTurn = true; break;
+          case "/save": Jatekvezerlo.Save(args); break;
+          case "/lsa": Jatekvezerlo.ListAktor(args); break;
+          case "/lst": Jatekvezerlo.ListTekton(args); break;
+          case "/lsr": listRovar(); break;
+          case "/help":
+          System.out.println("parancsok:\nmovr [rovarID] -tk [ID]\t\trovar mozgatása szomszédos tektonra\neats [rovarID] -db [int]\t\trovar megetetése [int] db spórával");
+          System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
+          System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
+          System.out.println("/lst\t\tTektonok listazasa\n/lsr\t\tRovarok listazasa (aktiv jatekose)");
+          System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
+          case "/exit": return true;
+          default: System.out.println("Invalid command: " + args[0]); break;
+        }
+      } catch (Exception e) { System.out.println("Invalid Syntax");}
     }
-    scanner.close();
     return false;
   }
 

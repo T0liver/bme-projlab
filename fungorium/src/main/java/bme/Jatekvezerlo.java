@@ -164,21 +164,23 @@ public class Jatekvezerlo {
     jelenlegiJatekos = 0;
     int gombaszok = 0;
     int rovaraszok = 0;
-    System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
+    System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\n/exit\t\t\t\tkilepes a jatekbol");
     boolean startGame = false;
     boolean loaded = false;
     Scanner scanner = new Scanner(System.in);
     while(!startGame) {
-      String[] args = scanner.nextLine().strip().split(" ");
-      switch (args[0]) {
-        case "/random": if (args[1] == "on") random = true; if (args[1] == "off") random = false; System.out.println("Random: " + random); break;
-        case "/adda": addJatekos(args); break;
-        case "/start": startGame = true; break;
-        case "/load": if(Jatekvezerlo.Load(args)) loaded = true; break;
-        case "/help": System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\tjáték indítása\n/help\t\t\tparancsok megjelenitese\\n/exit\t\t\tkilepes a jatekbol"); break;
-        case "/exit": return true;
-        default: System.out.println("Invalid command: " + args[0]); break;
-      }
+      try {
+        String[] args = scanner.nextLine().strip().split(" ");
+        switch (args[0]) {
+          case "/random": if (args[1] == "on") random = true; if (args[1] == "off") random = false; System.out.println("Random: " + random); break;
+          case "/adda": addJatekos(args); break;
+          case "/start": startGame = true; break;
+          case "/load": if(Jatekvezerlo.Load(args)) loaded = true; break;
+          case "/help": System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\\n/exit\t\t\t\tkilepes a jatekbol"); break;
+          case "/exit": return true;
+          default: System.out.println("Invalid command: " + args[0]); break;
+        }
+      } catch (Exception e) { System.out.println("Invalid Syntax");}
     }
 
     for (int i = 0; i < jatekosok.size(); ++i) {
@@ -240,7 +242,6 @@ public class Jatekvezerlo {
           }
         }
     }
-    scanner.close();
     return false;
   }
 
