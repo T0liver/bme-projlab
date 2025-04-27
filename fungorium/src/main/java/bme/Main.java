@@ -80,21 +80,21 @@ public class Main {
   private static void SporaTesztek(){
   ExecuteTest("Spora_Szoras"); //Működik
   ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
-  ExecuteTest("Sporaevest_tesztel");
+  ExecuteTest("Sporaevest_tesztel"); //Működik
   }
 
   private static void GombanTesztek() {
     ExecuteTest("Sporat_felhasznal_teszt1"); //Működik
     ExecuteTest("Sporat_felhasznal_teszt2"); //Működik
     ExecuteTest("Gombatest_halala");
-    ExecuteTest("Gombatestek_hozzaadasa");
+    ExecuteTest("Gombatestek_hozzaadasa"); //Működik
   }
 
   private static void RovarTesztek() {
 
-    ExecuteTest("Rovar_Tektont_Valt");
-    //ExecuteTest("Rovar_Atlepne");
-    //ExecuteTest("Rovar_oda-visszaall");
+    ExecuteTest("Rovar_Tektont_Valt"); //Mukodik
+    ExecuteTest("Rovar_Atlepne");     //Mukodik
+    ExecuteTest("Rovar_oda-visszaall");   //Mukodik
     ExecuteTest("Rovar_Vag"); //Működik
     ExecuteTest("Eletben_Tarto_Tekton_Rovar_Vag");
     ExecuteTest("Normal_Sporat_Eszik"); //Működik

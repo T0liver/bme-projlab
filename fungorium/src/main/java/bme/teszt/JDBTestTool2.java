@@ -221,7 +221,7 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-
+//TODO: A kimenetében segítsetek
     private void GrowGombatest(String[] args) {
 
         Gombasz gombasz = null;
@@ -460,6 +460,7 @@ public class JDBTestTool2 implements Serializable{
         boolean fejlett = false;
         Tekton hely = null;
         Gombasz gombasz = null;
+        Integer tektonId = 0;
 
         int ID = Integer.parseInt(args[1]);
         AppendOutput("new GombaTest ("+ ID +")");
@@ -471,7 +472,7 @@ public class JDBTestTool2 implements Serializable{
                     gombasz = gombaszok.get(aktorID);
                     break;
                 case "-tart":
-                    Integer tektonId = Integer.parseInt(args[i + 1]);
+                    tektonId = Integer.parseInt(args[i + 1]);
                     hely = tektonok.get(tektonId);
                     break;
                 case "-sp":
@@ -493,6 +494,8 @@ public class JDBTestTool2 implements Serializable{
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
             gombatest.setId(ID);
             gombaTestek.put(ID, gombatest);
+            AppendOutput("GombaTest ("+ ID +") tartózkodik: [ ] --> [Tekton(" + tektonId +")]");
+
         } catch (Exception e) {
             AppendOutput("INSTRUCTION FAIL \""+ String.join(" ", args) +"\" ("+e.getMessage()+")");
         }
@@ -611,7 +614,7 @@ public class JDBTestTool2 implements Serializable{
     private void MoveRovar(String[] args) {
 
         Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-        int oldValue = rovar.getSebesseg();
+        int oldValue = rovar.getTartozkodik().getId();
         int tektonID = 0;
 
         for (int i = 0; i < args.length; i++) {
@@ -621,7 +624,13 @@ public class JDBTestTool2 implements Serializable{
         }
 
         rovar.mozog(tektonok.get(tektonID));
-        AppendOutput("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
+
+        if (oldValue == rovar.getTartozkodik().getId()) {
+            AppendOutput("\nINSTRUCTION FAIL \"" + String.join(" ", args) + "\" (Nincs összeköttetés)");
+            return;
+        }
+
+        AppendOutput("\nEVENT Rovar mozog\nRovar (" + args[1] + ") mozog: Tekton (" + oldValue + ") --> Tekton (" + rovar.getTartozkodik().getId() + ")");
     }
 
     private void GrowFonal(String[] args) {
@@ -666,7 +675,7 @@ public class JDBTestTool2 implements Serializable{
         Rovarasz rovarasz = rovar.getRovarasz();
         int db = 0;
         int sporaID = 0;
-        int oldValue = spora.getDarabszam();
+
         int oldPont = rovarasz.getPontok();
         int oldSeb = rovar.getSebesseg();
         boolean plVaghat = rovar.getVaghat();
@@ -680,6 +689,7 @@ public class JDBTestTool2 implements Serializable{
                 db = Integer.parseInt(args[i + 1]);
             }
         }
+        int oldValue = spora.getDarabszam();
 
         rovar.eszik(spora);
         AppendOutput("\nEVENT Spóra evés\n" + Name(spora) + " darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
