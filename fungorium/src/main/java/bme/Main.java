@@ -78,7 +78,7 @@ public class Main {
   }
 
   private static void SporaTesztek(){
-  //ExecuteTest("Spora_Szoras");
+  ExecuteTest("Spora_Szoras");
   ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
   }
 
@@ -90,8 +90,8 @@ public class Main {
   private static void RovarTesztek() {
 
     ExecuteTest("Rovar_Tektont_Valt");
-    //ExecuteTest("Rovar_Atlepne");
-    //ExecuteTest("Rovar_oda_visszaall");
+    ExecuteTest("Rovar_Atlepne");
+    ExecuteTest("Rovar_oda_visszaall");
     ExecuteTest("Rovar_Vag");
     ExecuteTest("Normal_Sporat_Eszik");
     ExecuteTest("Benito_Sporat_Eszik");
@@ -99,6 +99,7 @@ public class Main {
     ExecuteTest("Gyorsito_Sporat_Eszik");
     ExecuteTest("Lassito_Sporat_Eszik");
     ExecuteTest("Oszto_Sporat_Eszik");
+    ExecuteTest("Sporaevest_Tesztel");
   }
 
   private static void FonalTesztek() {
