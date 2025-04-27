@@ -15,6 +15,7 @@ public class Main {
 
     while (true) {
       System.out.println(System.lineSeparator() + "Válassz egy tesztcsoportot:");
+      System.out.println("    0 - Szabad parancsmegadás");
       System.out.println("    1 - Tekton tesztek");
       System.out.println("    2 - Spóra tesztek");
       System.out.println("    3 - Gomba tesztek");
@@ -33,6 +34,7 @@ public class Main {
       }
 
       switch (choice) {
+        case 0 -> FreeTesting();
         case 1 -> TektonTesztek();
         case 2 -> SporaTesztek();
         case 3 -> GombanTesztek();
@@ -53,6 +55,14 @@ public class Main {
 
     System.out.println("Tesztelés befejezve.");
     scanner.close();
+  }
+
+  private static void FreeTesting() {
+    JDBTestTool2 testTool = new JDBTestTool2();
+    System.out.println();
+    System.out.println("Szabad parancsmegadó mód    parancsok: /help");
+    System.out.println();
+    testTool.RunTest();
   }
 
   private static void ExecuteTest(String dir) {

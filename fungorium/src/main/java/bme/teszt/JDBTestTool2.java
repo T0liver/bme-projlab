@@ -105,13 +105,18 @@ public class JDBTestTool2 implements Serializable{
     }
 
     private void AppendOutput(String line){
-        try {
-            FileWriter fw = new FileWriter(out, true);
-            fw.write(line + System.lineSeparator());
-            fw.close();
-        } catch (Exception e) {
-            System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+        if (fromFile) {
+            try {
+                FileWriter fw = new FileWriter(out, true);
+                fw.write(line + System.lineSeparator());
+                fw.close();
+            } catch (Exception e) {
+                System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+            }
+        } else {
+            System.out.println(line);
         }
+
     }
 
     private void AltGombatest(String[] args) {
@@ -306,7 +311,6 @@ public class JDBTestTool2 implements Serializable{
 
     private void AddTekton(String[] args) {
         Tekton tekton = new Tekton();
-        System.out.println(Arrays.toString(args));
         if (args.length > 2) {
 
             String fullline = String.join("", args);
@@ -494,7 +498,6 @@ public class JDBTestTool2 implements Serializable{
 
 
     }
-
 
     private void AddGombafonal(String[] args) {
 
