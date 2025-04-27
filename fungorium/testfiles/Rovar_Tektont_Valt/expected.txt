@@ -9,4 +9,4 @@ Tekton (3) vezet: [ ] --> [ GombaFonal (4) ]
 new Rovar (5)
 
 EVENT Rovar mozog
-Rovar (5) tekton: Tekton (2) --> Tekton (3)
+Rovar (5) Tekton: Tekton (2) --> Tekton (3)

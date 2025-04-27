@@ -71,33 +71,38 @@ public class Main {
   }
 
   private static void TektonTesztek() {
-    ExecuteTest("Tekton_hasadas_teszt1");
-    ExecuteTest("Tekton_hasadas_teszt2");
-    ExecuteTest("Termeketlentektont_tesztel");
+    ExecuteTest("Tekton_hasadas_teszt1"); //Működik
+    ExecuteTest("Tekton_hasadas_teszt2"); //Működik
+    ExecuteTest("Termeketlentektont_tesztel"); //Működik
     ExecuteTest("Felszivotektont_tesztel");
   }
 
   private static void SporaTesztek(){
-  ExecuteTest("Spora_Szoras");
+  ExecuteTest("Spora_Szoras"); //Működik
+  ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
+  ExecuteTest("Sporaevest_tesztel");
   }
 
   private static void GombanTesztek() {
     ExecuteTest("Sporat_felhasznal_teszt1"); //Működik
     ExecuteTest("Sporat_felhasznal_teszt2"); //Működik
+    ExecuteTest("Gombatest_halala");
+    ExecuteTest("Gombatestek_hozzaadasa");
   }
 
   private static void RovarTesztek() {
 
     ExecuteTest("Rovar_Tektont_Valt");
     //ExecuteTest("Rovar_Atlepne");
-    //ExecuteTest("Rovar_oda_visszaall");
-    ExecuteTest("Rovar_Vag");
-    ExecuteTest("Normal_Sporat_Eszik");
-    ExecuteTest("Benito_Sporat_Eszik");
-    ExecuteTest("Csorbito_Sporat_Eszik");
-    ExecuteTest("Gyorsito_Sporat_Eszik");
-    ExecuteTest("Lassito_Sporat_Eszik");
-    ExecuteTest("Oszto_Sporat_Eszik");
+    //ExecuteTest("Rovar_oda-visszaall");
+    ExecuteTest("Rovar_Vag"); //Működik
+    ExecuteTest("Eletben_Tarto_Tekton_Rovar_Vag");
+    ExecuteTest("Normal_Sporat_Eszik"); //Működik
+    ExecuteTest("Benito_Sporat_Eszik"); //Működik
+    ExecuteTest("Csorbito_Sporat_Eszik"); //Működik
+    ExecuteTest("Gyorsito_Sporat_Eszik"); //Működik
+    ExecuteTest("Lassito_Sporat_Eszik"); //Működik
+    ExecuteTest("Oszto_Sporat_Eszik"); //Működik
   }
 
   private static void FonalTesztek() {

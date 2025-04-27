@@ -167,7 +167,7 @@ public class GombaTest implements Jatekelem{
    */
   public boolean sporatSzor(Tekton hova) {
     if (fejlett) {
-      List<Tekton> szomszedok = hova.getSzomszed(2);
+      List<Tekton> szomszedok = tartozkodik.getSzomszed(2);
       if (!szomszedok.contains(hova)) {
         return false;
       }

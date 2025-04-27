@@ -2,4 +2,4 @@
 /addtk 2
 /addtk 3 -nei 2
 /addrov 4 -a 1 -tk 2
-movr 2 -tk 3
+movr 4 -tk 3
