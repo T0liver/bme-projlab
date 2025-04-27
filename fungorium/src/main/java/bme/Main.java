@@ -78,7 +78,8 @@ public class Main {
   }
 
   private static void SporaTesztek(){
-  ExecuteTest("Spora_Szoras");
+  //ExecuteTest("Spora_Szoras");
+  ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
   }
 
   private static void GombanTesztek() {
