@@ -67,7 +67,7 @@ public class Main {
   }
 
   private static void SporaTesztek(){
-
+  ExecuteTest("Spora_Szoras");
   }
 
   private static void GombanTesztek() {

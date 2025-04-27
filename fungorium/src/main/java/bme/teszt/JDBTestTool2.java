@@ -487,6 +487,7 @@ public class JDBTestTool2 implements Serializable{
 
         try {
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
+            gombatest.setId(ID);
             gombaTestek.put(ID, gombatest);
         } catch (Exception e) {
             AppendOutput("INSTRUCTION FAIL \""+ String.join(" ", args) +"\" ("+e.getMessage()+")");
@@ -718,10 +719,19 @@ public class JDBTestTool2 implements Serializable{
                 }
             }
         }
+        int oldElet = gombatest.getElettartam();
 
         gombatest.sporatSzor(tekton);
-        AppendOutput("EVENT Spórázás\nnew Spóra ()\nSpóra (1) aktor: null --> Gombász (1)\nSpóra (1) tápanyagtartalom: 0 -> 5\n" +
-                "Spóra (1) darabszám: 0 -> 3\nTekton ("+ TektonID +") spórák: [ ] --> [Spóra (1)]\nGombatest (" + GombatestID + ") élettartam: "+ GTOldValue +" --> " + gombatest.getElettartam());
+        AppendOutput("\nEVENT Spórázás");
+
+
+        AddSpora(new String[]{"/addsp", "1", "-tk", "" + TektonID, "-a", "" + gombatest.getGombasz().getId()});
+        AppendOutput("" + Name(tekton) + " sporak: [] --> " + ListToString(tekton.getSporak()));
+
+
+        AppendOutput(Name(gombatest) + " elettartam: " + oldElet + " --> " + gombatest.getElettartam() );
+
+
     }
 
     private void Hasadas(String[] args) {
