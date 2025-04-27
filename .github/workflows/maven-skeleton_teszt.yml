@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "proto-kod2" ]
+    branches: [ "konzolos-jatekmenet" ]
   pull_request:
-    branches: [ "proto-kod2" ]
+    branches: [ "konzolos-jatekmenet" ]
 
 jobs:
   build:
