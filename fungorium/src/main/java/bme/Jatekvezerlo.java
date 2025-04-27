@@ -115,7 +115,11 @@ public class Jatekvezerlo {
    */
   public static void jatekKezdes() {
     jatekHossz = 50;
-    init();
+    try {
+      init();
+    } catch (InvalidAttributeValueException e) {
+      e.printStackTrace();
+    }
     for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {korMenete(); korVege();}
   }
 
@@ -146,8 +150,9 @@ public class Jatekvezerlo {
 
   /**
    * fuggveny a jatek inicializalasahoz parancssorrol
-   */
-  public static void init() {
+      * @throws InvalidAttributeValueException 
+      */
+     public static void init() throws InvalidAttributeValueException {
     jelenlegiJatekos = 0;
     int gombaszok = 0;
     int rovaraszok = 0;
