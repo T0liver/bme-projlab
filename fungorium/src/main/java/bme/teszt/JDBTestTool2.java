@@ -100,18 +100,25 @@ public class JDBTestTool2 implements Serializable{
             }
         }
         scanner.close();
+        if (fromFile){
+            CheckOutput();
+        }
 
-        CheckOutput();
     }
 
     private void AppendOutput(String line){
-        try {
-            FileWriter fw = new FileWriter(out, true);
-            fw.write(line + System.lineSeparator());
-            fw.close();
-        } catch (Exception e) {
-            System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+        if (fromFile) {
+            try {
+                FileWriter fw = new FileWriter(out, true);
+                fw.write(line + System.lineSeparator());
+                fw.close();
+            } catch (Exception e) {
+                System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+            }
+        } else {
+            System.out.println(line);
         }
+
     }
 
     private void AltGombatest(String[] args) {
@@ -218,7 +225,6 @@ public class JDBTestTool2 implements Serializable{
 //TODO: A kimenetében segítsetek
     private void GrowGombatest(String[] args) {
 
-
         Gombasz gombasz = null;
         Tekton hely = null;
         int aktorID = -1;
@@ -306,7 +312,6 @@ public class JDBTestTool2 implements Serializable{
 
     private void AddTekton(String[] args) {
         Tekton tekton = new Tekton();
-        System.out.println(Arrays.toString(args));
         if (args.length > 2) {
 
             String fullline = String.join("", args);
@@ -496,7 +501,6 @@ public class JDBTestTool2 implements Serializable{
 
     }
 
-
     private void AddGombafonal(String[] args) {
 
         GombaFonal gf = new GombaFonal();
@@ -620,6 +624,11 @@ public class JDBTestTool2 implements Serializable{
     private void GrowFonal(String[] args) {
 
         GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
+        if (gt == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (GombaTest nem létezik)");
+            return;
+        }
+
         Tekton gtt = gt.getTartozkodik();
 
         int gombaszID = gt.getGombasz().getId();
@@ -630,6 +639,10 @@ public class JDBTestTool2 implements Serializable{
 
         Tekton innen = tektonok.get(tId1);
         Tekton ide = tektonok.get(tId2);
+        if (innen == null || ide == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tekton nem létezik)");
+            return;
+        }
 
         if (!gtt.getSzomszed(1).contains(ide)) {
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszédosak)");
@@ -751,6 +764,7 @@ public class JDBTestTool2 implements Serializable{
         AddTekton(new String[] {"/addtk", "2"});
         AddTekton(new String[] {"/addtk", "3", "-nei", "2"});
 
+        tektonok.remove(Integer.parseInt(args[1]));
     }
 
     private void OnTekton(String[] args) {}
@@ -839,9 +853,33 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-
     private void CheckOutput() {
+        String file1 = expected.getAbsolutePath();
+        String file2 = out.getAbsolutePath();
 
+        System.out.println(System.lineSeparator()+"Kimenet ellenőrzése...");
+        //FC
+        List<String> command = List.of("cmd.exe", "/c", "fc", file1, file2);
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+
+        try {
+            Process process = processBuilder.start();
+
+            // Read standard output
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("Process exited with code " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private String Name(Jatekelem o) {
