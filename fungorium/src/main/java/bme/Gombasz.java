@@ -81,7 +81,7 @@ public class Gombasz extends Jatekos {
     List<Boolean> sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) testCselekedett.add(false);
-    for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).elpusztulGrafos();
+    if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).elpusztulGrafos();
     boolean endOfTurn = false;
     Scanner scanner = new Scanner(System.in);
     System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
@@ -90,7 +90,7 @@ public class Gombasz extends Jatekos {
     System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa\t\tJatekosok listazasa");
     System.out.println("/lst\t\tTektonok listazasa\n/lsg\t\tGombatestek listazasa (aktiv jatekose)");
     System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose)\n/lss\t\tSporak listazasa (aktiv jatekose)");
-    System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
+    System.out.println("/help\t\tparancsok megjelenitese\n/exit\t\tkilepes a jatekbol");
     while(!endOfTurn) {
       try {
         String[] args = scanner.nextLine().strip().split(" ");
@@ -224,4 +224,7 @@ public class Gombasz extends Jatekos {
   /** publikus tagfuggveny gombafonal hozzaaadasahoz */
   @Override
   public void addGombaFonal(GombaFonal gf) {gombaFonalak.add(gf);}
+
+  /** publikus tagfuggveny spora hozzaaadasahoz */
+  public void addSpora(Spora ujSpora) {sporak.add(ujSpora);}
 } 

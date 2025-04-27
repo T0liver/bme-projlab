@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
 
-    Jatekvezerlo.jatekKezdes();
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("JDB tesztelő program v2.0");
@@ -24,7 +23,7 @@ public class Main {
       System.out.println("    4 - Rovar tesztek");
       System.out.println("    5 - Fonal tesztek");
       System.out.println("    6 - Összes teszt futtatása");
-      System.out.println("    7 - Csak a Megadott teszt futtatása");
+      System.out.println("    7 - Konzolos játékmenet");
       System.out.println("    8 - Kilépés" + System.lineSeparator());
 
       System.out.print("testing@JDB:$ ");
@@ -49,7 +48,7 @@ public class Main {
           RovarTesztek();
           FonalTesztek();
         }
-        // case 7 -> TektonTeszt.megadottTeszt();
+        case 7 -> Jatekvezerlo.jatekKezdes();
         default -> System.out.println("Érvénytelen választás, próbáld újra!");
       }
       // JDBtesttool.jdbSummary();

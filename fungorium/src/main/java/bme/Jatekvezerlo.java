@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
-import main.java.bme.EletbenTartoTekton;
-
 /**
  * Jatekvezerlo osztaly definicioja
  */
@@ -232,8 +230,11 @@ public class Jatekvezerlo {
                 e.printStackTrace();
               }
             GombaFonal gf = new GombaFonal();
+            gf.setGombasz((Gombasz)jatekosok.get(i));
             tektonok.get(tektonok.size()/jatekosok.size() * i).setFoglalt(true);
+            tektonok.get(tektonok.size()/jatekosok.size() * i).addFonal(gf);
             gf.addVezet(tektonok.get(tektonok.size()/jatekosok.size() * i), tektonok.get(tektonok.size()/jatekosok.size() * i));
+            gf.printData();
             jatekosok.get(i).addGombaTest(gt);
             jatekosok.get(i).addGombaFonal(gf);
           } else {

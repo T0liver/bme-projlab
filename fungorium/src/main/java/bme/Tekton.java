@@ -78,6 +78,17 @@ public class Tekton implements Jatekelem{
   }
 
   /**
+   * A tektonra fonbafonalat helyező függvény
+   *
+   * @param fonal a lehelyezendő függvény
+   */
+  public void addFonal(GombaFonal gf) { // legyen inkább csak setter? ez nincs az uml diagramon - jó ez [Vid]
+    if (!fonalak.contains(gf)) { // ellenőrzés, ne legyen loop (redundancia)
+      fonalak.add(gf); // csináljuk visszairányba
+    }
+  }
+
+  /**
    * A tekton másik tektonhoz való kapcsolatát megadó függvény
    *
    * @param tekton a másik tekton
@@ -163,13 +174,13 @@ public class Tekton implements Jatekelem{
         return false;
       }
     }
-    Spora ujSpora;
+    Spora ujSpora = null;
     int adandoSporaTipus = 0;
     if (random)
       adandoSporaTipus = r.nextInt(6);
     switch (adandoSporaTipus) {
       case 0:
-        ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
+        ujSpora = new Spora(10, mennyiseg, gt.getGombasz());
         ujSpora.setTartozkodik(this);
         add(ujSpora);
         break;
@@ -199,8 +210,12 @@ public class Tekton implements Jatekelem{
         add(ujSpora);
         break;
       default:
+        ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
+        ujSpora.setTartozkodik(this);
+        add(ujSpora);
         break;
     }
+    gt.getGombasz().addSpora(ujSpora);
     return true; // kellett újat hozzáadni
   }
 
@@ -221,6 +236,7 @@ public class Tekton implements Jatekelem{
     Spora ujSpora = new Spora(3, mennyiseg, gt.getGombasz());
     ujSpora.setTartozkodik(this);
     add(ujSpora);
+    gt.getGombasz().addSpora(ujSpora);
     return true; // kellett újat hozzáadni
   }
 
@@ -278,14 +294,27 @@ public class Tekton implements Jatekelem{
    * @param gombaFonal a gombafonal, amire vizsgájuk
    * @return hogy van-e rajta olyan gombatest, ami kell a fonal túléléséhez
    */
-  public boolean vanGombaTest(GombaFonal gombaFonal) {
-    if (foglalt) {
-       for (int i = 0; i < gombaFonal.getGombasz().getGombaTestek().size(); ++i) {
-          if (gombaFonal.getGombasz().getGombaTestek().get(i).getTartozkodik() == this) return true;
-       }
-    }
-    return false;
+public boolean vanGombaTest(GombaFonal gombaFonal) {
+  if (!foglalt) {
+      return false;
   }
+
+  try {
+      for (GombaTest gombaTest : gombaFonal.getGombasz().getGombaTestek()) {
+        gombaFonal.printData();
+        gombaTest.printData();
+        printData();
+          if (gombaTest.getTartozkodik() == this) {
+              System.out.println("Talált testet");
+              return true;
+          }
+      }
+  } catch (Exception e) {
+      e.printStackTrace();
+  }
+
+  return false;
+}
 
   /** A kör elején meghívott függvény, felszívó tekton használja */
   public void tick() {
