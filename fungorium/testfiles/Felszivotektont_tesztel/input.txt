@@ -1,9 +1,9 @@
 /adda -i 1 -n ”Gombász1” -f g 
-/adda -a 2 -n “Gombász2” -f g 
+/adda -a 2 -n “Gombász2” -f g
 /addtk 1 -t flsz 
-/addtk 2 -nei 1 
-/addgf  1 -a 1 -vez 1;2 
-/addgf  2 -a 2 -vez 1;2 
+/addtk 2 -nei 1
+/addgf 1 -a 1 -vez 1;2
+/addgf 2 -a 2 -vez 1;2
 /trig -nr 
 /trig -nr 
 /trig -nr 

@@ -74,6 +74,7 @@ public class Main {
     ExecuteTest("Tekton_hasadas_teszt1");
     ExecuteTest("Tekton_hasadas_teszt2");
     ExecuteTest("Termeketlentektont_tesztel");
+    ExecuteTest("Felszivotektont_tesztel");
   }
 
   private static void SporaTesztek(){
@@ -88,16 +89,16 @@ public class Main {
 
   private static void RovarTesztek() {
 
-    //ExecuteTest("Rovar_Tektont_Valt");
+    ExecuteTest("Rovar_Tektont_Valt");
     //ExecuteTest("Rovar_Atlepne");
     //ExecuteTest("Rovar_oda_visszaall");
     ExecuteTest("Rovar_Vag");
-    ExecuteTest("Normal_Sporat_eszik");
-    ExecuteTest("Benito_Sporat_eszik");
-    ExecuteTest("Csorbito_Sporat_eszik");
-    ExecuteTest("Gyorsito_Sporat_eszik");
-    ExecuteTest("Lassito_Sporat_eszik");
-    ExecuteTest("Oszto_Sporat_eszik");
+    ExecuteTest("Normal_Sporat_Eszik");
+    ExecuteTest("Benito_Sporat_Eszik");
+    ExecuteTest("Csorbito_Sporat_Eszik");
+    ExecuteTest("Gyorsito_Sporat_Eszik");
+    ExecuteTest("Lassito_Sporat_Eszik");
+    ExecuteTest("Oszto_Sporat_Eszik");
   }
 
   private static void FonalTesztek() {

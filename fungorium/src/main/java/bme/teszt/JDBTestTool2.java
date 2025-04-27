@@ -2,7 +2,6 @@ package bme.teszt;
 
 import bme.*;
 
-import javax.print.attribute.standard.MediaSize;
 import java.io.*;
 import java.util.*;
 
@@ -350,7 +349,7 @@ public class JDBTestTool2 implements Serializable{
                     szomszed.addSzomszed(tekton);
                     List<Tekton> szomszedSzomszedai = szomszed.getSzomszed(1);
 
-                    AppendOutput(Name(szomszed)+" szomszedok: "
+                    AppendOutput(Name(szomszed)+" szomszédok: "
                             + ListToString(szomszedRegiSzomszedai)
                             +" --> "+ ListToString(szomszedSzomszedai));
                 }
@@ -822,8 +821,11 @@ public class JDBTestTool2 implements Serializable{
 
         AppendOutput("remove " + Name(tekton));
 
-        AddTekton(new String[] {"/addtk", "2"});
-        AddTekton(new String[] {"/addtk", "3", "-nei", "2"});
+        int tId1 = tektonok.size() + 1;
+        int tId2 = tektonok.size() + 2;
+        AddTekton(new String[] {"/addtk", String.valueOf(tId1)});
+        AddTekton(new String[] {"/addtk", String.valueOf(tId2), "-nei", String.valueOf(tId1)});
+        AppendOutput(Name(tektonok.get(tId2)) + " szomszédok: [ ] --> " + ListToString(tektonok.get(tId1).getSzomszed(1)));
 
         tektonok.remove(Integer.parseInt(args[1]));
     }

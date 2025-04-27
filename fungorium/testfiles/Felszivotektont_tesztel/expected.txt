@@ -1,5 +1,5 @@
-new Gombász (1) 
-new Gombász (2) 
+new Gombasz (1)
+new Gombasz (2)
 new FelszívóTekton (1) 
 new Tekton (2) 
 FelszívóTekton (1) szomszédok: [ ] -> [Tekton (2)] 
