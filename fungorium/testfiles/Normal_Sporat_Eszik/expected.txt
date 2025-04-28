@@ -4,5 +4,5 @@ new Tekton (1)
 new Rovar (1)
 
 EVENT Spora eves
-Spora (1) darabszam 10 --> 5
-Rovarász (1) pontok: 0 --> 25
+Spora (1) darabszam 10 --> 0
+Rovarasz (1) pontok: 0 --> 25
