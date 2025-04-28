@@ -1,7 +1,6 @@
 package bme.teszt;
 
 import bme.*;
-import static bme.Jatekvezerlo.tektonok;
 import java.io.*;
 import java.util.*;
 
