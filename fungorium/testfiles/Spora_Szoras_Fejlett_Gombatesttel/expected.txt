@@ -10,4 +10,4 @@ GombaTest (5) tartozkodik: [ ] --> [Tekton(2)]
 EVENT Sporazas
 new Spora (0)
 Tekton (4) sporak: [] --> [ Spora (0) ]
-GombaTest (5) elettartam: 1 --> 0
+remove Gombatest(5)
