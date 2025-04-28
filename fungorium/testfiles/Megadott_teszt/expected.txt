@@ -1,46 +1,46 @@
-new Gombász (1)
-new Rovarász (1)
+new Gombasz (1)
+new Rovarasz (2)
 new Tekton (1)
 new Tekton (2)
-Tekton (1) szomszédok: [ ] --> [Tekton (2)]
+Tekton (1) szomszedok: [ ] --> [Tekton (2)]
 new Tekton (3)
-Tekton (2) szomszédok: [Tekton (1)] --> [Tekton (1), Tekton (3)]
+Tekton (2) szomszedok: [ Tekton (1) ] --> [ Tekton (1), Tekton (3) ]
 new Tekton (4)
-Tekton (3) szomszédok: [Tekton (2)] --> [Tekton (2), Tekton (4)]
-new Gombatest (1)
-new Gombatest (2)
+Tekton (3) szomszédok: [ Tekton (2) ] --> [ Tekton (2), Tekton (4) ]
+new GombaTest (1)
+new GombaTest (2)
 new GombaFonal (1)
 Tekton (3) vezet: [ ] --> [GombaFonal (1)]
 Tekton (2) vezet: [ ] --> [GombaFonal (1)]
 new Rovar (1)
 
 EVENT Rovar mozog
-    Rovar (1) tartózkodik: [Tekton (2)] --> [Tekton (3)]
+Rovar (1) tartózkodik: [Tekton (2)] --> [Tekton (3)]
 
 EVENT Fonal áthidal
-    GombaFonal (1) vezet: [{Tekton (2), Tekton (3)}] --> [{Tekton (2), Tekton (3)}, {Tekton (3), Tekton (4)}]
-    Tekton (4) vezet: [ ] --> [GombaFonal (1)]
+GombaFonal (1) vezet: [{Tekton (2), Tekton (3)}] --> [{Tekton (2), Tekton (3)}, {Tekton (3), Tekton (4)}]
+Tekton (4) vezet: [ ] --> [GombaFonal (1)]
 
 EVENT Spóra szórás
-    new OsztódóSpóra (1)
-    OsztódóSpóra (1) aktor: null --> Gombász (1)
-    OsztódóSpóra (1) tápanyag: 0 --> 5
-    OsztódóSpóra (1) darabszám: 0 --> 5
-    Tekton (4) spórák: [] --> [OsztódóSpóra (1)]
+new OsztódóSpóra (1)
+OsztódóSpóra (1) aktor: null --> Gombasz (1)
+OsztódóSpóra (1) tapanyag: 0 --> 5
+OsztódóSpóra (1) darabszám: 0 --> 5
+Tekton (4) sporak: [] --> [OsztodoSpora (1)]
 
 EVENT Rovar mozog
-    Rovar (1) tartózkodik: [Tekton (3)] --> [Tekton (4)]
+Rovar (1) tartozkodik: [Tekton (3)] --> [Tekton (4)]
 
 EVENT Rovar eszik
-    OsztódóSpóra (1) darabszám: 5 --> 2
-    new Rovar (2)
-    Rovarász (1) pontok: 0 --> 15
+OsztodoSpora (1) darabszam: 5 --> 2
+new Rovar (2)
+Rovarasz (1) pontok: 0 --> 15
 
 EVENT Rovar mozog
-    Rovar (2) tartózkodik: [Tekton (4)] --> [Tekton (3)]
+Rovar (2) tartozkodik: [Tekton (4)] --> [Tekton (3)]
 
 EVENT Rovar vág 
-    GombaFonal (1) vezet: [{Tekton (2), Tekton (3)}, {Tekton (3), Tekton (4)}] --> [{Tekton (2), Tekton (3)}] 
-    Tekton (4) vezet: [GombaFonal (1)] --> [ ]
+GombaFonal (1) vezet: [{Tekton (2), Tekton (3)}, {Tekton (3), Tekton (4)}] --> [{Tekton (2), Tekton (3)}] 
+Tekton (4) vezet: [GombaFonal (1)] --> [ ]
 
 INSTRUCTION FAIL "has 3" (Nem tud hasadni, mert Gombatest van rajta)

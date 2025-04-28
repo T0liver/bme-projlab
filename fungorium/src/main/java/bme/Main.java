@@ -1,8 +1,6 @@
 package bme;
 
-// import bme.jdb.projlab.fungorium.tesztek.*;
 import bme.teszt.JDBTestTool2;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -97,7 +95,7 @@ public class Main {
     ExecuteTest("Rovar_Atlepne");     //Mukodik
     ExecuteTest("Rovar_oda-visszaall");   //Mukodik
     ExecuteTest("Rovar_Vag"); //Működik
-    ExecuteTest("Eletben_Tarto_Tekton_Rovar_Vag");
+    Executetest("Eletben_Tarto_Tekton_Rovar_Vag"); // Mükodik
     ExecuteTest("Normal_Sporat_Eszik"); //Működik
     ExecuteTest("Benito_Sporat_Eszik"); //Működik
     ExecuteTest("Csorbito_Sporat_Eszik"); //Működik
@@ -110,11 +108,15 @@ public class Main {
     ExecuteTest("Fonal_athidal_teszt1"); //Működik
     ExecuteTest("Fonal_athidal_teszt2"); //Működik
     ExecuteTest("Fonal_athidal_teszt3"); //Működik
-    ExecuteTest("Fonal_benult_rovart_eszik");
+    ExecuteTest("Fonal_benult_rovart_eszik"); //Működik
   }
 
   private static void MegadottTeszt() {
     ExecuteTest("Megadott_teszt");
   }
 
+  private static void Executetest(String dir) {
+    JDBTestTool2 testTool = new JDBTestTool2(new File(Path.of("fungorium", "testfiles", dir).toUri()));
+    testTool.RunTests();
+  }
 }

@@ -5,8 +5,8 @@ new Tekton (4)
 Tekton (3) szomszédok: [ ] --> [ Tekton (4) ]
 new Rovar (5) 
 new GombaFonal (6) 
-Tekton (3) vezet: [ ] --> [GombaFonal (6)] 
-Tekton (4) vezet: [ ] --> [GombaFonal (6)] 
+Tekton (3) vezet: [ ] --> [ GombaFonal (6) ]
+Tekton (4) vezet: [ ] --> [ GombaFonal (6) ]
 
 EVENT Gombatest növesztés 
 remove Rovar (5) 
