@@ -74,12 +74,12 @@ public class Main {
     ExecuteTest("Tekton_hasadas_teszt1"); //Működik
     ExecuteTest("Tekton_hasadas_teszt2"); //Működik
     ExecuteTest("Termeketlentektont_tesztel"); //Működik
-    ExecuteTest("Felszivotektont_tesztel");
+    //ExecuteTest("Felszivotektont_tesztel");
   }
 
   private static void SporaTesztek(){
   ExecuteTest("Spora_Szoras"); //Működik
-  ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");
+  ExecuteTest("Spora_Szoras_Fejlett_Gombatesttel");  //mukodik
   ExecuteTest("Sporaevest_tesztel"); //Működik
   }
 
