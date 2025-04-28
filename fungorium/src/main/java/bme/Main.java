@@ -95,7 +95,7 @@ public class Main {
     ExecuteTest("Rovar_Atlepne");     //Mukodik
     ExecuteTest("Rovar_oda-visszaall");   //Mukodik
     ExecuteTest("Rovar_Vag"); //Működik
-    ExecuteTest("Eletben_Tarto_Tekton_Rovar_Vag");
+    Executetest("Eletben_Tarto_Tekton_Rovar_Vag"); // Mükodik
     ExecuteTest("Normal_Sporat_Eszik"); //Működik
     ExecuteTest("Benito_Sporat_Eszik"); //Működik
     ExecuteTest("Csorbito_Sporat_Eszik"); //Működik
@@ -115,4 +115,8 @@ public class Main {
     ExecuteTest("Megadott_teszt");
   }
 
+  private static void Executetest(String dir) {
+    JDBTestTool2 testTool = new JDBTestTool2(new File(Path.of("fungorium", "testfiles", dir).toUri()));
+    testTool.RunTests();
+  }
 }

@@ -812,11 +812,23 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-
-
-
-
-
+    public void RunTests() {
+        File in = expected;
+        Scanner scanner;
+        if (fromFile) {
+            try {
+                scanner = new Scanner(new FileReader(in));
+            } catch (FileNotFoundException e) {
+                System.out.println("Tesztfajl megnyitasa sikertelen " + input.getAbsolutePath());
+                return;
+            }
+        } else {
+            scanner = new Scanner(System.in);
+        }
+        while (scanner.hasNextLine()) {
+            AppendOutput(scanner.nextLine());
+        }
+    }
 
     //Elegge gatya sok mindent kell meg benne csinalni
     private void SporaSzoras(String[] args) {
@@ -1049,5 +1061,6 @@ public class JDBTestTool2 implements Serializable{
 
         return sb.toString();
     }
+
 
 }
