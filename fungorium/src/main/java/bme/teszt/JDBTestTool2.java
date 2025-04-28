@@ -99,7 +99,7 @@ public class JDBTestTool2 implements Serializable{
         }
         scanner.close();
         if (fromFile){
-            //CheckOutput();
+            CheckOutput();
         }
 
     }
@@ -1074,9 +1074,7 @@ public class JDBTestTool2 implements Serializable{
                     System.out.println(line);
                 }
             }
-
-            int exitCode = process.waitFor();
-            System.out.println("Process exited with code " + exitCode);
+            process.waitFor();
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
