@@ -1,12 +1,13 @@
 new Gombasz (1)
 new Tekton (2)
-Tekton (2) szomszedok: [ ] --> [ Tekton (0) ]
 new EgyetlenFonalTekton (3)
+Tekton (2) szomszedok: [ ] --> [ EgyetlenFonalTekton (3) ]
 new Tekton (4)
-EgyetlenFonalTekton (3) szomszedok: [ ] --> [ Tekton (4) ]
+EgyetlenFonalTekton (3) szomszedok: [ Tekton (2) ] --> [ Tekton (2), Tekton (4) ]
 new GombaFonal (5)
 EgyetlenFonalTekton (3) vezet: [ ] --> [ GombaFonal (5) ]
 Tekton (4) vezet: [ ] --> [ GombaFonal (5) ]
-new Gombatest (6)
+new GombaTest (6)
+GombaTest (6) tartozkodik: [ ] --> [Tekton(2)]
 
-INSTRUCTION FAIL "growf 6 -vez 2;3" (Tektonok nem szomszédosak)
+INSTRUCTION FAIL "growf 6 -vez 2;3" (EgyetlenfonalTektonon már van fonal)

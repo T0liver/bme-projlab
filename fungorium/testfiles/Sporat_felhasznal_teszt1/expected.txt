@@ -1,5 +1,5 @@
-new Gombasz (1) 
-new Spora (2) 
-new Tekton (3) 
+new Gombasz (1)
+new Spora (2)
+new Tekton (3)
 
-INSTRUCTION FAIL [growg, 1, –a, 1, –tk, 3] (Nincs eleg spora)
+INSTRUCTION FAIL [growg, 1, -a, 1, -tk, 3] (Nincs eleg spora)
