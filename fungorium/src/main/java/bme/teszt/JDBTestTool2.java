@@ -254,8 +254,17 @@ public class JDBTestTool2 implements Serializable{
             cnt += hely.getSporak().get(i).getDarabszam();
         }
 
+        boolean vanBenult = false;
+        int benultID = 0;
+        for (Integer rovar : rovarok.keySet()){
+            if (!rovarok.get(rovar).getVaghat() && rovarok.get(rovar).getTartozkodik() == hely){
+                vanBenult = true;
+                benultID = rovar;
+            }
+        }
+
         // Ellenorzes, hogy elegendo spora van-e a tektonton
-        if (cnt < 5) {
+        if (cnt < 5 && !vanBenult) {
             AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs eleg spora)");
             return;
         }
@@ -269,7 +278,7 @@ public class JDBTestTool2 implements Serializable{
         }
 
         // Ha nem talalunk sporat, hibauzenetet adunk
-        if (spora == null) {
+        if (spora == null && !vanBenult) {
             AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nem talalhato megfelelo spora)");
             return;
         }
@@ -283,19 +292,35 @@ public class JDBTestTool2 implements Serializable{
         try {
             GombaTest gombatest = new GombaTest(gombasz, 10, hely);
             gombaTestek.put(ID, gombatest);
-            hely.sporatFelhasznal(spora);
+
+            if (!vanBenult) {
+                hely.sporatFelhasznal(spora);
+            }
+
             int pontok = gombasz.getPontok();
             int ujpontok = gombasz.addPontok(10);
 
+            if (vanBenult){
+                AppendOutput("\nEVENT Gombatest novesztes\n"
+                        + "remove "+Name(rovarok.get(benultID))
+                        + "\nnew Gombatest (" + ID + ")\n"
+                        + "Gombatest (" + ID + ") aktor: null --> Gombasz (" + gombasz.getId() + ")\n"
+                        + "Gombatest (" + ID + ") tekton: null --> Tekton (" + hely.getId() + ")\n"
+                        + "Gombatest (" + ID + ") spora: 0 --> " + gombatest.getSporaDarab() + "\n"
+                        + "Gombasz (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
+                );
+                rovarok.remove(benultID);
+            } else {
 
-            AppendOutput("\nEVENT Gombatest novesztes\n"
-                    + "remove Spora (" + spora.getId() + ")\n"
-                    + "new Gombatest (" + ID + ")\n"
-                    + "Gombatest (" + ID + ") aktor: null --> Gombasz (" + gombasz.getId() + ")\n"
-                    + "Gombatest (" + ID + ") tekton: null --> Tekton (" + hely.getId() + ")\n"
-                    + "Gombatest (" + ID + ") spora: 0 --> " + gombatest.getSporaDarab() + "\n"
-                    + "Gombasz (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
-            );
+                AppendOutput("\nEVENT Gombatest novesztes\n"
+                        + "remove Spora (" + spora.getId() + ")\n"
+                        + "new Gombatest (" + ID + ")\n"
+                        + "Gombatest (" + ID + ") aktor: null --> Gombasz (" + gombasz.getId() + ")\n"
+                        + "Gombatest (" + ID + ") tekton: null --> Tekton (" + hely.getId() + ")\n"
+                        + "Gombatest (" + ID + ") spora: 0 --> " + gombatest.getSporaDarab() + "\n"
+                        + "Gombasz (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
+                );
+            }
 
         } catch (Exception e){
             AppendOutput("INSTRUCTION FAIL "+ Arrays.toString(args) +" ("+e.getMessage()+")");

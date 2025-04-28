@@ -109,7 +109,7 @@ public class Main {
     ExecuteTest("Fonal_athidal_teszt1"); //Működik
     ExecuteTest("Fonal_athidal_teszt2"); //Működik
     ExecuteTest("Fonal_athidal_teszt3"); //Működik
-    ExecuteTest("Fonal_benult_rovart_eszik");
+    ExecuteTest("Fonal_benult_rovart_eszik"); //Működik
   }
 
 }
