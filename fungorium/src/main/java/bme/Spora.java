@@ -101,6 +101,9 @@ public class Spora implements Jatekelem{
     }
   }
 
+
+
+
   /**
    * A spóra kifejti a hatását a rovarra, amikor azt megeszi.
    *

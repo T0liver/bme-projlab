@@ -143,6 +143,26 @@ public class Tekton implements Jatekelem{
   }
 
   /**
+   * Spórák tektonon való elhelyezését megoldó függvény
+   *
+   * @param mennyiseg mennyi spórát rakunk rá
+   * @param s         melyik spórát
+   * @return valami booleant
+   */
+  public boolean addSpora(int mennyiseg, Spora s) {
+    for (int i = 0; i < sporak.size(); i++)  {
+      if (sporak.get(i) == s) {
+        s.novel(mennyiseg);
+        return false;
+      }
+    }
+    //s.setTartozkodik(this);
+    add(s);
+    return true; // kellett újat hozzáadni
+  }
+
+
+  /**
    * Az adott spórát elhelyezi a tektonon
    *
    * @param spora hozzáadódik a tektonhoz

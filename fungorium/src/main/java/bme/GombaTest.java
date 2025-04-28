@@ -192,6 +192,55 @@ public class GombaTest implements Jatekelem{
     fejlettseg++;
   }
 
+
+  public boolean sporatSzor(Tekton hova, int milyet) {
+    Spora spora = null;
+    switch (milyet) {
+      case 0:
+        spora = new BenitoSpora(3, 5, gombasz);
+        break;
+      case 1:
+        spora = new GyorsitoSpora(3, 5, gombasz);
+        break;
+      case 2:
+        spora = new LassitoSpora(3, 5, gombasz);
+        break;
+      case 3:
+        spora = new OsztoSpora(3, 5, gombasz);
+        break;
+      case 4:
+        spora = new CsorbitoSpora(3, 5, gombasz);
+        break;
+      default:
+        spora = new Spora(3, 5, gombasz);
+        break;
+    }
+    List<Tekton> szomszedok = tartozkodik.getSzomszed(1);
+    if (fejlett) {
+      szomszedok = tartozkodik.getSzomszed(2);
+      if (!szomszedok.contains(hova)) {
+        return false;
+      }
+    } else {
+      szomszedok = tartozkodik.getSzomszed(1);
+      if (!szomszedok.contains(hova)) {
+        return false;
+      }
+    }
+    int db = 5 % sporadarab;// Random.from(new Random()).nextInt() % sporadarab % 5;
+    /*
+     * if (db == 0) {
+     * ++db;
+     * }
+     */
+    hova.addSpora(db, spora);
+    eletcsokken();
+    sporadarab -= db;
+    return true;
+  }
+
+
+
   /**
    * Megsemmisül a gombatest, törlődik a listából, és felszabadítja a tektont, ahol eddig
    * tartózkodott

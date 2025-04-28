@@ -848,6 +848,7 @@ public class JDBTestTool2 implements Serializable{
         int TektonID = 0;
         int GombatestID = 0;
         int GTOldValue = 0;
+        int type = 5;
 
 
         for (int i = 0; i < args.length; i++) {
@@ -860,13 +861,22 @@ public class JDBTestTool2 implements Serializable{
                 tekton = tektonok.get(Integer.parseInt(args[i + 1]));
                 TektonID = Integer.parseInt(args[i + 1]);
             }
+            if (args[i].equals("-type")) {
+                switch (args[i + 1]) {
+                    case "bnt" : type = 0; break;
+                    case "gyrs" : type = 1; break;
+                    case "ls" : type = 2; break;
+                    case "oszt" : type = 3; break;
+                    case "csrb" : type = 4; break;
+                }
+            }
 
         }
         int oldElet = gombatest.getElettartam();
 
 
 
-        if (!gombatest.sporatSzor(tekton)) {
+        if (!gombatest.sporatSzor(tekton, type)) {
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nem szomszedos tekton)");
             return;
         }
