@@ -688,7 +688,16 @@ public class JDBTestTool2 implements Serializable{
     private void Eats(String[] args) {
 
         Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-        Spora spora = rovar.getTartozkodik().getBestSpora();
+        Spora spora;
+
+        try {
+            spora = rovar.getTartozkodik().getBestSpora();
+        } catch (Exception e) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs spora)");
+            return;
+        }
+
+
         Rovarasz rovarasz = rovar.getRovarasz();
         int db = 0;
         int sporaID = 0;
