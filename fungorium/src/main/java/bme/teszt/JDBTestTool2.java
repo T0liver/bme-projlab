@@ -815,9 +815,11 @@ public class JDBTestTool2 implements Serializable{
         AddSpora(new String[]{"/addsp", "0", "-tk", "" + TektonID, "-a", "" + gombatest.getGombasz().getId()});
         AppendOutput("" + Name(tekton) + " sporak: [] --> " + ListToString(tekton.getSporak()));
 
-
-        AppendOutput(Name(gombatest) + " elettartam: " + oldElet + " --> " + gombatest.getElettartam() );
-
+        if(gombatest.getElettartam() > 0) {
+            AppendOutput(Name(gombatest) + " elettartam: " + oldElet + " --> " + gombatest.getElettartam());
+        }else{
+            AppendOutput("remove Gombatest(" + GombatestID + ")");
+        }
 
     }
 
