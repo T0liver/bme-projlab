@@ -639,6 +639,13 @@ public class JDBTestTool2 implements Serializable{
     private void MoveRovar(String[] args) {
 
         Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
+        if (rovar == null) {
+            if (rovar == null) {
+                AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs rovar)");
+                return;
+            }
+        }
+
         int oldValue = rovar.getTartozkodik().getId();
         int tektonID = 0;
 
@@ -720,6 +727,10 @@ public class JDBTestTool2 implements Serializable{
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs spora)");
             return;
         }
+        if (spora == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs spora)");
+            return;
+        }
 
 
         Rovarasz rovarasz = rovar.getRovarasz();
@@ -738,6 +749,11 @@ public class JDBTestTool2 implements Serializable{
             if (args[i].equals("-db")) {
                 db = Integer.parseInt(args[i + 1]);
             }
+        }
+
+        if (spora == null) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs spora)");
+            return;
         }
         int oldValue = spora.getDarabszam();
 
@@ -778,6 +794,13 @@ public class JDBTestTool2 implements Serializable{
         GombaFonal gombaFonal = gombaFonalak.get(gombafonalID);
         Tekton tekton = tektonok.get(tektonfeleID);
         Rovar rovar = rovarok.get(rovarID);
+
+        if (rovar == null) {
+
+                AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nincs rovar)");
+                return;
+
+        }
 
         if (rovar.getVaghat()) {
             List<String> vezetElotte = new ArrayList<>();
@@ -878,6 +901,11 @@ public class JDBTestTool2 implements Serializable{
 
         if (!gombatest.sporatSzor(tekton, type)) {
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Nem szomszedos tekton)");
+            return;
+        }
+
+        if (tekton == gombatest.getTartozkodik()) {
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Sajat magan van)");
             return;
         }
 
