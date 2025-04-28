@@ -28,6 +28,9 @@ public class GombaFonal implements Jatekelem {
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
   private Map<Tekton, List<Tekton>> vezet;
 
+  public Map<Tekton, List<Tekton>> getVezet() {
+    return vezet;
+  }
   /**
    * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a GombaFonalat egy üres
    * listából.
