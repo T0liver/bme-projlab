@@ -2,10 +2,10 @@ new Gombasz (1)
 new Spora (2) 
 new Tekton (3)	 
 
-EVENT Gombatest növesztés 
-remove Spóra (2) 
+EVENT Gombatest novesztes
+remove Spora (2)
 new Gombatest (1) 
-Gombatest (1) aktor: null --> Gombász (1) 
+Gombatest (1) aktor: null --> Gombasz (1)
 Gombatest (1) tekton: null --> Tekton (3) 
-Gombatest (1) spóra: 0 --> 5 
-Gombász (1) pontok: 0 --> 10 
+Gombatest (1) spora: 0 --> 5
+Gombasz (1) pontok: 0 --> 10
