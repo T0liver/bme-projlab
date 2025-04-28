@@ -3,3 +3,4 @@
 /addtk 3 -nei 2
 /addgt 4 -a 1 -tart 2
 growf 4 -vez 2;3
+/lsf
