@@ -10,7 +10,7 @@
 /addrov 1 -a 2 -tk 2
 
 movr 1 -tk 3
-grovf 1 -vez 3;4
+growf 1 -vez 3;4
 spor -if 2 -tk 4 -type oszt
 movr 1 -tk 4
 eats 1 -sp 1 -db 1
