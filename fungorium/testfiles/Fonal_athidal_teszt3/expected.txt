@@ -7,6 +7,7 @@ EgyetlenFonalTekton (3) szomszédok: [ Tekton (2) ] --> [ Tekton (2), Tekton (4)
 new GombaFonal (5) 
 EgyetlenFonalTekton (3) vezet: [ ] --> [ GombaFonal (5) ]
 Tekton (4) vezet: [ ] --> [ GombaFonal (5) ]
-new GombaTest (6) 
+new GombaTest (6)
+GombaTest (6) tartózkodik: [ ] --> [Tekton(2)]
 
 INSTRUCTION FAIL “growf 6 –vez 2; 3” (EgyetlenFonálTektonon már van fonal) 

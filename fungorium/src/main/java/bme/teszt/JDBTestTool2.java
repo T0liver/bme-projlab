@@ -515,6 +515,7 @@ public class JDBTestTool2 implements Serializable{
         gombaszok.get(aktorID).getGombaFonalak().add(gf);
 
         for (int i = 5; i < args.length; i++) {
+
             String[] tektonokIds = args[i].split(";");
             int tId1 = Integer.parseInt(tektonokIds[0]);
             int tId2 = Integer.parseInt(tektonokIds[1]);
