@@ -1,4 +1,4 @@
-new Rovarász (0)
+new Rovarasz (0)
 new BénítóSpóra (1)
 new Tekton (2)
 new Rovar (3)

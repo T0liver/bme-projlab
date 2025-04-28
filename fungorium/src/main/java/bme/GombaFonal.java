@@ -1,6 +1,9 @@
 package bme;
 
 import java.util.List;
+
+import static bme.Jatekvezerlo.init;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +11,13 @@ import java.util.Map;
 /**
  * GombaFonal osztály definíciója.
  *
- * <p>A gombatestből nőnek ki, így tudnak a gombafajok terjedni. A gombafonalak a gombatestből
- * indulva ágaznak egy tektonokon, illetve a tektonok közti réseken átívelve másikokon is. A
- * gombafajok terjedési módja, csak olyan tektonon alakulhat ki, ahol van gombafonal is. Ha egy
+ * <p>
+ * A gombatestből nőnek ki, így tudnak a gombafajok terjedni. A gombafonalak a
+ * gombatestből
+ * indulva ágaznak egy tektonokon, illetve a tektonok közti réseken átívelve
+ * másikokon is. A
+ * gombafajok terjedési módja, csak olyan tektonon alakulhat ki, ahol van
+ * gombafonal is. Ha egy
  * gombafonal elveszíti a kapcsolatot a gombatesttel, akkor elhal.
  *
  * @author Oliver
@@ -18,9 +25,11 @@ import java.util.Map;
 public class GombaFonal implements Jatekelem {
 
   private int id;
+
   public int getId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -32,17 +41,22 @@ public class GombaFonal implements Jatekelem {
   private Gombasz gombasz;
 
   /**
-   *  Publikus setter a gombafonal jatekosanak beallitasara 
+   * Publikus setter a gombafonal jatekosanak beallitasara
    */
-  public void setGombasz(Gombasz j) {gombasz = j;}
+  public void setGombasz(Gombasz j) {
+    gombasz = j;
+  }
 
   /**
-   *  Publikus getter a gombafonal jatekosanak lekerdezesere 
+   * Publikus getter a gombafonal jatekosanak lekerdezesere
    */
-  public Gombasz getGombasz() {return gombasz;}
+  public Gombasz getGombasz() {
+    return gombasz;
+  }
 
   /**
-   * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a GombaFonalat egy üres
+   * Ez a paraméter nélüli publikus konstruktor függvény, ami létrehozza a
+   * GombaFonalat egy üres
    * listából.
    */
   public GombaFonal() {
@@ -50,7 +64,8 @@ public class GombaFonal implements Jatekelem {
   }
 
   /**
-   * Ez a paraméteres publikus konstruktor függvény, ami létrehoz egy listát, és belehelyezi a
+   * Ez a paraméteres publikus konstruktor függvény, ami létrehoz egy listát, és
+   * belehelyezi a
    * kiinduló tektont.
    *
    * @param kezdet a tekton, ahonnan a gombafonal kiindul.
@@ -63,14 +78,30 @@ public class GombaFonal implements Jatekelem {
 
   public void addVezet(Tekton honnan, Tekton hova) {
     vezet.putIfAbsent(honnan, new ArrayList<>());
-    vezet.get(honnan).add(hova);
-    vezet.get(honnan).add(honnan);
+    if (!vezet.get(honnan).contains(hova))
+      vezet.get(honnan).add(hova);
+    if (!vezet.get(honnan).contains(honnan))
+      vezet.get(honnan).add(honnan);
 
     vezet.putIfAbsent(hova, new ArrayList<>());
-    vezet.get(hova).add(honnan);
-    vezet.get(hova).add(hova);
+    if (!vezet.get(hova).contains(hova))
+      vezet.get(hova).add(hova);
+    if (!vezet.get(hova).contains(honnan))
+      vezet.get(hova).add(honnan);
 
-    //honnan.fonalak.add(this); //TODO ???
+    // honnan.fonalak.add(this); //TODO ???
+  }
+
+  /**
+   * Publikus getter függvény, visszatér azzal, hogy a paraméterként megadott két
+   * tekton között vezet-e.
+   *
+   * @param honnan az egyik tekton
+   * @param hova   a másik tekton
+   * @return a paraméterként megadott két tekton között vezet-e.
+   */
+  public boolean getVezet(Tekton honnan, Tekton hova) {
+    return vezet.containsKey(honnan) && vezet.get(honnan).contains(hova);
   }
 
   /**
@@ -78,17 +109,19 @@ public class GombaFonal implements Jatekelem {
    *
    * @return azon tektonok listája, ahová vezet a gombafonal.
    */
-  public boolean getVezet(Tekton honnan, Tekton hova) {
-    return vezet.containsKey(honnan) && vezet.get(honnan).contains(hova);
+  public Map<Tekton, List<Tekton>> getVezet() {
+    return vezet;
   }
 
   /**
-   * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a kapcsolat a két
+   * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a
+   * kapcsolat a két
    * tekton között
    *
    * @param hova melyik tektonra akarunk átjutni.
-   * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor nem sikerül a
-   *     művelet.
+   * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor
+   *         nem sikerül a
+   *         művelet.
    */
   public boolean athidal(Tekton hova) {
     for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
@@ -105,16 +138,19 @@ public class GombaFonal implements Jatekelem {
   }
 
   /**
-   * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a kapcsolat a két
+   * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a
+   * kapcsolat a két
    * tekton között
    * 
    * @param honnan melyik tektonról akarunk átjutni.
-   * @param hova melyik tektonra akarunk átjutni.
-   * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor nem sikerül a
-   *     művelet.
+   * @param hova   melyik tektonra akarunk átjutni.
+   * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor
+   *         nem sikerül a
+   *         művelet.
    */
   public boolean athidal(Tekton honnan, Tekton hova) {
-    if (!honnan.getSzomszed(1).contains(hova) || honnan == hova) return false;
+    if (!honnan.getSzomszed(1).contains(hova) || honnan == hova)
+      return false;
     for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
       if (entry.getKey() == honnan) {
         addVezet(honnan, hova);
@@ -128,23 +164,42 @@ public class GombaFonal implements Jatekelem {
   }
 
   /**
-   * A gombafonalat elvágták az adott tektonon, ekkor kiveszi az elért tektonjai közül az adott
+   * A gombafonalat elvágták az adott tektonon, ekkor kiveszi az elért tektonjai
+   * közül az adott
    * tektont.
    *
    * @param hol az a tekton, ahol elvágták a gombafonalat
    */
   public void elvagodik(Tekton honnan, Tekton hova) {
+    for (Tekton t : vezet.keySet()) {
+      if (!vezet.get(t).contains(t))
+        vezet.get(t).add(t);
+      boolean talalt = false;
+      List<Integer> lint = new ArrayList<>();
+      for (int i = 0; i < vezet.get(t).size(); ++i) {
+        if (t == vezet.get(t).get(i)) {
+          if (!talalt) {
+            talalt = true;
+          } else {
+            lint.add(i);
+          }
+        }
+      }
+      for (int i = lint.size() - 1; i >= 0; --i) {
+        vezet.get(t).remove(i);
+      }
+    }
     if (vezet.containsKey(honnan)) {
       vezet.get(honnan).remove(hova);
     }
     if (vezet.containsKey(hova)) {
       vezet.get(hova).remove(honnan);
     }
-    if (vezet.get(honnan).isEmpty()) {
+    if (vezet.get(honnan) == null || vezet.get(honnan).isEmpty()) {
       honnan.fonalak.remove(this);
       vezet.remove(honnan);
     }
-    if (vezet.get(hova).isEmpty()) {
+    if (vezet.get(hova) == null || vezet.get(hova).isEmpty()) {
       hova.fonalak.remove(this);
       vezet.remove(hova);
     }
@@ -160,8 +215,10 @@ public class GombaFonal implements Jatekelem {
     vezet.clear();
   }
 
-  
-  /** A gombafonal ellenorzi, mielyik tektont eri el, majd amit nem, onnan elpusztul. */
+  /**
+   * A gombafonal ellenorzi, mielyik tektont eri el, majd amit nem, onnan
+   * elpusztul.
+   */
   public void elpusztulGrafos() {
     Map<Tekton, List<Tekton>> ujVezet = new HashMap<>();
     for (Tekton entry : vezet.keySet()) {
@@ -169,7 +226,7 @@ public class GombaFonal implements Jatekelem {
         ujVezet.put(entry, vezet.get(entry));
       }
     }
-    for (int i = 0; i < 25; ++i) { //overdoing it hardcoded, too bad
+    for (int i = 0; i < 25; ++i) { // overdoing it hardcoded, too bad
       for (Tekton entry : vezet.keySet()) {
         for (Tekton ujEntry : ujVezet.keySet()) {
           if (ujVezet.get(ujEntry).contains(entry)) {
@@ -187,7 +244,8 @@ public class GombaFonal implements Jatekelem {
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
-    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs gombafonal-növekedés-szintje
+    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs
+    // gombafonal-növekedés-szintje
     // változónk, amit lehetne növelni.
     int novekves = 0;
     novekves++;
@@ -199,9 +257,10 @@ public class GombaFonal implements Jatekelem {
    */
   public void printData() {
     System.out.println("Osszekotott tektonok:");
-    for (Tekton name: vezet.keySet()) {
+    for (Tekton name : vezet.keySet()) {
       System.out.println("ID honnan: " + Jatekvezerlo.getIDof(name) + "\nIDk hova:");
-      for (int i = 0; i < vezet.get(name).size(); ++i) System.out.println(Jatekvezerlo.getIDof(vezet.get(name).get(i)));
+      for (int i = 0; i < vezet.get(name).size(); ++i)
+        System.out.println(Jatekvezerlo.getIDof(vezet.get(name).get(i)));
     }
   }
 
@@ -210,7 +269,8 @@ public class GombaFonal implements Jatekelem {
    */
   public void printData(Tekton t) {
     System.out.println("Osszekotott tektonok:");
-      System.out.println("ID honnan: " + Jatekvezerlo.getIDof(t) + "\nIDk hova:");
-      for (int i = 0; i < vezet.get(t).size(); ++i) System.out.println(Jatekvezerlo.getIDof(vezet.get(t).get(i)));
+    System.out.println("ID honnan: " + Jatekvezerlo.getIDof(t) + "\nIDk hova:");
+    for (int i = 0; i < vezet.get(t).size(); ++i)
+      System.out.println(Jatekvezerlo.getIDof(vezet.get(t).get(i)));
   }
 }

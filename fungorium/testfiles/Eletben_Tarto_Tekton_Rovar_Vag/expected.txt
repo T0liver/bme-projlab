@@ -1,17 +1,22 @@
-new Gombász (1)
-new Rovarász (2)
-new ÉletbenTartóTekton (1)
+new Gombasz (1)
+new Rovarasz (2)
+new EletbenTartoTekton (1)
 new Tekton (2)
-ÉletbenTartóTekton (1) szomszédok: [ ] --> [Tekton (2)]
+EletbenTartoTekton (1) szomszédok: [ ] --> [ Tekton (2) ] 
 new Tekton (3)
-ÉletbenTartóTekton (1) szomszédok: [ ] --> [Tekton (2), Tekton (3)]
-new Gombatest (1)
+EletbenTartoTekton (1) szomszédok: [ Tekton (2) ] --> [ Tekton (2), Tekton (3) ] 
+new GombaTest (1)
+GombaTest (1) tartózkodik: [ ] --> [Tekton(2)]
 new GombaFonal (1)
-ÉletbenTartóTekton (1) vezet: [ ] --> [GombaFonal (1)]
-Tekton (2) vezet: [ ] --> [GombaFonal (1)]
-Tekton (3) vezet: [ ] --> [GombaFonal (1)]
+Tekton (2) vezet: [ ] --> [ GombaFonal (1) ] 
+EletbenTartoTekton (1) vezet: [ ] --> [ GombaFonal (1) ] 
+Tekton (3) vezet: [ ] --> [ GombaFonal (1) ] 
+EletbenTartoTekton (1) vezet: [ GombaFonal (1) ] --> [ GombaFonal (1) ] 
 new Rovar (1)
 
 EVENT Rovar vág
-GombaFonal (1) vezet: [{Tekton (2), ÉletbenTartóTekton (1)}, {Tekton (3), ÉletbenTartóTekton (1)}] --> [{Tekton (3), ÉletbenTartóTekton (1)} ]
-Tekton (2) vezet: [GombaFonal (1)] --> [ ]
+GombaFonal (1) vezet: [{Tekton (3), Tekton (1)}, {Tekton (3), Tekton (3)}, {Tekton (2), Tekton (1)}, {Tekton (2), Tekton (2)}, {Tekton (1), Tekton (1)}, {Tekton (1), Tekton (2)}, {Tekton (1), Tekton (3)}] --> [{Tekton (3), Tekton (1)}, {Tekton (3), Tekton (3)}, {Tekton (2), Tekton (2)}, {Tekton (1), Tekton (1)}, {Tekton (1), Tekton (3)}]
+Tekton (3) fonalak: ([0])
+Tekton (1) fonalak: ([0])
+Tekton (2) fonalak: ([0])
+GombaFonal (1) vezet: [ (Tekton (3), EletbenTartoTekton (1)), (Tekton (3), Tekton (3)), (EletbenTartoTekton (1), EletbenTartoTekton (1)), (EletbenTartoTekton (1), Tekton (3)) ]

@@ -6,4 +6,5 @@
 /addgf 2 -a 2 -vez 1;2
 /trig -nr 
 /trig -nr 
-/trig -nr 
+/trig -nr
+/lst

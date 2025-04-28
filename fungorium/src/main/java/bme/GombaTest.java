@@ -6,22 +6,31 @@ import java.util.Random;
 /**
  * GombaTest osztály definíciója.
  *
- * <p>A gombatest egy tektonon élősködő organizmus, amelyből gombafonalak nőnek. Bizonyos idő
- * elteltével spórákat termel, melyeket a szomszédos tektonokra képes szóri, ezáltal segíti elő a
- * gombafonalak terjedését. Idővel a gombatest elkezd fejlődni és fejlettebb állapotában már a
- * szomszédos tektonok szomszédjaira is képes spórákat szórni. Minden tektonon csupán egyetlen
- * gombatest fejlődhet, amely elpusztul miután elég spórát szórt. A gombafonalak révén új
- * gombatestek alakulhatnak ki, ha elegendő spóra halmozódik fel azon a tektonon, ahol új testet
+ * <p>
+ * A gombatest egy tektonon élősködő organizmus, amelyből gombafonalak nőnek.
+ * Bizonyos idő
+ * elteltével spórákat termel, melyeket a szomszédos tektonokra képes szóri,
+ * ezáltal segíti elő a
+ * gombafonalak terjedését. Idővel a gombatest elkezd fejlődni és fejlettebb
+ * állapotában már a
+ * szomszédos tektonok szomszédjaira is képes spórákat szórni. Minden tektonon
+ * csupán egyetlen
+ * gombatest fejlődhet, amely elpusztul miután elég spórát szórt. A gombafonalak
+ * révén új
+ * gombatestek alakulhatnak ki, ha elegendő spóra halmozódik fel azon a
+ * tektonon, ahol új testet
  * szeretnénk létrehozni.
  *
  * @author Oliver
  */
-public class GombaTest implements Jatekelem{
+public class GombaTest implements Jatekelem {
 
   private int id;
+
   public int getId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -34,10 +43,12 @@ public class GombaTest implements Jatekelem{
   private int elettartam;
 
   /**
-   * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap tulajdonságait.
+   * Az egyik publikus konstruktor függvény, ami beállítja az objektum alap
+   * tulajdonságait.
    *
    * @param elett a gombatest alap élettartama
-   * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
+   * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest
+   *                   elhelyezkedni
    */
   public GombaTest(Gombasz gombasz, int elett, Tekton hely) throws Exception {
     if (!hely.getFoglalt()) {
@@ -54,13 +65,15 @@ public class GombaTest implements Jatekelem{
   }
 
   /**
-   * Az egyik publikus konstruktor függvény, ami beállítja az objektum összes tulajdonságát.
+   * Az egyik publikus konstruktor függvény, ami beállítja az objektum összes
+   * tulajdonságát.
    *
-   * @param sporadb a gombatest spóráinak a darabszáma
-   * @param elett a gombatest kezdeti élettartama
-   * @param fejlett jelző, hogy a gombatest fejlett-e
+   * @param sporadb    a gombatest spóráinak a darabszáma
+   * @param elett      a gombatest kezdeti élettartama
+   * @param fejlett    jelző, hogy a gombatest fejlett-e
    * @param fejlettseg a gombatest fejlettségi szintje
-   * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest elhelyezkedni
+   * @throws Exception ha vár foglalt a tekton, akkor nem tud rajta új gombatest
+   *                   elhelyezkedni
    */
   public GombaTest(
       Gombasz gombasz, int sporadb, int elett, boolean fejlett, int fejlettseg, Tekton hely)
@@ -78,7 +91,7 @@ public class GombaTest implements Jatekelem{
     }
   }
 
-  public GombaTest(Jatekos gombasz, int elett, Tekton hely)  throws Exception {
+  public GombaTest(Jatekos gombasz, int elett, Tekton hely) throws Exception {
     if (!hely.getFoglalt()) {
       sporadarab = 0;
       elettartam = elett;
@@ -90,7 +103,8 @@ public class GombaTest implements Jatekelem{
     } else {
       throw new Exception("A tekton már foglalt, nem lehet új gombatestet rátenni!");
     }
-}
+  }
+
   /**
    * Publikus getter függvény a gombatest spóra darabszámának lekérdezésére.
    *
@@ -173,39 +187,99 @@ public class GombaTest implements Jatekelem{
   }
 
   /**
-   * Elindítja a spóraszórást. Spóra szórását kezdeményezi egy szomszédos tektonra. Ekkor csökken a
+   * Elindítja a spóraszórást. Spóra szórását kezdeményezi egy szomszédos
+   * tektonra. Ekkor csökken a
    * saját spórakészlete és az élettartama is.
    *
    * @param hova melyik tektonra szórjon spórát
    */
   public boolean sporatSzor(Tekton hova) {
+    List<Tekton> szomszedok = tartozkodik.getSzomszed(1);
     if (fejlett) {
-      List<Tekton> szomszedok = hova.getSzomszed(2);
+      szomszedok = tartozkodik.getSzomszed(2);
+      if (!szomszedok.contains(hova)) {
+        return false;
+      }
+    } else {
+      szomszedok = tartozkodik.getSzomszed(1);
       if (!szomszedok.contains(hova)) {
         return false;
       }
     }
-    List<Tekton> szomszedok = hova.getSzomszed(1);
-    if (!szomszedok.contains(hova)) {
-      return false;
-    }
-    int db = Random.from(new Random()).nextInt() % sporadarab % 5;
-    if (db == 0) {
-      ++db;
-    }
+    int db = 5 % sporadarab;// Random.from(new Random()).nextInt() % sporadarab % 5;
+    /*
+     * if (db == 0) {
+     * ++db;
+     * }
+     */
     hova.addSpora(db, this);
     eletcsokken();
     sporadarab -= db;
     return true;
   }
 
+  /**
+   * Elindítja a spóraszórást. Spóra szórását kezdeményezi egy szomszédos
+   * tektonra. Ekkor csökken a
+   * saját spórakészlete és az élettartama is.
+   *
+   * @param hova melyik tektonra szórjon spórát
+   */
+  public boolean sporatSzor(Tekton hova, int milyet) {
+    Spora spora = null;
+    switch (milyet) {
+      case 0:
+        spora = new BenitoSpora(3, 5, gombasz);
+        break;
+      case 1:
+        spora = new GyorsitoSpora(3, 5, gombasz);
+        break;
+      case 2:
+        spora = new LassitoSpora(3, 5, gombasz);
+        break;
+      case 3:
+        spora = new OsztoSpora(3, 5, gombasz);
+        break;
+      case 4:
+        spora = new OsztoSpora(3, 5, gombasz);
+        break;
+      default:
+        spora = new Spora(3, 5, gombasz);
+        break;
+    }
+    List<Tekton> szomszedok = tartozkodik.getSzomszed(1);
+    if (fejlett) {
+      szomszedok = tartozkodik.getSzomszed(2);
+      if (!szomszedok.contains(hova)) {
+        return false;
+      }
+    } else {
+      szomszedok = tartozkodik.getSzomszed(1);
+      if (!szomszedok.contains(hova)) {
+        return false;
+      }
+    }
+    int db = 5 % sporadarab;// Random.from(new Random()).nextInt() % sporadarab % 5;
+    /*
+     * if (db == 0) {
+     * ++db;
+     * }
+     */
+    hova.addSpora(db, spora);
+    eletcsokken();
+    sporadarab -= db;
+    return true;
+  }
+
   /** Eggyel fejleszti a gombatestet, és növeli a fejlettség értékét. */
+
   public void novekszik() {
     fejlettseg++;
   }
 
   /**
-   * Megsemmisül a gombatest, törlődik a listából, és felszabadítja a tektont, ahol eddig
+   * Megsemmisül a gombatest, törlődik a listából, és felszabadítja a tektont,
+   * ahol eddig
    * tartózkodott
    */
   public void elpusztul() {
@@ -227,6 +301,7 @@ public class GombaTest implements Jatekelem{
    * a class adatait kiiro fuggveny
    */
   public void printData() {
-    System.out.println("Elhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab + "\nElettartam: " + elettartam + "\nFejlettseg: " + fejlett);
+    System.out.println("Elhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab
+        + "\nElettartam: " + elettartam + "\nFejlettseg: " + fejlett);
   }
 }

@@ -1,12 +1,13 @@
-new Gombász (1) 
-new Tekton (2) 
-new EgyetlenFonálTekton (3) 
-Tekton (2) szomszédok: [ ] --> [ EgyetlenFonálTekton (3) ]
-new Tekton (4) 
-EgyetlenFonalTekton (3) szomszédok: [ Tekton (2) ] --> [ Tekton (2), Tekton (4) ]
-new GombaFonal (5) 
-EgyetlenFonalTekton (3) vezet: [ ] --> [ GombaFonal (5) ]
-Tekton (4) vezet: [ ] --> [ GombaFonal (5) ]
-new GombaTest (6) 
+new Gombasz (1)
+new Tekton (2)
+new EgyetlenFonalTekton (3)
+Tekton (2) szomszédok: [ ] --> [ EgyetlenFonalTekton (3) ] 
+new Tekton (4)
+EgyetlenFonalTekton (3) szomszédok: [ Tekton (2) ] --> [ Tekton (2), Tekton (4) ] 
+new GombaFonal (5)
+EgyetlenFonalTekton (3) vezet: [ ] --> [ GombaFonal (5) ] 
+Tekton (4) vezet: [ ] --> [ GombaFonal (5) ] 
+new GombaTest (6)
+GombaTest (6) tartózkodik: [ ] --> [Tekton(2)]
 
-INSTRUCTION FAIL “growf 6 –vez 2; 3” (EgyetlenFonálTektonon már van fonal) 
+INSTRUCTION FAIL "growf 6 -vez 2;3" (EgyetlenfonalTektonon már van fonal)

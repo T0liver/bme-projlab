@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * FelszivoTekton osztály definíciója.
  *
- * <p>A felszívó tekton egy olyan tekton, melyen idő után az elhelyezett spórák felszívódnak
+ * <p>
+ * A felszívó tekton egy olyan tekton, melyen idő után az elhelyezett spórák
+ * felszívódnak
  *
  * @author Vid
  */
@@ -27,13 +29,15 @@ public class FelszivoTekton extends Tekton {
     hatralevoido = ido;
     maxido = ido;
   }
+
   public FelszivoTekton() {
-    hatralevoido = 10;
-    maxido = 10;
+    hatralevoido = 2;
+    maxido = 2;
   }
 
   /**
-   * A kör elején meghívott függvény, visszaszámol a felszívásig, ha elérte a 0-t, eltűnteti az
+   * A kör elején meghívott függvény, visszaszámol a felszívásig, ha elérte a 0-t,
+   * eltűnteti az
    * összes rajta lévő gombafonalat és spórát
    */
   @Override

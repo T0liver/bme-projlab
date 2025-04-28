@@ -2,4 +2,4 @@
 /addsp 1 -t bnt -db 10 -tp 10
 /addtk 2 -sp 1
 /addrov 3 -tk 2 -seb 5 -vag Y -ujv 10 -a 0
-eats 3 -sp 1 -db 1
+eats 3 -sp 1 -db 5

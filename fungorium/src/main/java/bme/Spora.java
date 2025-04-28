@@ -3,20 +3,28 @@ package bme;
 /**
  * Spóra osztály definíciója.
  *
- * <p>Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak elhelyezni.
- * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra található. A spórák
- * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert fajtái felgyorsítják,
- * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó rovarokat. A spórák különböző
- * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok szerzésében.
+ * <p>
+ * Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak
+ * elhelyezni.
+ * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra
+ * található. A spórák
+ * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert
+ * fajtái felgyorsítják,
+ * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó
+ * rovarokat. A spórák különböző
+ * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok
+ * szerzésében.
  *
  * @author Oliver
  */
-public class Spora implements Jatekelem{
+public class Spora implements Jatekelem {
 
   private int id;
+
   public int getId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -36,7 +44,7 @@ public class Spora implements Jatekelem{
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    *
    * @param kcal a spóra tápanyagtartalma
-   * @param db a spóra darabszáma
+   * @param db   a spóra darabszáma
    */
   public Spora(int kcal, int db, Gombasz gombasz) {
     tapanyagtartalom = kcal;
@@ -46,6 +54,7 @@ public class Spora implements Jatekelem{
 
   /**
    * Publikus getter a spora elhelyezkedesi tektonjanak megadasara.
+   * 
    * @param t a tekton
    */
   public void setTartozkodik(Tekton t) {
@@ -54,6 +63,7 @@ public class Spora implements Jatekelem{
 
   /**
    * Publikus getter a spora darabszamanak megadasara.
+   * 
    * @param db a darabszam
    */
   public void setDarabszam(int db) {
@@ -62,6 +72,7 @@ public class Spora implements Jatekelem{
 
   /**
    * Publikus getter a spora tapanyagertekenek megadasara.
+   * 
    * @param kcal a tapertek
    */
   public void setTapanyag(int kcal) {
@@ -96,8 +107,10 @@ public class Spora implements Jatekelem{
   }
 
   /**
-   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a mennyivel értéke,
-   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető mennyiséget adja vissza.
+   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a
+   * mennyivel értéke,
+   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető
+   * mennyiséget adja vissza.
    *
    * @param mennyivel annak a száma, hogy mennyivel csökken a spóra.
    * @return a megevett spóraák tápanyagértéke.
@@ -108,7 +121,7 @@ public class Spora implements Jatekelem{
     }
     if (darabszam >= mennyivel) {
       int ret = mennyivel * tapanyagtartalom;
-      darabszam = 0;
+      darabszam -= mennyivel;
       return ret;
     } else {
       int ret = darabszam * tapanyagtartalom;
@@ -122,7 +135,8 @@ public class Spora implements Jatekelem{
    *
    * @param mire a rovar, amire kifejti a hatását
    */
-  public void hatas(Rovar mire) {}
+  public void hatas(Rovar mire) {
+  }
 
   /**
    * Növeli a spóra darabszámát a megadott értékkel.
@@ -137,6 +151,16 @@ public class Spora implements Jatekelem{
    * A class adatait kiiro fuggveny.
    */
   public void printData() {
-    System.out.println("Normalis Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
+    System.out.println("Normalis Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam
+        + "\nTapanyagtartalom: " + tapanyagtartalom);
+  }
+
+  /**
+   * publikus getter a spora tartozkodai helyenek lekerdezesehez
+   * 
+   * @return
+   */
+  public Tekton getTartozkodik() {
+    return tartozkodik;
   }
 }

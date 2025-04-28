@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
-
 /**
  * Jatekvezerlo osztaly definicioja
  */
@@ -32,15 +31,17 @@ public class Jatekvezerlo {
   public static Random r = new Random();
 
   /**
-  * privat konstruktor, mert warning
-  */
+   * privat konstruktor, mert warning
+   */
   private Jatekvezerlo() {
-    /*jelenlegiKor = 0;
-    tektonok = new ArrayList<Tekton>();
-    jatekosok = new ArrayList<Jatekos>();
-    jelenlegiJatekos = 0;
-    jatekHossz = 50;
-    random = false;*/
+    /*
+     * jelenlegiKor = 0;
+     * tektonok = new ArrayList<Tekton>();
+     * jatekosok = new ArrayList<Jatekos>();
+     * jelenlegiJatekos = 0;
+     * jatekHossz = 50;
+     * random = false;
+     */
   }
 
   /**
@@ -56,9 +57,11 @@ public class Jatekvezerlo {
     if (!random && jelenlegiKor % 5 == 4) {
       talalt = tektonok.get(jelenlegiKor % tektonok.size());
     }
-    if (talalt == null) return;
+    if (talalt == null)
+      return;
     List<Tekton> ujak = talalt.hasad();
-    if (ujak.size() == 1) return;
+    if (ujak.size() == 1)
+      return;
     tektonok.remove(talalt);
     tektonok.addAll(ujak);
   }
@@ -67,7 +70,8 @@ public class Jatekvezerlo {
    * tick fuggveny a tektonok tick fuggvenyeinek meghivasara
    */
   public static void tick() {
-    for (int i = 0; i < tektonok.size(); ++i) tektonok.get(i).tick();
+    for (int i = 0; i < tektonok.size(); ++i)
+      tektonok.get(i).tick();
   }
 
   /**
@@ -83,7 +87,8 @@ public class Jatekvezerlo {
    */
   public static boolean korMenete() {
     for (int i = 0; i < jatekosok.size(); ++i) {
-      if (jatekosok.get(i).lep()) return true;
+      if (jatekosok.get(i).lep())
+        return true;
     }
     return false;
   }
@@ -116,18 +121,21 @@ public class Jatekvezerlo {
   public static void jatekKezdes() {
     jatekHossz = 50;
     try {
-      if(init()) return;
+      if (init())
+        return;
     } catch (InvalidAttributeValueException e) {
       e.printStackTrace();
     }
     for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
-      if (korMenete()) return;
+      if (korMenete())
+        return;
       korVege();
     }
   }
 
   /**
    * fuggveny jatekos hozzaadasara a jatekosok listahoz
+   * 
    * @param j a hozzaaadando jatekos
    */
   public static void addJatekos(Jatekos j) {
@@ -136,6 +144,7 @@ public class Jatekvezerlo {
 
   /**
    * fuggveny jatekos hozzaadasara a jatekosok listahoz parancssorrol
+   * 
    * @param args parancssori argumentumok
    */
   public static void addJatekos(String[] args) {
@@ -145,41 +154,73 @@ public class Jatekvezerlo {
       return;
     }
     switch (args[1]) {
-      case "r": uj = new Rovarasz(); break;
-      case "g": uj = new Gombasz(); break;
-      default: System.out.println("rossz formátumú parancs");
+      case "r":
+        uj = new Rovarasz();
+        break;
+      case "g":
+        uj = new Gombasz();
+        break;
+      default:
+        System.out.println("rossz formátumú parancs");
     }
-    if (uj == null) return;
-    if (uj.getType() != -1) addJatekos(uj);
-    if (uj.getType() == 0) System.out.println("Gombász hozzáadva, id: " + (jatekosok.size() - 1));
-    if (uj.getType() == 1) System.out.println("rovarász hozzáadva, id: " + (jatekosok.size() - 1));
+    if (uj == null)
+      return;
+    if (uj.getType() != -1)
+      addJatekos(uj);
+    if (uj.getType() == 0)
+      System.out.println("Gombász hozzáadva, id: " + (jatekosok.size() - 1));
+    if (uj.getType() == 1)
+      System.out.println("rovarász hozzáadva, id: " + (jatekosok.size() - 1));
   }
 
   /**
    * fuggveny a jatek inicializalasahoz parancssorrol
-      * @throws InvalidAttributeValueException 
-      */
-     public static boolean init() throws InvalidAttributeValueException {
+   * 
+   * @throws InvalidAttributeValueException
+   */
+  public static boolean init() throws InvalidAttributeValueException {
     jelenlegiJatekos = 0;
     int gombaszok = 0;
     int rovaraszok = 0;
-    System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\n/exit\t\t\t\tkilepes a jatekbol");
+    System.out.println(
+        "parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\n/exit\t\t\t\tkilepes a jatekbol");
     boolean startGame = false;
     boolean loaded = false;
     Scanner scanner = new Scanner(System.in);
-    while(!startGame) {
+    while (!startGame) {
       try {
         String[] args = scanner.nextLine().strip().split(" ");
         switch (args[0]) {
-          case "/random": if (args[1] == "on") random = true; if (args[1] == "off") random = false; System.out.println("Random: " + random); break;
-          case "/adda": addJatekos(args); break;
-          case "/start": startGame = true; break;
-          case "/load": if(Jatekvezerlo.Load(args)) loaded = true; break;
-          case "/help": System.out.println("parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\\n/exit\t\t\t\tkilepes a jatekbol"); break;
-          case "/exit": return true;
-          default: System.out.println("Invalid command: " + args[0]); break;
+          case "/random":
+            if (args[1] == "on")
+              random = true;
+            if (args[1] == "off")
+              random = false;
+            System.out.println("Random: " + random);
+            break;
+          case "/adda":
+            addJatekos(args);
+            break;
+          case "/start":
+            startGame = true;
+            break;
+          case "/load":
+            if (Jatekvezerlo.Load(args))
+              loaded = true;
+            break;
+          case "/help":
+            System.out.println(
+                "parancsok:\n/random <on|off>\t\trandom funkció beállítása\n/adda <r|g>\t\t\taktor [Rovarász/Gombász] hozzáadása\n/load [filepath]\t\tjáték betöltése fájlból\n/start\t\t\t\tjáték indítása\n/help\t\t\t\tparancsok megjelenitese\\n/exit\t\t\t\tkilepes a jatekbol");
+            break;
+          case "/exit":
+            return true;
+          default:
+            System.out.println("Invalid command: " + args[0]);
+            break;
         }
-      } catch (Exception e) { System.out.println("Invalid Syntax");}
+      } catch (Exception e) {
+        System.out.println("Invalid Syntax");
+      }
     }
 
     for (int i = 0; i < jatekosok.size(); ++i) {
@@ -199,135 +240,152 @@ public class Jatekvezerlo {
         tektonok.set(21, new EletbenTartoTekton());
       } else {
         for (int i = 0; i < 25; ++i) {
-          switch(r.nextInt(25)) {
-            case 0: tektonok.add(new TermeketlenTekton()); break;
-            case 1: tektonok.add(new EgyetlenFonalTekton()); break;
-            case 2: tektonok.add(new FelszivoTekton()); break;
-            case 3: tektonok.add(new EletbenTartoTekton()); break;
-            default: tektonok.add(new Tekton());
+          switch (r.nextInt(25)) {
+            case 0:
+              tektonok.add(new TermeketlenTekton());
+              break;
+            case 1:
+              tektonok.add(new EgyetlenFonalTekton());
+              break;
+            case 2:
+              tektonok.add(new FelszivoTekton());
+              break;
+            case 3:
+              tektonok.add(new EletbenTartoTekton());
+              break;
+            default:
+              tektonok.add(new Tekton());
           }
           tektonok.add(new Tekton());
         }
       }
 
-        for (int i = 0; i < 5; ++i) {
-          for (int e = 0; e < 5; ++e) {
-            for (int j = -1; j < 2; ++j) {
-              for (int k = -1; k < 2; ++k) {
-                int x = ((i + j) * 5 + 25) % 25;
-                int y = ((e + k) + 5) % 5;
-                tektonok.get(i).addSzomszed(tektonok.get(x + y));
-              }
+      for (int i = 0; i < 5; ++i) {
+        for (int e = 0; e < 5; ++e) {
+          for (int j = -1; j < 2; ++j) {
+            for (int k = -1; k < 2; ++k) {
+              int x = ((i + j) * 5 + 25) % 25;
+              int y = ((e + k) + 5) % 5;
+              tektonok.get(i).addSzomszed(tektonok.get(x + y));
             }
           }
         }
+      }
 
-        for (int i = 0; i < jatekosok.size(); ++i) {
-          if (jatekosok.get(i).getType() == 0) {
-            GombaTest gt = null;
-              try {
-                gt = new GombaTest(jatekosok.get(i), 5, tektonok.get(tektonok.size()/jatekosok.size() * i));
-              } catch (Exception e) {
-                e.printStackTrace();
-              }
-            GombaFonal gf = new GombaFonal();
-            gf.setGombasz((Gombasz)jatekosok.get(i));
-            tektonok.get(tektonok.size()/jatekosok.size() * i).setFoglalt(true);
-            tektonok.get(tektonok.size()/jatekosok.size() * i).addFonal(gf);
-            gf.addVezet(tektonok.get(tektonok.size()/jatekosok.size() * i), tektonok.get(tektonok.size()/jatekosok.size() * i));
-            gf.printData();
-            jatekosok.get(i).addGombaTest(gt);
-            jatekosok.get(i).addGombaFonal(gf);
-          } else {
-            Rovar r = new Rovar((Rovarasz) jatekosok.get(i), tektonok.get(tektonok.size()/jatekosok.size() * i));
-            jatekosok.get(i).addRovar(r);
+      for (int i = 0; i < jatekosok.size(); ++i) {
+        if (jatekosok.get(i).getType() == 0) {
+          GombaTest gt = null;
+          try {
+            gt = new GombaTest(jatekosok.get(i), 5, tektonok.get(tektonok.size() / jatekosok.size() * i));
+          } catch (Exception e) {
+            e.printStackTrace();
           }
+          GombaFonal gf = new GombaFonal();
+          gf.setGombasz((Gombasz) jatekosok.get(i));
+          tektonok.get(tektonok.size() / jatekosok.size() * i).setFoglalt(true);
+          tektonok.get(tektonok.size() / jatekosok.size() * i).addFonal(gf);
+          gf.addVezet(tektonok.get(tektonok.size() / jatekosok.size() * i),
+              tektonok.get(tektonok.size() / jatekosok.size() * i));
+          gf.printData();
+          jatekosok.get(i).addGombaTest(gt);
+          jatekosok.get(i).addGombaFonal(gf);
+        } else {
+          Rovar r = new Rovar((Rovarasz) jatekosok.get(i), tektonok.get(tektonok.size() / jatekosok.size() * i));
+          jatekosok.get(i).addRovar(r);
         }
+      }
     }
     return false;
   }
 
   /**
    * fuggveny a jatek mentesehez parancssorrol
+   * 
    * @param args parancssori argumentumok (mentesi fajl)
    */
   public static void Save(String[] args) {
     if (args.length == 0) {
-        System.out.println("Nem adtál meg mentési fájlt.");
-        return;
+      System.out.println("Nem adtál meg mentési fájlt.");
+      return;
     }
 
     String filePath = args[1];
     try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-        // Játék állapotának mentése
-        oos.writeInt(Jatekvezerlo.jelenlegiKor);
-        oos.writeInt(Jatekvezerlo.jelenlegiJatekos);
-        oos.writeInt(Jatekvezerlo.jatekHossz);
-        oos.writeObject(Jatekvezerlo.tektonok);
-        oos.writeObject(Jatekvezerlo.jatekosok);
+      // Játék állapotának mentése
+      oos.writeInt(Jatekvezerlo.jelenlegiKor);
+      oos.writeInt(Jatekvezerlo.jelenlegiJatekos);
+      oos.writeInt(Jatekvezerlo.jatekHossz);
+      oos.writeObject(Jatekvezerlo.tektonok);
+      oos.writeObject(Jatekvezerlo.jatekosok);
 
-        System.out.println("Játék elmentve sikeresen: " + filePath);
+      System.out.println("Játék elmentve sikeresen: " + filePath);
     } catch (Exception e) {
-        System.out.println("Hiba a játék mentésekor: " + e.getMessage());
-        e.printStackTrace();
+      System.out.println("Hiba a játék mentésekor: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
   /**
    * fuggveny jatek betoltesehez parancssorrol
+   * 
    * @param args parancssoria rgumentumok (mentesi fajl)
    * @return a visszatoltes sikeressege
    */
   private static boolean Load(String[] args) {
     if (args.length == 0) {
-        System.out.println("Nem adtál meg mentési fájlt.");
-        return false;
+      System.out.println("Nem adtál meg mentési fájlt.");
+      return false;
     }
 
     String filePath = args[1];
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-        // Feltételezve, hogy a Jatekvezerlo osztály statikus változóit tölti vissza
-        Jatekvezerlo.jelenlegiKor = ois.readInt();
-        Jatekvezerlo.jelenlegiJatekos = ois.readInt();
-        Jatekvezerlo.jatekHossz = ois.readInt();
-        Jatekvezerlo.tektonok = (List<Tekton>) ois.readObject();
-        Jatekvezerlo.jatekosok = (List<Jatekos>) ois.readObject();
+      // Feltételezve, hogy a Jatekvezerlo osztály statikus változóit tölti vissza
+      Jatekvezerlo.jelenlegiKor = ois.readInt();
+      Jatekvezerlo.jelenlegiJatekos = ois.readInt();
+      Jatekvezerlo.jatekHossz = ois.readInt();
+      Jatekvezerlo.tektonok = (List<Tekton>) ois.readObject();
+      Jatekvezerlo.jatekosok = (List<Jatekos>) ois.readObject();
 
-        System.out.println("Játék betöltve sikeresen: " + filePath);
+      System.out.println("Játék betöltve sikeresen: " + filePath);
     } catch (Exception e) {
-        System.out.println("Hiba a játék betöltésekor: " + e.getMessage());
-        e.printStackTrace();
-        return false;
+      System.out.println("Hiba a játék betöltésekor: " + e.getMessage());
+      e.printStackTrace();
+      return false;
     }
     return true;
   }
 
   /**
    * fuggveny tekton id-jenek lekerdezesere
+   * 
    * @param t a tekton, aminek idjere kivancsiak vagyunk
    * @return a keresett id
    */
   public static int getIDof(Tekton t) {
     for (int i = 0; i < tektonok.size(); ++i) {
-      if (t == tektonok.get(i)) return i;
+      if (t == tektonok.get(i))
+        return i;
     }
     return -1;
-  } 
+  }
 
   /**
    * fuggveny jatekos id-jenek lekerdezesere
+   * 
    * @param j a jatekos, aminek idjere kivancsiak vagyunk
    * @return a keresett id
    */
   public static int getIDof(Jatekos j) {
     for (int i = 0; i < jatekosok.size(); ++i) {
-      if (j == jatekosok.get(i)) return i;
+      if (j == jatekosok.get(i))
+        return i;
     }
     return -1;
-  } 
+  }
 
   /**
    * fuggveny a jatekban levo jatekosok kilistazasara
+   * 
    * @param args parancssori argumentumok
    */
   public static void ListAktor(String[] args) {
@@ -340,6 +398,7 @@ public class Jatekvezerlo {
 
   /**
    * fuggveny a jatekban levo tektonok kilistazasara
+   * 
    * @param args parancssori argumentumok
    */
   public static void ListTekton(String[] args) {
