@@ -86,7 +86,7 @@ public class Main {
   private static void GombanTesztek() {
     ExecuteTest("Sporat_felhasznal_teszt1"); //Működik
     ExecuteTest("Sporat_felhasznal_teszt2"); //Működik
-    ExecuteTest("Gombatest_halala");
+    ExecuteTest("Gombatest_halala"); //Működik
     ExecuteTest("Gombatestek_hozzaadasa"); //Működik
   }
 
