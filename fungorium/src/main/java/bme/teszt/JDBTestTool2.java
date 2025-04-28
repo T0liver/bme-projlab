@@ -331,6 +331,7 @@ public class JDBTestTool2 implements Serializable{
                     case "egy" -> new EgyetlenFonalTekton();
                     case "flsz" -> new FelszivoTekton(3);
                     case "trm" -> new TermeketlenTekton();
+                    //case "el" -> new
                     default -> tekton;
                 };
                 tekton.setId(Integer.parseInt(args[1]));
