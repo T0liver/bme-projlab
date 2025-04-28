@@ -8,7 +8,6 @@
 /addgt 2 -a 1 -tart 4 -sp 1 -fj Y
 /addgf 1 -a 1 -vez 3;2
 /addrov 1 -a 2 -tk 2
-
 movr 1 -tk 3
 growf 1 -vez 3;4
 spor -if 2 -tk 4 -type oszt
