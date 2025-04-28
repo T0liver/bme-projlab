@@ -106,7 +106,7 @@ public class Main {
   }
 
   private static void FonalTesztek() {
-    ExecuteTest("Fonal_athidal_teszt1");
+    ExecuteTest("Fonal_athidal_teszt1"); //Működik
     ExecuteTest("Fonal_athidal_teszt2");
     ExecuteTest("Fonal_athidal_teszt3");
     ExecuteTest("Fonal_benult_rovart_eszik");
