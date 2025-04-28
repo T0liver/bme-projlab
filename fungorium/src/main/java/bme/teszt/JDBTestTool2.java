@@ -21,8 +21,8 @@ public class JDBTestTool2 implements Serializable{
     HashMap<Integer, Tekton> tektonok = new HashMap<>();
 
 
-    /// TesztFile futtató teszt
-    /// @param file tesztfájl
+    /// TesztFile futtato teszt
+    /// @param file tesztfajl
     public JDBTestTool2(File file) {
         input = new File(file.getAbsolutePath(), "input.txt");
         expected = new File(file.getAbsolutePath(), "expected.txt");
@@ -36,13 +36,13 @@ public class JDBTestTool2 implements Serializable{
             }
 
         } catch (IOException e) {
-            System.out.println("Kimenet fájl készítése sikertelen! "+out.getAbsolutePath());
+            System.out.println("Kimenet fajl keszitese sikertelen! "+out.getAbsolutePath());
         }
 
         fromFile = true;
     }
 
-    /// Szabad utasításvégrehajtásos teszt
+    /// Szabad utasitasvegrehajtasos teszt
     public JDBTestTool2() {
         fromFile = false;
     }
@@ -53,7 +53,7 @@ public class JDBTestTool2 implements Serializable{
             try {
                 scanner = new Scanner(new FileReader(input));
             } catch (FileNotFoundException e) {
-                System.out.println("Tesztfájl megnyitása sikertelen " + input.getAbsolutePath());
+                System.out.println("Tesztfajl megnyitasa sikertelen " + input.getAbsolutePath());
                 return;
             }
         } else {
@@ -112,7 +112,7 @@ public class JDBTestTool2 implements Serializable{
                 fw.write(line + System.lineSeparator());
                 fw.close();
             } catch (Exception e) {
-                System.out.println("Kimenet írása sikertelen: "+out.getAbsolutePath());
+                System.out.println("Kimenet irasa sikertelen: "+out.getAbsolutePath());
             }
         } else {
             System.out.println(line);
@@ -167,7 +167,7 @@ public class JDBTestTool2 implements Serializable{
             //TODO: EZ MIRE KELL?
             case "-np":
                 Jatekvezerlo.jelenlegiJatekos = (Jatekvezerlo.jelenlegiJatekos + 1) % Jatekvezerlo.jatekosok.size();
-                System.out.println("Következő játékos: " + Jatekvezerlo.jatekosok.get(Jatekvezerlo.jelenlegiJatekos).getId());
+                System.out.println("Kovetkezo jatekos: " + Jatekvezerlo.jatekosok.get(Jatekvezerlo.jelenlegiJatekos).getId());
                 break;
 
             default:
@@ -179,22 +179,22 @@ public class JDBTestTool2 implements Serializable{
 
     private void Load(String[] args) {
         if (args.length == 0) {
-            System.out.println("Nem adtál meg mentési fájlt.");
+            System.out.println("Nem adtal meg mentesi fajlt.");
             return;
         }
 
         String filePath = args[1];
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            // Feltételezve, hogy a Jatekvezerlo osztály statikus változóit tölti vissza
+            // Feltetelezve, hogy a Jatekvezerlo osztaly statikus valtozoit tolti vissza
             Jatekvezerlo.jelenlegiKor = ois.readInt();
             Jatekvezerlo.jelenlegiJatekos = ois.readInt();
             Jatekvezerlo.jatekHossz = ois.readInt();
             Jatekvezerlo.tektonok = (List<Tekton>) ois.readObject();
             Jatekvezerlo.jatekosok = (List<Jatekos>) ois.readObject();
 
-            System.out.println("Játék betöltve sikeresen: " + filePath);
+            System.out.println("Jatek betoltve sikeresen: " + filePath);
         } catch (Exception e) {
-            System.out.println("Hiba a játék betöltésekor: " + e.getMessage());
+            System.out.println("Hiba a jatek betoltesekor: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -202,27 +202,27 @@ public class JDBTestTool2 implements Serializable{
 
     private void Save(String[] args) {
         if (args.length == 0) {
-            System.out.println("Nem adtál meg mentési fájlt.");
+            System.out.println("Nem adtal meg mentesi fajlt.");
             return;
         }
 
         String filePath = args[1];
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            // Játék állapotának mentése
+            // Jatek allapotanak mentese
             oos.writeInt(Jatekvezerlo.jelenlegiKor);
             oos.writeInt(Jatekvezerlo.jelenlegiJatekos);
             oos.writeInt(Jatekvezerlo.jatekHossz);
             oos.writeObject(Jatekvezerlo.tektonok);
             oos.writeObject(Jatekvezerlo.jatekosok);
 
-            System.out.println("Játék elmentve sikeresen: " + filePath);
+            System.out.println("Jatek elmentve sikeresen: " + filePath);
         } catch (Exception e) {
-            System.out.println("Hiba a játék mentésekor: " + e.getMessage());
+            System.out.println("Hiba a jatek mentesekor: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-//TODO: A kimenetében segítsetek
+//TODO: A kimeneteben segitsetek
     private void GrowGombatest(String[] args) {
 
         Gombasz gombasz = null;
@@ -230,19 +230,19 @@ public class JDBTestTool2 implements Serializable{
         int aktorID = -1;
         Spora spora = null;
 
-        // Beolvassuk az ID-t (első argumentum: Gombatest ID)
+        // Beolvassuk az ID-t (elso argumentum: Gombatest ID)
         int ID = Integer.parseInt(args[1]);
 
-        // Bemeneti argumentumok feldolgozása
+        // Bemeneti argumentumok feldolgozasa
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "-a":
-                    // AktorID beállítása
+                    // AktorID beallitasa
                     aktorID = Integer.parseInt(args[i + 1]);
                     gombasz = gombaszok.get(aktorID);
                     break;
                 case "-tk":
-                    // Tekton ID beállítása
+                    // Tekton ID beallitasa
                     Integer tektonId = Integer.parseInt(args[i + 1]);
                     hely = tektonok.get(tektonId);
                     break;
@@ -254,13 +254,13 @@ public class JDBTestTool2 implements Serializable{
             cnt += hely.getSporak().get(i).getDarabszam();
         }
 
-        // Ellenőrzés, hogy elegendő spóra van-e a tektonton
+        // Ellenorzes, hogy elegendo spora van-e a tektonton
         if (cnt < 5) {
-            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs elég spóra)");
+            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nincs eleg spora)");
             return;
         }
 
-        // Kiválasztjuk a megfelelő spórát
+        // Kivalasztjuk a megfelelo sporat
         for (int i = 0; i < hely.getSporak().size(); i++) {
             if (hely.getSporak().get(i).getGombasz().getId() == aktorID) {
                 spora = hely.getSporak().get(i);
@@ -268,9 +268,9 @@ public class JDBTestTool2 implements Serializable{
             }
         }
 
-        // Ha nem találunk spórát, hibaüzenetet adunk
+        // Ha nem talalunk sporat, hibauzenetet adunk
         if (spora == null) {
-            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nem található megfelelő spóra)");
+            AppendOutput("\nINSTRUCTION FAIL " + Arrays.toString(args) + " (Nem talalhato megfelelo spora)");
             return;
         }
 
@@ -288,13 +288,13 @@ public class JDBTestTool2 implements Serializable{
             int ujpontok = gombasz.addPontok(10);
 
 
-            AppendOutput("\nEVENT Gombatest növesztés\n"
-                    + "remove Spóra (" + spora.getId() + ")\n"
+            AppendOutput("\nEVENT Gombatest novesztes\n"
+                    + "remove Spora (" + spora.getId() + ")\n"
                     + "new Gombatest (" + ID + ")\n"
-                    + "Gombatest (" + ID + ") aktor: null --> Gombász (" + gombasz.getId() + ")\n"
+                    + "Gombatest (" + ID + ") aktor: null --> Gombasz (" + gombasz.getId() + ")\n"
                     + "Gombatest (" + ID + ") tekton: null --> Tekton (" + hely.getId() + ")\n"
-                    + "Gombatest (" + ID + ") spóra: 0 --> " + gombatest.getSporaDarab() + "\n"
-                    + "Gombász (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
+                    + "Gombatest (" + ID + ") spora: 0 --> " + gombatest.getSporaDarab() + "\n"
+                    + "Gombasz (" + gombasz.getId() + ") pontok: " + pontok + " --> " + ujpontok
             );
 
         } catch (Exception e){
@@ -331,6 +331,7 @@ public class JDBTestTool2 implements Serializable{
                     case "egy" -> new EgyetlenFonalTekton();
                     case "flsz" -> new FelszivoTekton(3);
                     case "trm" -> new TermeketlenTekton();
+                    //case "el" -> new
                     default -> tekton;
                 };
                 tekton.setId(Integer.parseInt(args[1]));
@@ -350,14 +351,14 @@ public class JDBTestTool2 implements Serializable{
                     szomszed.addSzomszed(tekton);
                     List<Tekton> szomszedSzomszedai = szomszed.getSzomszed(1);
 
-                    AppendOutput(Name(szomszed)+" szomszédok: "
+                    AppendOutput(Name(szomszed)+" szomszedok: "
                             + ListToString(szomszedRegiSzomszedai)
                             +" --> "+ ListToString(szomszedSzomszedai));
                 }
                 if (args[i].equals("-sp")) {
                     tekton.getSporak().add(sporak.get(Integer.parseInt(args[i + 1])));
                 }
-                //-fn nincs használva
+                //-fn nincs hasznalva
             }
         } else {
             tekton.setId(Integer.parseInt(args[1]));
@@ -370,7 +371,7 @@ public class JDBTestTool2 implements Serializable{
         private void AddAktor(String[] args) {
 
             if (args.length < 6) {
-                System.out.println("Használat: /adda -i <ID> -n <név> -f <g|r>");
+                System.out.println("Hasznalat: /adda -i <ID> -n <nev> -f <g|r>");
                 return;
             }
 
@@ -386,7 +387,7 @@ public class JDBTestTool2 implements Serializable{
                 rovaraszok.put(r.getId(), r);
                 AppendOutput("new "+Name(r));
             } else {
-                System.out.println("Ismeretlen típus: " + args[6]);
+                System.out.println("Ismeretlen tipus: " + args[6]);
             }
         }
 
@@ -408,23 +409,23 @@ public class JDBTestTool2 implements Serializable{
                 switch (args[i + 1]) {
                     case "gyrs":
                         spora = new GyorsitoSpora(tp, db, gombasz);
-                        AppendOutput("new GyorsítóSpóra (" + args[1] + ")");
+                        AppendOutput("new GyorsitoSpora (" + args[1] + ")");
                         break;
                     case "ls":
                         spora = new LassitoSpora(tp, db, gombasz);
-                        AppendOutput("new LassítóSpóra (" + args[1] + ")");
+                        AppendOutput("new LassitoSpora (" + args[1] + ")");
                         break;
                     case "bnt":
                         spora = new BenitoSpora(tp, db, gombasz);
-                        AppendOutput("new BénítóSpóra (" + args[1] + ")");
+                        AppendOutput("new BenitoSpora (" + args[1] + ")");
                         break;
                     case "csrb":
                         spora = new CsorbitoSpora(tp, db, gombasz);
-                        AppendOutput("new CsorbítóSpóra (" + args[1] + ")");
+                        AppendOutput("new CsorbitoSpora (" + args[1] + ")");
                         break;
                     case "oszt":
                         spora = new OsztoSpora(tp, db, gombasz);
-                        AppendOutput("new OsztódóSpóra (" + args[1] + ")");
+                        AppendOutput("new OsztodoSpora (" + args[1] + ")");
                         break;
                 }
                 spora.setId(Integer.parseInt(args[1]));
@@ -495,7 +496,7 @@ public class JDBTestTool2 implements Serializable{
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
             gombatest.setId(ID);
             gombaTestek.put(ID, gombatest);
-            AppendOutput("GombaTest ("+ ID +") tartózkodik: [ ] --> [Tekton(" + tektonId +")]");
+            AppendOutput("GombaTest ("+ ID +") tartozkodik: [ ] --> [Tekton(" + tektonId +")]");
 
         } catch (Exception e) {
             AppendOutput("INSTRUCTION FAIL \""+ String.join(" ", args) +"\" ("+e.getMessage()+")");
@@ -625,7 +626,7 @@ public class JDBTestTool2 implements Serializable{
         rovar.mozog(tektonok.get(tektonID));
 
         if (oldValue == rovar.getTartozkodik().getId()) {
-            AppendOutput("\nINSTRUCTION FAIL \"" + String.join(" ", args) + "\" (Nincs összeköttetés)");
+            AppendOutput("\nINSTRUCTION FAIL \"" + String.join(" ", args) + "\" (Nincs osszekottetes)");
             return;
         }
 
@@ -636,7 +637,7 @@ public class JDBTestTool2 implements Serializable{
 
         GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
         if (gt == null) {
-            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (GombaTest nem létezik)");
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (GombaTest nem letezik)");
             return;
         }
 
@@ -651,14 +652,14 @@ public class JDBTestTool2 implements Serializable{
         Tekton innen = tektonok.get(tId1);
         Tekton ide = tektonok.get(tId2);
         if (innen == null || ide == null) {
-            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tekton nem létezik)");
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tekton nem letezik)");
             return;
         }
 
         if (!gtt.getSzomszed(1).contains(ide)) {
-            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszédosak)");
+            AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszedosak)");
         } else {
-            AppendOutput("\nEVENT Fonal áthidal");
+            AppendOutput("\nEVENT Fonal athidal");
 
             int gfId = gombaFonalak.size() + 1;
             AddGombafonal(new String[]{"/addgf", String.valueOf(gfId), "-a", String.valueOf(gombaszID),"-vez", tektonokIds[0]+";"+tektonokIds[1]});
@@ -691,13 +692,13 @@ public class JDBTestTool2 implements Serializable{
         int oldValue = spora.getDarabszam();
 
         rovar.eszik(spora);
-        AppendOutput("\nEVENT Spóra evés\n" + Name(spora) + " darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
+        AppendOutput("\nEVENT Spora eves\n" + Name(spora) + " darabszam " + oldValue + " --> " + spora.getDarabszam() + "\nRovarasz (" + rovarasz.getId() + ") pontok: " + oldPont + " --> " + rovarasz.getPontok());
 
         if (spora instanceof LassitoSpora || spora instanceof GyorsitoSpora) {
-            AppendOutput(Name(rovar) + " sebesség: " + oldSeb + " --> " + rovar.getSebesseg());
+            AppendOutput(Name(rovar) + " sebesseg: " + oldSeb + " --> " + rovar.getSebesseg());
         }
         if (spora instanceof BenitoSpora) {
-            AppendOutput(Name(rovar) + " sebesség: " + oldSeb + " --> " + rovar.getSebesseg() + "\n" + Name(rovar) + " vaghat: " + plVaghat + " --> " + rovar.getVaghat());
+            AppendOutput(Name(rovar) + " sebesseg: " + oldSeb + " --> " + rovar.getSebesseg() + "\n" + Name(rovar) + " vaghat: " + plVaghat + " --> " + rovar.getVaghat());
         }
         if (spora instanceof CsorbitoSpora) {
             AppendOutput(Name(rovar) + " vaghat: " + plVaghat + " --> " + rovar.getVaghat());
@@ -730,7 +731,7 @@ public class JDBTestTool2 implements Serializable{
 
         if (rovar.getVaghat()) {
             List<String> vezetElotte = new ArrayList<>();
-            // Tektonok rendezése, hogy biztosan az ID alapján helyes sorrendben jelenjenek meg
+            // Tektonok rendezese, hogy biztosan az ID alapjan helyes sorrendben jelenjenek meg
             List<Tekton> tektonokSorted = new ArrayList<>(tektonok.values());
             tektonokSorted.sort(Comparator.comparingInt(Tekton::getId));
 
@@ -744,29 +745,29 @@ public class JDBTestTool2 implements Serializable{
 
             rovar.vag(gombaFonal, tekton);
 
-            AppendOutput("\nEVENT Rovar vág");
+            AppendOutput("\nEVENT Rovar vag");
 
-            // Kiírjuk a GombaFonal vezetési kapcsolatokat
+            // Kiirjuk a GombaFonal vezetesi kapcsolatokat
             if (vezetElotte.isEmpty()) {
                 AppendOutput("GombaFonal (" + gombafonalID + ") vezet: [] --> [ ]");
             } else {
                 AppendOutput("GombaFonal (" + gombafonalID + ") vezet: [{" + String.join("}, {", vezetElotte) + "}] --> [ ]");
             }
 
-            // A Tektonok sorrendje fordítottan: először a Tekton (2), majd a Tekton (1)
+            // A Tektonok sorrendje forditottan: eloszor a Tekton (2), majd a Tekton (1)
             for (int i = tektonokSorted.size() - 1; i >= 0; i--) {
                 Tekton t = tektonokSorted.get(i);
                 if (t.getFonalak().contains(gombaFonal) && t != tekton) {
-                    // A Tektonokat most már fordított sorrendben írjuk ki
+                    // A Tektonokat most mar forditott sorrendben irjuk ki
                     AppendOutput("Tekton (" + t.getId() + ") vezet: [GombaFonal (" + gombafonalID + ")] --> [ ]");
                 }
             }
 
-            // Az alap tekton kiírása
+            // Az alap tekton kiirasa
             AppendOutput("Tekton (" + tekton.getId() + ") vezet: [GombaFonal (" + gombafonalID + ")] --> [ ]");
 
         } else {
-            AppendOutput("\nINSTRUCTION FAIL " + String.join(" ", args) + " (A rovar nem vághat)\n");
+            AppendOutput("\nINSTRUCTION FAIL " + String.join(" ", args) + " (A rovar nem vaghat)\n");
         }
     }
 
@@ -808,7 +809,7 @@ public class JDBTestTool2 implements Serializable{
             return;
         }
 
-        AppendOutput("\nEVENT Spórázás");
+        AppendOutput("\nEVENT Sporazas");
 
 
         AddSpora(new String[]{"/addsp", "0", "-tk", "" + TektonID, "-a", "" + gombatest.getGombasz().getId()});
@@ -838,7 +839,7 @@ public class JDBTestTool2 implements Serializable{
         int tId2 = tektonok.size() + 2;
         AddTekton(new String[] {"/addtk", String.valueOf(tId1)});
         AddTekton(new String[] {"/addtk", String.valueOf(tId2), "-nei", String.valueOf(tId1)});
-        AppendOutput(Name(tektonok.get(tId2)) + " szomszédok: [ ] --> " + ListToString(tektonok.get(tId1).getSzomszed(1)));
+        AppendOutput(Name(tektonok.get(tId2)) + " szomszedok: [ ] --> " + ListToString(tektonok.get(tId1).getSzomszed(1)));
 
         tektonok.remove(Integer.parseInt(args[1]));
     }
@@ -847,21 +848,21 @@ public class JDBTestTool2 implements Serializable{
 
     private void Print(String[] args) {
         if (args.length < 2) {
-            System.out.println("Hiba: Nem adtál meg fájlnevet!");
+            System.out.println("Hiba: Nem adtal meg fajlnevet!");
             return;
         }
 
         String fileName = args[1];
 
         try {
-            // Itt feltételezem, hogy van egy StringBuilder output, amiben az eddigi konzolkimenetet tárolod.
+            // Itt feltetelezem, hogy van egy StringBuilder output, amiben az eddigi konzolkimenetet tarolod.
             File file = new File(fileName);
             try (PrintWriter writer = new PrintWriter(file)) {
-                writer.print(out.toString()); // Vagy amit használsz a kimenet tárolására
+                writer.print(out.toString()); // Vagy amit hasznalsz a kimenet tarolasara
             }
-            System.out.println("Kimenet fájlba írva: " + fileName);
+            System.out.println("Kimenet fajlba irva: " + fileName);
         } catch (Exception e) {
-            System.out.println("Hiba történt a fájlírás során: " + e.getMessage());
+            System.out.println("Hiba tortent a fajliras soran: " + e.getMessage());
         }
     }
 
@@ -955,7 +956,7 @@ public class JDBTestTool2 implements Serializable{
         String file1 = expected.getAbsolutePath();
         String file2 = out.getAbsolutePath();
 
-        System.out.println(System.lineSeparator()+"Kimenet ellenőrzése...");
+        System.out.println(System.lineSeparator()+"Kimenet ellenorzese...");
         //FC
         List<String> command = List.of("cmd.exe", "/c", "fc", file1, file2);
         ProcessBuilder processBuilder = new ProcessBuilder(command);
