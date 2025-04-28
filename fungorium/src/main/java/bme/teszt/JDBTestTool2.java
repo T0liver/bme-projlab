@@ -869,9 +869,20 @@ public class JDBTestTool2 implements Serializable{
 
         for (GombaFonal f : gombaFonalak.values()){
 
+            StringBuilder sb = new StringBuilder();
+            sb.append("[ ");
+            for (Tekton o : f.getVezet().keySet()) {
+                sb.append("{ ").append(Name(o))
+                        .append(", ").append(Name(f.getVezet().get(o).get(0)))
+                        .append(" }")
+                        .append(", ");
+            }
+            if (!f.getVezet().isEmpty()) {
+                sb.replace(sb.length()-2, sb.length(), " ]");
+            } else
+                sb.append("]");
 
-
-            AppendOutput(Name(f) + " vezet: ");
+            AppendOutput(Name(f) + " vezet: "+ sb.toString());
         }
     }
 
