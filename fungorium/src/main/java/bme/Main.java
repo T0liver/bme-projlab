@@ -74,7 +74,7 @@ public class Main {
     ExecuteTest("Tekton_hasadas_teszt1"); //Működik
     ExecuteTest("Tekton_hasadas_teszt2"); //Működik
     ExecuteTest("Termeketlentektont_tesztel"); //Működik
-    //ExecuteTest("Felszivotektont_tesztel");
+    ExecuteTest("Felszivotektont_tesztel"); //Működik
   }
 
   private static void SporaTesztek(){

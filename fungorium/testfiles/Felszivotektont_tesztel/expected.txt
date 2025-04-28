@@ -13,6 +13,6 @@ EVENT tick
 EVENT tick 
 EVENT tick 
 GombaFonal (1) vezet: [ ]
-GombaFonal (2) vezet: [ ]
+GombaFonal (2) vezet: [ { FelszivoTekton (1), Tekton (2) }, { Tekton (2), FelszivoTekton (1) } ]
 FelszivoTekton (1) vezet: [ ]
-Tekton (2) vezet: [ ]
+Tekton (2) vezet: [ GombaFonal (2) ]

@@ -41,7 +41,6 @@ public class FelszivoTekton extends Tekton {
         for (Tekton tekton : szomszedok) {
           fonal.elvagodik(this, tekton);
         }
-        fonal.elpusztul();
       }
       for (int i = 0; i < sporak.size(); ++i) {
         sporak
