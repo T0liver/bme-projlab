@@ -656,6 +656,22 @@ public class JDBTestTool2 implements Serializable{
             return;
         }
 
+        boolean innenEgy = innen.getClass() == EgyetlenFonalTekton.class;
+        boolean ideEgy = ide.getClass() == EgyetlenFonalTekton.class;
+
+        if (innenEgy){
+            if (!innen.getFonalak().isEmpty()){
+                AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (EgyetlenfonalTektonon már van fonal)");
+                return;
+            }
+        }
+        if (ideEgy){
+            if (!ide.getFonalak().isEmpty()){
+                AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (EgyetlenfonalTektonon már van fonal)");
+                return;
+            }
+        }
+
         if (!gtt.getSzomszed(1).contains(ide)) {
             AppendOutput("\nINSTRUCTION FAIL \""+String.join(" ", args)+"\" (Tektonok nem szomszedosak)");
         } else {

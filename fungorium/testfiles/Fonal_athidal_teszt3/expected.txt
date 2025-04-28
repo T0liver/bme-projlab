@@ -10,4 +10,4 @@ Tekton (4) vezet: [ ] --> [ GombaFonal (5) ]
 new GombaTest (6)
 GombaTest (6) tartózkodik: [ ] --> [Tekton(2)]
 
-INSTRUCTION FAIL “growf 6 –vez 2; 3” (EgyetlenFonálTektonon már van fonal) 
+INSTRUCTION FAIL “growf 6 –vez 2;3” (EgyetlenFonálTektonon már van fonal)
