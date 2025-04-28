@@ -162,6 +162,7 @@ public class JDBTestTool2 implements Serializable{
             case "-nr":
                 Jatekvezerlo.korVege();
                 System.out.println("EVENT tick");
+                AppendOutput("EVENT tick");
                 break;
             //TODO: EZ MIRE KELL?
             case "-np":
@@ -533,8 +534,6 @@ public class JDBTestTool2 implements Serializable{
 
             gombaFonalak.put(Integer.parseInt(args[1]), gf);
 
-            System.out.println(Name(t1)+" "+Arrays.toString(t1.getFonalak().toArray()));
-            System.out.println(Name(t2)+" "+Arrays.toString(t2.getFonalak().toArray()));
         }
     }
 
@@ -866,7 +865,15 @@ public class JDBTestTool2 implements Serializable{
         }
     }
 
-    private void ListGombafonal(String[] args) {}
+    private void ListGombafonal(String[] args) {
+
+        for (GombaFonal f : gombaFonalak.values()){
+
+
+
+            AppendOutput(Name(f) + " vezet: ");
+        }
+    }
 
     private void ListGombatest(String[] args) {
 
@@ -910,6 +917,9 @@ public class JDBTestTool2 implements Serializable{
         for (Map.Entry<Integer, Tekton> entry : tektonok.entrySet()) {
             Integer id = entry.getKey();
             Tekton tekton = entry.getValue();
+
+            //outputba
+            AppendOutput(Name(tekton) + " vezet: "+ListToString(tekton.getFonalak()));
 
             System.out.println("ID: " + id);
             System.out.println("Foglalt: " + (tekton.getFoglalt() ? "Igen" : "Nem"));
@@ -977,7 +987,7 @@ public class JDBTestTool2 implements Serializable{
                     .append(", ");
         }
         if (!list.isEmpty()) {
-            sb.replace(sb.length()-2, sb.length()-1, " ]");
+            sb.replace(sb.length()-2, sb.length(), " ]");
         } else
             sb.append("]");
 
