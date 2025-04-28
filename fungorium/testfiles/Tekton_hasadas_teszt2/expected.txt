@@ -3,4 +3,4 @@ new Tekton (2)
 new GombaTest (3)
 GombaTest (3) tartozkodik: [ ] --> [Tekton(2)]
 
-INSTRUCTION FAIL “has 2” (Nem tud hasadni, mert Gombatest van rajta) 
+INSTRUCTION FAIL "has 2" (Nem tud hasadni, mert Gombatest van rajta)
