@@ -1,12 +1,13 @@
-new Gombász (1)
-new	Tekton (1)
-new	Tekton (2)
-Tekton (1) szomszédok: [ ] --> [Tekton (2)]
-new	Tekton (3)
-Tekton (2) szomszédok: [Tekton (1)] --> [Tekton (1), Tekton (3)]
-new	Gombatest (1)
+new Gombasz (1)
+new Tekton (1)
+new Tekton (2)
+Tekton (1) szomszedok: [ ] --> [ Tekton (2) ]
+new Tekton (3)
+Tekton (2) szomszedok: [ Tekton (1) ] --> [ Tekton (1), Tekton (3) ]
+new GombaTest (1)
+GombaTest (1) tartozkodik: [ ] --> [Tekton(1)]
 
-EVENT Spórázás
-new Spóra (1)
-Tekton (3) spórák: [ ] --> [Spóra (1)]
+EVENT Sporazas
+new Spora (0)
+Tekton (3) sporak: [] --> [ Spora (0) ]
 remove Gombatest(1)
