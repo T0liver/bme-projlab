@@ -1,9 +1,9 @@
 new Rovarasz (0)
-new CsorbítóSpóra (1)
+new CsorbitoSpora (1)
 new Tekton (2)
 new Rovar (3)
 
-EVENT Spóra evés
-CsorbitoSpora (1) darabszám 10 --> 5
-Rovarász (0) pontok: 0 --> 25
+EVENT Spora eves
+CsorbitoSpora (1) darabszam 10 --> 5
+Rovarasz (0) pontok: 0 --> 25
 Rovar (3) vaghat: true --> false

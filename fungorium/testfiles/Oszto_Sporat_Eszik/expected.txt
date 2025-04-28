@@ -1,9 +1,9 @@
 new Rovarasz (1)
-new OsztódóSpóra (1)
+new OsztodoSpora (1)
 new Tekton (1)
 new Rovar (1)
 
-EVENT Spóra evés
-OsztoSpora (1) darabszám 1 --> 0
-Rovarász (1) pontok: 0 --> 5
+EVENT Spora eves
+OsztoSpora (1) darabszam 1 --> 0
+Rovarasz (1) pontok: 0 --> 5
 new Rovar (2)
