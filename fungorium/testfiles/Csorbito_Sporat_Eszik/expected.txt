@@ -4,6 +4,6 @@ new Tekton (2)
 new Rovar (3)
 
 EVENT Spora eves
-CsorbitoSpora (1) darabszam 10 --> 5
+CsorbitoSpora (1) darabszam 10 --> 0
 Rovarasz (0) pontok: 0 --> 25
 Rovar (3) vaghat: true --> false

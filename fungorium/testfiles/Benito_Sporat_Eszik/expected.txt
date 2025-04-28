@@ -4,7 +4,7 @@ new Tekton (2)
 new Rovar (3)
 
 EVENT Spora eves
-BenitoSpora (1) darabszam 10 --> 5
+BenitoSpora (1) darabszam 10 --> 0
 Rovarasz (0) pontok: 0 --> 50
 Rovar (3) sebesseg: 5 --> 0
 Rovar (3) vaghat: true --> false

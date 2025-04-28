@@ -4,6 +4,6 @@ new Tekton (2)
 new Rovar (3)
 
 EVENT Spora eves
-GyorsitoSpora (1) darabszam 10 --> 5
+GyorsitoSpora (1) darabszam 10 --> 0
 Rovarasz (0) pontok: 0 --> 25
 Rovar (3) sebesseg: 1 --> 2
