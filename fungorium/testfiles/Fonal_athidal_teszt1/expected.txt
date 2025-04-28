@@ -1,13 +1,10 @@
 new Gombasz (1)
-new Tekton (2) 
-new Tekton (3) 
+new Tekton (2)
+new Tekton (3)
 Tekton (2) szomszedok: [ ] --> [ Tekton (3) ]
-new GombaTest (4)
-GombaTest (4) tartozkodik: [ ] --> [Tekton(2)]
+new Gombatest (4)
 
-EVENT Fonal athidal
+EVENT Fonal áthidal
 new GombaFonal (1)
 Tekton (2) vezet: [ ] --> [ GombaFonal (1) ]
 Tekton (3) vezet: [ ] --> [ GombaFonal (1) ]
-GombaFonal (1) vezet: [ { Tekton (3), Tekton (2) }, { Tekton (2), Tekton (3) } ]
- 
