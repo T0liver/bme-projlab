@@ -234,7 +234,11 @@ public class JDBTestTool2 implements Serializable {
                 break;
             case "-gf":
                 for (Integer gf : gombaFonalak.keySet())
-                    gombaFonalak.get(gf).elpusztulGrafos();
+                    gombaFonalak.get(gf).tick();
+                break;
+            case "-gt":
+                for (Integer gt : gombaTestek.keySet())
+                    gombaTestek.get(gt).tick();
                 break;
             default:
                 AppendOutput("Ismeretlen parancs: " + args[1]);
@@ -445,6 +449,7 @@ public class JDBTestTool2 implements Serializable {
                 }
                 if (args[i].equals("-sp")) {
                     tekton.getSporak().add(sporak.get(Integer.parseInt(args[i + 1])));
+                    sporak.get(Integer.parseInt(args[i + 1])).setTartozkodik(tekton);
                 }
                 // -fn nincs használva
             }
@@ -490,7 +495,9 @@ public class JDBTestTool2 implements Serializable {
             if (args[i].equals("-a")) {
                 gombasz = gombaszok.get(Integer.parseInt(args[i + 1]));
             }
-
+        }
+        
+        for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-t")) {
                 normal = false;
                 switch (args[i + 1]) {
@@ -543,6 +550,7 @@ public class JDBTestTool2 implements Serializable {
         spora.setDarabszam(db);
         spora.setTapanyag(tp);
 
+        gombasz.addSpora(spora);
         sporak.put(spora.getId(), spora);
 
     }
@@ -587,6 +595,8 @@ public class JDBTestTool2 implements Serializable {
 
         try {
             GombaTest gombatest = new GombaTest(gombasz, sporak, elettartam, fejlett, fejlettseg, hely);
+            hely.setFoglalt(true);
+            gombasz.addGombaTest(gombatest);
             gombatest.setId(ID);
             gombaTestek.put(ID, gombatest);
             AppendOutput("GombaTest (" + ID + ") tartózkodik: [ ] --> [Tekton(" + tektonId + ")]");
@@ -605,6 +615,7 @@ public class JDBTestTool2 implements Serializable {
 
         int aktorID = Integer.parseInt(args[3]);
         gombaszok.get(aktorID).getGombaFonalak().add(gf);
+        gf.setGombasz(gombaszok.get(aktorID));
 
         for (int i = 5; i < args.length; i++) {
             String[] tektonokIds = args[i].split(";");

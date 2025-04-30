@@ -22,6 +22,11 @@ public class EletbenTartoTekton extends Tekton {
     return true;
   }
 
+  @Override
+  public Tekton createTekton() {
+    return new EletbenTartoTekton();
+  }
+
   /**
    * A class adatait kiiro fuggveny.
    */

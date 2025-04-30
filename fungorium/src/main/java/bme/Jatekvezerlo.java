@@ -64,6 +64,10 @@ public class Jatekvezerlo {
       return;
     tektonok.remove(talalt);
     tektonok.addAll(ujak);
+    System.out.println("ID: " + getIDof(ujak.get(0)));
+    ujak.get(0).printData();
+    System.out.println("ID: " + getIDof(ujak.get(0)));
+    ujak.get(0).printData();
   }
 
   /**
@@ -259,18 +263,23 @@ public class Jatekvezerlo {
           tektonok.add(new Tekton());
         }
       }
-
-      for (int i = 0; i < 5; ++i) {
-        for (int e = 0; e < 5; ++e) {
-          for (int j = -1; j < 2; ++j) {
-            for (int k = -1; k < 2; ++k) {
-              int x = ((i + j) * 5 + 25) % 25;
-              int y = ((e + k) + 5) % 5;
-              tektonok.get(i).addSzomszed(tektonok.get(x + y));
+      
+      for (int i = 0; i < 25; ++i) {
+        int x = i % 5;
+        int y = i / 5;
+    
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                if (dx == 0 && dy == 0) continue;
+    
+                int nx = (x + dx + 5) % 5;
+                int ny = (y + dy + 5) % 5;
+    
+                int ni = ny * 5 + nx;
+                tektonok.get(i).addSzomszed(tektonok.get(ni));
             }
-          }
         }
-      }
+    }
 
       for (int i = 0; i < jatekosok.size(); ++i) {
         if (jatekosok.get(i).getType() == 0) {
@@ -389,9 +398,15 @@ public class Jatekvezerlo {
    * @param args parancssori argumentumok
    */
   public static void ListAktor(String[] args) {
+    if (args.length == 1)  {
     System.out.println("Jatekosok listaja:");
-    for (int i = 0; i < jatekosok.size(); ++i) {
-      System.out.println("ID: " + i);
+      for (int i = 0; i < jatekosok.size(); ++i) {
+        System.out.println("ID: " + i);
+        jatekosok.get(i).printData();
+      }
+    } else {
+      int i = Integer.getInteger(args[1]);
+      System.out.println("Jatekos\tID: " + i);
       jatekosok.get(i).printData();
     }
   }
@@ -402,10 +417,15 @@ public class Jatekvezerlo {
    * @param args parancssori argumentumok
    */
   public static void ListTekton(String[] args) {
-
-    System.out.println("Tektonok listaja:");
-    for (int i = 0; i < tektonok.size(); ++i) {
-      System.out.println("ID: " + i);
+    if (args.length == 1)  {
+      System.out.println("Tektonok listaja:");
+      for (int i = 0; i < tektonok.size(); ++i) {
+        System.out.println("ID: " + i);
+        tektonok.get(i).printData();
+      }
+    } else {
+      int i = Integer.getInteger(args[1]);
+      System.out.println("Tekton\tID: " + i);
       tektonok.get(i).printData();
     }
   }

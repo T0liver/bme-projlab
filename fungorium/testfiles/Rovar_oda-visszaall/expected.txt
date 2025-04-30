@@ -1,4 +1,5 @@
-new Rovarasz (1)
+new Rovarasz (0)
+new Gombasz (1)
 new GyorsítóSpóra (2)
 new LassítóSpóra (3)
 new Tekton (4)
@@ -6,10 +7,10 @@ new Rovar (5)
 
 EVENT Spóra evés
 GyorsitoSpora (2) darabszám 1 --> 0
-Rovarász (1) pontok: 0 --> 5
+Rovarász (0) pontok: 0 --> 5
 Rovar (5) sebesség: 5 --> 10
 
 EVENT Spóra evés
 LassitoSpora (3) darabszám 1 --> 0
-Rovarász (1) pontok: 5 --> 10
+Rovarász (0) pontok: 5 --> 10
 Rovar (5) sebesség: 10 --> 5

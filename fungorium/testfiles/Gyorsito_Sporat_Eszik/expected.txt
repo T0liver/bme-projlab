@@ -1,4 +1,5 @@
 new Rovarasz (0)
+new Gombasz (1)
 new GyorsítóSpóra (1)
 new Tekton (2)
 new Rovar (3)

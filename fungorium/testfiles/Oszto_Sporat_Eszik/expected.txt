@@ -1,3 +1,4 @@
+new Gombasz (0)
 new Rovarasz (1)
 new OsztódóSpóra (1)
 new Tekton (1)

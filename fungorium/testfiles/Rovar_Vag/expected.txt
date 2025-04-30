@@ -11,6 +11,6 @@ Tekton (2) vezet: [ ] --> [ GombaFonal (1) ]
 new Rovar (1)
 
 EVENT Rovar vág
-GombaFonal (1) vezet: [{Tekton (1), Tekton (2)}, {Tekton (1), Tekton (1)}, {Tekton (2), Tekton (2)}, {Tekton (2), Tekton (1)}] --> [{Tekton (1), Tekton (1)}, {Tekton (2), Tekton (2)}]
+GombaFonal (1) vezet: [{Tekton (2), Tekton (2)}, {Tekton (2), Tekton (1)}, {Tekton (1), Tekton (2)}, {Tekton (1), Tekton (1)}] --> [{Tekton (2), Tekton (2)}, {Tekton (1), Tekton (1)}]
 Tekton (1) fonalak: ([0])
 Tekton (2) fonalak: ([0])

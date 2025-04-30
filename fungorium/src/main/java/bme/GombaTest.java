@@ -198,23 +198,21 @@ public class GombaTest implements Jatekelem {
     if (fejlett) {
       szomszedok = tartozkodik.getSzomszed(2);
       if (!szomszedok.contains(hova)) {
+        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.");
         return false;
       }
     } else {
       szomszedok = tartozkodik.getSzomszed(1);
       if (!szomszedok.contains(hova)) {
+        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.");
         return false;
       }
     }
-    int db = 5 % sporadarab;// Random.from(new Random()).nextInt() % sporadarab % 5;
-    /*
-     * if (db == 0) {
-     * ++db;
-     * }
-     */
-    hova.addSpora(db, this);
+    hova.addSpora(sporadarab, this);
+    System.out.println("Spóraszórás sikeres:");
+    hova.getSpora(gombasz).printData();;
     eletcsokken();
-    sporadarab -= db;
+    sporadarab = 0;
     return true;
   }
 
@@ -275,6 +273,8 @@ public class GombaTest implements Jatekelem {
 
   public void novekszik() {
     fejlettseg++;
+    if (fejlettseg > 9)
+     fejlett = true;
   }
 
   /**
@@ -285,23 +285,27 @@ public class GombaTest implements Jatekelem {
   public void elpusztul() {
     tartozkodik.setFoglalt(false);
     tartozkodik = null;
+    gombasz.removeTest(this);
   }
 
   /** Csökkenti az élettartamot, mert spóraszórás után csökken. */
   public void eletcsokken() {
     elettartam--;
+    if (elettartam <= 0) elpusztul();
   }
 
   /** Növeli a spóradarab értékét, a kör elején meghívódik. */
   public void tick() {
-    sporadarab++;
+    if (sporadarab < 5)
+      sporadarab++;
+    novekszik();
   }
 
   /**
    * a class adatait kiiro fuggveny
    */
   public void printData() {
-    System.out.println("Elhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab
+    System.out.println("Gombatest adatok:\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab
         + "\nElettartam: " + elettartam + "\nFejlettseg: " + fejlett);
   }
 }

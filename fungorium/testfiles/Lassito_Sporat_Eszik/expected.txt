@@ -1,9 +1,10 @@
-new Rovarasz (0)
+new Gombasz (0)
+new Rovarasz (1)
 new LassítóSpóra (1)
 new Tekton (2)
 new Rovar (3)
 
 EVENT Spóra evés
 LassitoSpora (1) darabszám 10 --> 5
-Rovarász (0) pontok: 0 --> 25
+Rovarász (1) pontok: 0 --> 25
 Rovar (3) sebesség: 2 --> 1

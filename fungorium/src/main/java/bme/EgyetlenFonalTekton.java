@@ -24,6 +24,11 @@ public class EgyetlenFonalTekton extends Tekton {
     }
     super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
   }
+  
+  @Override
+  public Tekton createTekton() {
+    return new EgyetlenFonalTekton();
+  }
 
   /**
    * A class adatait kiiro fuggveny.

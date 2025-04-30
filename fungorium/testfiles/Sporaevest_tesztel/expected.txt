@@ -1,8 +1,9 @@
 new Rovarasz (0)
-new Spora (1)
-new Tekton (2)
-new Rovar (3)
+new Gombasz (1)
+new Spora (2)
+new Tekton (3)
+new Rovar (4)
 
 EVENT Spóra evés
-Spora (1) darabszám 5 --> 0
+Spora (2) darabszám 5 --> 0
 Rovarász (0) pontok: 0 --> 25

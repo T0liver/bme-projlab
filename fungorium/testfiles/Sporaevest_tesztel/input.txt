@@ -1,5 +1,6 @@
 /adda -i 0 -n “Rovarasz” -f r 
-/addsp 1  -db 5 -tp 5 
-/addtk 2 -sp 1 
-/addrov 3 -tk 2 -seb 5 -a 0
-eats 3 -sp 1 -db 5 
+/adda -i 1 -n "Gombasz" -f g 
+/addsp 2  -db 5 -tp 5 -a 1
+/addtk 3 -sp 2 
+/addrov 4 -tk 3 -seb 5 -a 0
+eats 4 -sp 2 -db 5 

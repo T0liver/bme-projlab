@@ -1,5 +1,6 @@
+/adda -i 0 -n "Gombász" -f g
 /adda -i 1 -n ”Rovarász” -f r
-/addsp 1 -t oszt -db 1 -tp 5
+/addsp 1 -t oszt -db 1 -tp 5 -a 0
 /addtk 1 -sp 1
 /addrov 1 -a 1 -tk 1 -seb 5 -vag Y
 eats 1 -db 1

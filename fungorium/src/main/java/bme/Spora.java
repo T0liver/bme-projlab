@@ -116,16 +116,16 @@ public class Spora implements Jatekelem {
    * @return a megevett spóraák tápanyagértéke.
    */
   public int csokken(int mennyivel) {
-    if (darabszam <= 0) {
-      return 0;
-    }
-    if (darabszam >= mennyivel) {
+    if (darabszam > mennyivel) {
       int ret = mennyivel * tapanyagtartalom;
       darabszam -= mennyivel;
       return ret;
     } else {
       int ret = darabszam * tapanyagtartalom;
       darabszam = 0;
+      tartozkodik.removeSpora(this);
+      gombasz.removeSpora(this);
+      tartozkodik = null;
       return ret;
     }
   }

@@ -6,7 +6,9 @@ import static bme.Jatekvezerlo.init;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * GombaFonal osztály definíciója.
@@ -145,8 +147,7 @@ public class GombaFonal implements Jatekelem {
    * @param honnan melyik tektonról akarunk átjutni.
    * @param hova   melyik tektonra akarunk átjutni.
    * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor
-   *         nem sikerül a
-   *         művelet.
+   *         nem sikerül a művelet.
    */
   public boolean athidal(Tekton honnan, Tekton hova) {
     if (!honnan.getSzomszed(1).contains(hova) || honnan == hova)
@@ -219,16 +220,17 @@ public class GombaFonal implements Jatekelem {
    * A gombafonal ellenorzi, mielyik tektont eri el, majd amit nem, onnan
    * elpusztul.
    */
-  public void elpusztulGrafos() {
+  public void tick() {
     Map<Tekton, List<Tekton>> ujVezet = new HashMap<>();
     for (Tekton entry : vezet.keySet()) {
       if (entry.vanGombaTest(this)) {
         ujVezet.put(entry, vezet.get(entry));
       }
     }
-    for (int i = 0; i < 25; ++i) { // overdoing it hardcoded, too bad
+    for (int i = 0; i < 25; ++i) {
+      Set<Tekton> ujKeys = new HashSet<>(ujVezet.keySet());
       for (Tekton entry : vezet.keySet()) {
-        for (Tekton ujEntry : ujVezet.keySet()) {
+        for (Tekton ujEntry : ujKeys) {
           if (ujVezet.get(ujEntry).contains(entry)) {
             ujVezet.put(entry, vezet.get(entry));
           }

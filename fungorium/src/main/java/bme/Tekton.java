@@ -124,10 +124,13 @@ public class Tekton implements Jatekelem {
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
+      System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikertelenül hasadni próbált.");
+      printData();
       return ret;
     }
-    Tekton t1 = new Tekton();
-    Tekton t2 = new Tekton();
+    System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikeresen hasadni próbált.\nÚj tektonok:");
+    Tekton t1 = createTekton();
+    Tekton t2 = createTekton();
     for (int i = 0; i < fonalak.size(); ++i) {
       for (int e = 0; e < szomszedok.size(); ++e) {
         if (e <= szomszedok.size() / 2) { // ez a rész majd grafikusan más lesz
@@ -150,6 +153,19 @@ public class Tekton implements Jatekelem {
     ret.add(t1);
     ret.add(t2);
     return ret;
+  }
+
+  public Tekton createTekton() {
+    return new Tekton();
+  }
+
+  public Spora getSpora(Gombasz g) {
+    for (int i = 0; i < sporak.size(); ++i) {
+      if (sporak.get(i).getGombasz() == g) { // keresünk azonos fajú spórát
+        return sporak.get(i);
+      }
+    }
+    return null;
   }
 
   /**
@@ -348,27 +364,21 @@ public class Tekton implements Jatekelem {
    * @return hogy van-e rajta olyan gombatest, ami kell a fonal túléléséhez
    */
   public boolean vanGombaTest(GombaFonal gombaFonal) {
-    if (!foglalt) {
+    if (!foglalt || gombaFonal.getGombasz() == null || gombaFonal.getGombasz().getGombaTestek() == null || gombaFonal.getGombasz().getGombaTestek().isEmpty()) {
       return false;
     }
 
-    if (gombaFonal.getGombasz() == null)
-      return false;
-
     try {
       for (GombaTest gombaTest : gombaFonal.getGombasz().getGombaTestek()) {
-        gombaFonal.printData();
-        gombaTest.printData();
-        printData();
         if (gombaTest.getTartozkodik() == this) {
-          System.out.println("Talált testet");
+          //System.out.println("Talált testet");
           return true;
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
-
+    
     return false;
   }
 
@@ -386,7 +396,6 @@ public class Tekton implements Jatekelem {
     for (int i = 0; i < fonalak.size(); ++i) {
       System.out.println("ID: " + i);
       fonalak.get(i).printData(this);
-      fonalak.get(i).printData();
     }
     System.out.println("Sporak:");
     for (int i = 0; i < sporak.size(); ++i) {
@@ -398,4 +407,6 @@ public class Tekton implements Jatekelem {
       System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
   }
+
+  public void removeSpora(Spora s) {sporak.remove(s);}
 }

@@ -61,6 +61,11 @@ public class FelszivoTekton extends Tekton {
     }
   }
 
+  @Override
+  public Tekton createTekton() {
+    return new FelszivoTekton();
+  }
+
   /**
    * A class adatait kiiro fuggveny.
    */
