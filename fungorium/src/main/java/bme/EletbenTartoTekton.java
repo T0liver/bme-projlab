@@ -29,7 +29,7 @@ public class EletbenTartoTekton extends Tekton {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   @Override
   public void printData() {
     System.out.println("Eletben Tarto Tekton\nFoglalt: " + foglalt);
@@ -47,5 +47,5 @@ public class EletbenTartoTekton extends Tekton {
     for (int i = 0; i < szomszedok.size(); ++i) {
       System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
-  }
+  }*/
 }

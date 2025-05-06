@@ -37,7 +37,7 @@ public class GombaFonal implements Jatekelem {
   }
 
   /** Azoknak a tektonokran a listája, amin kereszül a fonal vezet. */
-  private Map<Tekton, List<Tekton>> vezet;
+  private Map<Mezo, List<Mezo>> vezet;
 
   /** Gombasz, amihez tartozik */
   private Gombasz gombasz;
@@ -72,13 +72,13 @@ public class GombaFonal implements Jatekelem {
    *
    * @param kezdet a tekton, ahonnan a gombafonal kiindul.
    */
-  public GombaFonal(Tekton kezdet) {
+  public GombaFonal(Mezo kezdet) {
     vezet = new HashMap<>();
     vezet.put(kezdet, new ArrayList<>());
     kezdet.fonalak.add(this);
   }
 
-  public void addVezet(Tekton honnan, Tekton hova) {
+  public void addVezet(Mezo honnan, Mezo hova) {
     vezet.putIfAbsent(honnan, new ArrayList<>());
     if (!vezet.get(honnan).contains(hova))
       vezet.get(honnan).add(hova);
@@ -102,7 +102,7 @@ public class GombaFonal implements Jatekelem {
    * @param hova   a másik tekton
    * @return a paraméterként megadott két tekton között vezet-e.
    */
-  public boolean getVezet(Tekton honnan, Tekton hova) {
+  public boolean getVezet(Mezo honnan, Mezo hova) {
     return vezet.containsKey(honnan) && vezet.get(honnan).contains(hova);
   }
 
@@ -111,7 +111,7 @@ public class GombaFonal implements Jatekelem {
    *
    * @return azon tektonok listája, ahová vezet a gombafonal.
    */
-  public Map<Tekton, List<Tekton>> getVezet() {
+  public Map<Mezo, List<Mezo>> getVezet() {
     return vezet;
   }
 
@@ -124,20 +124,17 @@ public class GombaFonal implements Jatekelem {
    * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor
    *         nem sikerül a
    *         művelet.
-   */
-  public boolean athidal(Tekton hova) {
-    for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
-      Tekton t1 = entry.getKey();
-
-      List<Tekton> szomszedok1 = t1.getSzomszed(1);
-
-      if (szomszedok1.contains(hova)) {
+   *
+  public boolean athidal(Mezo hova) {
+    for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
+      Mezo t1 = entry.getKey();
+      if (t1.milyenSzomszed(hova) != 0) {
         addVezet(t1, hova);
         return true;
       }
     }
     return false;
-  }
+  }*/
 
   /**
    * Egyik tektonról egy másikra át akarunk jutni gombafonallal, ekkor alakul ki a
@@ -149,10 +146,10 @@ public class GombaFonal implements Jatekelem {
    * @return visszatér a művelet sikerességével, ha nem szomszédos a tekton, akkor
    *         nem sikerül a művelet.
    */
-  public boolean athidal(Tekton honnan, Tekton hova) {
-    if (!honnan.getSzomszed(1).contains(hova) || honnan == hova)
+  public boolean athidal(Mezo honnan, Mezo hova) {
+    if (honnan.milyenSzomszed(hova) == 0 || honnan == hova)
       return false;
-    for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
+    for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
       if (entry.getKey() == honnan) {
         addVezet(honnan, hova);
         return true;
@@ -171,8 +168,8 @@ public class GombaFonal implements Jatekelem {
    *
    * @param hol az a tekton, ahol elvágták a gombafonalat
    */
-  public void elvagodik(Tekton honnan, Tekton hova) {
-    for (Tekton t : vezet.keySet()) {
+  public void elvagodik(Mezo honnan, Mezo hova) {
+    for (Mezo t : vezet.keySet()) {
       if (!vezet.get(t).contains(t))
         vezet.get(t).add(t);
       boolean talalt = false;
@@ -208,8 +205,8 @@ public class GombaFonal implements Jatekelem {
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
   public void elpusztul() {
-    for (Map.Entry<Tekton, List<Tekton>> entry : vezet.entrySet()) {
-      Tekton t = entry.getKey();
+    for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
+      Mezo t = entry.getKey();
       t.fonalak.remove(this);
       entry.getValue().forEach(szomszed -> szomszed.fonalak.remove(this));
     }
@@ -221,23 +218,23 @@ public class GombaFonal implements Jatekelem {
    * elpusztul.
    */
   public void tick() {
-    Map<Tekton, List<Tekton>> ujVezet = new HashMap<>();
-    for (Tekton entry : vezet.keySet()) {
-      if (entry.vanGombaTest(this)) {
+    Map<Mezo, List<Mezo>> ujVezet = new HashMap<>();
+    for (Mezo entry : vezet.keySet()) {
+      if (entry.getTekton().vanGombaTest(this)) {
         ujVezet.put(entry, vezet.get(entry));
       }
     }
     for (int i = 0; i < 25; ++i) {
-      Set<Tekton> ujKeys = new HashSet<>(ujVezet.keySet());
-      for (Tekton entry : vezet.keySet()) {
-        for (Tekton ujEntry : ujKeys) {
+      Set<Mezo> ujKeys = new HashSet<>(ujVezet.keySet());
+      for (Mezo entry : vezet.keySet()) {
+        for (Mezo ujEntry : ujKeys) {
           if (ujVezet.get(ujEntry).contains(entry)) {
             ujVezet.put(entry, vezet.get(entry));
           }
         }
       }
     }
-    for (Tekton entry : vezet.keySet()) {
+    for (Mezo entry : vezet.keySet()) {
       if (!ujVezet.keySet().contains(entry))
         entry.fonalak.remove(this);
     }
@@ -246,20 +243,23 @@ public class GombaFonal implements Jatekelem {
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
   public void novekszik() {
-    // Még mindig nincs fogalmam, hogy ez itt mit csinálna, mert nincs
-    // gombafonal-növekedés-szintje
-    // változónk, amit lehetne növelni.
-    int novekves = 0;
-    novekves++;
+    List<Mezo> mezok = new ArrayList<>();
+    for (Mezo m0 : vezet.keySet()) {
+      mezok.add(m0);
+    }
+    for (Mezo m0 : mezok) {
+      for (Mezo m1 : m0.getTekton().getMezok())
+        m0.fonalNovekszik(this, m1);
+    }
     return;
   }
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   public void printData() {
     System.out.println("Osszekotott tektonok:");
-    for (Tekton name : vezet.keySet()) {
+    for (Mezo name : vezet.keySet()) {
       System.out.println("ID honnan: " + Jatekvezerlo.getIDof(name) + "\nIDk hova:");
       for (int i = 0; i < vezet.get(name).size(); ++i)
         System.out.println(Jatekvezerlo.getIDof(vezet.get(name).get(i)));
@@ -268,11 +268,11 @@ public class GombaFonal implements Jatekelem {
 
   /**
    * A bizonyos tekton szomszedaival valo osszekotteteseket kiiro fuggveny.
-   */
-  public void printData(Tekton t) {
+   *
+  public void printData(Mezo t) {
     System.out.println("Osszekotott tektonok:");
     System.out.println("ID honnan: " + Jatekvezerlo.getIDof(t) + "\nIDk hova:");
     for (int i = 0; i < vezet.get(t).size(); ++i)
       System.out.println(Jatekvezerlo.getIDof(vezet.get(t).get(i)));
-  }
+  }*/
 }

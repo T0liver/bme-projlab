@@ -44,6 +44,8 @@ public class Tekton implements Jatekelem {
   /** lista a tektonon levő spórákról */
   protected List<GombaFonal> fonalak;
 
+  protected List<Mezo> mezok;
+
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    */
@@ -52,7 +54,14 @@ public class Tekton implements Jatekelem {
     szomszedok = new ArrayList<>();
     sporak = new ArrayList<>();
     fonalak = new ArrayList<>();
+    mezok = new ArrayList<>();
   }
+
+  public void addMezo(Mezo m) {
+    if (!mezok.contains(m)) mezok.add(m);
+  }
+
+  public List<Mezo> getMezok() { return mezok; }
 
   /** Publikus getter a tekton foglaltsaganak lekerdezesere */
   public boolean getFoglalt() {
@@ -109,8 +118,12 @@ public class Tekton implements Jatekelem {
     if (!szomszedok.contains(tekton))
       return 0;
     for (int i = 0; i < fonalak.size(); ++i)
-      if (fonalak.get(i).getVezet(this, tekton))
-        return 2;
+      for (Mezo m0 : mezok) {
+        for (Mezo m1 : tekton.getMezok()) {
+          if (fonalak.get(i).getVezet(m0, m1))
+            return 2;
+        }
+      }
     return 1;
   }
 
@@ -119,13 +132,13 @@ public class Tekton implements Jatekelem {
    *
    * @return lista, aminek tartalma: a két új létrejött tekton, vagy önmaga, ha
    *         nem tudott hasadni
-   */
+   *
   public List<Tekton> hasad() {
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
       System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikertelenül hasadni próbált.");
-      printData();
+      //printData();
       return ret;
     }
     System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikeresen hasadni próbált.\nÚj tektonok:");
@@ -153,7 +166,7 @@ public class Tekton implements Jatekelem {
     ret.add(t1);
     ret.add(t2);
     return ret;
-  }
+  }*/
 
   public Tekton createTekton() {
     return new Tekton();
@@ -330,7 +343,7 @@ public class Tekton implements Jatekelem {
     for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
       if (jatekosok.get(i).getType() == 1) {
         for (int e = 0; e < jatekosok.get(i).getRovarok().size(); ++i) {
-          if (jatekosok.get(i).getRovarok().get(e).getTartozkodik() == this
+          if (jatekosok.get(i).getRovarok().get(e).getTartozkodik().getTekton() == this
               && jatekosok.get(i).getRovarok().get(e).getVaghat() == false
               && jatekosok.get(i).getRovarok().get(e).getSebesseg() == 0)
             return true;
@@ -344,7 +357,7 @@ public class Tekton implements Jatekelem {
    * Gombafonál tektonra való átérését kezelő függvény
    *
    * @param melyik melyik gombafonál próbál áthidalni a tektonra
-   */
+   *
   public void fonalNo(GombaFonal melyik) {
     if (fonalak.contains(melyik))
       return;
@@ -354,7 +367,7 @@ public class Tekton implements Jatekelem {
         // melyik.athidal(this); //ez kérdőjeles
       }
     }
-  }
+  }*/
 
   /**
    * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a
@@ -389,7 +402,7 @@ public class Tekton implements Jatekelem {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   public void printData() {
     System.out.println("Normalis Tekton\nFoglalt: " + foglalt);
     System.out.println("GombaFonalak:");
@@ -406,7 +419,7 @@ public class Tekton implements Jatekelem {
     for (int i = 0; i < szomszedok.size(); ++i) {
       System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
-  }
+  }*/
 
   public void removeSpora(Spora s) {sporak.remove(s);}
 }

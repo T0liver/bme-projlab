@@ -96,15 +96,15 @@ public class Gombasz extends Jatekos {
         String[] args = scanner.nextLine().strip().split(" ");
         switch (args[0]) {
           case "spor": if (Boolean.FALSE.equals(testCselekedett.get(Integer.parseInt(args[1])))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
-          case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
+          //case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
           case "growg": if (Boolean.FALSE.equals(sporaHasznalt.get(Integer.parseInt(args[1])))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
           case "/end": endOfTurn = true; break;
           case "/save": Jatekvezerlo.Save(args); break;
           case "/lsa": Jatekvezerlo.ListAktor(args); break;
-          case "/lst": Jatekvezerlo.ListTekton(args); break;
-          case "/lsg": listTest(); break;
-          case "/lsf": listFonal(); break;
-          case "/lss": listSpora(); break;
+          //case "/lst": Jatekvezerlo.ListTekton(args); break;
+          //case "/lsg": listTest(); break;
+          //case "/lsf": listFonal(); break;
+          //case "/lss": listSpora(); break;
           case "/help": 
           System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
           System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
@@ -131,7 +131,7 @@ public class Gombasz extends Jatekos {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   @Override
   public void printData() {
     System.out.println("Gombasz\npontok: " + pontok);
@@ -142,7 +142,7 @@ public class Gombasz extends Jatekos {
 
   /**
    * jatekos gombatesteinek adatait kiiro fuggveny
-   */
+   *
   private void listTest() {
     for (int i = 0; i < gombaTestek.size(); ++i) {
       System.out.println("GombaTest:\nID: " + i + "\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(gombaTestek.get(i).getTartozkodik()) + "\nSpora db: " + gombaTestek.get(i).getSporaDarab() + "\nElettartam: " + gombaTestek.get(i).getElettartam() + "\nFejlettseg: " + gombaTestek.get(i).getFejlett() + "\n");
@@ -154,7 +154,7 @@ public class Gombasz extends Jatekos {
 
   /**
    * jatekos gombafonalainak adatait kiiro fuggveny
-   */
+   *
   private void listFonal() {
     for (int i = 0; i < gombaFonalak.size(); ++i) {
       System.out.println("GombaFonal:\nID: " + i);
@@ -168,7 +168,7 @@ public class Gombasz extends Jatekos {
 
   /**
    * jatekos sporainak adatait kiiro fuggveny
-   */
+   *
   private void listSpora() {
     for (int i = 0; i < sporak.size(); ++i) {
       System.out.println("Spora:\nID: " + i);
@@ -178,7 +178,7 @@ public class Gombasz extends Jatekos {
   private void listSpora(int i) {
       System.out.println("Spora:\nID: " + i);
       sporak.get(i).printData();
-  }
+  }*/
 
   /**
    * Gombatesttel sporat szorato fuggveny
@@ -201,13 +201,13 @@ public class Gombasz extends Jatekos {
    * Gombafonalat noveszto fuggveny
    * @param args parancssori argumentumok
    * @return 1, ha sikeres volt, 0, ha nem
-  */
+  *
   private int fonalatNoveszt(String[] args) {
       for (int i = 0; i < gombaFonalak.size(); ++i) {
         if (gombaFonalak.get(i).athidal(Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])), Jatekvezerlo.tektonok.get(Integer.parseInt(args[2])))) return 1;
       }
       return 0;
-  }
+  }*/
 
   /**
    * Gombatestet noveszto fuggveny

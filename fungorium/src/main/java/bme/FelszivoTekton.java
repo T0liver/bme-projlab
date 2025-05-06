@@ -47,9 +47,14 @@ public class FelszivoTekton extends Tekton {
       for (GombaFonal fonal : fonalak) {
         List<Tekton> szomszedok = this.getSzomszed(1);
         for (Tekton tekton : szomszedok) {
-          fonal.elvagodik(this, tekton);
+          for (Mezo m0 : mezok) {
+            for (Mezo m1 : tekton.getMezok()) {
+              fonal.elvagodik(m1, m0);
+            }
+          }
         }
-        fonal.elvagodik(this, this);
+        for (Mezo m0 : mezok)
+          fonal.elvagodik(m0, m0);
       }
       for (int i = 0; i < sporak.size(); ++i) {
         sporak
@@ -68,7 +73,7 @@ public class FelszivoTekton extends Tekton {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   @Override
   public void printData() {
     System.out.println("Felszivo Tekton\nFoglalt: " + foglalt);
@@ -86,5 +91,5 @@ public class FelszivoTekton extends Tekton {
     for (int i = 0; i < szomszedok.size(); ++i) {
       System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
-  }
+  }*/
 }

@@ -48,7 +48,7 @@ public class Jatekvezerlo {
    * Tekton hasitasara hasznalt fuggveny
    * ha van random, randomot hasit
    * ha nincs, minden 5. korben a korszamadikat
-   */
+   *
   public static void tektontHasit() {
     Tekton talalt = null;
     if (random && r.nextInt(4) == 0) {
@@ -65,10 +65,10 @@ public class Jatekvezerlo {
     tektonok.remove(talalt);
     tektonok.addAll(ujak);
     System.out.println("ID: " + getIDof(ujak.get(0)));
-    ujak.get(0).printData();
+    //ujak.get(0).printData();
     System.out.println("ID: " + getIDof(ujak.get(0)));
-    ujak.get(0).printData();
-  }
+    //ujak.get(0).printData();
+  }*/
 
   /**
    * tick fuggveny a tektonok tick fuggvenyeinek meghivasara
@@ -83,7 +83,7 @@ public class Jatekvezerlo {
    */
   public static void korVege() {
     tick();
-    tektontHasit();
+    //tektontHasit();
   }
 
   /**
@@ -124,12 +124,12 @@ public class Jatekvezerlo {
    */
   public static void jatekKezdes() {
     jatekHossz = 50;
-    try {
+    //try {
       if (init())
         return;
-    } catch (InvalidAttributeValueException e) {
-      e.printStackTrace();
-    }
+    //} catch (InvalidAttributeValueException e) {
+      //e.printStackTrace();
+    //}
     for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
       if (korMenete())
         return;
@@ -182,6 +182,9 @@ public class Jatekvezerlo {
    * 
    * @throws InvalidAttributeValueException
    */
+  public static boolean init() {return false;} // 22x22 mezős, random tektonos pálya
+
+  /*
   public static boolean init() throws InvalidAttributeValueException {
     jelenlegiJatekos = 0;
     int gombaszok = 0;
@@ -305,7 +308,7 @@ public class Jatekvezerlo {
       }
     }
     return false;
-  }
+  }*/
 
   /**
    * fuggveny a jatek mentesehez parancssorrol
@@ -415,7 +418,7 @@ public class Jatekvezerlo {
    * fuggveny a jatekban levo tektonok kilistazasara
    * 
    * @param args parancssori argumentumok
-   */
+   *
   public static void ListTekton(String[] args) {
     if (args.length == 1)  {
       System.out.println("Tektonok listaja:");
@@ -428,5 +431,5 @@ public class Jatekvezerlo {
       System.out.println("Tekton\tID: " + i);
       tektonok.get(i).printData();
     }
-  }
+  }*/
 }

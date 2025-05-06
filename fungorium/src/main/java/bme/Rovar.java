@@ -32,7 +32,7 @@ public class Rovar implements Jatekelem {
   private int ujravaghat;
 
   /** A tekton, amin tartózkodik */
-  private Tekton tartozkodik;
+  private Mezo tartozkodik;
 
   /** Megadja, hogy melyik rovarászhoz tartozik */
   private Rovarasz rovarasz;
@@ -96,7 +96,7 @@ public class Rovar implements Jatekelem {
    *
    * @return a tekton amin a rovar van
    */
-  public Tekton getTartozkodik() {
+  public Mezo getTartozkodik() {
     return tartozkodik;
   }
 
@@ -105,8 +105,8 @@ public class Rovar implements Jatekelem {
    *
    * @param t a tekton amin a rovar lesz
    */
-  public void setTartozkodik(Tekton t) {
-    tartozkodik = t;
+  public void setTartozkodik(Mezo m) {
+    tartozkodik = m;
   }
 
   /** publikus setter a rovar fonál vágására való készségének letiltására */
@@ -129,11 +129,11 @@ public class Rovar implements Jatekelem {
    *
    * @param tekton a kezdő tartózkodási hely
    */
-  public Rovar(Rovarasz rovarasz, Tekton tekton) {
+  public Rovar(Rovarasz rovarasz, Mezo mezo) {
     sebesseg = 1;
     vaghat = true;
     ujravaghat = 0;
-    tartozkodik = tekton;
+    tartozkodik = mezo;
     this.rovarasz = rovarasz;
   }
 
@@ -145,10 +145,10 @@ public class Rovar implements Jatekelem {
    * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal
    *               áthidalt tekton
    */
-  public void mozog(Tekton tekton) {
+  public void mozog(Mezo mezo) {
     for (GombaFonal gf : tartozkodik.fonalak) {
-      if (gf.getVezet(tartozkodik, tekton)) {
-        tartozkodik = tekton;
+      if (gf.getVezet(tartozkodik, mezo)) {
+        tartozkodik = mezo;
         return;
       }
     }
@@ -162,7 +162,7 @@ public class Rovar implements Jatekelem {
    * @param gombaFonal az elvágandó GombaFonal
    * @return hogy elvágta-e a fonalat
    */
-  public boolean vag(GombaFonal gombaFonal, Tekton merre) {
+  public boolean vag(GombaFonal gombaFonal, Mezo merre) {
     if (vaghat && gombaFonal.getVezet(tartozkodik, merre)) {
       gombaFonal.elvagodik(tartozkodik, merre);
       return true;

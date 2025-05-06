@@ -56,14 +56,14 @@ public class Rovarasz extends Jatekos {
       try {
         String[] args = scanner.nextLine().strip().split(" ");
         switch (args[0]) {
-          case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) System.out.println(lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)) < lepesek.get(Integer.parseInt(args[1])) ? "Mozgás sikeres" : "Mozgás sikertelen"); break;
+          //case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) System.out.println(lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)) < lepesek.get(Integer.parseInt(args[1])) ? "Mozgás sikeres" : "Mozgás sikertelen"); break;
           case "eats": if (cselekedhet.get(Integer.parseInt(args[1]))) System.out.println(pontok < (pontok += megetet(args)) ? "Evés sikeres, jelenlegi pontszám: " + pontok : "Evés sikertelen, jelenlegi pontszám: " + pontok); cselekedhet.set(Integer.parseInt(args[1]), false); break;
-          case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) System.out.println(elvagat(args) ? "Vágás sikeres" : "Vágás sikertelen"); break;
+          //case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) System.out.println(elvagat(args) ? "Vágás sikeres" : "Vágás sikertelen"); break;
           case "/end": endOfTurn = true; break;
           case "/save": Jatekvezerlo.Save(args); break;
           case "/lsa": Jatekvezerlo.ListAktor(args); break;
-          case "/lst": Jatekvezerlo.ListTekton(args); break;
-          case "/lsr": if(args.length == 1) {listRovar();} else {listRovar(Integer.valueOf(args[1]));} break;
+          //case "/lst": Jatekvezerlo.ListTekton(args); break;
+          //case "/lsr": if(args.length == 1) {listRovar();} else {listRovar(Integer.valueOf(args[1]));} break;
           case "/help":
           System.out.println("parancsok:\nmovr [rovarID] -tk [ID]\t\trovar mozgatása szomszédos tektonra\neats [rovarID] -db [int]\t\trovar megetetése [int] db spórával");
           System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
@@ -82,7 +82,7 @@ public class Rovarasz extends Jatekos {
    * fuggveny, amiben egy rovart mozgat egy masik tektonra
    * @param args parancssori argumentumok
    * @return 1, ha mozgott, 0, ha nem
-   */
+   *
   private int mozgat(String[] args) {
 
     Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
@@ -108,7 +108,7 @@ public class Rovarasz extends Jatekos {
   private int megetet(String[] args) {
 
     Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-    Spora spora = rovar.getTartozkodik().getBestSpora();
+    Spora spora = rovar.getTartozkodik().getTekton().getBestSpora();
     int db = 3;
 
     for (int i = 0; i < args.length; i++) {
@@ -126,7 +126,7 @@ public class Rovarasz extends Jatekos {
    * fuggveny, amiben egy rovarral elvagat egy fonalat egy tekton iranyaban
    * @param args parancssori argumentumok
    * @return sikeresen vagott-e
-   */
+   *
   private boolean elvagat(String[] args) {
     int tektonID = -1;
     int fonalID = -1;
@@ -141,7 +141,7 @@ public class Rovarasz extends Jatekos {
     }
     if (tektonID == -1 || fonalID == -1) return false;
 
-    Tekton merre = rovar.getTartozkodik();
+    Mezo merre = rovar.getTartozkodik();
     GombaFonal gombaFonal = new GombaFonal();
     int oldID = -1;
 
@@ -190,7 +190,7 @@ public class Rovarasz extends Jatekos {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   public void printData() {
     System.out.println("Rovarasz\npontok: " + pontok);
     listRovar();
@@ -198,7 +198,7 @@ public class Rovarasz extends Jatekos {
 
   /**
    * A rovarasz rovarainak adatait kiiro fuggveny.
-   */
+   *
   private void listRovar() {
     for (int i = 0; i < rovarok.size(); ++i) {
       System.out.println("Rovar:\nID: " + i + "\nElhelyezkedesi tekton ID: " + Jatekvezerlo.getIDof(rovarok.get(i).getTartozkodik()) + "\nMozások: " + lepesek.get(i) + "\nEhet/Vághat-e ebben a körben: " + cselekedhet.get(i) + "\nKépes vágni: " + rovarok.get(i).getVaghat());
@@ -206,5 +206,5 @@ public class Rovarasz extends Jatekos {
   }
   private void listRovar(int i) {
     System.out.println("Rovar:\nID: " + i + "\nElhelyezkedesi tekton ID: " + Jatekvezerlo.getIDof(rovarok.get(i).getTartozkodik()) + "\nMozások: " + lepesek.get(i) + "\nEhet/Vághat-e ebben a körben: " + cselekedhet.get(i) + "\nKépes vágni: " + rovarok.get(i).getVaghat());
-  }
+  }*/
 }

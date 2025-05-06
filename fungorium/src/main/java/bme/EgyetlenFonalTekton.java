@@ -17,13 +17,13 @@ public class EgyetlenFonalTekton extends Tekton {
    *
    * @param melyik melyik gombafonál próbál áthidalni a tektonra
    */
-  @Override
-  public void fonalNo(GombaFonal melyik) {
-    if (!fonalak.isEmpty()) { // ha van már nyilvántartott fonál a tektonon, nem lehet új
-      return;
-    }
-    super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
-  }
+  //@Override
+  //public void fonalNo(GombaFonal melyik) {
+    //if (!fonalak.isEmpty()) { // ha van már nyilvántartott fonál a tektonon, nem lehet új
+    //  return;
+    //}
+    //super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
+  //}
   
   @Override
   public Tekton createTekton() {
@@ -32,7 +32,7 @@ public class EgyetlenFonalTekton extends Tekton {
 
   /**
    * A class adatait kiiro fuggveny.
-   */
+   *
   @Override
   public void printData() {
     System.out.println("Egyetlen Fonal Tekton\nFoglalt: " + foglalt);
@@ -50,5 +50,5 @@ public class EgyetlenFonalTekton extends Tekton {
     for (int i = 0; i < szomszedok.size(); ++i) {
       System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
     }
-  }
+  }*/
 }
