@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "konzolos-jatekmenet" ]
+    branches: [ "grafikus-interface" ]
   pull_request:
-    branches: [ "konzolos-jatekmenet" ]
+    branches: [ "grafikus-interface" ]
 
 jobs:
   build:
