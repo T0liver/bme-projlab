@@ -16,6 +16,12 @@ public class GameWindow extends JFrame {
     private JPanel gamePanel;
     private JPanel playerMenuPanel;
     private List<PlayerData> players = new ArrayList<>(); // A játékosok adatainak tárolására
+    private Jatekvezerlo jatekvezerlo;
+    private JatekvezerloView jatekvezerloView;
+    //JatekosView
+    private JatekosMenuView jelenlegiJatekosMenu;
+    private List<EntitasView> entitasok;
+    private TerkepView terkepView;
 
     public GameWindow() {
         setTitle("Fungorium");

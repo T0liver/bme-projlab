@@ -49,7 +49,7 @@ class MainMenu extends JPanel {
         loadGameButton.setFont(buttonFont);
         exitButton = new JButton("Kilépés");
         exitButton.setFont(buttonFont);
-        startGameButton = new JButton("Indítás");
+        startGameButton = new JButton("Játék indítása");
         startGameButton.setFont(buttonFont);
 
         gombaszListModel = new DefaultListModel<>();
@@ -148,24 +148,26 @@ class MainMenu extends JPanel {
         removeGombaszButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedIndex = gombaszList.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    PlayerDisplayData removedData = gombaszListModel.getElementAt(selectedIndex);
-                    players.removeIf(p -> p.name.equals(removedData.getName()) && p.cast.equals("Gombász"));
-                    updatePlayerLists();
+                for (GameWindow.PlayerData p : players) {
+                    if (p.cast.equals("Gombász")) {
+                        players.remove(p);
+                        break;
+                    }
                 }
+                updatePlayerLists();
             }
         });
 
         removeRovaraszButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedIndex = rovaraszList.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    PlayerDisplayData removedData = rovaraszListModel.getElementAt(selectedIndex);
-                    players.removeIf(p -> p.name.equals(removedData.getName()) && p.cast.equals("Rovarasz"));
-                    updatePlayerLists();
+                for (GameWindow.PlayerData p : players) {
+                    if (p.cast.equals("Rovarasz")) {
+                        players.remove(p);
+                        break;
+                    }
                 }
+                updatePlayerLists();
             }
         });
 
