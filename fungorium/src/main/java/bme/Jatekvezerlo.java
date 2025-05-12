@@ -33,7 +33,7 @@ public class Jatekvezerlo {
   /**
    * privat konstruktor, mert warning
    */
-  private Jatekvezerlo() {
+  Jatekvezerlo() {
     /*
      * jelenlegiKor = 0;
      * tektonok = new ArrayList<Tekton>();
@@ -42,6 +42,18 @@ public class Jatekvezerlo {
      * jatekHossz = 50;
      * random = false;
      */
+
+
+  }
+
+  public Jatekvezerlo(List<Jatekos> jatekosok){
+    jatekosok = jatekosok;
+    jelenlegiKor = 0;
+    tektonok = new ArrayList<Tekton>();
+    jelenlegiJatekos = 0;
+    jatekHossz = 50;
+    random = false;
+
   }
 
   /**
