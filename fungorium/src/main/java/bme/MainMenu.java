@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -21,11 +22,11 @@ class MainMenu extends JPanel {
     private DefaultListModel<PlayerDisplayData> rovaraszListModel;
     private JList<PlayerDisplayData> rovaraszList;
     private JButton removeRovaraszButton;
-    private List<GameWindow.PlayerData> players;
+    public List<Jatekos> players;
     private GameWindow parent;
     private JLabel titleLabel;
 
-    public MainMenu(GameWindow parent, List<GameWindow.PlayerData> players) {
+    public MainMenu(GameWindow parent, List<Jatekos> players) {
         this.parent = parent;
         this.players = players;
         setLayout(new GridBagLayout());
@@ -127,7 +128,7 @@ class MainMenu extends JPanel {
                 String playerName = JOptionPane.showInputDialog(MainMenu.this, "Gombász neve:", "Új Gombász", JOptionPane.PLAIN_MESSAGE);
                 if (playerName != null && !playerName.trim().isEmpty()) {
                     Color color = generateRandomColor();
-                    players.add(new GameWindow.PlayerData(playerName, "Gombász", color));
+                    players.add(new Gombasz(playerName, color));
                     updatePlayerLists();
                 }
             }
@@ -139,7 +140,7 @@ class MainMenu extends JPanel {
                 String playerName = JOptionPane.showInputDialog(MainMenu.this, "Rovarasz neve:", "Új Rovarasz", JOptionPane.PLAIN_MESSAGE);
                 if (playerName != null && !playerName.trim().isEmpty()) {
                     Color color = generateRandomColor();
-                    players.add(new GameWindow.PlayerData(playerName, "Rovarasz", color));
+                    players.add(new Rovarasz(playerName, color));
                     updatePlayerLists();
                 }
             }
@@ -148,8 +149,8 @@ class MainMenu extends JPanel {
         removeGombaszButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (GameWindow.PlayerData p : players) {
-                    if (p.cast.equals("Gombász")) {
+                for (Jatekos p : players) {
+                    if (p instanceof Gombasz) {
                         players.remove(p);
                         break;
                     }
@@ -161,8 +162,8 @@ class MainMenu extends JPanel {
         removeRovaraszButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (GameWindow.PlayerData p : players) {
-                    if (p.cast.equals("Rovarasz")) {
+                for (Jatekos p : players) {
+                    if (p instanceof Rovarasz) {
                         players.remove(p);
                         break;
                     }
@@ -206,11 +207,11 @@ class MainMenu extends JPanel {
     private void updatePlayerLists() {
         gombaszListModel.clear();
         rovaraszListModel.clear();
-        for (GameWindow.PlayerData player : players) {
-            PlayerDisplayData displayData = new PlayerDisplayData(player.name, player.color);
-            if (player.cast.equals("Gombász")) {
+        for (Jatekos player : players) {
+            PlayerDisplayData displayData = new PlayerDisplayData(player.getNev(), player.getSzin());
+            if (player instanceof  Gombasz) {
                 gombaszListModel.addElement(displayData);
-            } else if (player.cast.equals("Rovarasz")) {
+            } else if (player instanceof Rovarasz) {
                 rovaraszListModel.addElement(displayData);
             }
         }
@@ -226,6 +227,14 @@ class MainMenu extends JPanel {
     private String colorToHexString(Color color) {
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
+
+
+
+
+
+
+
+
 
     // Segédosztály a név és szín tárolására a listában
     private static class PlayerDisplayData {

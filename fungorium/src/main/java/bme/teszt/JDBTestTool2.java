@@ -1,3 +1,5 @@
+
+
 package bme.teszt;
 
 import bme.*;
@@ -496,7 +498,7 @@ public class JDBTestTool2 implements Serializable {
                 gombasz = gombaszok.get(Integer.parseInt(args[i + 1]));
             }
         }
-        
+
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-t")) {
                 normal = false;
@@ -856,7 +858,7 @@ public class JDBTestTool2 implements Serializable {
 
     }
 
-    /*private void CutFonal(String[] args) {
+    private void CutFonal(String[] args) {
         int rovarID = Integer.parseInt(args[1]);
         int gombafonalID = -1;
         int tektonfeleID = -1;
@@ -946,7 +948,7 @@ public class JDBTestTool2 implements Serializable {
         } else {
             AppendOutput("\nINSTRUCTION FAIL " + String.join(" ", args) + " (A rovar nem vághat)\n");
         }
-    }*/
+    }
 
     // Elegge gatya sok mindent kell meg benne csinalni
     private void SporaSzoras(String[] args) {

@@ -1,5 +1,6 @@
 package bme;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,8 +25,8 @@ public class Gombasz extends Jatekos {
    * @param nev Konstruktorában megadható a név paraméter
    *            A leszármazottakban fognak kezelődni
    */
-  public Gombasz(String nev) {
-    super(nev);
+  public Gombasz(String nev, Color szin) {
+    super(nev, szin);
   }
 
   /**

@@ -1,5 +1,6 @@
 package bme;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public abstract class Jatekos implements Jatekelem{
 
   protected int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
+  protected Color szin;
+
 
   private int id;
   public int getId() {
@@ -28,8 +31,9 @@ public abstract class Jatekos implements Jatekelem{
    * Konstruktorában megadható a név paraméter
    * A leszármazottakban fognak kezelődni
    */
-  public Jatekos(String nev) {
+  public Jatekos(String nev, Color szin) {
     this.nev = nev;
+    this.szin= szin;
   }
   /**
    * Parameter nelkuli konstruktor
@@ -56,6 +60,10 @@ public abstract class Jatekos implements Jatekelem{
    */
   public int getPontok() {
     return pontok;
+  }
+
+  public Color getSzin() {
+    return szin;
   }
 
   /**

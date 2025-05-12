@@ -1,7 +1,7 @@
 package bme;
 
 // import bme.jdb.projlab.fungorium.tesztek.*;
-import bme.teszt.JDBTestTool2;
+//import bme.teszt.JDBTestTool2;
 
 import java.io.File;
 import java.nio.file.Path;

@@ -11,11 +11,11 @@ import java.util.List;
 class GameBoard extends JFrame {
     private static final int GRID_SIZE = 50;
     private static final int CELL_SIZE = 15;
-    private List<GameWindow.PlayerData> players;
+    private List<Jatekos> players;
     private JPanel gridPanel;
     private Color[][] gridColors;
 
-    public GameBoard(List<GameWindow.PlayerData> players) {
+    public GameBoard(List<Jatekos> players) {
         this.players = players;
         setTitle("Fungorium - Játék");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

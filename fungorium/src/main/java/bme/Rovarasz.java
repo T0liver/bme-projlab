@@ -1,5 +1,6 @@
 package bme;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,8 +20,8 @@ public class Rovarasz extends Jatekos {
    * @param nev Konstruktorában megadható a név paraméter
    *            A leszármazottakban fognak kezelődni
    */
-  public Rovarasz(String nev) {
-    super(nev);
+  public Rovarasz(String nev, Color szin) {
+    super(nev, szin);
   }
 
   /**
