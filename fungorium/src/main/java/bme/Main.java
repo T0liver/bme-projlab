@@ -10,6 +10,13 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
 
+    GameWindow gameWindow = new GameWindow();
+
+
+
+
+
+    /*
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("JDB tesztelő program v2.0");
@@ -115,4 +122,7 @@ public class Main {
     ExecuteTest("Fonal_benult_rovart_eszik"); // Működik
   }
 
+
+     */
+  }
 }
