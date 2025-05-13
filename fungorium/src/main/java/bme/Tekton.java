@@ -2,9 +2,16 @@ package bme;
 
 import static bme.Jatekvezerlo.jatekosok;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.IndexColorModel;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * Tekton osztály definíciója.
@@ -32,6 +39,8 @@ public class Tekton implements Jatekelem {
     this.id = id;
   }
 
+  protected BufferedImage img;
+
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
   protected boolean foglalt;
 
@@ -55,6 +64,19 @@ public class Tekton implements Jatekelem {
     sporak = new ArrayList<>();
     fonalak = new ArrayList<>();
     mezok = new ArrayList<>();
+    try {
+      img = ImageIO.read(new File("textures/Normalis.jpg"));
+    } catch (IOException e) {
+      byte[] r = {0};
+      byte[] g = {(byte) 255};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
+  }
+
+  public BufferedImage getImage() {
+    return img;
   }
 
   public void addMezo(Mezo m) {

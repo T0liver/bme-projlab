@@ -1,5 +1,11 @@
 package bme;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.*;
+
 /**
  * EletbenTartoTekton osztály definíciója.
  *
@@ -8,6 +14,18 @@ package bme;
  * lenne megfelelő gombatest rajtuk a gombafonalak túléléséhez.
  */
 public class EletbenTartoTekton extends Tekton {
+
+  public EletbenTartoTekton() {
+    try {
+      img = ImageIO.read(new File("textures/EletbenTarto.jpg"));
+    } catch (IOException e) {
+      byte[] r = {(byte)255};
+      byte[] g = {(byte) 255};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
+  }
 
   /**
    * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a
