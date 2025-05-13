@@ -1,9 +1,12 @@
 package bme;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -289,6 +292,10 @@ public class GameWindow extends JFrame {
         private GameWindow parent;
         private JLabel titleLabel;
 
+
+        private Image backgroundImage;
+
+
         public MainMenu(GameWindow parent, List<Jatekos> players) {
             this.parent = parent;
             this.players = players;
@@ -298,6 +305,9 @@ public class GameWindow extends JFrame {
             gbc.fill = GridBagConstraints.BOTH;
             gbc.weightx = 0.5;
             gbc.weighty = 0.5;
+
+            loadBackgroundImage();
+
 
             Font titleFont = new Font("Arial", Font.BOLD, 48); // Nagyobb cím
             Font buttonFont = new Font("Arial", Font.BOLD, 16);
@@ -384,6 +394,11 @@ public class GameWindow extends JFrame {
             add(rovaraszListScrollPane, gbc);
 
             updatePlayerLists();
+
+
+
+
+
 
             addGombaszButton.addActionListener(new ActionListener() {
                 @Override
@@ -486,12 +501,109 @@ public class GameWindow extends JFrame {
                 }
             });
 
+            setOpaque(false);
+
+
+
+            makeComponentsTransparent(this);
 
 
 
         }
 
-        private void updatePlayerLists() {
+
+        /**
+         * Háttérkép betöltése
+         */
+        private void loadBackgroundImage() {
+            try {
+                Random random = new Random();
+                int szam = random.nextInt(10) + 2;
+
+                // Ha a kép például a "images" mappában van a projekt gyökerében
+                File file = new File("background/output" + szam + ".jpg");
+                backgroundImage = ImageIO.read(file);
+            } catch (IOException e) {
+                System.err.println("Hiba a háttérkép betöltésekor: " + e.getMessage());
+            }
+        }
+
+
+
+
+        /**
+         * Rekurzívan minden komponenst átlátszóvá tesz
+         */
+        private void makeComponentsTransparent(Container container) {
+            // Az aktuális konténer átlátszó legyen
+            if (container instanceof JPanel) {
+                ((JPanel) container).setOpaque(false);
+            }
+
+            // Minden komponens beállítása a konténerben
+            for (Component comp : container.getComponents()) {
+                // Háttér és szövegszín beállítása
+                if (comp instanceof JComponent) {
+                    ((JComponent) comp).setOpaque(false);
+
+                    // Gombok beállítása
+                    if (comp instanceof JButton) {
+                        JButton button = (JButton) comp;
+                        button.setBackground(new Color(0, 0, 0, 100));
+                        button.setForeground(Color.WHITE);
+                    }
+
+                    // Listák beállítása
+                    if (comp instanceof JList) {
+                        JList<?> list = (JList<?>) comp;
+                        list.setBackground(new Color(255, 255, 255, 100));
+                        list.setForeground(Color.BLACK);
+                    }
+
+                    // ScrollPane beállítása
+                    if (comp instanceof JScrollPane) {
+                        JScrollPane scrollPane = (JScrollPane) comp;
+                        scrollPane.setOpaque(false);
+                        scrollPane.getViewport().setOpaque(false);
+                    }
+
+                    // Címkék beállítása
+                    if (comp instanceof JLabel) {
+                        ((JLabel) comp).setForeground(Color.WHITE);
+                    }
+                }
+
+                // Ha a komponens maga is egy konténer, rekurzívan kezeljük
+                if (comp instanceof Container) {
+                    makeComponentsTransparent((Container) comp);
+                }
+            }
+        }
+
+
+
+        /**
+         * Egyéni festés a háttérképpel
+         */
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            if (backgroundImage != null) {
+                // Háttérkép méretezése a panel méretéhez
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+
+                // Opcionális: félig átlátszó sötétítés a jobb olvashatóságért
+                g.setColor(new Color(0, 0, 0, 128));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        }
+
+
+
+
+
+    private void updatePlayerLists() {
             gombaszListModel.clear();
             rovaraszListModel.clear();
             for (Jatekos player : players) {
