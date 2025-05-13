@@ -469,6 +469,7 @@ public class GameWindow extends JFrame {
                         try {
                             System.out.println("Játék indítása...");
                             jatekvezerlo.jatekosok = players;
+                            //jatekvezerlo.jatekKezdes();
                             // Az eredeti, működő GameBoard létrehozása
                             SwingUtilities.invokeLater(() -> {
                                 GameBoard gameBoard = new GameWindow.GameBoard(players);
