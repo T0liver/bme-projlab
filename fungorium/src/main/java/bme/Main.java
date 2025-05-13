@@ -12,10 +12,6 @@ public class Main {
 
     GameWindow gameWindow = new GameWindow();
 
-
-
-
-
     /*
     Scanner scanner = new Scanner(System.in);
 

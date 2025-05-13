@@ -38,6 +38,8 @@ public class GameWindow extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
+
+
         MainMenu mainMenu = new MainMenu(this, Jatekvezerlo.jatekosok);
         gamePanel = new JPanel(); // Placeholder
 
@@ -47,8 +49,7 @@ public class GameWindow extends JFrame {
         add(mainPanel);
         cardLayout.show(mainPanel, "MainMenu");
 
-        jatekvezerlo = new Jatekvezerlo();
-        jatekvezerloView = new JatekvezerloView(jatekvezerlo);
+
 
         setVisible(true);
     }
@@ -467,7 +468,7 @@ public class GameWindow extends JFrame {
                     if (!players.isEmpty()) {
                         try {
                             System.out.println("Játék indítása...");
-
+                            jatekvezerlo.jatekosok = players;
                             // Az eredeti, működő GameBoard létrehozása
                             SwingUtilities.invokeLater(() -> {
                                 GameBoard gameBoard = new GameWindow.GameBoard(players);
