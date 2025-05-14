@@ -1,8 +1,8 @@
 # bme-projlab
 Jody Domingre bandája csapat Szoftverprojekt laboratórium repositoryja.
 
-## Konzolos-játékprogram teszt
+## Grafikus interfész
 
-Ezen a branchen mergeltem a játékmenetet és az egyenlőre elkészített teszteket.
+Ezen a branchen lesz megvalósítva maga a játék a grafikus interface-ével, ahol mér lehet rendesen, kb. élvezhetően játszani vele.
 
 **pls kódolás előtt ``git fetch && git pull``, így nem lesz annyi egymásra szerkesztgetés!**
