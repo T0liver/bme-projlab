@@ -38,7 +38,7 @@ public class GameWindow extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        MainMenu mainMenu = new MainMenu(this, Jatekvezerlo.jatekosok);
+        MainMenu mainMenu = new MainMenu(this, jatekvezerlo.getJatekosok());
         gamePanel = new JPanel(); // Placeholder
 
         mainPanel.add(mainMenu, "MainMenu");

@@ -78,46 +78,47 @@ public class Gombasz extends Jatekos {
   @Override
   public boolean lep() {
     List<Boolean> testCselekedett = new ArrayList<>();
-    int fonalCselekedetek = gombaTestek.size();
+    //int fonalCselekedetek = gombaTestek.size();
     List<Boolean> sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) {testCselekedett.add(false); gombaTestek.get(i).tick();}
     if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).tick();
     boolean endOfTurn = false;
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
-    System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
-    System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
-    System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-    System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
-    System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
-    System.out.println("/help\t\tparancsok megjelenitese\n/exit\t\tkilepes a jatekbol");
-    while(!endOfTurn) {
-      try {
-        String[] args = scanner.nextLine().strip().split(" ");
-        switch (args[0]) {
-          case "spor": if (Boolean.FALSE.equals(testCselekedett.get(Integer.parseInt(args[1])))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
-          //case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
-          case "growg": if (Boolean.FALSE.equals(sporaHasznalt.get(Integer.parseInt(args[1])))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
-          case "/end": endOfTurn = true; break;
-          case "/save": Jatekvezerlo.Save(args); break;
-          case "/lsa": Jatekvezerlo.ListAktor(args); break;
-          //case "/lst": Jatekvezerlo.ListTekton(args); break;
-          //case "/lsg": listTest(); break;
-          //case "/lsf": listFonal(); break;
-          //case "/lss": listSpora(); break;
-          case "/help": 
-          System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
-          System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
-          System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
-          System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-          System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
-          System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
-          System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
-          case "/exit": return true;
-          default: System.out.println("Invalid command: " + args[0]); break;
-        }
-      } catch (Exception e) { System.out.println("Invalid Syntax");}
+    try (Scanner scanner = new Scanner(System.in)) {
+      System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
+      System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
+      System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
+      System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
+      System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
+      System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
+      System.out.println("/help\t\tparancsok megjelenitese\n/exit\t\tkilepes a jatekbol");
+      while(!endOfTurn) {
+        try {
+          String[] args = scanner.nextLine().strip().split(" ");
+          switch (args[0]) {
+            //case "spor": if (Boolean.FALSE.equals(testCselekedett.get(Integer.parseInt(args[1])))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
+            //case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
+            //case "growg": if (Boolean.FALSE.equals(sporaHasznalt.get(Integer.parseInt(args[1])))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
+            case "/end": endOfTurn = true; break;
+            //case "/save": Jatekvezerlo.Save(args); break;
+            //case "/lsa": Jatekvezerlo.ListAktor(args); break;
+            //case "/lst": Jatekvezerlo.ListTekton(args); break;
+            //case "/lsg": listTest(); break;
+            //case "/lsf": listFonal(); break;
+            //case "/lss": listSpora(); break;
+            case "/help": 
+            System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
+            System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
+            System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
+            System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
+            System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
+            System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
+            System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
+            case "/exit": return true;
+            default: System.out.println("Invalid command: " + args[0]); break;
+          }
+        } catch (Exception e) { System.out.println("Invalid Syntax");}
+      }
     }
     return false;
   }
@@ -131,61 +132,10 @@ public class Gombasz extends Jatekos {
   }
 
   /**
-   * A class adatait kiiro fuggveny.
-   *
-  @Override
-  public void printData() {
-    System.out.println("Gombasz\npontok: " + pontok);
-    listTest();
-    listFonal();
-    listSpora();
-  }
-
-  /**
-   * jatekos gombatesteinek adatait kiiro fuggveny
-   *
-  private void listTest() {
-    for (int i = 0; i < gombaTestek.size(); ++i) {
-      System.out.println("GombaTest:\nID: " + i + "\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(gombaTestek.get(i).getTartozkodik()) + "\nSpora db: " + gombaTestek.get(i).getSporaDarab() + "\nElettartam: " + gombaTestek.get(i).getElettartam() + "\nFejlettseg: " + gombaTestek.get(i).getFejlett() + "\n");
-    }
-  }
-  private void listTest(int i) {
-      System.out.println("GombaTest:\nID: " + i + "\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(gombaTestek.get(i).getTartozkodik()) + "\nSpora db: " + gombaTestek.get(i).getSporaDarab() + "\nElettartam: " + gombaTestek.get(i).getElettartam() + "\nFejlettseg: " + gombaTestek.get(i).getFejlett() + "\n");
-  }
-
-  /**
-   * jatekos gombafonalainak adatait kiiro fuggveny
-   *
-  private void listFonal() {
-    for (int i = 0; i < gombaFonalak.size(); ++i) {
-      System.out.println("GombaFonal:\nID: " + i);
-      gombaFonalak.get(i).printData();
-    }
-  }
-  private void listFonal(int i) {
-      System.out.println("GombaFonal:\nID: " + i);
-      gombaFonalak.get(i).printData();
-  }
-
-  /**
-   * jatekos sporainak adatait kiiro fuggveny
-   *
-  private void listSpora() {
-    for (int i = 0; i < sporak.size(); ++i) {
-      System.out.println("Spora:\nID: " + i);
-      sporak.get(i).printData();
-    }
-  }
-  private void listSpora(int i) {
-      System.out.println("Spora:\nID: " + i);
-      sporak.get(i).printData();
-  }*/
-
-  /**
    * Gombatesttel sporat szorato fuggveny
    * @param args parancssori argumentumok
    * @return sikeres volt-e a szoras
-   */
+   *
   private boolean sporatSzorat(String[] args) {
     GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
     int tektonid = -1;
@@ -197,6 +147,10 @@ public class Gombasz extends Jatekos {
     if (tektonid == -1) return false;
     return gt.sporatSzor(Jatekvezerlo.tektonok.get(tektonid));
   }
+*/
+public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
+  return gTest.sporatSzor(tekton);
+}
 
   /**
    * Gombafonalat noveszto fuggveny
@@ -213,7 +167,7 @@ public class Gombasz extends Jatekos {
   /**
    * Gombatestet noveszto fuggveny
    * @param args parancssori argumentumok
-   */
+   *
   private void testetNoveszt(String[] args) {
     for (int i = 0; i < sporak.size(); ++i) {
       if (Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).sporatFelhasznal(sporak.get(i))) {
@@ -227,6 +181,29 @@ public class Gombasz extends Jatekos {
         Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).setFoglalt(true); //addGombaTest(gombaTestek.get(gombaTestek.size() - 1));
       }
     }
+  }
+  */
+
+  public boolean testetNoveszt(Tekton hova) {
+    if (hova.getFoglalt()) {
+      return false;
+    }
+
+    for (int i = 0; i < sporak.size(); i++) {
+      if (hova.sporatFelhasznal(sporak.get(i))) {
+        try {
+          gombaTestek.add(new GombaTest(this, 0, 5, false, 0, hova));
+          hova.setFoglalt(true);
+          return true;
+        } catch (Exception e) {
+          e.printStackTrace();
+          return false;
+        }
+      }
+    }
+
+    return false;
+    
   }
 
   /** publikus tagfuggveny gombatest hozzaaadasahoz */

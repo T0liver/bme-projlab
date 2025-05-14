@@ -36,6 +36,6 @@ public class GyorsitoSpora extends Spora {
    */
   @Override
   public void printData() {
-    System.out.println("Gyorsito Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
+    System.out.println("Gyorsito Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
   }
 }

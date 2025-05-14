@@ -35,6 +35,6 @@ public class CsorbitoSpora extends Spora {
    */
   @Override
   public void printData() {
-    System.out.println("Csorbito Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
+    System.out.println("Csorbito Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
   }
 }

@@ -1,12 +1,11 @@
 package bme;
 
-import static bme.Jatekvezerlo.jatekosok;
+// import static bme.Jatekvezerlo.jatekosok;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -362,6 +361,10 @@ public class Tekton implements Jatekelem {
    * @return hogy a spóra felhasználása sikeres volt-e (volt e elég)
    */
   public boolean sporatFelhasznal(Spora mit) {
+    /*
+    * Ez itt mit akar csinálni? Miért tér vissza ez a függvény true-val,
+    * ha a tektonon van egy játékosnak, ami rovarász, egy rovarja, ami nem vághat, és nem mozoghat?
+    * Ez megtévesztő, hiszen ilyenkor nem használódik el spóra, mert nem csökken a spórák száma, ugyannakkor true-val tér vissza.
     for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
       if (jatekosok.get(i).getType() == 1) {
         for (int e = 0; e < jatekosok.get(i).getRovarok().size(); ++i) {
@@ -372,6 +375,7 @@ public class Tekton implements Jatekelem {
         }
       }
     }
+    */
     return sporak.contains(mit) && mit.csokken(10) == mit.getTapanyag() * 10;
   }
 
@@ -417,31 +421,12 @@ public class Tekton implements Jatekelem {
     return false;
   }
 
-  /** A kör elején meghívott függvény, felszívó tekton használja */
+  /**
+   * A kör elején meghívott függvény, felszívó tekton használja
+   */
   public void tick() {
     // A kör elején meghívott függvény, felszívó tekton használja
   }
-
-  /**
-   * A class adatait kiiro fuggveny.
-   *
-  public void printData() {
-    System.out.println("Normalis Tekton\nFoglalt: " + foglalt);
-    System.out.println("GombaFonalak:");
-    for (int i = 0; i < fonalak.size(); ++i) {
-      System.out.println("ID: " + i);
-      fonalak.get(i).printData(this);
-    }
-    System.out.println("Sporak:");
-    for (int i = 0; i < sporak.size(); ++i) {
-      System.out.println("ID: " + i);
-      sporak.get(i).printData();
-    }
-    System.out.println("Szomszed IDk:");
-    for (int i = 0; i < szomszedok.size(); ++i) {
-      System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
-    }
-  }*/
 
   public void removeSpora(Spora s) {sporak.remove(s);}
 }

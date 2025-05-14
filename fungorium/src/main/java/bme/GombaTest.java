@@ -1,7 +1,7 @@
 package bme;
 
 import java.util.List;
-import java.util.Random;
+//import java.util.Random;
 
 /**
  * GombaTest osztály definíciója.
@@ -305,7 +305,7 @@ public class GombaTest implements Jatekelem {
    * a class adatait kiiro fuggveny
    */
   public void printData() {
-    System.out.println("Gombatest adatok:\nElhelyezkedési tekton ID: " + Jatekvezerlo.getIDof(tartozkodik) + "\nSpora db: " + sporadarab
+    System.out.println("Gombatest adatok:\nElhelyezkedési tekton ID: " + tartozkodik.getId() + "\nSpora db: " + sporadarab
         + "\nElettartam: " + elettartam + "\nFejlettseg: " + fejlett);
   }
 }
