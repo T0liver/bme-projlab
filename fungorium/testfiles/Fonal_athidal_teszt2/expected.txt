@@ -1,7 +1,0 @@
-new Gombasz (1)
-new Tekton (2)
-new Tekton (3)
-new GombaTest (4)
-GombaTest (4) tartózkodik: [ ] --> [Tekton(2)]
-
-INSTRUCTION FAIL "growf 4 -vez 2;3" (Tektonok nem szomszédosak)
