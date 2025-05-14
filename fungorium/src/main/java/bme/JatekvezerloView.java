@@ -21,4 +21,8 @@ public class JatekvezerloView {
     public Jatekvezerlo getJatekvezerlo() {
         return jatekvezerlo;
     }
+
+    public void draw(GameWindow gw) {
+        
+    }
 }
