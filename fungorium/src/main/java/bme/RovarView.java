@@ -24,14 +24,5 @@ public class RovarView extends EntitasView{
         BufferedImage image = color(kinezet, jszin);
         kinezet = image;
 
-        try {
-            Rovar rov = new Rovar((Rovarasz) jatekos, mezo);
-            jatekos.addRovar(rov);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
     }
 }

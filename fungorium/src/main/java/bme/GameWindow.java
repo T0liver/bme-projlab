@@ -264,7 +264,13 @@ public class GameWindow extends JFrame {
                         //gridColors[row][col] = Color.YELLOW;
 
                         entitasok.add(new RovarView(null, new Mezo(col, row), jatekvezerlo.getSoronLevoJatekos()));
+                        try {
+                            Rovar rov = new Rovar((Rovarasz) jatekvezerlo.getSoronLevoJatekos(), new Mezo(col, row));
+                            jatekvezerlo.getSoronLevoJatekos().addRovar(rov);
 
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
 
 
 
