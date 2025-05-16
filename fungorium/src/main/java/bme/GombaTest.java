@@ -92,6 +92,7 @@ public class GombaTest implements Jatekelem {
   }
 
   public GombaTest(Jatekos gombasz, int elett, Tekton hely) throws Exception {
+    if (hely == null) {throw new Exception("Nincs tekton!");}
     if (!hely.getFoglalt()) {
       sporadarab = 0;
       elettartam = elett;

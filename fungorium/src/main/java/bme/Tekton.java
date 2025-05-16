@@ -67,7 +67,7 @@ public class Tekton implements Jatekelem {
     mezok = new ArrayList<>();
     rovarok = new ArrayList<>();
     try {
-      img = ImageIO.read(new File("textures/Normalis.jpg"));
+      img = ImageIO.read(new File("textures/Normalis.png"));
     } catch (IOException e) {
       byte[] r = {0};
       byte[] g = {(byte) 255};

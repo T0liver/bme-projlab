@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 public class EntitasView {
     private Object entitas;
     public Mezo mezo;
-    private Jatekos jatekos;
+    protected Jatekos jatekos;
     protected BufferedImage kinezet;
 
     public EntitasView(Object entitas, Mezo mezo, Jatekos jatekos) {
@@ -20,7 +20,7 @@ public class EntitasView {
     public BufferedImage getKinezet() {return kinezet;}
 
 
-    public BufferedImage color(BufferedImage image) {
+    public BufferedImage color(BufferedImage image, Color csere) {
 
         BufferedImage ujKep = new BufferedImage(
                 kinezet.getWidth(),
@@ -38,7 +38,7 @@ public class EntitasView {
                 int b = szin.getBlue();
 
                 if (Math.abs(r - g) < 10 && Math.abs(r - b) < 10 && Math.abs(g - b) < 10) {
-                    Color ujSzin = new Color(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), szin.getAlpha());
+                    Color ujSzin = new Color(csere.getRed(), csere.getGreen(), csere.getBlue(), szin.getAlpha());
                     ujKep.setRGB(x, y, ujSzin.getRGB());
                 } else {
                     // Minden más marad

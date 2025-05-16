@@ -30,6 +30,7 @@ public class GameWindow extends JFrame {
     private JPanel playerMenuPanel;
     private Jatekvezerlo jatekvezerlo;
     private JatekvezerloView jatekvezerloView;
+    //private Jatekos JelenlegiJatekos;
 
     private JatekosMenu jelenlegiJatekosMenu;
     private JatekosMenuView jelenlegiJatekosMenuView;
@@ -76,6 +77,8 @@ public class GameWindow extends JFrame {
 
         setVisible(true);
     }
+
+    //public Jatekos getJelenlegiJatekos() {return JelenlegiJatekos; }
 
     /**
      * Menü kirajzolása (jövőbeli implementációhoz).
@@ -160,16 +163,6 @@ public class GameWindow extends JFrame {
                 int row = e.getY() / CELL_SIZE;
                 int col = e.getX() / CELL_SIZE;
                 if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
-
-
-                    //Mezo Mezo;
-                    //EntitasView ev = new GombaTestView(null, Mezo  = new Mezo(0,0), null);
-
-                    //drawSprite(ev);
-
-
-
-
                     gridPanel.repaint();
                     System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                 }
@@ -270,7 +263,7 @@ public class GameWindow extends JFrame {
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
                         //gridColors[row][col] = Color.YELLOW;
 
-                        entitasok.add(new GombaTestView(null, new Mezo(col, row), null));
+                        entitasok.add(new GombaTestView(null, new Mezo(col, row), jatekvezerlo.getSoronLevoJatekos()));
 
 
 

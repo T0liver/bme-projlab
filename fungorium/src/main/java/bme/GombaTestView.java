@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class GombaTestView extends EntitasView{
 
-    public GombaTestView(Object entitas, Mezo mezo, Jatekos jatekos) {
+    public GombaTestView(GombaTest entitas, Mezo mezo, Jatekos jatekos) {
         super(entitas, mezo, jatekos);
         try {
             kinezet = ImageIO.read(new File("textures/GombaTest.png"));
@@ -22,10 +22,21 @@ public class GombaTestView extends EntitasView{
 
     @Override
     public void draw(GameWindow gw, Graphics g){
-        BufferedImage image = color(kinezet);
+        Color jszin = jatekos.getSzin();
+        BufferedImage image = color(kinezet, jszin);
         kinezet = image;
 
-        //gw.drawSprite(this, g);
+        try {
+            GombaTest gt = new GombaTest( jatekos, 5, mezo.getTekton());
+            jatekos.addGombaTest(gt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 
 }
