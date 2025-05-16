@@ -507,7 +507,8 @@ public class GameWindow extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!players.isEmpty()) {
                         try {
-                            System.out.println("Játék indítása...");
+
+                            jatekvezerlo.jatekKezdes();
 
                             // Az eredeti, működő GameBoard létrehozása
                             SwingUtilities.invokeLater(() -> {
