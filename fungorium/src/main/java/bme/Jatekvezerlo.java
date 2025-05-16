@@ -1,5 +1,6 @@
 package bme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,8 +8,9 @@ import java.util.Random;
 /**
  * Jatekvezerlo osztály definiciója
  */
-public class Jatekvezerlo {
+public class Jatekvezerlo implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   /** A jelenlegi kör száma */
   private int jelenlegiKor;
 

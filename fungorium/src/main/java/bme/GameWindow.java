@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -494,8 +496,42 @@ public class GameWindow extends JFrame {
             loadGameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Játék betöltése...");
-                    // Betöltés logika ide
+                    System.out.println("Játék betöltése a gyökérmappából...");
+
+                    try {
+                        // Gyökérmappában lévő mentés betöltése
+                        File file = new File("saves/save.dat");
+                        if (!file.exists()) {
+                            JOptionPane.showMessageDialog(MainMenu.this,
+                                    "Nincs mentett állás (save.dat) a gyökérmappában!",
+                                    "Hiba",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        // Objektum deszerializálása
+                        FileInputStream fis = new FileInputStream(file);
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        Jatekvezerlo betoltottJatek = (Jatekvezerlo) ois.readObject();
+                        ois.close();
+
+                        // GameBoard elindítása a betöltött játékosokkal
+                        List<Jatekos> betoltottJatekosok = betoltottJatek.getJatekosok();
+
+                        SwingUtilities.invokeLater(() -> {
+                            GameBoard gameBoard = new GameWindow.GameBoard(betoltottJatekosok);
+                            gameBoard.setVisible(true);
+                        });
+
+                        parent.dispose();
+
+                    } catch (IOException | ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(MainMenu.this,
+                                "Hiba történt a játék betöltése közben: " + ex.getMessage(),
+                                "Hiba",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
 
