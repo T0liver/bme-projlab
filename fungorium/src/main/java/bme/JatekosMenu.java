@@ -21,4 +21,12 @@ public class JatekosMenu {
     public Jatekos getJatekos() {
         return jatekos;
     }
+
+    public void setAkciok(List<Akcio> akciok) {
+        this.akciok = akciok;
+    }
+
+    public void setJatekos(Jatekos jatekos) {
+        this.jatekos = jatekos;
+    }
 }

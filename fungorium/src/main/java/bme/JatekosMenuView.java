@@ -12,6 +12,7 @@ public class JatekosMenuView {
 
     JLabel pontLabel;
     JTextArea controls;
+    JTextArea help;
 
     JButton saveBtn;
     JButton exitBtn;
@@ -36,6 +37,8 @@ public class JatekosMenuView {
         controls.setAlignmentX(Component.CENTER_ALIGNMENT);
         controls.setOpaque(false);
         panel.add(controls);
+
+        //HELP
 
         //GOMBOK -- MENTES -- KILEPEs
         saveBtn = new JButton("MENTÉS");

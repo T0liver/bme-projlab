@@ -104,6 +104,8 @@ public class Jatekvezerlo {
     return jelenlegiJatekos;
   }
 
+  public Jatekos getSoronLevoJatekos(){return jatekosok.get(jelenlegiJatekos);}
+
   /**
    * Publikus getter a játékhosszra.
    * @return a játék hosszúsága körökben.

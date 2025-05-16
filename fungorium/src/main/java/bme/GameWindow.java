@@ -27,7 +27,9 @@ public class GameWindow extends JFrame {
     private JPanel playerMenuPanel;
     private Jatekvezerlo jatekvezerlo;
     private JatekvezerloView jatekvezerloView;
-    private JatekosMenuView jelenlegiJatekosMenu;
+
+    private JatekosMenu jelenlegiJatekosMenu;
+    private JatekosMenuView jelenlegiJatekosMenuView;
     private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
@@ -44,6 +46,7 @@ public class GameWindow extends JFrame {
         setSize(screenWidth, screenHeight);
         setResizable(false);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -56,11 +59,14 @@ public class GameWindow extends JFrame {
         mainPanel.add(mainMenu, "MainMenu");
         mainPanel.add(gamePanel, "Game");
 
-        add(mainPanel);
+        add(mainPanel, BorderLayout.CENTER);
         cardLayout.show(mainPanel, "MainMenu");
 
         jatekvezerlo = new Jatekvezerlo();
         jatekvezerloView = new JatekvezerloView(jatekvezerlo);
+
+        jelenlegiJatekosMenu = new JatekosMenu(null);
+        jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
 
         setVisible(true);
     }
