@@ -166,6 +166,7 @@ public class Tekton implements Jatekelem {
    *         nem tudott hasadni
    *
   public List<Tekton> hasad() {
+  // TODO: tekton hasadás
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
@@ -382,22 +383,6 @@ public class Tekton implements Jatekelem {
   }
 
   /**
-   * Gombafonál tektonra való átérését kezelő függvény
-   *
-   * @param melyik melyik gombafonál próbál áthidalni a tektonra
-   *
-  public void fonalNo(GombaFonal melyik) {
-    if (fonalak.contains(melyik))
-      return;
-    for (int i = 0; i < szomszedok.size(); ++i) {
-      if (melyik.getVezet(szomszedok.get(i), szomszedok.get(i))) { // Ellenőrzés, hogy szomszédról hidal-e át
-        fonalak.add(melyik);
-        // melyik.athidal(this); //ez kérdőjeles
-      }
-    }
-  }*/
-
-  /**
    * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a
    * tektonon
    * 
@@ -412,7 +397,6 @@ public class Tekton implements Jatekelem {
     try {
       for (GombaTest gombaTest : gombaFonal.getGombasz().getGombaTestek()) {
         if (gombaTest.getTartozkodik() == this) {
-          //System.out.println("Talált testet");
           return true;
         }
       }
@@ -426,9 +410,7 @@ public class Tekton implements Jatekelem {
   /**
    * A kör elején meghívott függvény, felszívó tekton használja
    */
-  public void tick() {
-    // A kör elején meghívott függvény, felszívó tekton használja
-  }
+  public void tick() {}
 
   public void removeSpora(Spora s) {sporak.remove(s);}
 }

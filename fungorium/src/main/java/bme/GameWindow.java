@@ -241,7 +241,7 @@ public class GameWindow extends JFrame {
 
                     if (entitasok != null) {
                         for (EntitasView e : entitasok) {
-                            //drawSprite(e, g);
+                            drawSprite(e, g);
                         }
                     }
 
@@ -260,7 +260,7 @@ public class GameWindow extends JFrame {
                     int row = GRID_SIZE - e.getY() / CELL_SIZE;
                     int col = e.getX() / CELL_SIZE;
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
-                        gridColors[row][col] = Color.YELLOW;
+                        //gridColors[row][col] = Color.YELLOW;
 
                         entitasok.add(new GombaTestView(null, new Mezo(col, row), null));
 
