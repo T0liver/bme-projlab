@@ -1,5 +1,6 @@
 package bme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,8 +8,9 @@ import java.util.Random;
 /**
  * Jatekvezerlo osztály definiciója
  */
-public class Jatekvezerlo {
+public class Jatekvezerlo implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   /** A jelenlegi kör száma */
   private int jelenlegiKor;
 
@@ -94,6 +96,15 @@ public class Jatekvezerlo {
    */
   public List<Jatekos> getJatekosok() {
     return jatekosok;
+  }
+
+
+  /**
+   * publikus setter a jatekosok listara.
+   * @param jatekosok listát kell megadni paraméterként.
+   */
+  public void setJatekosok(List<Jatekos> jatekosok) {
+    this.jatekosok = jatekosok;
   }
 
   /**
@@ -199,13 +210,21 @@ public class Jatekvezerlo {
     if (init()) {
       return;
     }
-    for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
-      if (korMenete()) {
-        return;
+
+    try {
+      for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
+        if (korMenete()) {
+          return;
+        }
+        korVege();
+
+        Thread.sleep(1);
       }
-      korVege();
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
   }
+
 
   /**
    * Játékos hozzáadása a nyilvántartáshoz.

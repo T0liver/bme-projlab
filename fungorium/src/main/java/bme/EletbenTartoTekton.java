@@ -17,7 +17,7 @@ public class EletbenTartoTekton extends Tekton {
 
   public EletbenTartoTekton() {
     try {
-      img = ImageIO.read(new File("textures/EletbenTarto.jpg"));
+      img = ImageIO.read(new File("textures/EletbenTarto.png"));
     } catch (IOException e) {
       byte[] r = {(byte)255};
       byte[] g = {(byte) 255};
