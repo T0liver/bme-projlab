@@ -1,10 +1,16 @@
 package bme;
 
-import static bme.Jatekvezerlo.jatekosok;
+// import static bme.Jatekvezerlo.jatekosok;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.IndexColorModel;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * Tekton osztály definíciója.
@@ -32,6 +38,8 @@ public class Tekton implements Jatekelem {
     this.id = id;
   }
 
+  protected BufferedImage img;
+
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
   protected boolean foglalt;
 
@@ -46,6 +54,8 @@ public class Tekton implements Jatekelem {
 
   protected List<Mezo> mezok;
 
+  protected List<Rovar> rovarok;
+
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    */
@@ -55,10 +65,32 @@ public class Tekton implements Jatekelem {
     sporak = new ArrayList<>();
     fonalak = new ArrayList<>();
     mezok = new ArrayList<>();
+    rovarok = new ArrayList<>();
+    try {
+      img = ImageIO.read(new File("textures/Normalis.jpg"));
+    } catch (IOException e) {
+      byte[] r = {0};
+      byte[] g = {(byte) 255};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
+  }
+
+  public BufferedImage getImage() {
+    return img;
   }
 
   public void addMezo(Mezo m) {
     if (!mezok.contains(m)) mezok.add(m);
+  }
+
+  public void addRovar(Rovar r) {
+    if (!rovarok.contains(r)) rovarok.add(r);
+  }
+
+  public void removeRovar(Rovar r) {
+    if (rovarok.contains(r)) rovarok.remove(r);
   }
 
   public List<Mezo> getMezok() { return mezok; }
@@ -134,6 +166,7 @@ public class Tekton implements Jatekelem {
    *         nem tudott hasadni
    *
   public List<Tekton> hasad() {
+  // TODO: tekton hasadás
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
@@ -340,34 +373,14 @@ public class Tekton implements Jatekelem {
    * @return hogy a spóra felhasználása sikeres volt-e (volt e elég)
    */
   public boolean sporatFelhasznal(Spora mit) {
-    for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
-      if (jatekosok.get(i).getType() == 1) {
-        for (int e = 0; e < jatekosok.get(i).getRovarok().size(); ++i) {
-          if (jatekosok.get(i).getRovarok().get(e).getTartozkodik().getTekton() == this
-              && jatekosok.get(i).getRovarok().get(e).getVaghat() == false
-              && jatekosok.get(i).getRovarok().get(e).getSebesseg() == 0)
-            return true;
-        }
+    for (Rovar rovar : rovarok) {
+      if (rovar.isBenult()) {
+        return true;
       }
     }
+
     return sporak.contains(mit) && mit.csokken(10) == mit.getTapanyag() * 10;
   }
-
-  /**
-   * Gombafonál tektonra való átérését kezelő függvény
-   *
-   * @param melyik melyik gombafonál próbál áthidalni a tektonra
-   *
-  public void fonalNo(GombaFonal melyik) {
-    if (fonalak.contains(melyik))
-      return;
-    for (int i = 0; i < szomszedok.size(); ++i) {
-      if (melyik.getVezet(szomszedok.get(i), szomszedok.get(i))) { // Ellenőrzés, hogy szomszédról hidal-e át
-        fonalak.add(melyik);
-        // melyik.athidal(this); //ez kérdőjeles
-      }
-    }
-  }*/
 
   /**
    * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a
@@ -384,7 +397,6 @@ public class Tekton implements Jatekelem {
     try {
       for (GombaTest gombaTest : gombaFonal.getGombasz().getGombaTestek()) {
         if (gombaTest.getTartozkodik() == this) {
-          //System.out.println("Talált testet");
           return true;
         }
       }
@@ -395,31 +407,10 @@ public class Tekton implements Jatekelem {
     return false;
   }
 
-  /** A kör elején meghívott függvény, felszívó tekton használja */
-  public void tick() {
-    // A kör elején meghívott függvény, felszívó tekton használja
-  }
-
   /**
-   * A class adatait kiiro fuggveny.
-   *
-  public void printData() {
-    System.out.println("Normalis Tekton\nFoglalt: " + foglalt);
-    System.out.println("GombaFonalak:");
-    for (int i = 0; i < fonalak.size(); ++i) {
-      System.out.println("ID: " + i);
-      fonalak.get(i).printData(this);
-    }
-    System.out.println("Sporak:");
-    for (int i = 0; i < sporak.size(); ++i) {
-      System.out.println("ID: " + i);
-      sporak.get(i).printData();
-    }
-    System.out.println("Szomszed IDk:");
-    for (int i = 0; i < szomszedok.size(); ++i) {
-      System.out.println(Jatekvezerlo.getIDof(szomszedok.get(i)));
-    }
-  }*/
+   * A kör elején meghívott függvény, felszívó tekton használja
+   */
+  public void tick() {}
 
   public void removeSpora(Spora s) {sporak.remove(s);}
 }

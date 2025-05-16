@@ -5,13 +5,19 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class GameWindow extends JFrame {
+
+    public static final int CELL_SIZE = 15;
+    public static final int GRID_SIZE = 50;
 
     private int screenWidth = 960;
     private int screenHeight = 720;
@@ -21,35 +27,46 @@ public class GameWindow extends JFrame {
     private JPanel playerMenuPanel;
     private Jatekvezerlo jatekvezerlo;
     private JatekvezerloView jatekvezerloView;
-    private JatekosMenuView jelenlegiJatekosMenu;
-    private List<EntitasView> entitasok;
+
+    private JatekosMenu jelenlegiJatekosMenu;
+    private JatekosMenuView jelenlegiJatekosMenuView;
+    private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
     /**
      * Konstruktor, amely inicializálja az ablakot és a főmenüt.
      */
+
+
     public GameWindow() {
+
+
         setTitle("Fungorium");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(screenWidth, screenHeight);
         setResizable(false);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
+        jatekvezerlo = new Jatekvezerlo();
 
-
-        MainMenu mainMenu = new MainMenu(this, Jatekvezerlo.jatekosok);
+        MainMenu mainMenu = new MainMenu(this, jatekvezerlo.getJatekosok());
         gamePanel = new JPanel(); // Placeholder
 
         mainPanel.add(mainMenu, "MainMenu");
         mainPanel.add(gamePanel, "Game");
 
-        add(mainPanel);
+        add(mainPanel, BorderLayout.CENTER);
         cardLayout.show(mainPanel, "MainMenu");
 
+        jatekvezerlo = new Jatekvezerlo();
+        jatekvezerloView = new JatekvezerloView(jatekvezerlo);
 
+        //jelenlegiJatekosMenu = new JatekosMenu(null);
+        //jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
 
         setVisible(true);
     }
@@ -65,7 +82,7 @@ public class GameWindow extends JFrame {
      * Játék kirajzolása (jövőbeli implementációhoz).
      */
     private void renderGame() {
-        // TODO: Játék kirajzolása
+
     }
 
     /**
@@ -73,8 +90,15 @@ public class GameWindow extends JFrame {
      *
      * @param entitasView az entitás nézete, amelyet meg kell jeleníteni
      */
-    public void drawSprite(EntitasView entitasView) {
-        // TODO: Sprite kirajzolása
+    public void drawSprite(EntitasView entitasView, Graphics g) {
+
+        BufferedImage image = entitasView.getKinezet();
+        int x = (entitasView.mezo.getPos().get(0)) * CELL_SIZE;
+        int y = (GRID_SIZE - entitasView.mezo.getPos().get(1)) * CELL_SIZE;
+
+        if (image != null) {
+            g.drawImage(image, x, y, CELL_SIZE, CELL_SIZE, null);
+        }
     }
 
     /**
@@ -90,8 +114,8 @@ public class GameWindow extends JFrame {
      * @param players A játékban résztvevő játékosok listája
      */
     private void createGamePanel(List<Jatekos> players) {
-        final int GRID_SIZE = 50;
-        final int CELL_SIZE = 15;
+
+
         final Color[][] gridColors = new Color[GRID_SIZE][GRID_SIZE];
 
         for (int i = 0; i < GRID_SIZE; i++) {
@@ -128,7 +152,16 @@ public class GameWindow extends JFrame {
                 int row = e.getY() / CELL_SIZE;
                 int col = e.getX() / CELL_SIZE;
                 if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
-                    gridColors[row][col] = Color.YELLOW;
+
+
+                    //Mezo Mezo;
+                    //EntitasView ev = new GombaTestView(null, Mezo  = new Mezo(0,0), null);
+
+                    //drawSprite(ev);
+
+
+
+
                     gridPanel.repaint();
                     System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                 }
@@ -138,21 +171,6 @@ public class GameWindow extends JFrame {
         // Billentyűzet események kezelése
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();
-        gamePanel.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                char keyChar = e.getKeyChar();
-                System.out.println("Billentyű lenyomva: " + keyChar);
-                if (keyChar == 'r') {
-                    for (int i = 0; i < GRID_SIZE; i++) {
-                        for (int j = 0; j < GRID_SIZE; j++) {
-                            gridColors[i][j] = Color.LIGHT_GRAY;
-                        }
-                    }
-                    gridPanel.repaint();
-                }
-            }
-        });
 
         // Vissza gomb a főmenübe
         JButton backToMainMenuButton = new JButton("Vissza a főmenübe");
@@ -180,7 +198,7 @@ public class GameWindow extends JFrame {
      */
     class GameBoard extends JFrame {
         private static final int GRID_SIZE = 50;
-        private static final int CELL_SIZE = 15;
+
         private List<Jatekos> players;
         private JPanel gridPanel;
         private Color[][] gridColors;
@@ -218,6 +236,18 @@ public class GameWindow extends JFrame {
                             g.drawRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         }
                     }
+                    //EntitasView e = new GombaTestView(null, new Mezo(1,1), null);
+
+
+                    if (entitasok != null) {
+                        for (EntitasView e : entitasok) {
+                            drawSprite(e, g);
+                        }
+                    }
+
+
+
+
                 }
             };
 
@@ -227,10 +257,16 @@ public class GameWindow extends JFrame {
             gridPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int row = e.getY() / CELL_SIZE;
+                    int row = GRID_SIZE - e.getY() / CELL_SIZE;
                     int col = e.getX() / CELL_SIZE;
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
-                        gridColors[row][col] = Color.YELLOW;
+                        //gridColors[row][col] = Color.YELLOW;
+
+                        entitasok.add(new GombaTestView(null, new Mezo(col, row), null));
+
+
+
+
                         gridPanel.repaint();
                         System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                     }
@@ -310,15 +346,15 @@ public class GameWindow extends JFrame {
             loadBackgroundImage();
 
 
-            Font titleFont = new Font("Arial", Font.BOLD, 48); // Nagyobb cím
-            Font buttonFont = new Font("Arial", Font.BOLD, 16);
+            Font titleFont = new Font("Rockwell", Font.BOLD, 48); // Nagyobb cím
+            Font buttonFont = new Font("Rockwell", Font.BOLD, 16);
 
             titleLabel = new JLabel("FUNGÓRIUM", SwingConstants.CENTER);
             titleLabel.setFont(titleFont);
 
             JButton gombaszButton = new JButton("Gombász");
             gombaszButton.setFont(buttonFont);
-            JButton rovaraszButton = new JButton("Rovarasz");
+            JButton rovaraszButton = new JButton("Rovarász");
             rovaraszButton.setFont(buttonFont);
             loadGameButton = new JButton("Betöltés");
             loadGameButton.setFont(buttonFont);
@@ -370,7 +406,9 @@ public class GameWindow extends JFrame {
             // Bal oldal: Gombászok
             gbc.gridx = 0;
             gbc.gridwidth = 1;
-            add(new JLabel("Gombászok", SwingConstants.CENTER), gbc);
+            JLabel gombaszLabel  = new JLabel("Gombászok", SwingConstants.CENTER);
+            gombaszLabel.setFont(buttonFont);
+            add(gombaszLabel, gbc);
             gbc.gridy = 2;
             add(gombaszListScrollPane, gbc);
 
@@ -390,7 +428,9 @@ public class GameWindow extends JFrame {
             // Jobb oldal: Rovarászok
             gbc.gridx = 2;
             gbc.gridy = 1;
-            add(new JLabel("Rovarászok", SwingConstants.CENTER), gbc);
+            JLabel rovaraszokLabel = new JLabel("Rovarászok", SwingConstants.CENTER);
+            rovaraszokLabel.setFont(buttonFont);
+            add(rovaraszokLabel, gbc);
             gbc.gridy = 2;
             add(rovaraszListScrollPane, gbc);
 
@@ -416,7 +456,7 @@ public class GameWindow extends JFrame {
             addRovaraszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String playerName = JOptionPane.showInputDialog(MainMenu.this, "Rovarasz neve:", "Új Rovarasz", JOptionPane.PLAIN_MESSAGE);
+                    String playerName = JOptionPane.showInputDialog(MainMenu.this, "Rovarász neve:", "Új Rovarasz", JOptionPane.PLAIN_MESSAGE);
                     if (playerName != null && !playerName.trim().isEmpty()) {
                         Color color = generateRandomColor();
                         players.add(new Rovarasz(playerName, color));
@@ -468,8 +508,7 @@ public class GameWindow extends JFrame {
                     if (!players.isEmpty()) {
                         try {
                             System.out.println("Játék indítása...");
-                            jatekvezerlo.jatekosok = players;
-                            //jatekvezerlo.jatekKezdes();
+
                             // Az eredeti, működő GameBoard létrehozása
                             SwingUtilities.invokeLater(() -> {
                                 GameBoard gameBoard = new GameWindow.GameBoard(players);

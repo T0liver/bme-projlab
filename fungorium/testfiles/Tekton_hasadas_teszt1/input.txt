@@ -1,2 +1,0 @@
-/addtk 1
-has 1 

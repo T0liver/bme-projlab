@@ -1,5 +1,11 @@
 package bme;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.*;
+
 /**
  * EgyetlenFonalTekton osztály definíciója.
  *
@@ -24,6 +30,18 @@ public class EgyetlenFonalTekton extends Tekton {
     //}
     //super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
   //}
+
+  public EgyetlenFonalTekton() {
+    try {
+      img = ImageIO.read(new File("textures/EgyetlenFonal.jpg"));
+    } catch (IOException e) {
+      byte[] r = {0};
+      byte[] g = {(byte) 255};
+      byte[] b = {(byte) 255};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
+  }
   
   @Override
   public Tekton createTekton() {

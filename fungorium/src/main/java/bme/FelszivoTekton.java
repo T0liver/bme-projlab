@@ -1,7 +1,12 @@
 package bme;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import java.awt.image.*;
 
 /**
  * FelszivoTekton osztály definíciója.
@@ -28,11 +33,29 @@ public class FelszivoTekton extends Tekton {
   public FelszivoTekton(int ido) { // majd hardcoded is lehet
     hatralevoido = ido;
     maxido = ido;
+    try {
+      img = ImageIO.read(new File("textures/Felszivo.jpg"));
+    } catch (IOException e) {
+      byte[] r = {(byte)255};
+      byte[] g = {0};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
   }
 
   public FelszivoTekton() {
     hatralevoido = 2;
     maxido = 2;
+    try {
+      img = ImageIO.read(new File("textures/Felszivo.jpg"));
+    } catch (IOException e) {
+      byte[] r = {(byte)255};
+      byte[] g = {0};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
   }
 
   /**

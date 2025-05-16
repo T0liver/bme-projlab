@@ -2,8 +2,6 @@ package bme;
 
 import java.util.List;
 
-import static bme.Jatekvezerlo.init;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

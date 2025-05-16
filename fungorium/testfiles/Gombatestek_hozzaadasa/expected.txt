@@ -1,6 +1,0 @@
-new Gombasz (1)
-new Tekton (1)
-new GombaTest (2)
-GombaTest (2) tartózkodik: [ ] --> [Tekton(1)]
-new GombaTest (3)
-INSTRUCTION FAIL "/addgt 3 -tart 1 -a 1" (A tekton már foglalt, nem lehet új gombatestet rátenni!)

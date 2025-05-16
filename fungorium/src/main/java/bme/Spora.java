@@ -151,7 +151,7 @@ public class Spora implements Jatekelem {
    * A class adatait kiiro fuggveny.
    */
   public void printData() {
-    System.out.println("Normalis Spora\nElhelyezkedes: " + Jatekvezerlo.getIDof(tartozkodik) + "\ndb: " + darabszam
+    System.out.println("Normalis Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam
         + "\nTapanyagtartalom: " + tapanyagtartalom);
   }
 
