@@ -218,7 +218,6 @@ public class Jatekvezerlo implements Serializable {
         }
         korVege();
 
-        // Adjunk lehetőséget más szálaknak is futni
         Thread.sleep(1);
       }
     } catch (InterruptedException e) {
