@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -496,26 +497,50 @@ public class GameWindow extends JFrame {
             loadGameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Játék betöltése a gyökérmappából...");
+                    File mentesiMappa = new File("saves");
 
+                    // Ha a mappa nem létezik vagy üres
+                    if (!mentesiMappa.exists() || !mentesiMappa.isDirectory()) {
+                        JOptionPane.showMessageDialog(MainMenu.this, "Nincs elérhető mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Csak .dat fájlok listázása
+                    File[] mentettFajlok = mentesiMappa.listFiles((dir, name) -> name.endsWith(".dat"));
+
+                    if (mentettFajlok == null || mentettFajlok.length == 0) {
+                        JOptionPane.showMessageDialog(MainMenu.this, "Nem található mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Fájlnevek kilistázása
+                    String[] fajlNevek = Arrays.stream(mentettFajlok)
+                            .map(File::getName)
+                            .toArray(String[]::new);
+
+                    // Megjelenítjük a választó ablakot
+                    String kivalasztottFajl = (String) JOptionPane.showInputDialog(
+                            MainMenu.this,
+                            "Válassz egy mentést:",
+                            "Mentés betöltése",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            fajlNevek,
+                            fajlNevek[0]);
+
+                    // Ha nem választott semmit (cancel)
+                    if (kivalasztottFajl == null) {
+                        return;
+                    }
+
+                    // Kiválasztott mentés betöltése
                     try {
-                        // Gyökérmappában lévő mentés betöltése
-                        File file = new File("saves/save.dat");
-                        if (!file.exists()) {
-                            JOptionPane.showMessageDialog(MainMenu.this,
-                                    "Nincs mentett állás (save.dat) a gyökérmappában!",
-                                    "Hiba",
-                                    JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-
-                        // Objektum deszerializálása
+                        File file = new File("saves", kivalasztottFajl);
                         FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
                         Jatekvezerlo betoltottJatek = (Jatekvezerlo) ois.readObject();
                         ois.close();
 
-                        // GameBoard elindítása a betöltött játékosokkal
                         List<Jatekos> betoltottJatekosok = betoltottJatek.getJatekosok();
 
                         SwingUtilities.invokeLater(() -> {
