@@ -5,13 +5,19 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class GameWindow extends JFrame {
+
+    public static final int CELL_SIZE = 15;
+    public static final int GRID_SIZE = 50;
 
     private int screenWidth = 960;
     private int screenHeight = 720;
@@ -22,13 +28,17 @@ public class GameWindow extends JFrame {
     private Jatekvezerlo jatekvezerlo;
     private JatekvezerloView jatekvezerloView;
     private JatekosMenuView jelenlegiJatekosMenu;
-    private List<EntitasView> entitasok;
+    private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
     /**
      * Konstruktor, amely inicializálja az ablakot és a főmenüt.
      */
+
+
     public GameWindow() {
+
+
         setTitle("Fungorium");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(screenWidth, screenHeight);
@@ -66,7 +76,7 @@ public class GameWindow extends JFrame {
      * Játék kirajzolása (jövőbeli implementációhoz).
      */
     private void renderGame() {
-        // TODO: Játék kirajzolása
+
     }
 
     /**
@@ -74,8 +84,15 @@ public class GameWindow extends JFrame {
      *
      * @param entitasView az entitás nézete, amelyet meg kell jeleníteni
      */
-    public void drawSprite(EntitasView entitasView) {
-        // TODO: Sprite kirajzolása
+    public void drawSprite(EntitasView entitasView, Graphics g) {
+
+        BufferedImage image = entitasView.getKinezet();
+        int x = (entitasView.mezo.getPos().get(0)) * CELL_SIZE;
+        int y = (GRID_SIZE - entitasView.mezo.getPos().get(1)) * CELL_SIZE;
+
+        if (image != null) {
+            g.drawImage(image, x, y, CELL_SIZE, CELL_SIZE, null);
+        }
     }
 
     /**
@@ -91,8 +108,8 @@ public class GameWindow extends JFrame {
      * @param players A játékban résztvevő játékosok listája
      */
     private void createGamePanel(List<Jatekos> players) {
-        final int GRID_SIZE = 50;
-        final int CELL_SIZE = 15;
+
+
         final Color[][] gridColors = new Color[GRID_SIZE][GRID_SIZE];
 
         for (int i = 0; i < GRID_SIZE; i++) {
@@ -129,7 +146,16 @@ public class GameWindow extends JFrame {
                 int row = e.getY() / CELL_SIZE;
                 int col = e.getX() / CELL_SIZE;
                 if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
-                    gridColors[row][col] = Color.YELLOW;
+
+
+                    //Mezo Mezo;
+                    //EntitasView ev = new GombaTestView(null, Mezo  = new Mezo(0,0), null);
+
+                    //drawSprite(ev);
+
+
+
+
                     gridPanel.repaint();
                     System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                 }
@@ -166,7 +192,7 @@ public class GameWindow extends JFrame {
      */
     class GameBoard extends JFrame {
         private static final int GRID_SIZE = 50;
-        private static final int CELL_SIZE = 15;
+
         private List<Jatekos> players;
         private JPanel gridPanel;
         private Color[][] gridColors;
@@ -204,6 +230,18 @@ public class GameWindow extends JFrame {
                             g.drawRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         }
                     }
+                    //EntitasView e = new GombaTestView(null, new Mezo(1,1), null);
+
+
+                    if (entitasok != null) {
+                        for (EntitasView e : entitasok) {
+                            //drawSprite(e, g);
+                        }
+                    }
+
+
+
+
                 }
             };
 
@@ -213,10 +251,16 @@ public class GameWindow extends JFrame {
             gridPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int row = e.getY() / CELL_SIZE;
+                    int row = GRID_SIZE - e.getY() / CELL_SIZE;
                     int col = e.getX() / CELL_SIZE;
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
                         gridColors[row][col] = Color.YELLOW;
+
+                        entitasok.add(new GombaTestView(null, new Mezo(col, row), null));
+
+
+
+
                         gridPanel.repaint();
                         System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                     }

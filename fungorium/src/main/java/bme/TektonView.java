@@ -1,15 +1,16 @@
 package bme;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class TektonView extends EntitasView{
 
-    public TektonView(Object entitas, int mexoX, int mexoY, Jatekos jatekos, BufferedImage kinezet) {
-        super(entitas, mexoX, mexoY, jatekos, kinezet);
+    public TektonView(Object entitas, Mezo mezo, Jatekos jatekos) {
+        super(entitas, mezo, jatekos);
     }
 
     @Override
-    public void draw(GameWindow gw){
+    public void draw(GameWindow gw, Graphics g){
 
     }
 
