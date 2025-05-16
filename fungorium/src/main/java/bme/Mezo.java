@@ -7,6 +7,7 @@ public class Mezo {
     private int x, y;
     public Tekton tartozik;
     public List<GombaFonal> fonalak = new ArrayList<>();
+    Terkep terkep;
     public Mezo(int _x, int _y) {x = _x; y = _y;}
     int milyenSzomszed(Mezo m) {
         List<Integer> mpos = m.getPos();
@@ -72,5 +73,19 @@ public class Mezo {
               fonalak.add(melyik);
               // melyik.athidal(this); //ez kérdőjeles
             }
+          }
+
+          void setTerkep(Terkep t) {
+            terkep = t;
+          }
+
+          List<Mezo> getSzomszedok() {
+            List<Mezo> ret = new ArrayList<>();
+            for (int i = 0; i < terkep.getMezok().size(); ++i) {
+              if (Math.abs(terkep.getMezok().get(i).getPos().get(0) - x) < 2 && Math.abs(terkep.getMezok().get(i).getPos().get(1) - y) < 2) {
+                ret.add(terkep.getMezok().get(i));
+              }
+            }
+            return ret;
           }
 }
