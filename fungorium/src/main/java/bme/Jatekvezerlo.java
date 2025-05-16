@@ -27,6 +27,9 @@ public class Jatekvezerlo {
   /** Engedélyezve van-e a random */
   private boolean random;
 
+  /** A játék térképje */
+  private Terkep terkep;
+
   /** Felvett random osztály */
   @SuppressWarnings("unused")
   private Random r;
@@ -39,6 +42,7 @@ public class Jatekvezerlo {
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
+    terkep = new Terkep();
   }
 
   /**
@@ -52,7 +56,7 @@ public class Jatekvezerlo {
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
-
+    terkep = new Terkep();
   }
 
   public Jatekvezerlo(List<Jatekos> jatekosok, int jatekHossz, boolean random) {
@@ -65,6 +69,7 @@ public class Jatekvezerlo {
     jelenlegiKor = 0;
     tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
+    terkep =  new Terkep();
   }
 
   /**
@@ -113,6 +118,14 @@ public class Jatekvezerlo {
    */
   public boolean getRandom() {
     return random;
+  }
+
+  /**
+   * Publikus getter a térképre.
+   * @return a játék térképe
+   */
+  public Terkep getTerkep() {
+    return terkep;
   }
 
   /**

@@ -68,4 +68,12 @@ public class TerkepView {
         }
         return null;
     }
+
+    /**
+     * Térkép inicializálása szolgáló függvény
+     * @return true, ha sikerült inicializálni a térképet; false, ha nem
+     */
+    public boolean init() {
+        return false;
+    }
 }
