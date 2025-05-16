@@ -148,7 +148,9 @@ public class Rovar implements Jatekelem {
   public void mozog(Mezo mezo) {
     for (GombaFonal gf : tartozkodik.fonalak) {
       if (gf.getVezet(tartozkodik, mezo)) {
+        tartozkodik.getTekton().removeRovar(this);
         tartozkodik = mezo;
+        mezo.getTekton().addRovar(this);
         return;
       }
     }
@@ -205,5 +207,13 @@ public class Rovar implements Jatekelem {
         vaghat = true;
       }
     }
+  }
+
+  /**
+   * Függvény, ami megadja, hogy a rovar bénult állapotban van-e
+   * @return true, ha a rovar bénult; false, ha nem
+   */
+  public boolean isBenult() {
+    return (!vaghat && sebesseg == 0);
   }
 }

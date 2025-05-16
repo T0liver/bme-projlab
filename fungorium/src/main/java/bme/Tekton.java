@@ -54,6 +54,8 @@ public class Tekton implements Jatekelem {
 
   protected List<Mezo> mezok;
 
+  protected List<Rovar> rovarok;
+
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    */
@@ -63,6 +65,7 @@ public class Tekton implements Jatekelem {
     sporak = new ArrayList<>();
     fonalak = new ArrayList<>();
     mezok = new ArrayList<>();
+    rovarok = new ArrayList<>();
     try {
       img = ImageIO.read(new File("textures/Normalis.jpg"));
     } catch (IOException e) {
@@ -80,6 +83,14 @@ public class Tekton implements Jatekelem {
 
   public void addMezo(Mezo m) {
     if (!mezok.contains(m)) mezok.add(m);
+  }
+
+  public void addRovar(Rovar r) {
+    if (!rovarok.contains(r)) rovarok.add(r);
+  }
+
+  public void removeRovar(Rovar r) {
+    if (rovarok.contains(r)) rovarok.remove(r);
   }
 
   public List<Mezo> getMezok() { return mezok; }
@@ -361,21 +372,12 @@ public class Tekton implements Jatekelem {
    * @return hogy a spóra felhasználása sikeres volt-e (volt e elég)
    */
   public boolean sporatFelhasznal(Spora mit) {
-    /*
-    * Ez itt mit akar csinálni? Miért tér vissza ez a függvény true-val,
-    * ha a tektonon van egy játékosnak, ami rovarász, egy rovarja, ami nem vághat, és nem mozoghat?
-    * Ez megtévesztő, hiszen ilyenkor nem használódik el spóra, mert nem csökken a spórák száma, ugyannakkor true-val tér vissza.
-    for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
-      if (jatekosok.get(i).getType() == 1) {
-        for (int e = 0; e < jatekosok.get(i).getRovarok().size(); ++i) {
-          if (jatekosok.get(i).getRovarok().get(e).getTartozkodik().getTekton() == this
-              && jatekosok.get(i).getRovarok().get(e).getVaghat() == false
-              && jatekosok.get(i).getRovarok().get(e).getSebesseg() == 0)
-            return true;
-        }
+    for (Rovar rovar : rovarok) {
+      if (rovar.isBenult()) {
+        return true;
       }
     }
-    */
+
     return sporak.contains(mit) && mit.csokken(10) == mit.getTapanyag() * 10;
   }
 
