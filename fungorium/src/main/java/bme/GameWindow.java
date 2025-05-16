@@ -139,21 +139,6 @@ public class GameWindow extends JFrame {
         // Billentyűzet események kezelése
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();
-        gamePanel.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                char keyChar = e.getKeyChar();
-                System.out.println("Billentyű lenyomva: " + keyChar);
-                if (keyChar == 'r') {
-                    for (int i = 0; i < GRID_SIZE; i++) {
-                        for (int j = 0; j < GRID_SIZE; j++) {
-                            gridColors[i][j] = Color.LIGHT_GRAY;
-                        }
-                    }
-                    gridPanel.repaint();
-                }
-            }
-        });
 
         // Vissza gomb a főmenübe
         JButton backToMainMenuButton = new JButton("Vissza a főmenübe");
