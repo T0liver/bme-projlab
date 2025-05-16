@@ -573,25 +573,31 @@ public class GameWindow extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!players.isEmpty()) {
                         try {
-                            jatekvezerlo.setJatekosok(players);
-                            /*
-                            for(Jatekos j : jatekvezerlo.getJatekosok()) {
-                                System.out.println(j.getNev());
-                            }
-                            jatekvezerlo.jatekKezdes();
-
-                             */
-
-
-
-                            // Az eredeti, működő GameBoard létrehozása
+                            // Először létrehozzuk és megjelenítjük a GameBoard-ot
                             SwingUtilities.invokeLater(() -> {
                                 GameBoard gameBoard = new GameWindow.GameBoard(players);
                                 gameBoard.setVisible(true);
+                                parent.dispose(); // Főablak bezárása
                             });
 
-                            // Főablak bezárása
-                            parent.dispose();
+                            // Külön szálon indítjuk a játéklogikát
+                            Thread gameThread = new Thread(() -> {
+                                try {
+                                    jatekvezerlo.setJatekosok(players);
+                                    jatekvezerlo.jatekKezdes();
+
+
+
+                                } catch (Exception ex) {
+                                    SwingUtilities.invokeLater(() -> {
+                                        JOptionPane.showMessageDialog(MainMenu.this,
+                                                "Hiba történt a játék futtatásakor: " + ex.getMessage(),
+                                                "Hiba",
+                                                JOptionPane.ERROR_MESSAGE);
+                                    });
+                                }
+                            });
+                            gameThread.start();
 
                         } catch (Exception ex) {
                             System.err.println("Hiba a játék indításakor: " + ex.getMessage());
@@ -609,6 +615,7 @@ public class GameWindow extends JFrame {
                     }
                 }
             });
+
 
             exitButton.addActionListener(new ActionListener() {
                 @Override

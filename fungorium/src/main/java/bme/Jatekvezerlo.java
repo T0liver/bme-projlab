@@ -210,13 +210,22 @@ public class Jatekvezerlo implements Serializable {
     if (init()) {
       return;
     }
-    for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
-      if (korMenete()) {
-        return;
+
+    try {
+      for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
+        if (korMenete()) {
+          return;
+        }
+        korVege();
+
+        // Adjunk lehetőséget más szálaknak is futni
+        Thread.sleep(1);
       }
-      korVege();
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
   }
+
 
   /**
    * Játékos hozzáadása a nyilvántartáshoz.
