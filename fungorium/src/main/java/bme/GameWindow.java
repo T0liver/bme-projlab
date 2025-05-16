@@ -65,8 +65,8 @@ public class GameWindow extends JFrame {
         jatekvezerlo = new Jatekvezerlo();
         jatekvezerloView = new JatekvezerloView(jatekvezerlo);
 
-        jelenlegiJatekosMenu = new JatekosMenu(null);
-        jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
+        //jelenlegiJatekosMenu = new JatekosMenu(null);
+        //jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
 
         setVisible(true);
     }
