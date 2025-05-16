@@ -51,13 +51,17 @@ public class GameWindow extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+
+        jatekvezerlo = new Jatekvezerlo();
+        jatekvezerloView = new JatekvezerloView(jatekvezerlo);
+
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        jatekvezerlo = new Jatekvezerlo();
+        gamePanel = new JPanel();
 
         MainMenu mainMenu = new MainMenu(this, jatekvezerlo.getJatekosok());
-        gamePanel = new JPanel(); // Placeholder
+
 
         mainPanel.add(mainMenu, "MainMenu");
         mainPanel.add(gamePanel, "Game");
@@ -65,8 +69,7 @@ public class GameWindow extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
         cardLayout.show(mainPanel, "MainMenu");
 
-        jatekvezerlo = new Jatekvezerlo();
-        jatekvezerloView = new JatekvezerloView(jatekvezerlo);
+
 
         //jelenlegiJatekosMenu = new JatekosMenu(null);
         //jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
@@ -570,8 +573,16 @@ public class GameWindow extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!players.isEmpty()) {
                         try {
-
+                            jatekvezerlo.setJatekosok(players);
+                            /*
+                            for(Jatekos j : jatekvezerlo.getJatekosok()) {
+                                System.out.println(j.getNev());
+                            }
                             jatekvezerlo.jatekKezdes();
+
+                             */
+
+
 
                             // Az eredeti, működő GameBoard létrehozása
                             SwingUtilities.invokeLater(() -> {

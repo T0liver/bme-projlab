@@ -98,6 +98,15 @@ public class Jatekvezerlo implements Serializable {
     return jatekosok;
   }
 
+
+  /**
+   * publikus setter a jatekosok listara.
+   * @param jatekosok listát kell megadni paraméterként.
+   */
+  public void setJatekosok(List<Jatekos> jatekosok) {
+    this.jatekosok = jatekosok;
+  }
+
   /**
    * Publikus getter a jelenlegi játékosra.
    * @return a jelenlegi játékos száma
