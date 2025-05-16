@@ -263,7 +263,7 @@ public class GameWindow extends JFrame {
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
                         //gridColors[row][col] = Color.YELLOW;
 
-                        entitasok.add(new GombaTestView(null, new Mezo(col, row), jatekvezerlo.getSoronLevoJatekos()));
+                        entitasok.add(new RovarView(null, new Mezo(col, row), jatekvezerlo.getSoronLevoJatekos()));
 
 
 

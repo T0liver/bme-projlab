@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class EntitasView {
     private Object entitas;
-    public Mezo mezo;
+    protected Mezo mezo;
     protected Jatekos jatekos;
     protected BufferedImage kinezet;
 

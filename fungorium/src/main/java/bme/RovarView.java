@@ -2,12 +2,13 @@ package bme;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class RovarView extends EntitasView{
 
-    public RovarView(Object entitas, Mezo mezo, Jatekos jatekos) {
+    public RovarView(Rovar entitas, Mezo mezo, Jatekos jatekos) {
         super(entitas, mezo, jatekos);
         try {
             kinezet = ImageIO.read(new File("textures/Rovar.png"));
@@ -19,6 +20,18 @@ public class RovarView extends EntitasView{
 
     @Override
     public void draw(GameWindow gw, Graphics g){
-        gw.drawSprite(this, g);
+        Color jszin = jatekos.getSzin();
+        BufferedImage image = color(kinezet, jszin);
+        kinezet = image;
+
+        try {
+            Rovar rov = new Rovar((Rovarasz) jatekos, mezo);
+            jatekos.addRovar(rov);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
