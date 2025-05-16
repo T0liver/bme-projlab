@@ -96,7 +96,7 @@ public class GameWindow extends JFrame {
 
         BufferedImage image = entitasView.getKinezet();
         int x = (entitasView.mezo.getPos().get(0)) * CELL_SIZE;
-        int y = (GRID_SIZE - entitasView.mezo.getPos().get(1)) * CELL_SIZE;
+        int y = (entitasView.mezo.getPos().get(1)) * CELL_SIZE;
 
         if (image != null) {
             g.drawImage(image, x, y, CELL_SIZE, CELL_SIZE, null);
@@ -259,7 +259,7 @@ public class GameWindow extends JFrame {
             gridPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    int row = GRID_SIZE - e.getY() / CELL_SIZE;
+                    int row = e.getY() / CELL_SIZE;
                     int col = e.getX() / CELL_SIZE;
                     if (row >= 0 && row < GRID_SIZE && col >= 0 && col < GRID_SIZE) {
                         //gridColors[row][col] = Color.YELLOW;
