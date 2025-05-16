@@ -56,6 +56,8 @@ public class Tekton implements Jatekelem {
 
   protected List<Rovar> rovarok;
 
+  protected Terkep terkep;
+
   /**
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    */
@@ -75,6 +77,10 @@ public class Tekton implements Jatekelem {
       img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
       e.printStackTrace();
     }
+  }
+
+  public void setTerkep(Terkep t) {
+    terkep = t;
   }
 
   public BufferedImage getImage() {
@@ -164,42 +170,43 @@ public class Tekton implements Jatekelem {
    *
    * @return lista, aminek tartalma: a két új létrejött tekton, vagy önmaga, ha
    *         nem tudott hasadni
-   *
+   */
   public List<Tekton> hasad() {
   // TODO: tekton hasadás
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
-      System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikertelenül hasadni próbált.");
-      //printData();
       return ret;
     }
-    System.out.println("Tekton ID: " + Jatekvezerlo.getIDof(this) + " sikeresen hasadni próbált.\nÚj tektonok:");
     Tekton t1 = createTekton();
     Tekton t2 = createTekton();
-    for (int i = 0; i < fonalak.size(); ++i) {
-      for (int e = 0; e < szomszedok.size(); ++e) {
-        if (e <= szomszedok.size() / 2) { // ez a rész majd grafikusan más lesz
-          t1.addSzomszed(szomszedok.get(e));
-        } else {
-          t2.addSzomszed(szomszedok.get(e));
+    for (int i = 0; i < mezok.size(); ++i) {
+      for (int e = 0; e < terkep.getMezok().size(); ++e) {
+        for (int f = 0; f < mezok.get(i).getFonalak().size(); ++f) {
+          mezok.get(i).getFonalak().get(f).elvagodik(mezok.get(i), terkep.getMezok().get(e));
         }
-        fonalak.get(i).elvagodik(this, szomszedok.get(e));
       }
     }
-    for (int i = 0; i < Jatekvezerlo.jatekosok.size(); ++i) {
-      if (Jatekvezerlo.jatekosok.get(i).getType() == 1) {
-        for (int e = 0; e < Jatekvezerlo.jatekosok.get(i).getRovarok().size(); ++e) {
-          if (Jatekvezerlo.jatekosok.get(i).getRovarok().get(e).getTartozkodik() == this)
-            Jatekvezerlo.jatekosok.get(i).getRovarok().get(e).setTartozkodik(t1);
-        }
-      }
+    boolean yAxis = r.nextBoolean();
+    int miny = mezok.get(0).getPos().get(1);
+    int maxy = mezok.get(0).getPos().get(1);
+    int minx = mezok.get(0).getPos().get(0);
+    int maxx = mezok.get(0).getPos().get(0);
+    for (int i = 1; i < mezok.size(); ++i) {
+      List<Integer> pos = mezok.get(i).getPos();
+      if (pos.get(1) < miny) miny = pos.get(1);
+      if (pos.get(1) > maxy) maxy = pos.get(1);
+      if (pos.get(1) < minx) minx = pos.get(0);
+      if (pos.get(1) > maxx) maxx = pos.get(0);
+    }
+    if (yAxis) { //TODO SPLIT
+    } else {
     }
     t1.addSzomszed(t2);
     ret.add(t1);
     ret.add(t2);
     return ret;
-  }*/
+  }
 
   public Tekton createTekton() {
     return new Tekton();
@@ -413,4 +420,41 @@ public class Tekton implements Jatekelem {
   public void tick() {}
 
   public void removeSpora(Spora s) {sporak.remove(s);}
+
+  public void collectSzomszedok() {
+    szomszedok.clear();
+    List<Mezo> osszes = terkep.getMezok();
+    for (int i = 0; i < osszes.size(); ++i) {
+      for (int e = 0; e < mezok.size(); ++i) {
+        if (mezok.get(e).milyenSzomszed(osszes.get(i)) > 2)
+          szomszedok.add(osszes.get(i).getTekton());
+      }
+    }
+  }
+
+  public List<List<Mezo>> getOsszefuggo() {
+      List<List<Mezo>> ret = new ArrayList<>();
+      List<Mezo> talalt = new ArrayList<>();
+      List<Mezo> csoport = new ArrayList<>();
+      while (talalt.size() < mezok.size()) {
+        csoport.clear();
+        for (int i = 0; i < mezok.size(); ++i) {
+          if (!talalt.contains(mezok.get(i))) {
+            csoport.add(mezok.get(i));
+            break;
+          }
+        }
+        for (int i = 0; i < mezok.size(); ++i) {
+          for (int e = 0; e < csoport.size(); ++i) {
+            if (!talalt.contains(mezok.get(i)) && !csoport.contains(mezok.get(e)) && csoport.get(e).milyenSzomszed(mezok.get(i)) > 2) {
+              csoport.add(mezok.get(i));
+              break;
+            }
+          }
+        }
+        talalt.addAll(csoport);
+        ret.add(csoport);
+      }
+      return ret;
+  }
 }

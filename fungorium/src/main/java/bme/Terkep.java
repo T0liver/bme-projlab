@@ -16,4 +16,9 @@ public class Terkep {
     public List<Mezo> getMezok() { return mezok; }
     public Mezo getActiveMezo() { return activeMezo; }
     public void setActiveMezo(Mezo m) { activeMezo = m; }
+    public void init() {
+        tektonok.clear();
+        mezok.clear();
+        activeMezo = null;
+    }
 }
