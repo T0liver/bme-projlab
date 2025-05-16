@@ -172,7 +172,7 @@ public class Tekton implements Jatekelem {
    *         nem tudott hasadni
    */
   public List<Tekton> hasad() {
-  // TODO: tekton hasadás
+  // TODO: rovar tartózkodását megtartani, gombatest van nem lehet hasadni, fonalak elvágódnak, spórák eltűnnek (vagy a sporatFelhasznalban az összes mezőt megvizsgálni, hogy van-e rajta olyan rovar a tekton vizsgálata helyett)
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
@@ -199,12 +199,39 @@ public class Tekton implements Jatekelem {
       if (pos.get(1) < minx) minx = pos.get(0);
       if (pos.get(1) > maxx) maxx = pos.get(0);
     }
-    if (yAxis) { //TODO SPLIT
+    List<Mezo> elso = new ArrayList<>(); List<Mezo> masodik = new ArrayList<>();
+    int split;
+    if (yAxis) {
+      split = r.nextInt(miny, maxy);
+      for (int i = 0; i < mezok.size(); ++i) {
+        if (mezok.get(i).getPos().get(1) <= split) {
+          elso.add(mezok.get(i));
+        } else {
+          masodik.add(mezok.get(i));
+        }
+      }
     } else {
+      split = r.nextInt(minx, maxx);
+      for (int i = 0; i < mezok.size(); ++i) {
+        if (mezok.get(i).getPos().get(0) <= split) {
+          elso.add(mezok.get(i));
+        } else {
+          masodik.add(mezok.get(i));
+        }
+      }
     }
-    t1.addSzomszed(t2);
-    ret.add(t1);
-    ret.add(t2);
+    for (int i = 0; i < elso.size(); ++i) t1.addMezo(elso.get(i));
+    for (int i = 0; i < masodik.size(); ++i) t2.addMezo(masodik.get(i));
+    List<List<Mezo>> szigetek = new ArrayList<>();
+    szigetek.addAll(t1.getOsszefuggo());
+    szigetek.addAll(t2.getOsszefuggo());
+    for (int i = 0; i < szigetek.size(); ++i) {
+      ret.add(createTekton());
+      for (int e = 0; e < szigetek.get(i).size(); ++e) {
+        ret.get(i).addMezo(szigetek.get(i).get(e));
+      }
+    }
+    for (int i = 0; i < ret.size(); ++i) ret.get(i).collectSzomszedok();
     return ret;
   }
 
