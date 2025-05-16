@@ -311,15 +311,15 @@ public class GameWindow extends JFrame {
             loadBackgroundImage();
 
 
-            Font titleFont = new Font("Arial", Font.BOLD, 48); // Nagyobb cím
-            Font buttonFont = new Font("Arial", Font.BOLD, 16);
+            Font titleFont = new Font("Rockwell", Font.BOLD, 48); // Nagyobb cím
+            Font buttonFont = new Font("Rockwell", Font.BOLD, 16);
 
             titleLabel = new JLabel("FUNGÓRIUM", SwingConstants.CENTER);
             titleLabel.setFont(titleFont);
 
             JButton gombaszButton = new JButton("Gombász");
             gombaszButton.setFont(buttonFont);
-            JButton rovaraszButton = new JButton("Rovarasz");
+            JButton rovaraszButton = new JButton("Rovarász");
             rovaraszButton.setFont(buttonFont);
             loadGameButton = new JButton("Betöltés");
             loadGameButton.setFont(buttonFont);
@@ -371,7 +371,9 @@ public class GameWindow extends JFrame {
             // Bal oldal: Gombászok
             gbc.gridx = 0;
             gbc.gridwidth = 1;
-            add(new JLabel("Gombászok", SwingConstants.CENTER), gbc);
+            JLabel gombaszLabel  = new JLabel("Gombászok", SwingConstants.CENTER);
+            gombaszLabel.setFont(buttonFont);
+            add(gombaszLabel, gbc);
             gbc.gridy = 2;
             add(gombaszListScrollPane, gbc);
 
@@ -391,7 +393,9 @@ public class GameWindow extends JFrame {
             // Jobb oldal: Rovarászok
             gbc.gridx = 2;
             gbc.gridy = 1;
-            add(new JLabel("Rovarászok", SwingConstants.CENTER), gbc);
+            JLabel rovaraszokLabel = new JLabel("Rovarászok", SwingConstants.CENTER);
+            rovaraszokLabel.setFont(buttonFont);
+            add(rovaraszokLabel, gbc);
             gbc.gridy = 2;
             add(rovaraszListScrollPane, gbc);
 
@@ -417,7 +421,7 @@ public class GameWindow extends JFrame {
             addRovaraszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String playerName = JOptionPane.showInputDialog(MainMenu.this, "Rovarasz neve:", "Új Rovarasz", JOptionPane.PLAIN_MESSAGE);
+                    String playerName = JOptionPane.showInputDialog(MainMenu.this, "Rovarász neve:", "Új Rovarasz", JOptionPane.PLAIN_MESSAGE);
                     if (playerName != null && !playerName.trim().isEmpty()) {
                         Color color = generateRandomColor();
                         players.add(new Rovarasz(playerName, color));
