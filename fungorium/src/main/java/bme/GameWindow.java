@@ -319,30 +319,69 @@ public class GameWindow extends JFrame {
 
 
 
-
+    /**
+     * A játék főmenüjét megjelenítő panel.
+     * Itt lehet új játékosokat hozzáadni, eltávolítani, játékot indítani vagy mentést betölteni.
+     */
     class MainMenu extends JPanel {
+        /** Gombász hozzáadására szolgáló gomb. */
         private JButton addGombaszButton;
+
+        /** Rovarász hozzáadására szolgáló gomb. */
         private JButton addRovaraszButton;
+
+        /** Korábbi játék betöltésére szolgáló gomb. */
         private JButton loadGameButton;
+
+        /** Alkalmazás bezárására szolgáló gomb. */
         private JButton exitButton;
+
+        /** Játék indítására szolgáló gomb. */
         private JButton startGameButton;
+
+        /** A gombász játékosokat tartalmazó lista modellje. */
         private DefaultListModel<PlayerDisplayData> gombaszListModel;
+
+        /** A gombász játékosokat megjelenítő lista. */
         private JList<PlayerDisplayData> gombaszList;
+
+        /** Gombász eltávolítására szolgáló gomb. */
         private JButton removeGombaszButton;
+
+        /** A rovarász játékosokat tartalmazó lista modellje. */
         private DefaultListModel<PlayerDisplayData> rovaraszListModel;
+
+        /** A rovarász játékosokat megjelenítő lista. */
         private JList<PlayerDisplayData> rovaraszList;
+
+        /** Rovarász eltávolítására szolgáló gomb. */
         private JButton removeRovaraszButton;
+
+        /** A játékosokat tároló lista. */
         public List<Jatekos> players;
+
+        /** A szülő ablak, amely tartalmazza ezt a menüt. */
         private GameWindow parent;
+
+        /** A főcím felirat. */
         private JLabel titleLabel;
 
-
+        /** Háttérkép a menühöz. */
         private Image backgroundImage;
 
 
+
+        /**
+         * Konstruktor, amely létrehozza és inicializálja a főmenü komponenseit.
+         *
+         * @param parent  A szülő ablak, amely ezt a menüt tartalmazza.
+         * @param players A játékosok listája.
+         */
         public MainMenu(GameWindow parent, List<Jatekos> players) {
             this.parent = parent;
             this.players = players;
+
+            // Elrendezés beállítása
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(5, 5, 5, 5);
@@ -350,15 +389,20 @@ public class GameWindow extends JFrame {
             gbc.weightx = 0.5;
             gbc.weighty = 0.5;
 
+
+            // Háttérkép betöltése
             loadBackgroundImage();
 
 
+            // Betűtípusok beállítása
             Font titleFont = new Font("Rockwell", Font.BOLD, 48); // Nagyobb cím
             Font buttonFont = new Font("Rockwell", Font.BOLD, 16);
 
+            // Cím létrehozása
             titleLabel = new JLabel("FUNGÓRIUM", SwingConstants.CENTER);
             titleLabel.setFont(titleFont);
 
+            // Gombok létrehozása
             JButton gombaszButton = new JButton("Gombász");
             gombaszButton.setFont(buttonFont);
             JButton rovaraszButton = new JButton("Rovarász");
@@ -370,6 +414,9 @@ public class GameWindow extends JFrame {
             startGameButton = new JButton("Játék indítása");
             startGameButton.setFont(buttonFont);
 
+
+
+            // Listamodellek és listák létrehozása
             gombaszListModel = new DefaultListModel<>();
             gombaszList = new JList<>(gombaszListModel);
             JScrollPane gombaszListScrollPane = new JScrollPane(gombaszList);
@@ -380,6 +427,7 @@ public class GameWindow extends JFrame {
             JScrollPane rovaraszListScrollPane = new JScrollPane(rovaraszList);
             rovaraszListScrollPane.setPreferredSize(new Dimension(150, 80)); // Kisebb magasság
 
+            // Gombok hozzáadása/eltávolítása
             removeGombaszButton = new JButton("-");
             removeGombaszButton.setPreferredSize(new Dimension(50, 50));
             addGombaszButton = new JButton("+");
@@ -389,6 +437,7 @@ public class GameWindow extends JFrame {
             addRovaraszButton = new JButton("+");
             addRovaraszButton.setPreferredSize(new Dimension(50, 50));
 
+            // Vezérlőpanelek létrehozása
             JPanel gombaszControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
             gombaszControlPanel.add(removeGombaszButton);
             gombaszControlPanel.add(gombaszButton);
@@ -443,11 +492,11 @@ public class GameWindow extends JFrame {
 
             updatePlayerLists();
 
-
-
-
-
-
+            /**
+            * Gombász hozzáadása gombra kattintás eseménykezelője.
+            * Bekéri a felhasználótól a játékos nevét, létrehoz egy új Gombasz példányt véletlenszerű színnel,
+            * majd hozzáadja a játékosok listájához, és frissíti a megjelenített listát.
+            */
             addGombaszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -460,6 +509,11 @@ public class GameWindow extends JFrame {
                 }
             });
 
+            /**
+            * Rovarász hozzáadása gombra kattintás eseménykezelője.
+            * Bekéri a felhasználótól a játékos nevét, létrehoz egy új Rovarasz példányt véletlenszerű színnel,
+            * majd hozzáadja a játékosok listájához, és frissíti a megjelenített listát.
+            */
             addRovaraszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -472,6 +526,10 @@ public class GameWindow extends JFrame {
                 }
             });
 
+            /**
+            * Gombász eltávolítása gombra kattintás eseménykezelője.
+            * Megkeresi az első Gombasz típusú játékost, eltávolítja a listából, majd frissíti a listanézetet.
+            */
             removeGombaszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -485,6 +543,10 @@ public class GameWindow extends JFrame {
                 }
             });
 
+            /**
+             * Rovarász eltávolítása gombra kattintás eseménykezelője.
+             * Megkeresi az első Rovarasz típusú játékost, eltávolítja a listából, majd frissíti a listanézetet.
+             */
             removeRovaraszButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -498,6 +560,11 @@ public class GameWindow extends JFrame {
                 }
             });
 
+            /**
+            * Mentés betöltése gombra kattintás eseménykezelője.
+            * Megnyitja a mentések mappát, listázza a .dat kiterjesztésű fájlokat, lehetővé teszi a kiválasztást,
+            * majd betölti a kiválasztott mentést. Sikeres betöltés esetén megnyitja a játéktáblát.
+            */
             loadGameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -565,8 +632,10 @@ public class GameWindow extends JFrame {
             });
 
             /**
-             * A játék indítását kezelő eseménykezelő
-             */
+             * A játék indítását kezelő eseménykezelő.
+            * Létrehozza a játéktáblát (GameBoard), bezárja a főmenüt, majd külön szálon elindítja a játéklogikát.
+            * Ha nincs játékos hozzáadva, figyelmeztetést jelenít meg.
+            */
             startGameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -584,9 +653,6 @@ public class GameWindow extends JFrame {
                                 try {
                                     jatekvezerlo.setJatekosok(players);
                                     jatekvezerlo.jatekKezdes();
-
-
-
                                 } catch (Exception ex) {
                                     SwingUtilities.invokeLater(() -> {
                                         JOptionPane.showMessageDialog(MainMenu.this,
@@ -615,7 +681,10 @@ public class GameWindow extends JFrame {
                 }
             });
 
-
+            /**
+            * Kilépés gombra kattintás eseménykezelője.
+            * Bezárja a főablakot (parent.dispose()).
+            */
             exitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -623,11 +692,16 @@ public class GameWindow extends JFrame {
                 }
             });
 
+        /**
+        * A komponens átlátszóvá tétele.
+        */
             setOpaque(false);
 
-
-
+            /**
+            * Az összes komponens átlátszóvá tétele rekurzívan.
+             */
             makeComponentsTransparent(this);
+
 
 
 
@@ -725,7 +799,16 @@ public class GameWindow extends JFrame {
 
 
 
-    private void updatePlayerLists() {
+        /**
+         * Frissíti a gombászok és rovarászok listáját a meglévő játékosok alapján.
+         * <p>
+         * A játékosokat különválasztja típus szerint ({@code Gombasz} vagy {@code Rovarasz}),
+         * és a megfelelő {@code DefaultListModel}-hez hozzáadja őket {@code PlayerDisplayData} formájában.
+         * Ezután beállítja az egyéni {@code PlayerListCellRenderer}-t a listákhoz,
+         * hogy megjelenjen a név és a színes négyzet is.
+         * </p>
+         */
+        private void updatePlayerLists() {
             gombaszListModel.clear();
             rovaraszListModel.clear();
             for (Jatekos player : players) {
@@ -740,45 +823,127 @@ public class GameWindow extends JFrame {
             rovaraszList.setCellRenderer(new PlayerListCellRenderer());
         }
 
+        /**
+         * Véletlenszerű színt generál.
+         * <p>
+         * A szín mindhárom komponensét (vörös, zöld, kék) 0 és 255 közötti véletlenszámmal állítja be.
+         * </p>
+         *
+         * @return Egy új véletlenszerű {@link Color} objektum.
+         */
         private Color generateRandomColor() {
             Random random = new Random();
             return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         }
 
+        /**
+         * Egy {@link Color} objektumot hexadecimális színkóddá alakít.
+         * <p>
+         * A kimenet a HTML-ben is használható formátumot követi (pl. {@code "#ff0000"}).
+         * </p>
+         *
+         * @param color Az átalakítandó {@code Color} objektum.
+         * @return A szín hexadecimális reprezentációja stringként.
+         */
         private String colorToHexString(Color color) {
             return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
         }
 
-
-        // Segédosztály a név és szín tárolására a listában
+        /**
+         * Segédosztály a játékos nevének és színének tárolására a listák megjelenítéséhez.
+         * <p>
+         * Ez az osztály egyszerű adattárolóként (DTO) szolgál a {@code JList}-ekhez,
+         * és megkönnyíti az egyéni megjelenítést a {@link PlayerListCellRenderer} segítségével.
+         * </p>
+         */
         private static class PlayerDisplayData {
             private String name;
             private Color color;
 
+            /**
+             * Létrehoz egy új {@code PlayerDisplayData} példányt a megadott névvel és színnel.
+             *
+             * @param name  A játékos neve.
+             * @param color A játékoshoz tartozó szín.
+             */
             public PlayerDisplayData(String name, Color color) {
                 this.name = name;
                 this.color = color;
             }
 
+            /**
+             * Visszaadja a játékos nevét.
+             *
+             * @return A játékos neve.
+             */
             public String getName() {
                 return name;
             }
 
+            /**
+             * Visszaadja a játékos színét.
+             *
+             * @return A játékoshoz tartozó {@code Color} objektum.
+             */
             public Color getColor() {
                 return color;
             }
 
+            /**
+             * A játékos nevét adja vissza szöveges reprezentációként.
+             *
+             * @return A játékos neve.
+             */
             @Override
             public String toString() {
                 return name;
             }
         }
 
-        // Egyéni cell renderer a színnégyzet megjelenítéséhez a listában
+
+
+
+        /**
+         * Egyéni cell renderer, amely lehetővé teszi, hogy egy {@link PlayerDisplayData} objektumot
+         * tartalmazó JList elem egy színes négyzettel és a játékos nevével jelenjen meg.
+         * <p>
+         * Ha az aktuális listaelem {@code PlayerDisplayData} típusú, akkor egy JPanel
+         * kerül visszaadásra, amely tartalmazza a játékos nevét és egy színes négyzetet.
+         * Ellenkező esetben az alapértelmezett JLabel renderelés kerül használatra.
+         * </p>
+         *
+         * <p>Ez az osztály belső osztályként használható például egy játékoslistához,
+         * ahol a játékos színét vizuálisan is meg szeretnénk jeleníteni.</p>
+         */
         class PlayerListCellRenderer extends DefaultListCellRenderer {
+
+            /**
+             * A megjelenített színnégyzet szélessége és magassága pixelben.
+             */
             private static final int COLOR_SQUARE_SIZE = 12;
+
+            /**
+             * A belső padding (kitöltés) mérete pixelben.
+             * Ez biztosítja a komponensek közti és a panel széléhez viszonyított távolságot.
+             */
             private static final int PADDING = 5;
 
+            /**
+             * A lista celláinak megjelenítéséhez használt komponens létrehozása és testreszabása.
+             *
+             * @param list         A {@code JList} komponens, amely megjeleníti az elemeket.
+             * @param value        Az aktuálisan megjelenítendő érték.
+             * @param index        Az aktuális elem indexe a listában.
+             * @param isSelected   Igaz, ha az elem ki van jelölve.
+             * @param cellHasFocus Igaz, ha az elem fókuszban van.
+             * @return Egy {@code Component} objektum, amely a cella megjelenítéséhez használatos.
+             *
+             * <p>
+             * Ha az {@code value} egy {@link PlayerDisplayData} példány, akkor a visszatérési érték
+             * egy {@code JPanel}, amely bal oldalon egy színnégyzetet, jobb oldalon pedig a játékos nevét tartalmazza.
+             * Egyébként az alapértelmezett {@code JLabel} kerül visszaadásra.
+             * </p>
+             */
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -799,8 +964,8 @@ public class GameWindow extends JFrame {
                 }
                 return label;
             }
-
         }
+
 
     }
 }
