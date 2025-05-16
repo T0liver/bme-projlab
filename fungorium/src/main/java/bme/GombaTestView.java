@@ -23,8 +23,9 @@ public class GombaTestView extends EntitasView{
     @Override
     public void draw(GameWindow gw, Graphics g){
         BufferedImage image = color(kinezet);
+        kinezet = image;
 
-        gw.drawSprite(this, g);
+        //gw.drawSprite(this, g);
     }
 
 }

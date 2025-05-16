@@ -94,6 +94,8 @@ public class GameWindow extends JFrame {
      */
     public void drawSprite(EntitasView entitasView, Graphics g) {
 
+        entitasView.draw(this, g);
+
         BufferedImage image = entitasView.getKinezet();
         int x = (entitasView.mezo.getPos().get(0)) * CELL_SIZE;
         int y = (entitasView.mezo.getPos().get(1)) * CELL_SIZE;
