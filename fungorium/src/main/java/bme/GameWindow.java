@@ -227,7 +227,6 @@ public class GameWindow extends JFrame {
 
             terkepView.init();
             // TODO: ez itt megkapjon egy GameWindow-t
-            terkepView.draw(this);
 
             gridColors = new Color[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {
@@ -235,9 +234,6 @@ public class GameWindow extends JFrame {
                     gridColors[i][j] = Color.LIGHT_GRAY;
                 }
             }
-
-
-
             gridPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -251,17 +247,11 @@ public class GameWindow extends JFrame {
                         }
                     }
                     //EntitasView e = new GombaTestView(null, new Mezo(1,1), null);
-
-
                     if (entitasok != null) {
                         for (EntitasView e : entitasok) {
                             drawSprite(e, g);
                         }
                     }
-
-
-
-
                 }
             };
 
@@ -317,20 +307,6 @@ public class GameWindow extends JFrame {
             setVisible(true);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * A játék főmenüjét megjelenítő panel.

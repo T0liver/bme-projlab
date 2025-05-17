@@ -72,7 +72,6 @@ public class Jatekvezerlo implements Serializable {
     tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     terkep =  new Terkep();
-    terkep.init();
   }
 
   /**
@@ -208,7 +207,7 @@ public class Jatekvezerlo implements Serializable {
    */
   public void jatekKezdes() {
     jatekHossz = 50;
-    if (init()) {
+    if (!init()) {
       return;
     }
 
@@ -241,7 +240,11 @@ public class Jatekvezerlo implements Serializable {
    * 
    * @throws InvalidAttributeValueException
    */
-  public boolean init() {return false;} // 22x22 mezős, random tektonos pálya
+  public boolean init() {
+    terkep.init();
+    System.out.println("Térkép inicializálva.");
+    return true;
+  } // 22x22 mezős, random tektonos pálya
 
   /**
    * fuggveny tekton id-jenek lekerdezesere
