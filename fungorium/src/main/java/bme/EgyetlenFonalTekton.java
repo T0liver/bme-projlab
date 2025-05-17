@@ -33,7 +33,7 @@ public class EgyetlenFonalTekton extends Tekton {
 
   public EgyetlenFonalTekton() {
     try {
-      img = ImageIO.read(new File("textures/EgyetlenFonal.jpg"));
+      img = ImageIO.read(new File("textures/EgyetlenFonal.png"));
     } catch (IOException e) {
       byte[] r = {0};
       byte[] g = {(byte) 255};

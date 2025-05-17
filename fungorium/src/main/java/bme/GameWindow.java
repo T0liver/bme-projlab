@@ -55,14 +55,15 @@ public class GameWindow extends JFrame {
 
 
         jatekvezerlo = new Jatekvezerlo();
+        //jatekvezerlo.init();
         jatekvezerloView = new JatekvezerloView(jatekvezerlo);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
         gamePanel = new JPanel();
-        terkepView = new TerkepView();
-        terkepView.init();
+        terkepView = new TerkepView(jatekvezerlo.getTerkep());
+        //terkepView.init();
 
         MainMenu mainMenu = new MainMenu(this, jatekvezerlo.getJatekosok());
 
@@ -123,7 +124,7 @@ public class GameWindow extends JFrame {
     }
 
     public void initTerkep() {
-        terkepView.init();
+        //terkepView.init();
     }
 
     /**
@@ -221,13 +222,17 @@ public class GameWindow extends JFrame {
             this.players = players;
             setTitle("Fungorium - Játék");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(GRID_SIZE * CELL_SIZE, GRID_SIZE * CELL_SIZE);
-            setLocationRelativeTo(null);
+            //setSize(GRID_SIZE * CELL_SIZE, GRID_SIZE * CELL_SIZE);
+            //setLocationRelativeTo(null);
 
             // TODO: ez itt ne dobjon nullpointerexeption-t
-            jatekvezerloView.draw(this);
+            //jatekvezerloView.draw(this);
+            if (terkepView == null) {
+                terkepView = new TerkepView(jatekvezerlo.getTerkep());
+            }
+            terkepView.draw(this);
 
-            gridColors = new Color[GRID_SIZE][GRID_SIZE];
+            /*gridColors = new Color[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     gridColors[i][j] = Color.LIGHT_GRAY;
@@ -280,7 +285,7 @@ public class GameWindow extends JFrame {
                         System.out.println("Kattintás a [" + row + "][" + col + "] cellára.");
                     }
                 }
-            });
+            });*/
 
             addKeyListener(new KeyAdapter() {
                 @Override
@@ -301,8 +306,9 @@ public class GameWindow extends JFrame {
             setFocusable(true);
             requestFocusInWindow();
 
-            add(gridPanel);
-            pack();
+            //add(gridPanel);
+            //pack();
+            setResizable(DEBUG);
             setVisible(true);
         }
     }

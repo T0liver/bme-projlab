@@ -12,7 +12,7 @@ public class TermeketlenTekton extends Tekton {
   public TermeketlenTekton() {
     super();
     try {
-      img = ImageIO.read(new File("textures/termeketlen.jpg"));
+      img = ImageIO.read(new File("textures/termeketlen.png"));
     } catch (IOException e) {
       byte[] r = {(byte) 255};
       byte[] g = {(byte) 255};

@@ -9,7 +9,7 @@ public class TerkepView {
 
     public TerkepView() {
         this.terkep = new Terkep();
-        terkep.init();
+        //terkep.init();
     }
 
     public TerkepView(Terkep terkep) {
@@ -17,9 +17,50 @@ public class TerkepView {
     }
 
     public void draw(JFrame window) {
-        window.setLayout(null); // Ensure absolute positioning
-
+        Container content = window.getContentPane(); // Fix: use the content pane
+        content.setLayout(null); // Ensure absolute positioning
+    
+        window.setSize(960, 760);
+        content.setBackground(new Color(0, 0, 100)); // Set background color here
+    
         List<Mezo> mezok = terkep.getMezok();
+        
+        if (mezok.size() == 0) {
+            terkep.init();
+            mezok = terkep.getMezok();
+        }
+
+        
+    
+        // Add lines between non-matching neighbors
+        for (Mezo mezo : mezok) {
+            List<Integer> pos = mezo.getPos();
+            int x = pos.get(0);
+            int y = pos.get(1);
+    
+            Mezo right = getMezoAt(mezok, x + 1, y);
+            Mezo down = getMezoAt(mezok, x, y + 1);
+    
+            // Horizontal line to the right
+            if (right != null && !mezo.getTekton().equals(right.getTekton())) {
+                JPanel line = new JPanel();
+                line.setBackground(new Color(0, 0, 100));
+                int drawX = 9 + x * 32 + 30;
+                int drawY = 9 + y * 32;
+                line.setBounds(drawX, drawY, 4, 32);
+                content.add(line); 
+            }
+    
+            // Vertical line downward
+            if (down != null && !mezo.getTekton().equals(down.getTekton())) {
+                JPanel line = new JPanel();
+                line.setBackground(new Color(0, 0, 100));
+                int drawX = 9 + x * 32;
+                int drawY = 9 + y * 32 + 30;
+                line.setBounds(drawX, drawY, 32, 4);
+                content.add(line);
+            }
+        }
 
         // Add all tiles
         for (Mezo mezo : mezok) {
@@ -29,42 +70,15 @@ public class TerkepView {
             int x = 9 + pos.get(0) * 32;
             int y = 9 + pos.get(1) * 32;
             jl.setBounds(x, y, 32, 32);
-            window.add(jl);
+            content.add(jl); // Fix: add to content pane
         }
 
-        // Add lines between non-matching neighbors
-        for (Mezo mezo : mezok) {
-            List<Integer> pos = mezo.getPos();
-            int x = pos.get(0);
-            int y = pos.get(1);
-
-            Mezo right = getMezoAt(mezok, x + 1, y);
-            Mezo down = getMezoAt(mezok, x, y + 1);
-
-            // Horizontal line to the right
-            if (right != null && !mezo.getTekton().equals(right.getTekton())) {
-                JPanel line = new JPanel();
-                line.setBackground(Color.BLACK);
-                int drawX = 9 + x * 32 + 30; // 2 pixels into current tile
-                int drawY = 9 + y * 32;
-                line.setBounds(drawX, drawY, 4, 32); // 4px wide vertical line
-                window.add(line);
-            }
-
-            // Vertical line downward
-            if (down != null && !mezo.getTekton().equals(down.getTekton())) {
-                JPanel line = new JPanel();
-                line.setBackground(Color.BLACK);
-                int drawX = 9 + x * 32;
-                int drawY = 9 + y * 32 + 30; // 2 pixels into current tile
-                line.setBounds(drawX, drawY, 32, 4); // 4px tall horizontal line
-                window.add(line);
-            }
-        }
-
+    
+        window.setVisible(true);
         window.revalidate();
         window.repaint();
     }
+    
 
     // Helper method to find a Mezo at a specific grid position
     private Mezo getMezoAt(List<Mezo> mezok, int x, int y) {
@@ -81,8 +95,8 @@ public class TerkepView {
     /**
      * Térkép inicializálása szolgáló függvény
      * @return true, ha sikerült inicializálni a térképet; false, ha nem
-     */
+     *
     public void init() {
         terkep.init();
-    }
+    }*/
 }

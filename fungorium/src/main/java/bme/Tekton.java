@@ -471,7 +471,7 @@ public class Tekton implements Jatekelem {
     szomszedok.clear();
     List<Mezo> osszes = terkep.getMezok();
     for (int i = 0; i < osszes.size(); ++i) {
-      for (int e = 0; e < mezok.size() -1; ++i) {
+      for (int e = 0; e < mezok.size() - 1; ++e) {
         if (mezok.get(e).milyenSzomszed(osszes.get(i)) > 2)
           szomszedok.add(osszes.get(i).getTekton());
       }
