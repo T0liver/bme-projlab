@@ -219,14 +219,13 @@ public class GameWindow extends JFrame {
          */
         public GameBoard(List<Jatekos> players) {
             this.players = players;
-            this.terkepView = new TerkepView();
             setTitle("Fungorium - Játék");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(GRID_SIZE * CELL_SIZE, GRID_SIZE * CELL_SIZE);
             setLocationRelativeTo(null);
 
-            terkepView.init();
-            // TODO: ez itt megkapjon egy GameWindow-t
+            // TODO: ez itt ne dobjon nullpointerexeption-t
+            jatekvezerloView.draw(this);
 
             gridColors = new Color[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {
