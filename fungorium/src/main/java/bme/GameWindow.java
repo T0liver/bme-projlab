@@ -16,8 +16,9 @@ import java.util.List;
 import java.util.Random;
 
 
-
 public class GameWindow extends JFrame {
+
+    public static final boolean DEBUG = true;
 
     public static final int CELL_SIZE = 15;
     public static final int GRID_SIZE = 50;
@@ -639,7 +640,7 @@ public class GameWindow extends JFrame {
             startGameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!players.isEmpty()) {
+                    if (!players.isEmpty() || DEBUG) {
                         try {
                             // Először létrehozzuk és megjelenítjük a GameBoard-ot
                             SwingUtilities.invokeLater(() -> {
@@ -651,7 +652,14 @@ public class GameWindow extends JFrame {
                             // Külön szálon indítjuk a játéklogikát
                             Thread gameThread = new Thread(() -> {
                                 try {
-                                    jatekvezerlo.setJatekosok(players);
+                                    if (DEBUG) {
+                                        jatekvezerlo.setJatekosok(new ArrayList<Jatekos>(){
+                                            {add(new Rovarasz("debug", Color.RED));
+                                            add(new Gombasz("debug", Color.BLUE));}
+                                        });
+                                    } else {
+                                        jatekvezerlo.setJatekosok(players);
+                                    }
                                     jatekvezerlo.jatekKezdes();
                                 } catch (Exception ex) {
                                     SwingUtilities.invokeLater(() -> {
@@ -672,7 +680,7 @@ public class GameWindow extends JFrame {
                                     "Hiba",
                                     JOptionPane.ERROR_MESSAGE);
                         }
-                    } else {
+                    } else if (!DEBUG) {
                         JOptionPane.showMessageDialog(MainMenu.this,
                                 "Kérlek, adj hozzá legalább egy játékost!",
                                 "Figyelmeztetés",
