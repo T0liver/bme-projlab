@@ -9,4 +9,7 @@ public class Akcio {
     public String getNev() {
         return nev;
     }
+
+    /// ELmagyarázza röviden az akció használatát
+    public String getHelp() {return "ez egy magyarázat";}
 }
