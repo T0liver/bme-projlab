@@ -16,7 +16,7 @@ public class TerkepView {
         this.terkep = terkep;
     }
 
-    public void draw(GameWindow window) {
+    public void draw(JFrame window) {
         window.setLayout(null); // Ensure absolute positioning
 
         List<Mezo> mezok = terkep.getMezok();

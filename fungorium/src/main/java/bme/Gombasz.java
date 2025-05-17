@@ -85,13 +85,6 @@ public class Gombasz extends Jatekos {
     if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).tick();
     boolean endOfTurn = false;
     try (Scanner scanner = new Scanner(System.in)) {
-      System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
-      System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
-      System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
-      System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-      System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
-      System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
-      System.out.println("/help\t\tparancsok megjelenitese\n/exit\t\tkilepes a jatekbol");
       while(!endOfTurn) {
         try {
           String[] args = scanner.nextLine().strip().split(" ");
@@ -107,13 +100,6 @@ public class Gombasz extends Jatekos {
             //case "/lsf": listFonal(); break;
             //case "/lss": listSpora(); break;
             case "/help": 
-            System.out.println("parancsok:\nspor [gombaTestID] -tk [ID]\t\tgombaTestID gombatest utasítása spóra szórására az [ID] tektonra");
-            System.out.println("growf [TektonID0] [TektonID1]\t\tgombafonal novesztese [TektonID0] tekton es [TektonID1] tekton kozott");
-            System.out.println("growg [TektonID]\t\tGombatest novesztese [TektonID] tektonon");
-            System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-            System.out.println("/lst\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsg\t\tGombatestek listazasa (aktiv jatekose); [ID] opcionális, egy gombatest adatainak kiírása");
-            System.out.println("/lsf\t\tGombafonalak listazasa (aktiv jatekose); [ID] opcionális, egy gombafonál adatainak kiírása\n/lss\t\tSporak listazasa (aktiv jatekose); [ID] opcionális, egy spóra adatainak kiírása");
-            System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
             case "/exit": return true;
             default: System.out.println("Invalid command: " + args[0]); break;
           }

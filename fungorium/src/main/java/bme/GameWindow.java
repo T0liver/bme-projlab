@@ -227,7 +227,7 @@ public class GameWindow extends JFrame {
 
             terkepView.init();
             // TODO: ez itt megkapjon egy GameWindow-t
-            terkepView.draw();
+            terkepView.draw(this);
 
             gridColors = new Color[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {
@@ -721,10 +721,6 @@ public class GameWindow extends JFrame {
             * Az összes komponens átlátszóvá tétele rekurzívan.
              */
             makeComponentsTransparent(this);
-
-
-
-
         }
 
 

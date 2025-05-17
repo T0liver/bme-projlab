@@ -45,14 +45,8 @@ public class Rovarasz extends Jatekos {
       cselekedhet.add(true);
       lepesek.add(rovarok.get(i).getSebesseg());
     }
-    System.out.println("Kör kezdése, jelenlegi játékos ID: " + this.getId());
     printData();
     try (Scanner scanner = new Scanner(System.in)) {
-      System.out.println("parancsok:\nmovr [rovarID] -tk [ID]\t\trovar mozgatása szomszédos tektonra\neats [rovarID] -db [int]\t\trovar megetetése [int] db spórával");
-      System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
-      System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-      System.out.println("/lst [ID]\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsr [ID]\t\tRovarok listazasa (aktiv jatekose); [ID] opcionális, egy rovar adatainak kiírása");
-      System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol");
       while(!endOfTurn) {
         try {
           String[] args = scanner.nextLine().strip().split(" ");
@@ -65,12 +59,6 @@ public class Rovarasz extends Jatekos {
             //case "/lsa": Jatekvezerlo.ListAktor(args); break;
             //case "/lst": Jatekvezerlo.ListTekton(args); break;
             //case "/lsr": if(args.length == 1) {listRovar();} else {listRovar(Integer.valueOf(args[1]));} break;
-            case "/help":
-            System.out.println("parancsok:\nmovr [rovarID] -tk [ID]\t\trovar mozgatása szomszédos tektonra\neats [rovarID] -db [int]\t\trovar megetetése [int] db spórával");
-            System.out.println("cutf [rovarID] -tk [tektonID] -if [jatekosID]\t\tjatekosID fonalának elvágása a kiválasztott rovar elhelyezkedése és tektonID között");
-            System.out.println("/save [filepath]\t\tJáték állásának elmentése fájlba\n/end\t\tkör befejezése\n/lsa [ID]\t\tJatekosok listazasa; [ID] opcionális, egy játékos adatainak kiírása");
-            System.out.println("/lst [ID]\t\tTektonok listazasa; [ID] opcionális, egy tekton adatainak kiírása\n/lsr [ID]\t\tRovarok listazasa (aktiv jatekose); [ID] opcionális, egy rovar adatainak kiírása");
-            System.out.println("/help\t\t\tparancsok megjelenitese\n/exit\t\t\tkilepes a jatekbol"); break;
             case "/exit": return true;
             default: System.out.println("Invalid command: " + args[0]); break;
           }
