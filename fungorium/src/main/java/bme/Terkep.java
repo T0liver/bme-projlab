@@ -31,7 +31,7 @@ public class Terkep {
         for (int i = 0; i < 22; ++i) {
             for (int e = 0; e < 22; ++e) {
                 mezok.add(new Mezo(e, i));
-                mezok.getLast().setTerkep(this);
+                mezok.get(mezok.size() - 1).setTerkep(this);
             }
         }
 
