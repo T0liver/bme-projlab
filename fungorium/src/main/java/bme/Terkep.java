@@ -49,7 +49,7 @@ public class Terkep {
             int targetSize = rand.nextInt(3) + 3; // 3–5 width
             int maxArea = targetSize * (rand.nextInt(3) + 3); // 3–5 height
             
-            Tekton tekton = new Tekton(this);
+            Tekton tekton = randomTekton();
             Queue<Mezo> queue = new LinkedList<>();
             Set<Mezo> visited = new HashSet<>();
             
@@ -59,10 +59,13 @@ public class Terkep {
             while (!queue.isEmpty() && visited.size() < maxArea) {
                 Mezo current = queue.poll();
                 tekton.addMezo(current);
+                current.setTekton(tekton);
                 assigned[current.getPos().get(1)][current.getPos().get(0)] = true;
-
+            
                 for (Mezo neighbor : current.getSzomszedok()) {
-                    if (!assigned[current.getPos().get(1)][current.getPos().get(0)] && !visited.contains(neighbor)) {
+                    int nx = neighbor.getPos().get(0);
+                    int ny = neighbor.getPos().get(1);
+                    if (!assigned[ny][nx] && !visited.contains(neighbor)) {
                         queue.add(neighbor);
                         visited.add(neighbor);
                     }
@@ -72,10 +75,33 @@ public class Terkep {
             tektonok.add(tekton);
         }
 
-        // Collect neighbours for all tektons
-        for (Tekton t : tektonok) {
-            t.collectSzomszedok();
+        // Safety pass: assign any leftover Mezo that somehow wasn't claimed
+        for (Mezo m : mezok) {
+            if (m.getTekton() == null) {
+                Tekton fallback = randomTekton();
+                fallback.addMezo(m);
+                m.setTekton(fallback);
+                tektonok.add(fallback);
+            }
         }
-        //we have the 22by22 map, assign tektons at random
+
+        // Collect neighbours for all tektons
+        for (int i = 0; i < tektonok.size(); ++i) {
+            tektonok.get(i).collectSzomszedok();
+        }
+    }
+
+    private Tekton randomTekton() {
+        int num = rand.nextInt(25);
+        Tekton ret;
+        switch (num) {
+            case 0: ret = new EgyetlenFonalTekton(); break;
+            case 1: ret = new EletbenTartoTekton(); break;
+            case 2: ret = new FelszivoTekton(); break;
+            case 3: ret = new TermeketlenTekton(); break;
+            default: ret = new Tekton(); break;
+        }
+        ret.setTerkep(this);
+        return ret;
     }
 }

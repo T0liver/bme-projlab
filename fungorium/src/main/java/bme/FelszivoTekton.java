@@ -34,7 +34,7 @@ public class FelszivoTekton extends Tekton {
     hatralevoido = ido;
     maxido = ido;
     try {
-      img = ImageIO.read(new File("textures/Felszivo.jpg"));
+      img = ImageIO.read(new File("textures/Felszivo.png"));
     } catch (IOException e) {
       byte[] r = {(byte)255};
       byte[] g = {0};
@@ -48,7 +48,7 @@ public class FelszivoTekton extends Tekton {
     hatralevoido = 2;
     maxido = 2;
     try {
-      img = ImageIO.read(new File("textures/Felszivo.jpg"));
+      img = ImageIO.read(new File("textures/Felszivo.png"));
     } catch (IOException e) {
       byte[] r = {(byte)255};
       byte[] g = {0};

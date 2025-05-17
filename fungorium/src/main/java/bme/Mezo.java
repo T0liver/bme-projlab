@@ -34,6 +34,10 @@ public class Mezo {
     public List<GombaFonal> getFonalak() {
         return fonalak;
     }
+
+    public void setTekton(Tekton t) {
+      tartozik = t;
+    }
     /**
    * A tektonra fonbafonalat helyező függvény
    *

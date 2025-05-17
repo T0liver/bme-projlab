@@ -16,8 +16,8 @@ public class JatekvezerloView {
      */
     public JatekvezerloView(Jatekvezerlo jatekvezerlo) {
         this.jatekvezerlo = jatekvezerlo;
-        jatekvezerlo.init();
-        terkepView = new TerkepView(jatekvezerlo.getTerkep());
+        //jatekvezerlo.init();
+        //terkepView = new TerkepView(jatekvezerlo.getTerkep());
     }
 
     /**
@@ -29,6 +29,6 @@ public class JatekvezerloView {
     }
 
     public void draw(JFrame gw) {
-        terkepView.draw(gw);
+        //terkepView.draw(gw);
     }
 }
