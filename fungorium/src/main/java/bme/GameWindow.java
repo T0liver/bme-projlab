@@ -61,6 +61,8 @@ public class GameWindow extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         gamePanel = new JPanel();
+        terkepView = new TerkepView();
+        terkepView.init();
 
         MainMenu mainMenu = new MainMenu(this, jatekvezerlo.getJatekosok());
 
@@ -117,7 +119,11 @@ public class GameWindow extends JFrame {
      * A térkép (játékterület) kirajzolása.
      */
     public void drawTerkep() {
-        // TODO: Térkép kirajzolása
+        terkepView.draw(this);
+    }
+
+    public void initTerkep() {
+        terkepView.init();
     }
 
     /**
@@ -204,6 +210,7 @@ public class GameWindow extends JFrame {
         private List<Jatekos> players;
         private JPanel gridPanel;
         private Color[][] gridColors;
+        private TerkepView terkepView;
 
         /**
          * Konstruktor, amely létrehozza a játékmezőt.
@@ -212,10 +219,15 @@ public class GameWindow extends JFrame {
          */
         public GameBoard(List<Jatekos> players) {
             this.players = players;
+            this.terkepView = new TerkepView();
             setTitle("Fungorium - Játék");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(GRID_SIZE * CELL_SIZE, GRID_SIZE * CELL_SIZE);
             setLocationRelativeTo(null);
+
+            terkepView.init();
+            // TODO: ez itt megkapjon egy GameWindow-t
+            terkepView.draw();
 
             gridColors = new Color[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {

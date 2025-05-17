@@ -7,6 +7,15 @@ import java.util.List;
 public class TerkepView {
     private Terkep terkep;
 
+    public TerkepView() {
+        this.terkep = new Terkep();
+        terkep.init();
+    }
+
+    public TerkepView(Terkep terkep) {
+        this.terkep = terkep;
+    }
+
     public void draw(GameWindow window) {
         window.setLayout(null); // Ensure absolute positioning
 
@@ -73,7 +82,7 @@ public class TerkepView {
      * Térkép inicializálása szolgáló függvény
      * @return true, ha sikerült inicializálni a térképet; false, ha nem
      */
-    public boolean init() {
-        return false;
+    public void init() {
+        terkep.init();
     }
 }

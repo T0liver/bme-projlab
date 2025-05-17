@@ -72,6 +72,7 @@ public class Jatekvezerlo implements Serializable {
     tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     terkep =  new Terkep();
+    terkep.init();
   }
 
   /**

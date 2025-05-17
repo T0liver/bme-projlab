@@ -79,6 +79,25 @@ public class Tekton implements Jatekelem {
     }
   }
 
+  public Tekton(Terkep terkep) {
+    foglalt = false;
+    szomszedok = new ArrayList<>();
+    sporak = new ArrayList<>();
+    fonalak = new ArrayList<>();
+    mezok = new ArrayList<>();
+    rovarok = new ArrayList<>();
+    this.terkep = terkep;
+    try {
+      img = ImageIO.read(new File("textures/Normalis.png"));
+    } catch (IOException e) {
+      byte[] r = {0};
+      byte[] g = {(byte) 255};
+      byte[] b = {0};
+      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
+      e.printStackTrace();
+    }
+  }
+
   public void setTerkep(Terkep t) {
     terkep = t;
   }
@@ -236,7 +255,7 @@ public class Tekton implements Jatekelem {
   }
 
   public Tekton createTekton() {
-    return new Tekton();
+    return new Tekton(terkep);
   }
 
   public Spora getSpora(Gombasz g) {
@@ -452,7 +471,7 @@ public class Tekton implements Jatekelem {
     szomszedok.clear();
     List<Mezo> osszes = terkep.getMezok();
     for (int i = 0; i < osszes.size(); ++i) {
-      for (int e = 0; e < mezok.size(); ++i) {
+      for (int e = 0; e < mezok.size() -1; ++i) {
         if (mezok.get(e).milyenSzomszed(osszes.get(i)) > 2)
           szomszedok.add(osszes.get(i).getTekton());
       }

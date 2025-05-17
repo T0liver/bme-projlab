@@ -49,7 +49,7 @@ public class Terkep {
             int targetSize = rand.nextInt(3) + 3; // 3–5 width
             int maxArea = targetSize * (rand.nextInt(3) + 3); // 3–5 height
             
-            Tekton tekton = new Tekton();
+            Tekton tekton = new Tekton(this);
             Queue<Mezo> queue = new LinkedList<>();
             Set<Mezo> visited = new HashSet<>();
             
