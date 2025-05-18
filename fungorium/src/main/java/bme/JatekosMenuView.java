@@ -59,7 +59,7 @@ public class JatekosMenuView {
         akcioPanel.setLayout(new GridLayout(3, 1));
         akcioPanel.setMaximumSize(new Dimension(200, 150));
         akcioPanel.setBorder(new StrokeBorder(new BasicStroke(3)));
-        setupAkciok();
+        //setupAkciok();
         //panel.add(akcioPanel);
 
         //HELP
@@ -145,6 +145,12 @@ public class JatekosMenuView {
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
         jatekosMenu.setAkciok(ujJatekos.getAkciok());
+
+        frissitAkciok();
+        frissitNameLabel();
+        frissitPontLabel();
+        frissitHelp();
+        selectedAkcio = null;
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
@@ -242,7 +248,7 @@ public class JatekosMenuView {
     void frissitNameLabel(){
         nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getId());
 
-        playerColor = jatekvezerloview.getSoronLevoJatekos().getSzin();
+        playerColor = jatekosMenu.getJatekos().getSzin();
         nameLabel.setForeground(colorContrast(playerColor, Color.BLACK) ? Color.BLACK : Color.WHITE);
         playerinfoPanel.setBackground(playerColor);
     }

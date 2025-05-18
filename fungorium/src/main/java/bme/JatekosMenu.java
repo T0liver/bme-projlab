@@ -7,11 +7,6 @@ public class JatekosMenu {
     private Jatekos jatekos;
     private List<Akcio> akciok;
 
-    public JatekosMenu(Jatekos jatekos) {
-        this.jatekos = jatekos;
-        akciok = jatekos.getAkciok();
-    }
-
     public void lathatosag(boolean b){}
 
     public List<Akcio> getAkciok() {
