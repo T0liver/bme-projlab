@@ -29,6 +29,8 @@ public class Jatekvezerlo implements Serializable {
   /** A játék térképje */
   private Terkep terkep;
 
+  private GameWindow gameWindow;
+
   /** Felvett random osztály */
   @SuppressWarnings("unused")
   private Random r = new Random();
@@ -158,6 +160,18 @@ public class Jatekvezerlo implements Serializable {
     int n = tektonok.size();
     for (int i = 0; i < n; ++i)
       tektonok.get(i).tick();
+    int hasad = r.nextInt(tektonok.size());
+    List<Tekton> hasadt = tektonok.get(hasad).hasad();
+    List<Mezo> mezok = tektonok.get(hasad).getMezok();
+    for (Mezo m : mezok) {
+      System.out.println(String.valueOf(m.getPos().get(0)) + ", " + String.valueOf(m.getPos().get(1)) + m.getTekton());
+    }
+    System.out.println(String.valueOf(hasadt.size()));
+    if (hasadt.size() > 1) {
+      System.out.println("asd");
+      terkep.addTektonok(hasadt);
+      terkep.removeTekton(hasad);
+    }
   }
 
   /**
@@ -171,6 +185,9 @@ public class Jatekvezerlo implements Serializable {
       tick();
     }
     jatekosok.get(jelenlegiJatekos).lep();
+    if (gameWindow != null) {
+      gameWindow.drawJatekvezerlo();
+    }
   }
 
   /**
@@ -285,5 +302,9 @@ public class Jatekvezerlo implements Serializable {
       return jatekosok.indexOf(j);
     }
     return -1;
+  }
+
+  public void setGameWindow(GameWindow gw) {
+    gameWindow = gw;
   }
 }

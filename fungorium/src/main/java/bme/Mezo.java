@@ -10,30 +10,30 @@ public class Mezo {
     Terkep terkep;
     public Mezo(int _x, int _y) {x = _x; y = _y;}
     int milyenSzomszed(Mezo m) {
-        List<Integer> mpos = m.getPos();
-        if (Math.abs(mpos.get(0) - x) > 1 || Math.abs(mpos.get(1) - y) > 1 || (mpos.get(1) == y && mpos.get(0) == x))
-            return 0;
-        if (tartozik != m.getTekton()) {
-            for (int i = 0; i < fonalak.size(); ++i)
-                if (fonalak.get(i).getVezet(this, m))
-                    return 2;
-            return 1;
-        }
+      List<Integer> mpos = m.getPos();
+      if (Math.abs(mpos.get(0) - x) > 1 || Math.abs(mpos.get(1) - y) > 1 || (mpos.get(1) == y && mpos.get(0) == x))
+          return 0;
+      if (tartozik != m.getTekton()) {
         for (int i = 0; i < fonalak.size(); ++i)
-          if (fonalak.get(i).getVezet(this, m))
-            return 4;
-        return 3;
-    }
-    public List<Integer> getPos() {
-        List<Integer> ret = new ArrayList<>();
-        ret.add(x); ret.add(y);
-        return ret;
-    }
-    public Tekton getTekton() {return tartozik;}
-    /** Publikus getter a tektonon tartozkodo gombafonalak lekerdezesere */
-    public List<GombaFonal> getFonalak() {
-        return fonalak;
-    }
+            if (fonalak.get(i).getVezet(this, m))
+                return 2;
+        return 1;
+      }
+      for (int i = 0; i < fonalak.size(); ++i)
+        if (fonalak.get(i).getVezet(this, m))
+          return 4;
+      return 3;
+  }
+  public List<Integer> getPos() {
+      List<Integer> ret = new ArrayList<>();
+      ret.add(x); ret.add(y);
+      return ret;
+  }
+  public Tekton getTekton() {return tartozik;}
+  /** Publikus getter a tektonon tartozkodo gombafonalak lekerdezesere */
+  public List<GombaFonal> getFonalak() {
+      return fonalak;
+  }
 
     public void setTekton(Tekton t) {
       tartozik = t;
@@ -92,4 +92,22 @@ public class Mezo {
             }
             return ret;
           }
+  
+  public List<Mezo> getOrtoSzomszedok() {
+    List<Mezo> result = new ArrayList<>();
+    int[][] directions = {
+      {0, -1}, // up
+      {0, 1},  // down
+      {-1, 0}, // left
+      {1, 0}   // right
+    };
+    for (int[] dir : directions) {
+      int nx = x + dir[0];
+      int ny = y + dir[1];
+      if (nx >= 0 && nx < 22 && ny >= 0 && ny < 22) {
+        result.add(terkep.getMezok().get(ny * 22 + nx));
+      }
+    }
+    return result;
+  }
 }

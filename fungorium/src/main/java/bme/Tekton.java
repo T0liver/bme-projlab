@@ -191,69 +191,100 @@ public class Tekton implements Jatekelem {
    *         nem tudott hasadni
    */
   public List<Tekton> hasad() {
-  // TODO: rovar tartózkodását megtartani
-  //gombatest van nem lehet hasadni, fonalak elvágódnak, spórák eltűnnek (vagy a sporatFelhasznalban az összes mezőt megvizsgálni, hogy van-e rajta olyan rovar a tekton vizsgálata helyett)
     List<Tekton> ret = new ArrayList<>();
+
+    // If this Tekton is reserved, do not split
     if (foglalt) {
-      ret.add(this);
-      return ret;
+        ret.add(this);
+        return ret;
     }
+
+    // Cut threads
+    for (Mezo mezo : mezok) {
+        for (Mezo target : terkep.getMezok()) {
+            for (GombaFonal fonal : mezo.getFonalak()) {
+                fonal.elvagodik(mezo, target); // cuts connections
+            }
+        }
+    }
+
+    // Decide whether to split along Y or X axis
+    boolean yAxis = r.nextBoolean();
+
+    // Calculate bounding box
+    int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
+    int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+    for (Mezo m : mezok) {
+        int x = m.getPos().get(0);
+        int y = m.getPos().get(1);
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+    }
+
+    List<Mezo> elso = new ArrayList<>();
+    List<Mezo> masodik = new ArrayList<>();
+    if (yAxis && minY < maxY) {
+        int split = r.nextInt(minY, maxY);
+        for (Mezo m : mezok) {
+            if (m.getPos().get(1) <= split) {
+                elso.add(m);
+            } else {
+                masodik.add(m);
+            }
+        }
+    } else if (!yAxis && minX < maxX) {
+        int split = r.nextInt(minX, maxX);
+        for (Mezo m : mezok) {
+            if (m.getPos().get(0) <= split) {
+                elso.add(m);
+            } else {
+                masodik.add(m);
+            }
+        }
+    } else {
+        // Cannot split (region too small), return self
+        ret.add(this);
+        return ret;
+    }
+
+    // Assign split Mezo sets to two new Tektons
     Tekton t1 = createTekton();
     Tekton t2 = createTekton();
-    for (int i = 0; i < mezok.size(); ++i) {
-      for (int e = 0; e < terkep.getMezok().size(); ++e) {
-        for (int f = 0; f < mezok.get(i).getFonalak().size(); ++f) {
-          mezok.get(i).getFonalak().get(f).elvagodik(mezok.get(i), terkep.getMezok().get(e));
-        }
-      }
-    }
-    boolean yAxis = r.nextBoolean();
-    int miny = mezok.get(0).getPos().get(1);
-    int maxy = mezok.get(0).getPos().get(1);
-    int minx = mezok.get(0).getPos().get(0);
-    int maxx = mezok.get(0).getPos().get(0);
-    for (int i = 1; i < mezok.size(); ++i) {
-      List<Integer> pos = mezok.get(i).getPos();
-      if (pos.get(1) < miny) miny = pos.get(1);
-      if (pos.get(1) > maxy) maxy = pos.get(1);
-      if (pos.get(1) < minx) minx = pos.get(0);
-      if (pos.get(1) > maxx) maxx = pos.get(0);
-    }
-    List<Mezo> elso = new ArrayList<>(); List<Mezo> masodik = new ArrayList<>();
-    int split;
-    if (yAxis) {
-      split = r.nextInt(miny, maxy);
-      for (int i = 0; i < mezok.size(); ++i) {
-        if (mezok.get(i).getPos().get(1) <= split) {
-          elso.add(mezok.get(i));
-        } else {
-          masodik.add(mezok.get(i));
-        }
-      }
-    } else {
-      split = r.nextInt(minx, maxx);
-      for (int i = 0; i < mezok.size(); ++i) {
-        if (mezok.get(i).getPos().get(0) <= split) {
-          elso.add(mezok.get(i));
-        } else {
-          masodik.add(mezok.get(i));
-        }
-      }
-    }
-    for (int i = 0; i < elso.size(); ++i) t1.addMezo(elso.get(i));
-    for (int i = 0; i < masodik.size(); ++i) t2.addMezo(masodik.get(i));
+    for (Mezo m : elso) t1.addMezo(m);
+    for (Mezo m : masodik) t2.addMezo(m);
+
+    // Separate disconnected subregions
     List<List<Mezo>> szigetek = new ArrayList<>();
     szigetek.addAll(t1.getOsszefuggo());
     szigetek.addAll(t2.getOsszefuggo());
-    for (int i = 0; i < szigetek.size(); ++i) {
-      ret.add(createTekton());
-      for (int e = 0; e < szigetek.get(i).size(); ++e) {
-        ret.get(i).addMezo(szigetek.get(i).get(e));
-      }
+
+    for (List<Mezo> sziget : szigetek) {
+        Tekton uj = createTekton();
+        for (Mezo m : sziget) {
+            uj.addMezo(m);
+        }
+        ret.add(uj);
     }
-    for (int i = 0; i < ret.size(); ++i) ret.get(i).collectSzomszedok();
+
+    // Finalize each Tekton
+    for (Tekton t : ret) {
+        for (Mezo m : t.getMezok()) {
+            m.setTekton(t);
+        }
+        t.setTerkep(terkep);
+        t.collectSzomszedok();
+    }
+
+
+    if (ret.isEmpty()) {
+        ret.add(this);
+    }
+    
     return ret;
-  }
+}
+
 
   public Tekton createTekton() {
     return new Tekton(terkep);
@@ -492,8 +523,8 @@ public class Tekton implements Jatekelem {
           }
         }
         for (int i = 0; i < mezok.size(); ++i) {
-          for (int e = 0; e < csoport.size(); ++i) {
-            if (!talalt.contains(mezok.get(i)) && !csoport.contains(mezok.get(e)) && csoport.get(e).milyenSzomszed(mezok.get(i)) > 2) {
+          for (int e = 0; e < csoport.size(); ++e) {
+            if (!talalt.contains(mezok.get(i)) && !csoport.contains(mezok.get(e)) && csoport.get(e).getOrtoSzomszedok().contains(mezok.get(i))) {
               csoport.add(mezok.get(i));
               break;
             }

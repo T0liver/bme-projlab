@@ -18,7 +18,6 @@ public class TerkepView {
 
     public void draw(JFrame window) {
         Container content = window.getContentPane(); // Fix: use the content pane
-        //content.removeAll();
         content.setLayout(null); // Ensure absolute positioning
     
         window.setSize(960, 760);

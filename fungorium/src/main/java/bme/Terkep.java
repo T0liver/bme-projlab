@@ -62,7 +62,7 @@ public class Terkep {
                 current.setTekton(tekton);
                 assigned[current.getPos().get(1)][current.getPos().get(0)] = true;
             
-                for (Mezo neighbor : current.getSzomszedok()) {
+                for (Mezo neighbor : current.getOrtoSzomszedok()) {
                     int nx = neighbor.getPos().get(0);
                     int ny = neighbor.getPos().get(1);
                     if (!assigned[ny][nx] && !visited.contains(neighbor)) {
@@ -106,4 +106,10 @@ public class Terkep {
     }
 
     public List<Tekton> getTektonok() { return tektonok; }
+    public void removeTekton(int hasad) {
+        tektonok.remove(hasad);
+    }
+    public void addTektonok(List<Tekton> hasadt) {
+        tektonok.addAll(hasadt);
+    }
 }

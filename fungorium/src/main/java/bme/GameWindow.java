@@ -54,6 +54,7 @@ public class GameWindow extends JFrame {
 
 
         jatekvezerlo = new Jatekvezerlo();
+        jatekvezerlo.setGameWindow(this);
         jatekvezerloView = new JatekvezerloView(jatekvezerlo, this);
 
         cardLayout = new CardLayout();
@@ -233,7 +234,8 @@ public class GameWindow extends JFrame {
         rovaraszokLabel.setText("ROVARÁSZOK: " + rovaraszok);
     }
 
-    private void drawJatekvezerlo() {
+    public void drawJatekvezerlo() {
+        getContentPane().removeAll();
         jatekvezerloView.draw(this);
         jelenlegiJatekosMenu = new JatekosMenu(jatekvezerlo.getSoronLevoJatekos());
         jelenlegiJatekosMenuView.setJatekVezerloView(jatekvezerloView);
