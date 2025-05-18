@@ -141,9 +141,9 @@ public class GameWindow extends JFrame {
         startGame.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gwClearAll();
                 jatekvezerlo.jatekKezdes(gombaszok, rovaraszok);
                 jatekvezerloView = new JatekvezerloView(jatekvezerlo);
-                gwClearAll();
                 drawJatekvezerlo();
 
                 jelenlegiJatekosMenuView = new JatekosMenuView(new JatekosMenu(jatekvezerlo.getSoronLevoJatekos()));

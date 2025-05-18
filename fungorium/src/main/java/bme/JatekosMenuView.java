@@ -27,6 +27,7 @@ public class JatekosMenuView {
         panel.setPreferredSize(new Dimension(200, 600));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.jatekosMenu = jatekosMenu;
 
         //JÁTÉKOS X
         nameLabel = createLabel();
@@ -74,7 +75,7 @@ public class JatekosMenuView {
             akcioButton.setFocusPainted(false);
             akcioButton.addActionListener(e -> {
                 selectedAkcio = a;
-                a.csinal();
+                a.csinal(new Mezo(-10, -10), new Mezo(-10, -10));
             });
             panel.add(akcioButton);
         }

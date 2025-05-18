@@ -151,15 +151,10 @@ public class Rovar implements Jatekelem {
    * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal
    *               áthidalt tekton
    */
-  public void mozog(Mezo mezo) {
-    for (GombaFonal gf : tartozkodik.fonalak) {
-      if (gf.getVezet(tartozkodik, mezo)) {
-        tartozkodik.getTekton().removeRovar(this);
-        tartozkodik = mezo;
-        mezo.getTekton().addRovar(this);
-        return;
-      }
-    }
+  public boolean mozog(Mezo mezo) {
+    if (mezo.milyenSzomszed(tartozkodik) < 2) return false;
+    setTartozkodik(mezo);
+    return true;
   }
 
   /**

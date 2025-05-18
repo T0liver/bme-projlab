@@ -34,6 +34,9 @@ public class Gombasz extends Jatekos {
    */
   public Gombasz() {
     super();
+    akciok.add(new SporatSzorAkcio(this));
+    akciok.add(new FonalNoveszetesAkcio(this));
+    akciok.add(new TestNovesztesAkcio(this));
   }
 
   /**
@@ -78,34 +81,15 @@ public class Gombasz extends Jatekos {
   @Override
   public boolean lep() {
     List<Boolean> testCselekedett = new ArrayList<>();
-    //int fonalCselekedetek = gombaTestek.size();
+    int fonalCselekedetek = gombaTestek.size();
     List<Boolean> sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) {testCselekedett.add(false); gombaTestek.get(i).tick();}
     if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).tick();
     boolean endOfTurn = false;
-    try (Scanner scanner = new Scanner(System.in)) {
-      while(!endOfTurn) {
-        try {
-          String[] args = scanner.nextLine().strip().split(" ");
-          switch (args[0]) {
-            //case "spor": if (Boolean.FALSE.equals(testCselekedett.get(Integer.parseInt(args[1])))) testCselekedett.set(Integer.parseInt(args[1]), sporatSzorat(args)); break;
-            //case "growf": if (fonalCselekedetek > 0) fonalCselekedetek -= fonalatNoveszt(args); break;
-            //case "growg": if (Boolean.FALSE.equals(sporaHasznalt.get(Integer.parseInt(args[1])))) {testetNoveszt(args); sporaHasznalt.set(Integer.parseInt(args[1]), true);}; break;
-            case "/end": endOfTurn = true; break;
-            //case "/save": Jatekvezerlo.Save(args); break;
-            //case "/lsa": Jatekvezerlo.ListAktor(args); break;
-            //case "/lst": Jatekvezerlo.ListTekton(args); break;
-            //case "/lsg": listTest(); break;
-            //case "/lsf": listFonal(); break;
-            //case "/lss": listSpora(); break;
-            case "/help": 
-            case "/exit": return true;
-            default: System.out.println("Invalid command: " + args[0]); break;
-          }
-        } catch (Exception e) { System.out.println("Invalid Syntax");}
-      }
-    }
+    //while(!endOfTurn) {
+      //kör
+    //}
     return false;
   }
 
@@ -142,13 +126,13 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
    * Gombafonalat noveszto fuggveny
    * @param args parancssori argumentumok
    * @return 1, ha sikeres volt, 0, ha nem
-  *
-  private int fonalatNoveszt(String[] args) {
+  */
+  public int fonalatNoveszt(Mezo m0, Mezo m1) {
       for (int i = 0; i < gombaFonalak.size(); ++i) {
-        if (gombaFonalak.get(i).athidal(Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])), Jatekvezerlo.tektonok.get(Integer.parseInt(args[2])))) return 1;
+        if (gombaFonalak.get(i).athidal(m0, m1)) return 1;
       }
       return 0;
-  }*/
+  }
 
   /**
    * Gombatestet noveszto fuggveny
