@@ -16,4 +16,9 @@ public class EvesAkcio extends Akcio {
         r.addPontok(pontok);
         return pontok > 0;
     }
+
+    @Override
+    public String getHelp() {
+        return "Spóraevés:\nKattints a rovarra, ami spórát egyen!";
+    }
 }

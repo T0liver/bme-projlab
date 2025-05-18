@@ -14,5 +14,9 @@ public class VagasAkcio extends Akcio {
     public boolean csinal(Mezo m0, Mezo m1) {
         return r.elvagat(m0, m1);
     }
-    
+
+    @Override
+    public String getHelp() {
+        return "Fonal vágás:\nKattints a rovarra, ami fonalat vágjon, majd arra a hozzá szomszédos (és másik tektonon lévő) mezőre, ami felé elvágódjon egy gombafonál!";
+    }
 }

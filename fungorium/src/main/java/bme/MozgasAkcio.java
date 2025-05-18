@@ -13,4 +13,9 @@ public class MozgasAkcio extends Akcio {
     public boolean csinal(Mezo m0, Mezo m1) {
         return r.mozgat(m0, m1) != 0;
     }
+
+    @Override
+    public String getHelp() {
+        return "Mozgás:\nKattints a rovarra, ami mozogjon, majd a hozzá szomszédos mezőre, ahova lépjen!";
+    }
 }

@@ -13,4 +13,9 @@ public class TestNovesztesAkcio extends Akcio {
     public boolean csinal(Mezo m0, Mezo m1) {
         return g.testetNoveszt(m0.getTekton());
     }
+
+    @Override
+    public String getHelp() {
+        return "Gombatest növesztés:\nKattints a tektonra, amin gombatestet növesztenél!";
+    }
 }

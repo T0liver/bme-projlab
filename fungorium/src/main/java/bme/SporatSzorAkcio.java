@@ -23,4 +23,9 @@ public class SporatSzorAkcio extends Akcio {
         }
         return g.sporatSzorat(m1.getTekton(), gt);
     }
+
+    @Override
+    public String getHelp() {
+        return "Spóraszórás:\nKattints a tektonra, amelyen van a gombatest, ami spórát szórjon, majd arra a tektonra, ahova!";
+    }
 }
