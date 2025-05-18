@@ -113,6 +113,7 @@ public class JatekosMenuView {
 
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
+        draw(panel);
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
@@ -175,7 +176,7 @@ public class JatekosMenuView {
 
         endTurnBtn.addActionListener(e -> {
             jatekvezerloview.kovetkezoKor();
-            jatekvezerloview.draw(gw);
+            changeJatekos(jatekvezerloview.getSoronLevoJatekos());
         });
     }
 
