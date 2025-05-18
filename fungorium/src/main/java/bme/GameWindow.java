@@ -38,6 +38,12 @@ public class GameWindow extends JFrame {
     private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
+
+    private Mezo firstClick;
+    public Mezo getFirstClick() {return firstClick;}
+    private Mezo secondClick;
+    public Mezo getSecondClick() {return secondClick;}
+
     /**
      * Konstruktor, amely inicializálja az ablakot és a főmenüt.
      */
@@ -213,6 +219,8 @@ public class GameWindow extends JFrame {
         private Color[][] gridColors;
         private TerkepView terkepView;
 
+
+
         /**
          * Konstruktor, amely létrehozza a játékmezőt.
          *
@@ -251,11 +259,17 @@ public class GameWindow extends JFrame {
                         }
                     }
                     //EntitasView e = new GombaTestView(null, new Mezo(1,1), null);
+
+
                     if (entitasok != null) {
                         for (EntitasView e : entitasok) {
                             drawSprite(e, g);
                         }
                     }
+
+
+
+
                 }
             };
 
@@ -277,6 +291,14 @@ public class GameWindow extends JFrame {
 
                         } catch (Exception exception) {
                             exception.printStackTrace();
+                        }
+
+                        if (firstClick == null) {
+                            firstClick = new Mezo(col, row);
+                        } else {
+                            secondClick = new Mezo(col, row);
+                            gridPanel.repaint();
+                            firstClick = null; secondClick = null;
                         }
 
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class RovarView extends EntitasView{
 
     public RovarView(Rovar entitas, Mezo mezo, Jatekos jatekos) {
-        super(entitas, mezo, jatekos);
+        super((Rovar)entitas, mezo, jatekos);
         try {
             kinezet = ImageIO.read(new File("textures/Rovar.png"));
         } catch (IOException e) {
@@ -23,6 +23,16 @@ public class RovarView extends EntitasView{
         Color jszin = jatekos.getSzin();
         BufferedImage image = color(kinezet, jszin);
         kinezet = image;
+
+    }
+
+    public Rovar NewRovar(Mezo mezo, Rovarasz jatekos) {
+
+        Rovar rov = new Rovar(jatekos, mezo);
+        rov.getTartozkodik().getTekton().addRovar(rov);
+        jatekos.addRovar(rov);
+
+        return rov;
 
     }
 }
