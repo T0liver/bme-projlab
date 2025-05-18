@@ -145,6 +145,9 @@ public class GameWindow extends JFrame {
                 jatekvezerloView = new JatekvezerloView(jatekvezerlo);
                 gwClearAll();
                 drawJatekvezerlo();
+
+                jelenlegiJatekosMenuView = new JatekosMenuView(new JatekosMenu(jatekvezerlo.getSoronLevoJatekos()));
+                jelenlegiJatekosMenuView.draw(GameWindow.this);
             } 
         });
         content.add(startGame);
