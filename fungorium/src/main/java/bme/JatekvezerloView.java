@@ -11,6 +11,8 @@ public class JatekvezerloView {
      */
     private Jatekvezerlo jatekvezerlo;
 
+    private GameWindow gameWindow;
+
     private TerkepView terkepView;
     boolean[] jatekoslatszik = {true, true, true, true, true, true, true, true, true, true};
 
@@ -18,8 +20,9 @@ public class JatekvezerloView {
      * Publikus konstruktor a view inicializálására
      * @param jatekvezerlo a körök lebonyolításáért felelős vezérlő
      */
-    public JatekvezerloView(Jatekvezerlo jatekvezerlo) {
+    public JatekvezerloView(Jatekvezerlo jatekvezerlo, GameWindow gw) {
         this.jatekvezerlo = jatekvezerlo;
+        gameWindow = gw;
         //jatekvezerlo.init();
         //terkepView = new TerkepView(jatekvezerlo.getTerkep());
     }
@@ -55,6 +58,11 @@ public class JatekvezerloView {
             jatekvezerlo.jatekVege();
             return;
         }
+        draw(gameWindow);
+    }
+
+    public Jatekos getSoronLevoJatekos() {
+        return jatekvezerlo.getSoronLevoJatekos();
     }
 
     public boolean swapLatszik(int i) {

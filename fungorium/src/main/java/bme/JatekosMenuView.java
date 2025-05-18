@@ -30,7 +30,7 @@ public class JatekosMenuView {
     JButton exitBtn;
     JButton endTurnBtn;
 
-    public JatekosMenuView(JatekosMenu jatekosMenu, JFrame gw) {
+    public JatekosMenuView(JatekosMenu jatekosMenu) {
         this.jatekosMenu = jatekosMenu;
 
         panel = new JPanel();
@@ -76,7 +76,7 @@ public class JatekosMenuView {
         exitSavePanel.setMaximumSize(new Dimension(200, 150));
         exitSavePanel.setBorder(new StrokeBorder(new BasicStroke(3)));
 
-        setupEndTurnBtn(gw);
+        setupEndTurnBtn();
         setupSaveBtn();
         setupExitBtn();
 
@@ -121,6 +121,10 @@ public class JatekosMenuView {
 
     public void setJatekVezerloView(JatekvezerloView jvV) {
         jatekvezerloview = jvV;
+    }
+
+    public void setJatekosMenu(JatekosMenu jm) {
+        jatekosMenu = jm;
     }
 
     public void changeJatekos(Jatekos ujJatekos){
@@ -182,7 +186,7 @@ public class JatekosMenuView {
 
     }
 
-    private void setupEndTurnBtn(JFrame gw) {
+    private void setupEndTurnBtn() {
         endTurnBtn = new JButton("KÖR VÉGE");
         endTurnBtn.setFocusable(false);
         endTurnBtn.setPreferredSize(new Dimension(200, 50));
@@ -190,7 +194,10 @@ public class JatekosMenuView {
 
         endTurnBtn.addActionListener(e -> {
             jatekvezerloview.kovetkezoKor();
-            jatekvezerloview.draw(gw);
+            changeJatekos(jatekvezerloview.getSoronLevoJatekos());
+            frissitNameLabel();
+            frissitPontLabel();
+            frissitHelp();
         });
     }
 
