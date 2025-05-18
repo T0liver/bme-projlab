@@ -205,7 +205,7 @@ public class Jatekvezerlo implements Serializable {
   /**
    * Függveny a játek lezárására, és a nyertesek kiírására.
    */
-  public void jatekVege() {
+  public int[] jatekVege() {
     int gombaszIndex = -1;
     int rovaraszIndex = -1;
     for (int i = 0; i < jatekosok.size(); ++i) {
@@ -222,6 +222,7 @@ public class Jatekvezerlo implements Serializable {
     }
     System.out.println("Nyertes Rovarász: " + rovaraszIndex + ". játékos!");
     System.out.println("Nyertes Gombász: " + gombaszIndex + ". játékos!");
+    return new int[]{gombaszIndex, rovaraszIndex};
   }
 
   /**
@@ -267,11 +268,13 @@ public class Jatekvezerlo implements Serializable {
       }
       gom.addGombaFonal(new GombaFonal(t.getMezok().get(0)));
       jatekosok.add(gom);
+      gom.setId(jatekosok.size());
     }
     for (int i = 0; i < rovarasznum; ++i) {
       Rovarasz rov = new Rovarasz();
       rov.addRovar(new Rovar(rov, mezok.get(r.nextInt(mezok.size()))));
       jatekosok.add(rov);
+      rov.setId(jatekosok.size());
     }
     return true;
   } // 22x22 mezős, random tektonos pálya

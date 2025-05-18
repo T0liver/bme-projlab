@@ -3,7 +3,7 @@ package bme;
 
 import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class JatekvezerloView {
     /**
@@ -69,5 +69,13 @@ public class JatekvezerloView {
         if (i < 0 || i > 9) return false;
         jatekoslatszik[i] = !jatekoslatszik[i];
         return jatekoslatszik[i];
+    }
+
+    public void jatekVege() {
+        int[] nyertesek = jatekvezerlo.jatekVege(); // 0. gombasz 1. rovarasz
+
+        JOptionPane.showMessageDialog(null, "Nyertesek:\n"+
+                "Gombász "+nyertesek[0] + "\n"
+                +"Rovarász "+ nyertesek[1]);
     }
 }

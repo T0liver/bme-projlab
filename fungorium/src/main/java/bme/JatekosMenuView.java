@@ -31,6 +31,7 @@ public class JatekosMenuView {
     JButton saveBtn;
     JButton exitBtn;
     JButton endTurnBtn;
+    JButton endGameBtn;
 
     public JatekosMenuView(JatekosMenu jatekosMenu) {
         this.jatekosMenu = jatekosMenu;
@@ -58,15 +59,16 @@ public class JatekosMenuView {
         akcioPanel.setLayout(new GridLayout(3, 1));
         akcioPanel.setMaximumSize(new Dimension(200, 150));
         akcioPanel.setBorder(new StrokeBorder(new BasicStroke(3)));
-        setupAkciok();
+        //setupAkciok();
         //panel.add(akcioPanel);
 
         //HELP
         help = new JTextArea();
+        help.setFocusable(false);
         help.setLineWrap(true);
         help.setWrapStyleWord(true);
         help.setEditable(false);
-        help.setFont(new Font("Serif", Font.PLAIN, 14));
+        help.setFont(new Font("Serif", Font.PLAIN, 16));
         help.setAlignmentX(Component.CENTER_ALIGNMENT);
         help.setMaximumSize(new Dimension(200, 200));
         help.setPreferredSize(new Dimension(200, 200));
@@ -74,27 +76,32 @@ public class JatekosMenuView {
         //panel.add(help);
 
         //GOMBOK -- MENTES -- KILEPEs
-        exitSavePanel.setLayout(new GridLayout(3, 1));
+        exitSavePanel.setLayout(new GridLayout(4, 1));
         exitSavePanel.setMaximumSize(new Dimension(200, 150));
         exitSavePanel.setBorder(new StrokeBorder(new BasicStroke(3)));
 
         setupEndTurnBtn();
         setupSaveBtn();
         setupExitBtn();
+        setupEndGameBtn();
 
         endTurnBtn.setBackground(Color.WHITE);
         saveBtn.setBackground(Color.WHITE);
         exitBtn.setBackground(Color.WHITE);
+        endGameBtn.setBackground(Color.WHITE);
         endTurnBtn.setFont(new Font("Serif", Font.BOLD, 16));
         saveBtn.setFont(new Font("Serif", Font.BOLD, 16));
         exitBtn.setFont(new Font("Serif", Font.BOLD, 16));
+        endGameBtn.setFont(new Font("Serif", Font.BOLD, 16));
         endTurnBtn.setBorder(null);
         saveBtn.setBorder(null);
         exitBtn.setBorder(null);
+        endGameBtn.setBorder(null);
 
         exitSavePanel.add(endTurnBtn);
         exitSavePanel.add(saveBtn);
         exitSavePanel.add(exitBtn);
+        exitSavePanel.add(endGameBtn);
 
         //panel.add(exitSavePanel);
 
@@ -121,6 +128,8 @@ public class JatekosMenuView {
         );
     }
 
+
+
     public void setJatekVezerloView(JatekvezerloView jvV) {
         jatekvezerloview = jvV;
     }
@@ -136,6 +145,12 @@ public class JatekosMenuView {
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
         jatekosMenu.setAkciok(ujJatekos.getAkciok());
+
+        frissitAkciok();
+        frissitNameLabel();
+        frissitPontLabel();
+        frissitHelp();
+        selectedAkcio = null;
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
@@ -202,10 +217,21 @@ public class JatekosMenuView {
         endTurnBtn.addActionListener(e -> {
             jatekvezerloview.kovetkezoKor();
             changeJatekos(jatekvezerloview.getSoronLevoJatekos());
+            selectedAkcio = null;
             frissitNameLabel();
             frissitPontLabel();
             frissitHelp();
             frissitAkciok();
+        });
+    }
+
+    private void setupEndGameBtn() {
+        endGameBtn = new JButton("JÁTÉK VÉGE");
+        endGameBtn.setFocusable(false);
+        endGameBtn.setPreferredSize(new Dimension(200, 50));
+        endGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        endGameBtn.addActionListener(e -> {
+            jatekvezerloview.jatekVege();
         });
     }
 
@@ -220,9 +246,9 @@ public class JatekosMenuView {
     }
 
     void frissitNameLabel(){
-        nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getNev());
+        nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getId());
 
-        playerColor = jatekvezerloview.getSoronLevoJatekos().getSzin();
+        playerColor = jatekosMenu.getJatekos().getSzin();
         nameLabel.setForeground(colorContrast(playerColor, Color.BLACK) ? Color.BLACK : Color.WHITE);
         playerinfoPanel.setBackground(playerColor);
     }
