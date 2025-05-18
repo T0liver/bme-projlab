@@ -10,91 +10,151 @@ public class JatekosMenuView {
     private JatekosMenu jatekosMenu;
     private JPanel panel;
 
+    JLabel nameLabel;
     JLabel pontLabel;
-    JTextArea controls;
     JTextArea help;
+
+    Akcio selectedAkcio;
 
     JButton saveBtn;
     JButton exitBtn;
 
     public JatekosMenuView(JatekosMenu jatekosMenu) {
+        this.jatekosMenu = jatekosMenu;
+
         panel = new JPanel();
+        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        panel.setPreferredSize(new Dimension(200, 600));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         //JÁTÉKOS X
-        panel.add(createLabel("Játékos "+jatekosMenu.getJatekos().getNev(), 20, true));
+        nameLabel = createLabel();
+        panel.add(nameLabel);
+
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        frissitPontLabel();
+
+        //PONTOK
+        pontLabel = createLabel();
         panel.add(pontLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        //AKCIOK --- X: XXXXX
-        controls = new JTextArea();
+        //AKCIO GOMBOK XXXXX
         setupAkciok();
-        controls.setEditable(false);
-        controls.setFont(new Font("Serif", Font.PLAIN, 12));
-        controls.setAlignmentX(Component.CENTER_ALIGNMENT);
-        controls.setOpaque(false);
-        panel.add(controls);
 
         //HELP
+        help = new JTextArea();
+        help.setEditable(false);
+        help.setFont(new Font("Serif", Font.PLAIN, 12));
+        help.setAlignmentX(Component.CENTER_ALIGNMENT);
+        help.setMaximumSize(new Dimension(200, 300));
+
+        panel.add(help);
 
         //GOMBOK -- MENTES -- KILEPEs
-        saveBtn = new JButton("MENTÉS");
-        exitBtn = new JButton("KILÉPÉS");
-        saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        exitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        setupSaveBtn();
+        setupExitBtn();
+
         panel.add(saveBtn);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
         panel.add(exitBtn);
+    }
 
-
-
-        this.jatekosMenu = jatekosMenu;
+    public void changeJatekos(Jatekos ujJatekos){
+        jatekosMenu.setJatekos(ujJatekos);
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
     private void setupAkciok() {
-        StringBuilder builder = new StringBuilder();
+        //Egymas ala gombokat rak, kattintás után kiválasztva az akcio
         for (Akcio a : jatekosMenu.getAkciok()) {
-            builder.append(a.getNev().charAt(0)).append(": ").append(a.getNev()).append("\n");
-            panel.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyChar() == a.getNev().charAt(0)) {
-                        a.csinal();
-                    }
-                }
+            JButton akcioButton = new JButton(a.getNev());
+            akcioButton.setPreferredSize(new Dimension(200, 50));
+            akcioButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            akcioButton.setFocusPainted(false);
+            akcioButton.addActionListener(e -> {
+                selectedAkcio = a;
+                a.csinal();
             });
+            panel.add(akcioButton);
         }
-        controls.setText(builder.toString());
+    }
+
+    private void setupExitBtn() {
+        exitBtn = new JButton("KILÉPÉS");
+        exitBtn.setFocusable(false);
+        exitBtn.setPreferredSize(new Dimension(200, 50));
+        exitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        exitBtn.addActionListener(e -> {
+            int ok = JOptionPane.showConfirmDialog(null, "Biztos ki akarsz lépni?");
+            if (ok == JOptionPane.OK_OPTION) {
+                System.exit(0);
+            } else if (ok == JOptionPane.CANCEL_OPTION) {
+                JOptionPane.showMessageDialog(null, "  _______\n" +
+                        "< hello >\n" +
+                        "   -------\n" +
+                        "       \\    ^__^\n" +
+                        "         \\  (oo)\\_______\n" +
+                        "            (__)\\              )\\/\\\n" +
+                        "                 ||----w   |\n" +
+                        "                 ||         ||\n");
+            }
+        });
+    }
+
+    private void setupSaveBtn() {
+        saveBtn = new JButton("MENTÉS");
+        saveBtn.setFocusable(false);
+        saveBtn.setPreferredSize(new Dimension(200, 50));
+        saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        saveBtn.addActionListener(e -> {
+            /// TODO
+        });
+
     }
 
     //FElrakás mainPanel-re
-    public void draw(GameWindow w){
-        frissitPontLabel();
-        w.getContentPane().add(panel);
+    public void draw(JFrame w){
+        if (jatekosMenu.getJatekos() != null) {
+            frissitNameLabel();
+            frissitPontLabel();
+            frissitHelp();
+        }
+        w.getContentPane().add(panel, BorderLayout.EAST);
+    }
+
+    void frissitNameLabel(){
+        nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getNev());
     }
 
     void frissitPontLabel(){
-        String type = jatekosMenu.getJatekos().getType() == 1 ? "Rovarász" : "Gombász" + "\n";
-        String pont = String.valueOf(jatekosMenu.getJatekos().getPontok()) + "Pont";
+        String type = (jatekosMenu.getJatekos().getType() == 1 ? "Rovarász" : "Gombász") + "\n";
+        String pont = jatekosMenu.getJatekos().getPontok() + " Pont";
 
         if (pontLabel == null) {
-            pontLabel = createLabel(type + pont, 20, true);
+            pontLabel = createLabel();
             pontLabel.setHorizontalAlignment(SwingConstants.CENTER);
             pontLabel.setOpaque(true);
         }
-
         pontLabel.setText(type + pont);
     }
 
+    void frissitHelp(){
+        if(selectedAkcio == null){
+            help.setText("");
+        } else{
+            help.setText(selectedAkcio.getHelp());
+        }
+    }
+
     // Helper method to create centered label
-    JLabel createLabel(String text, int size, boolean bold) {
-        JLabel label = new JLabel(text, SwingConstants.CENTER);
+    JLabel createLabel() {
+        JLabel label = new JLabel();
+        label.setAlignmentY(Component.CENTER_ALIGNMENT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Serif", bold ? Font.BOLD : Font.PLAIN, size));
+        label.setFont(new Font("Serif", Font.BOLD, 16));
         return label;
     }
 }

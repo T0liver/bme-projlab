@@ -9,4 +9,6 @@ public class Akcio {
     public String getNev() {
         return nev;
     }
+
+    public String getHelp() {return "ez egy mukodest magyarazo szoveg";}
 }
