@@ -21,6 +21,7 @@ public class JatekosMenuView {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.jatekosMenu = jatekosMenu;
 
         //JÁTÉKOS X
         panel.add(createLabel("Játékos "+jatekosMenu.getJatekos().getNev(), 20, true));
@@ -63,7 +64,7 @@ public class JatekosMenuView {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (e.getKeyChar() == a.getNev().charAt(0)) {
-                        a.csinal();
+                        //a.csinal();
                     }
                 }
             });
@@ -72,9 +73,9 @@ public class JatekosMenuView {
     }
 
     //FElrakás mainPanel-re
-    public void draw(GameWindow w){
+    public void draw(JFrame gw){
         frissitPontLabel();
-        w.getContentPane().add(panel);
+        gw.getContentPane().add(panel);
     }
 
     void frissitPontLabel(){

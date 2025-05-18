@@ -11,12 +11,14 @@ import java.util.Random;
  * <p>A kétféle játékos (Gombász és Rovarász) ősosztálya, tárolja a játékos pontszámát és deklarálja
  * a lépésért felelős függvényt
  */
-public abstract class Jatekos implements Jatekelem{
+public abstract class Jatekos implements Jatekelem {
 
   protected int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
   protected Color szin;
   private Random random = new Random();
+  protected List<Akcio> akciok = new ArrayList<>();
+  private Akcio aktivAkcio = null;
 
 
   private int id;
@@ -44,7 +46,7 @@ public abstract class Jatekos implements Jatekelem{
    * A leszármazottakban fognak kezelődni
    */
   public Jatekos() {
-    this.nev = "not given";
+    this.nev = "";
     this.szin = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
   }
 
@@ -133,4 +135,18 @@ public abstract class Jatekos implements Jatekelem{
    * @return sporak üres listája
    */
   public List<Spora> getSporak() {return new ArrayList<>();}
+
+  public List<Akcio> getAkciok() { return akciok; }
+
+  public Akcio getAktivAkcio() { return aktivAkcio; }
+
+  public Akcio setAktivAkcio(char c) {
+    for (int i = 0; i < akciok.size(); ++i) {
+      if (akciok.get(i).getBetu() == c) {
+        aktivAkcio = akciok.get(i);
+        return aktivAkcio;
+      }
+    }
+    return null;
+  }
 }

@@ -1,12 +1,19 @@
 package bme;
 
 public class Akcio {
-    private String nev;
-    private Jatekos jatekos;
+    protected String nev;
+    protected Jatekos jatekos;
+    protected char betu;
 
-    public void csinal(){}
+    public Akcio(Jatekos j) {jatekos = j;}
+
+    public boolean csinal(Mezo m0, Mezo m1){ return false; }
 
     public String getNev() {
         return nev;
+    }
+
+    public char getBetu() {
+        return betu;
     }
 }

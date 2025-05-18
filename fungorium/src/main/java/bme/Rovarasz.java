@@ -29,6 +29,9 @@ public class Rovarasz extends Jatekos {
    */
   public Rovarasz() {
     super();
+    akciok.add(new MozgasAkcio(this));
+    akciok.add(new EvesAkcio(this));
+    akciok.add(new VagasAkcio(this));
   }
 
 
@@ -46,25 +49,9 @@ public class Rovarasz extends Jatekos {
       lepesek.add(rovarok.get(i).getSebesseg());
     }
     printData();
-    try (Scanner scanner = new Scanner(System.in)) {
-      while(!endOfTurn) {
-        try {
-          String[] args = scanner.nextLine().strip().split(" ");
-          switch (args[0]) {
-            //case "movr": if (lepesek.get(Integer.parseInt(args[1])) > 0) System.out.println(lepesek.set(Integer.parseInt(args[1]), lepesek.get(Integer.parseInt(args[1])) - mozgat(args)) < lepesek.get(Integer.parseInt(args[1])) ? "Mozgás sikeres" : "Mozgás sikertelen"); break;
-            case "eats": if (cselekedhet.get(Integer.parseInt(args[1]))) System.out.println(pontok < (pontok += megetet(args)) ? "Evés sikeres, jelenlegi pontszám: " + pontok : "Evés sikertelen, jelenlegi pontszám: " + pontok); cselekedhet.set(Integer.parseInt(args[1]), false); break;
-            //case "cutf": if (cselekedhet.get(Integer.parseInt(args[1]))) System.out.println(elvagat(args) ? "Vágás sikeres" : "Vágás sikertelen"); break;
-            case "/end": endOfTurn = true; break;
-            //case "/save": Jatekvezerlo.Save(args); break;
-            //case "/lsa": Jatekvezerlo.ListAktor(args); break;
-            //case "/lst": Jatekvezerlo.ListTekton(args); break;
-            //case "/lsr": if(args.length == 1) {listRovar();} else {listRovar(Integer.valueOf(args[1]));} break;
-            case "/exit": return true;
-            default: System.out.println("Invalid command: " + args[0]); break;
-          }
-        } catch (Exception e) { System.out.println("Invalid Syntax");}
-      }
-    }
+      //while(!endOfTurn) {
+        //kör
+      //}
     return false;
   }
 
@@ -72,21 +59,19 @@ public class Rovarasz extends Jatekos {
    * fuggveny, amiben egy rovart mozgat egy masik tektonra
    * @param args parancssori argumentumok
    * @return 1, ha mozgott, 0, ha nem
-   *
-  private int mozgat(String[] args) {
+   */
+  public int mozgat(Mezo m0, Mezo m1) {
 
-    Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-    int tektonID = -1;
-
-    for (int i = 0; i < args.length; i++) {
-        if(args[i].equals("-tk")){
-            tektonID = Integer.parseInt(args[i + 1]);
-        }
+    Rovar rovar = null;
+    for (int i = 0; i < rovarok.size(); ++i) {
+      if (rovarok.get(i).getTartozkodik() == m0) {
+        rovar = rovarok.get(i);
+        break;
+      }
     }
-    if (tektonID == -1) return 0; 
-    rovar.mozog(Jatekvezerlo.tektonok.get(tektonID));
-    return 1;
-    //System.out.println("EVENT Rovar mozog\nRovar (" + args[1] + ") Tekton: (" + oldValue + ") --> Tekton (" + tektonID + ")");
+    if (rovar == null) return 0;
+    if (rovar.mozog(m1)) return 1;
+    return 0;
   }
 
 
@@ -95,61 +80,45 @@ public class Rovarasz extends Jatekos {
    * @param args parancssori argumentumok
    * @return evesert kapott pontszam
    */
-  private int megetet(String[] args) {
+  public int megetet(Mezo m0) {
 
-    Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-    Spora spora = rovar.getTartozkodik().getTekton().getBestSpora();
-    int db = 3;
-
-    for (int i = 0; i < args.length; i++) {
-        if (args[i].equals("-db")) {
-            db = Integer.parseInt(args[i + 1]) <= 6 ? Integer.parseInt(args[i + 1]) : 6;
-        }
+    Rovar rovar = null;
+    for (int i = 0; i < rovarok.size(); ++i) {
+      if (rovarok.get(i).getTartozkodik() == m0) {
+        rovar = rovarok.get(i);
+        break;
+      }
     }
+    if (rovar == null) return 0;
+    Spora spora = rovar.getTartozkodik().getTekton().getBestSpora();
 
-    return rovar.eszik(spora, db);
-    //System.out.println("EVENT Spóra evés\nSpóra (" + spora.getId() +") darabszám " + oldValue + " --> " + spora.getDarabszam() + "\nRovarász (" + getId() + ") pontok: " + oldPont + " --> " + pontok);
-    //return pontnoves;
+    return rovar.eszik(spora);
   }
 
   /**
    * fuggveny, amiben egy rovarral elvagat egy fonalat egy tekton iranyaban
    * @param args parancssori argumentumok
    * @return sikeresen vagott-e
-   *
-  private boolean elvagat(String[] args) {
-    int tektonID = -1;
-    int fonalID = -1;
-    Rovar rovar = rovarok.get(Integer.parseInt(args[1]));
-    for (int i = 0; i < args.length; i++) {
-      if(args[i].equals("-tk")){
-          tektonID = Integer.parseInt(args[i + 1]);
-      }
-      if(args[i].equals("-if")){
-          fonalID = Integer.parseInt(args[i + 1]);
+   */
+  public boolean elvagat(Mezo m0, Mezo m1) {
+    Rovar rovar = null;
+    for (int i = 0; i < rovarok.size(); ++i) {
+      if (rovarok.get(i).getTartozkodik() == m0) {
+        rovar = rovarok.get(i);
+        break;
       }
     }
-    if (tektonID == -1 || fonalID == -1) return false;
-
-    Mezo merre = rovar.getTartozkodik();
-    GombaFonal gombaFonal = new GombaFonal();
-    int oldID = -1;
-
-    for (int i = 0; i < rovar.getTartozkodik().getFonalak().size(); ++i) {
-      if (Jatekvezerlo.getIDof(rovar.getTartozkodik().getFonalak().get(i).getGombasz()) == fonalID) {
-        gombaFonal = rovar.getTartozkodik().getFonalak().get(i); break;
+    if (rovar == null) return false;
+    List<GombaFonal> gombaFonalak = rovar.getTartozkodik().getFonalak();
+    GombaFonal gombaFonal = null;
+    for (int i = 0; i < gombaFonalak.size(); ++i) {
+      if (gombaFonalak.get(i).getVezet(m0, m1)) {
+        gombaFonal = gombaFonalak.get(i);
+        break;
       }
     }
-    if (oldID == -1) return false;
-
-    for (int i = 1; i < rovar.getTartozkodik().getSzomszed(1).size(); ++i) { //1-ről, mert a 0. saját maga
-      if (Jatekvezerlo.getIDof(rovar.getTartozkodik().getSzomszed(1).get(i)) == tektonID) {
-        merre = rovar.getTartozkodik().getSzomszed(1).get(i); break;
-      }
-    }
-    if (merre == rovar.getTartozkodik()) return false;
-
-    return rovar.vag(gombaFonal, merre);
+    if (gombaFonal == null) return false;
+    return rovar.vag(gombaFonal, m1);
   }
 
   /**
