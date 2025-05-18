@@ -48,6 +48,15 @@ public class JatekvezerloView {
         jmv.draw(gw);*/
     }
 
+    public void kovetkezoKor() {
+        jatekvezerlo.korVege();
+        
+        if (jatekvezerlo.getJelenlegiKor() == jatekvezerlo.getJatekHossz()) {
+            jatekvezerlo.jatekVege();
+            return;
+        }
+    }
+
     public boolean swapLatszik(int i) {
         if (i < 0 || i > 9) return false;
         jatekoslatszik[i] = !jatekoslatszik[i];

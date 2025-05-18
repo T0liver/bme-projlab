@@ -14,9 +14,6 @@ public class Jatekvezerlo implements Serializable {
   /** A jelenlegi kör száma */
   private int jelenlegiKor;
 
-  /** Tektonok listája */
-  //private List<Tekton> tektonok;
-
   /** Játékosok listája */
   List<Jatekos> jatekosok;
 
@@ -168,7 +165,8 @@ public class Jatekvezerlo implements Serializable {
    */
   public void korVege() {
     tick();
-    //tektontHasit();
+    jelenlegiKor++;
+    jelenlegiJatekos++;
   }
 
   /**
