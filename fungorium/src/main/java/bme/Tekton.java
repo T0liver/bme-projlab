@@ -547,4 +547,11 @@ public class Tekton implements Jatekelem {
   public boolean getTermeketlen() {
     return false;
   }
+
+  public boolean hasSpora(GombaFonal gombaFonal) {
+    for (int i = 0; i < sporak.size(); ++i) {
+      if (sporak.get(i).getGombasz() == gombaFonal.getGombasz()) return true;
+    }
+    return false;
+  }
 }

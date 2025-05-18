@@ -159,7 +159,7 @@ public class GameWindow extends JFrame {
         JButton loadGame = new JButton("BETÖLTÉS");
         loadGame.setFont(new Font("Rockwell", Font.BOLD, 20));
         loadGame.setBounds(330, 340, 300, 40);
-        //ezt fentről másoltam ki, nem fogok gameboardot használni, kevesebb, mint felesleges
+        //TODO ezt fentről másoltam ki, nem fogok gameboardot használni, kevesebb, mint felesleges
         loadGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

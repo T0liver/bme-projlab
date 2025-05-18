@@ -252,6 +252,13 @@ public class GombaFonal implements Jatekelem {
         m1.fonalNovekszik(this, m0);
       }
     }
+    for (Mezo m0 : mezok) {
+      if (m0.getTekton().hasSpora(this)) {
+        for (Mezo m1 : m0.getTekton().getMezok()) {
+          m1.fonalNovekszik(this, m0);
+        }
+      }
+    }
     return;
   }
 
