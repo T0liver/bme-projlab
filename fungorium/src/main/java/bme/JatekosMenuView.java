@@ -107,6 +107,10 @@ public class JatekosMenuView {
         jatekvezerloview = jvV;
     }
 
+    public void setJatekosMenu(JatekosMenu jm) {
+        jatekosMenu = jm;
+    }
+
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
     }
