@@ -9,7 +9,7 @@ public class JatekosMenu {
 
     public JatekosMenu(Jatekos jatekos) {
         this.jatekos = jatekos;
-        akciok = new ArrayList<>();
+        akciok = jatekos.getAkciok();
     }
 
     public void lathatosag(boolean b){}

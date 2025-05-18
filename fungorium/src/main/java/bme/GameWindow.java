@@ -150,10 +150,7 @@ public class GameWindow extends JFrame {
                 jatekvezerlo.jatekKezdes(gombaszok, rovaraszok);
                 jatekvezerloView = new JatekvezerloView(jatekvezerlo);
                 drawJatekvezerlo();
-                jelenlegiJatekosMenuView.draw(playerMenuPanel);
-                GameWindow.this.add(playerMenuPanel);
-                GameWindow.this.revalidate();
-            } 
+            }
         });
         content.add(startGame);
 
@@ -238,6 +235,10 @@ public class GameWindow extends JFrame {
 
     private void drawJatekvezerlo() {
         jatekvezerloView.draw(this);
+        jelenlegiJatekosMenu = new JatekosMenu(jatekvezerlo.getSoronLevoJatekos());
+        jelenlegiJatekosMenuView.draw(playerMenuPanel);
+        add(playerMenuPanel);
+        revalidate();
     }
 
     private void gwClearAll() {
