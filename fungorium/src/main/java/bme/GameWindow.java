@@ -236,6 +236,7 @@ public class GameWindow extends JFrame {
     private void drawJatekvezerlo() {
         jatekvezerloView.draw(this);
         jelenlegiJatekosMenu = new JatekosMenu(jatekvezerlo.getSoronLevoJatekos());
+        jelenlegiJatekosMenuView.setJatekVezerlo(jatekvezerlo);
         jelenlegiJatekosMenuView.draw(playerMenuPanel);
         add(playerMenuPanel);
         revalidate();

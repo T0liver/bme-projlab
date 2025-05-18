@@ -164,9 +164,13 @@ public class Jatekvezerlo implements Serializable {
    *  A kör végén lefutó metódus, ami lezárja a kört.
    */
   public void korVege() {
-    tick();
-    jelenlegiKor++;
     jelenlegiJatekos++;
+    if (jelenlegiJatekos >= jatekosok.size()) {
+      jelenlegiKor++;
+      jelenlegiJatekos = 0;
+      tick();
+    }
+    jatekosok.get(jelenlegiJatekos).lep();
   }
 
   /**
