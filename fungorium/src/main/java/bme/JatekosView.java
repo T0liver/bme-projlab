@@ -30,15 +30,8 @@ public class JatekosView {
 
         //GombaFonalak rajzolása
         for (int i = 0; i < gfs.size(); ++i) {
-            System.out.println(String.valueOf(gfs.get(0).getVezet().keySet().size()));
             GombaFonal gf = gfs.get(i);
             Map<Mezo, List<Mezo>> vezet = gf.getVezet();
-            for (Mezo m : vezet.keySet()) {
-                System.out.println(String.valueOf(m.getPos().get(0)) + String.valueOf(m.getPos().get(1))); //ez már van
-                for (int f = 0; f < vezet.get(m).size(); ++f) {
-                    System.out.println(String.valueOf(vezet.get(m).get(f).getPos().get(0)) + String.valueOf(vezet.get(m).get(f).getPos().get(1))); //ez nincs
-                }
-            }
             BufferedImage negxnegy, negy, posxnegy, negx, neut, posx, negxposy, posy, posxposy;
             try {
                 EntitasView ev = new EntitasView(null, null, jatekos); // dummy entity for colorizing
