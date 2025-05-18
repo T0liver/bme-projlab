@@ -86,7 +86,8 @@ public class JatekosMenuView {
             akcioButton.setFocusPainted(false);
             akcioButton.addActionListener(e -> {
                 selectedAkcio = a;
-                a.csinal(new Mezo(-10, -10), new Mezo(-10, -10));
+                //a.csinal(new Mezo(-10, -10), new Mezo(-10, -10));
+                frissitHelp();
             });
             akcioPanel.add(akcioButton);
         }
