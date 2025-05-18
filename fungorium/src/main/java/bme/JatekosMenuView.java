@@ -16,6 +16,7 @@ public class JatekosMenuView {
 
     JPanel playerinfoPanel = new JPanel();
     JLabel nameLabel;
+    JLabel typeLabel;
     JLabel pontLabel;
 
     JPanel akcioPanel = new JPanel();
@@ -38,13 +39,17 @@ public class JatekosMenuView {
 
 
         //Jatekos info (name, points)
-        playerinfoPanel.setLayout(new GridLayout(2, 1));
+        playerinfoPanel.setLayout(new GridLayout(3, 1));
         playerinfoPanel.setMinimumSize(new Dimension(200, 200));
 
         nameLabel = createLabel();
         playerinfoPanel.add(nameLabel);
 
+        typeLabel = createLabel();
+        playerinfoPanel.add(typeLabel);
+
         pontLabel = createLabel();
+        pontLabel.setMaximumSize(new Dimension(200, 20));
         playerinfoPanel.add(pontLabel);
 
         //AKCIO GOMBOK XXXXX
@@ -67,12 +72,23 @@ public class JatekosMenuView {
         //panel.add(help);
 
         //GOMBOK -- MENTES -- KILEPEs
-        exitSavePanel.setLayout(new GridLayout(2, 1));
-        exitSavePanel.setPreferredSize(new Dimension(200, 100));
+        exitSavePanel.setLayout(new GridLayout(3, 1));
+        exitSavePanel.setMaximumSize(new Dimension(200, 150));
+        exitSavePanel.setBorder(new StrokeBorder(new BasicStroke(3)));
 
         setupEndTurnBtn(gw);
         setupSaveBtn();
         setupExitBtn();
+
+        endTurnBtn.setBackground(Color.WHITE);
+        saveBtn.setBackground(Color.WHITE);
+        exitBtn.setBackground(Color.WHITE);
+        endTurnBtn.setFont(new Font("Serif", Font.BOLD, 16));
+        saveBtn.setFont(new Font("Serif", Font.BOLD, 16));
+        exitBtn.setFont(new Font("Serif", Font.BOLD, 16));
+        endTurnBtn.setBorder(null);
+        saveBtn.setBorder(null);
+        exitBtn.setBorder(null);
 
         exitSavePanel.add(endTurnBtn);
         exitSavePanel.add(saveBtn);
@@ -116,6 +132,9 @@ public class JatekosMenuView {
         //Egymas ala gombokat rak, kattintás után kiválasztva az akcio
         for (Akcio a : jatekosMenu.getAkciok()) {
             JButton akcioButton = new JButton(a.getNev());
+            akcioButton.setBackground(Color.WHITE);
+            akcioButton.setFont(new Font("Serif", Font.BOLD, 16));
+            akcioButton.setBorder(null);
             akcioButton.setPreferredSize(new Dimension(200, 50));
             akcioButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             akcioButton.setFocusPainted(false);
@@ -190,15 +209,16 @@ public class JatekosMenuView {
     }
 
     void frissitPontLabel(){
-        String type = (jatekosMenu.getJatekos().getType() == 1 ? "Rovarász" : "Gombász") + "\n";
+        String type = (jatekosMenu.getJatekos().getType() == 1 ? "Rovarász" : "Gombász");
+        typeLabel.setText(type);
         String pont = jatekosMenu.getJatekos().getPontok() + " Pont";
+        pontLabel.setText(pont);
 
         if (pontLabel == null) {
             pontLabel = createLabel();
             pontLabel.setHorizontalAlignment(SwingConstants.CENTER);
             pontLabel.setOpaque(true);
         }
-        pontLabel.setText(type + pont);
     }
 
     void frissitHelp(){
@@ -216,7 +236,7 @@ public class JatekosMenuView {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
-        label.setPreferredSize(new Dimension(200, 50));
+        label.setPreferredSize(new Dimension(200, 30));
         label.setFont(new Font("Serif", Font.BOLD, 20));
         return label;
     }
