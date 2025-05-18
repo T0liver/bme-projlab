@@ -37,12 +37,9 @@ public class JatekosMenuView {
         nameLabel = createLabel();
         panel.add(nameLabel);
 
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-
         //PONTOK
         pontLabel = createLabel();
         panel.add(pontLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //AKCIO GOMBOK XXXXX
         akcioPanel.setLayout(new GridLayout(3, 1));
@@ -52,8 +49,10 @@ public class JatekosMenuView {
 
         //HELP
         help = new JTextArea();
+        help.setLineWrap(true);
+        help.setWrapStyleWord(true);
         help.setEditable(false);
-        help.setFont(new Font("Serif", Font.PLAIN, 12));
+        help.setFont(new Font("Serif", Font.PLAIN, 14));
         help.setAlignmentX(Component.CENTER_ALIGNMENT);
         help.setMaximumSize(new Dimension(200, 300));
 
