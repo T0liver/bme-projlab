@@ -129,6 +129,10 @@ public class JatekosMenuView {
         jatekosMenu = jm;
     }
 
+    public Akcio getSelectedAkcio() {
+        return selectedAkcio;
+    }
+
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
         jatekosMenu.setAkciok(ujJatekos.getAkciok());
