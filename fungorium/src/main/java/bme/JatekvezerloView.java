@@ -42,9 +42,10 @@ public class JatekvezerloView {
             }
         }
         terkepView.draw(gw);
-        JatekosMenu jm = new JatekosMenu(jatekosok.get(jatekvezerlo.getJelenlegiJatekos()));
+        
+        /*JatekosMenu jm = new JatekosMenu(jatekosok.get(jatekvezerlo.getJelenlegiJatekos()));
         JatekosMenuView jmv = new JatekosMenuView(jm);
-        jmv.draw(gw);
+        jmv.draw(gw);*/
     }
 
     public boolean swapLatszik(int i) {

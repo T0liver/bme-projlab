@@ -108,19 +108,6 @@ public class JatekosView {
         gw.repaint();
     }
 
-    public void draw(JFrame gw, boolean drawMenu, JatekosMenuView jmv) {
-        gw.setSize(960, 740);
-        draw(gw);
-        if (drawMenu) {
-            JPanel menu = new JPanel();
-            menu.setOpaque(true);
-            menu.setBackground(Color.WHITE);
-            menu.setBounds(723, 8,  210, 704);
-            //jmv.draw(menu);
-            gw.add(menu);
-        }
-    }
-
     private String getDirection(Mezo from, Mezo to) {
         List<Integer> p1 = from.getPos();
         List<Integer> p2 = to.getPos();

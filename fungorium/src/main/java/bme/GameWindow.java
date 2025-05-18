@@ -31,8 +31,8 @@ public class GameWindow extends JFrame {
     private JatekvezerloView jatekvezerloView;
     //private Jatekos JelenlegiJatekos;
 
-    private JatekosMenu jelenlegiJatekosMenu;
-    private JatekosMenuView jelenlegiJatekosMenuView;
+    private JatekosMenu jelenlegiJatekosMenu = new JatekosMenu(new Gombasz());
+    private JatekosMenuView jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
     private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
@@ -61,6 +61,11 @@ public class GameWindow extends JFrame {
 
         gamePanel = new JPanel();
         terkepView = new TerkepView(jatekvezerlo.getTerkep());
+
+        playerMenuPanel = new JPanel();
+        playerMenuPanel.setOpaque(true);
+        playerMenuPanel.setBackground(Color.WHITE);
+        playerMenuPanel.setBounds(723, 8,  210, 704);
 
         mainPanel.add(gamePanel, "Game");
 
@@ -145,6 +150,9 @@ public class GameWindow extends JFrame {
                 jatekvezerlo.jatekKezdes(gombaszok, rovaraszok);
                 jatekvezerloView = new JatekvezerloView(jatekvezerlo);
                 drawJatekvezerlo();
+                jelenlegiJatekosMenuView.draw(playerMenuPanel);
+                GameWindow.this.add(playerMenuPanel);
+                GameWindow.this.revalidate();
             } 
         });
         content.add(startGame);
