@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class JatekosView {
     private Jatekos jatekos;
@@ -103,25 +104,19 @@ public class JatekosView {
             jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
             gw.add(jl);
         }
-        JLabel menu = new JLabel();
-        menu.setOpaque(true);
-        menu.setBackground(Color.WHITE);
-        menu.setBounds(8 + 22*32 + 8, 8,  960 - (8 + 22 * 32 + 16) - 12, 720 - 16);
-
-        gw.add(menu);
 
         gw.repaint();
     }
 
-    public void draw(JFrame gw, boolean drawMenu) {
+    public void draw(JFrame gw, boolean drawMenu, JatekosMenuView jmv) {
         gw.setSize(960, 740);
         draw(gw);
         if (drawMenu) {
-            JLabel menu = new JLabel();
+            JPanel menu = new JPanel();
             menu.setOpaque(true);
             menu.setBackground(Color.WHITE);
             menu.setBounds(723, 8,  210, 704);
-
+            //jmv.draw(menu);
             gw.add(menu);
         }
     }
