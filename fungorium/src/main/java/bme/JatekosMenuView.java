@@ -232,6 +232,7 @@ public class JatekosMenuView {
         endGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         endGameBtn.addActionListener(e -> {
             jatekvezerloview.jatekVege();
+            jatekvezerloview.getJatekvezerlo().getGameWindow().altMenu();
         });
     }
 

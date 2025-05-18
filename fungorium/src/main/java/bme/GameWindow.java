@@ -80,6 +80,7 @@ public class GameWindow extends JFrame {
         Container content = getContentPane();
         content.removeAll();
         setSize(960, 760);
+        content.setBackground(Color.WHITE);
         content.setLayout(null);
 
         // Cím

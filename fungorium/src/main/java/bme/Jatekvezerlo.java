@@ -207,12 +207,12 @@ public class Jatekvezerlo implements Serializable {
       if (jatekosok.get(i).getType() == 0
           && (gombaszIndex == -1
               || jatekosok.get(i).getPontok() > jatekosok.get(gombaszIndex).getPontok())) {
-        gombaszIndex = i;
+        gombaszIndex = jatekosok.get(i).getId();
       }
       if (jatekosok.get(i).getType() == 1
           && (rovaraszIndex == -1
               || jatekosok.get(i).getPontok() > jatekosok.get(rovaraszIndex).getPontok())) {
-        rovaraszIndex = i;
+        rovaraszIndex = jatekosok.get(i).getId();
       }
     }
     System.out.println("Nyertes Rovarász: " + rovaraszIndex + ". játékos!");
@@ -247,6 +247,7 @@ public class Jatekvezerlo implements Serializable {
    */
   public boolean init(int gombasznum, int rovarasznum) {
     terkep.init();
+    jatekosok.clear(); //edited
     List<Tekton> tektonok = terkep.getTektonok();
     List<Mezo> mezok = terkep.getMezok();
     for (int i = 0; i < gombasznum; ++i) {
@@ -304,5 +305,9 @@ public class Jatekvezerlo implements Serializable {
 
   public void setGameWindow(GameWindow gw) {
     gameWindow = gw;
+  }
+
+  public GameWindow getGameWindow() {
+    return gameWindow;
   }
 }
