@@ -166,7 +166,7 @@ public class Rovar implements Jatekelem {
    * @return hogy elvágta-e a fonalat
    */
   public boolean vag(GombaFonal gombaFonal, Mezo merre) {
-    if (vaghat && gombaFonal.getVezet(tartozkodik, merre)) {
+    if (vaghat && gombaFonal.getVezet(tartozkodik, merre) && tartozkodik.getTekton() != merre.getTekton()) {
       gombaFonal.elvagodik(tartozkodik, merre);
       return true;
     }

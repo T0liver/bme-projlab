@@ -13,4 +13,9 @@ public class FonalNoveszetesAkcio extends Akcio {
     public boolean csinal(Mezo m0, Mezo m1) {
         return g.fonalatNoveszt(m0, m1) != 0;
     }
+
+    @Override
+    public String getHelp() {
+        return "Fonál növesztés:\nKattints a mezőre, ahonnan, majd arra (a szomszédos tektonon lévő) szomszédos mezőre, ahova fonal nőjjön!";
+    }
 }
