@@ -131,6 +131,7 @@ public class JatekosMenuView {
 
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
+        jatekosMenu.setAkciok(ujJatekos.getAkciok());
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
@@ -200,6 +201,7 @@ public class JatekosMenuView {
             frissitNameLabel();
             frissitPontLabel();
             frissitHelp();
+            frissitAkciok();
         });
     }
 
@@ -231,6 +233,11 @@ public class JatekosMenuView {
             pontLabel.setHorizontalAlignment(SwingConstants.CENTER);
             pontLabel.setOpaque(true);
         }
+    }
+
+    void frissitAkciok(){
+        akcioPanel.removeAll();
+        setupAkciok();
     }
 
     void frissitHelp(){
