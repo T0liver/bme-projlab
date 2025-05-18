@@ -145,9 +145,6 @@ public class GameWindow extends JFrame {
                 jatekvezerlo.jatekKezdes(gombaszok, rovaraszok);
                 jatekvezerloView = new JatekvezerloView(jatekvezerlo);
                 drawJatekvezerlo();
-
-                jelenlegiJatekosMenuView = new JatekosMenuView(new JatekosMenu(jatekvezerlo.getSoronLevoJatekos()));
-                jelenlegiJatekosMenuView.draw(playerMenuPanel);
             } 
         });
         content.add(startGame);
