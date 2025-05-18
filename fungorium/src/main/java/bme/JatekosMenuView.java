@@ -19,6 +19,8 @@ public class JatekosMenuView {
     JLabel typeLabel;
     JLabel pontLabel;
 
+    Color playerColor;
+
     JPanel akcioPanel = new JPanel();
 
     JTextArea help;
@@ -213,6 +215,9 @@ public class JatekosMenuView {
 
     void frissitNameLabel(){
         nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getNev());
+
+        playerColor = jatekvezerloview.getSoronLevoJatekos().getSzin();
+        playerinfoPanel.setBackground(playerColor);
     }
 
     void frissitPontLabel(){
