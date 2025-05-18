@@ -12,10 +12,14 @@ public class JatekosMenuView {
 
     JLabel nameLabel;
     JLabel pontLabel;
+
+    JPanel akcioPanel = new JPanel();
+
     JTextArea help;
 
     Akcio selectedAkcio;
 
+    JPanel exitSavePanel = new JPanel();
     JButton saveBtn;
     JButton exitBtn;
 
@@ -41,7 +45,10 @@ public class JatekosMenuView {
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //AKCIO GOMBOK XXXXX
+        akcioPanel.setLayout(new GridLayout(3, 1));
+        akcioPanel.setMaximumSize(new Dimension(200, 150));
         setupAkciok();
+        panel.add(akcioPanel);
 
         //HELP
         help = new JTextArea();
@@ -53,12 +60,16 @@ public class JatekosMenuView {
         panel.add(help);
 
         //GOMBOK -- MENTES -- KILEPEs
+        exitSavePanel.setLayout(new GridLayout(2, 1));
+        exitSavePanel.setMaximumSize(new Dimension(200, 100));
+
         setupSaveBtn();
         setupExitBtn();
 
-        panel.add(saveBtn);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        panel.add(exitBtn);
+        exitSavePanel.add(saveBtn);
+        exitSavePanel.add(exitBtn);
+
+        panel.add(exitSavePanel);
     }
 
     public void changeJatekos(Jatekos ujJatekos){
@@ -77,7 +88,7 @@ public class JatekosMenuView {
                 selectedAkcio = a;
                 a.csinal(new Mezo(-10, -10), new Mezo(-10, -10));
             });
-            panel.add(akcioButton);
+            akcioPanel.add(akcioButton);
         }
     }
 
