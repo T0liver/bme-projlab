@@ -2,6 +2,7 @@ package bme;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.StrokeBorder;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,6 +11,9 @@ public class JatekosMenuView {
     private JatekosMenu jatekosMenu;
     private JPanel panel;
 
+    GroupLayout layout;
+
+    JPanel playerinfoPanel = new JPanel();
     JLabel nameLabel;
     JLabel pontLabel;
 
@@ -27,25 +31,26 @@ public class JatekosMenuView {
         this.jatekosMenu = jatekosMenu;
 
         panel = new JPanel();
-        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        panel.setPreferredSize(new Dimension(200, 600));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel.setPreferredSize(new Dimension(200, 800));
         this.jatekosMenu = jatekosMenu;
 
-        //JÁTÉKOS X
-        nameLabel = createLabel();
-        panel.add(nameLabel);
 
-        //PONTOK
+        //Jatekos info (name, points)
+        playerinfoPanel.setLayout(new GridLayout(2, 1));
+        playerinfoPanel.setMinimumSize(new Dimension(200, 200));
+
+        nameLabel = createLabel();
+        playerinfoPanel.add(nameLabel);
+
         pontLabel = createLabel();
-        panel.add(pontLabel);
+        playerinfoPanel.add(pontLabel);
 
         //AKCIO GOMBOK XXXXX
         akcioPanel.setLayout(new GridLayout(3, 1));
         akcioPanel.setMaximumSize(new Dimension(200, 150));
+        akcioPanel.setBorder(new StrokeBorder(new BasicStroke(3)));
         setupAkciok();
-        panel.add(akcioPanel);
+        //panel.add(akcioPanel);
 
         //HELP
         help = new JTextArea();
@@ -54,13 +59,14 @@ public class JatekosMenuView {
         help.setEditable(false);
         help.setFont(new Font("Serif", Font.PLAIN, 14));
         help.setAlignmentX(Component.CENTER_ALIGNMENT);
-        help.setMaximumSize(new Dimension(200, 300));
+        help.setMaximumSize(new Dimension(200, 200));
+        help.setPreferredSize(new Dimension(200, 200));
 
-        panel.add(help);
+        //panel.add(help);
 
         //GOMBOK -- MENTES -- KILEPEs
         exitSavePanel.setLayout(new GridLayout(2, 1));
-        exitSavePanel.setMaximumSize(new Dimension(200, 100));
+        exitSavePanel.setPreferredSize(new Dimension(200, 100));
 
         setupSaveBtn();
         setupExitBtn();
@@ -68,7 +74,29 @@ public class JatekosMenuView {
         exitSavePanel.add(saveBtn);
         exitSavePanel.add(exitBtn);
 
-        panel.add(exitSavePanel);
+        //panel.add(exitSavePanel);
+
+        layout = new GroupLayout(panel);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // GroupLayout horizontal group
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(playerinfoPanel)
+                        .addComponent(akcioPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(exitSavePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        );
+
+// GroupLayout vertical group
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addComponent(playerinfoPanel)
+                        .addComponent(akcioPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(exitSavePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        );
     }
 
     public void changeJatekos(Jatekos ujJatekos){
@@ -103,14 +131,14 @@ public class JatekosMenuView {
             if (ok == JOptionPane.OK_OPTION) {
                 System.exit(0);
             } else if (ok == JOptionPane.CANCEL_OPTION) {
-                JOptionPane.showMessageDialog(null, "  _______\n" +
+                JOptionPane.showMessageDialog(null, "  _____\n" +
                         "< hello >\n" +
                         "   -------\n" +
                         "       \\    ^__^\n" +
-                        "         \\  (oo)\\_______\n" +
+                        "         \\  (oo)\\______\n" +
                         "            (__)\\              )\\/\\\n" +
-                        "                 ||----w   |\n" +
-                        "                 ||         ||\n");
+                        "                    ||----w   |\n" +
+                        "                    ||           ||\n");
             }
         });
     }
@@ -166,7 +194,10 @@ public class JatekosMenuView {
         JLabel label = new JLabel();
         label.setAlignmentY(Component.CENTER_ALIGNMENT);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Serif", Font.BOLD, 16));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setPreferredSize(new Dimension(200, 50));
+        label.setFont(new Font("Serif", Font.BOLD, 20));
         return label;
     }
 }
