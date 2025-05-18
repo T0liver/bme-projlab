@@ -117,13 +117,13 @@ public class JatekosMenuView {
     }
 
     //FElrakás mainPanel-re
-    public void draw(JFrame w){
+    public void draw(JPanel w){
         if (jatekosMenu.getJatekos() != null) {
             frissitNameLabel();
             frissitPontLabel();
             frissitHelp();
         }
-        w.getContentPane().add(panel, BorderLayout.EAST);
+        w.add(panel);
     }
 
     void frissitNameLabel(){
