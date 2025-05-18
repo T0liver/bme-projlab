@@ -16,4 +16,6 @@ public class Akcio {
     public char getBetu() {
         return betu;
     }
+
+    public String getHelp() {return "ez egy mukodest magyarazo szoveg";}
 }
