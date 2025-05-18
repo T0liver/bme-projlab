@@ -213,24 +213,8 @@ public class Jatekvezerlo implements Serializable {
   public void jatekKezdes(int g, int r) {
     jatekHossz = 50;
     jelenlegiJatekos = 0;
-    jelenlegiKor = 0;
+    jelenlegiKor = 1;
     init(g, r);
-    for (; jelenlegiKor < jatekHossz; ++jelenlegiKor) {
-      korMenete();
-    }
-
-    /*try {
-      for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
-        if (korMenete()) {
-          return;
-        }
-        korVege();
-
-        Thread.sleep(1);
-      }
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }*/
   }
 
 
