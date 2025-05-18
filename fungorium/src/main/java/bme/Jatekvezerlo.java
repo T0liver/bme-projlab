@@ -229,6 +229,7 @@ public class Jatekvezerlo implements Serializable {
     jelenlegiJatekos = 0;
     jelenlegiKor = 1;
     init(g, r);
+    jatekosok.get(0).lep();
   }
 
 
