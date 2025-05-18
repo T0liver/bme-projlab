@@ -235,7 +235,9 @@ public class Jatekvezerlo implements Serializable {
     jatekosok.add(jatekos);
   }
 
-  public void addTekton(Tekton t) {tektonok.add(t);}
+  public void addTekton(Tekton t) {
+    tektonok.add(t);
+  }
 
   /**
    * fuggveny a jatek inicializalasahoz parancssorrol

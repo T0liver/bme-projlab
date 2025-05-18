@@ -34,8 +34,7 @@ public class TektonView extends EntitasView{
             }
         }
 
-        //gw.getJatekVezerlo().addTekton( (Tekton)entitas );
-        //gw.addEntitas(this);
+        gw.getJatekVezerlo().addTekton( (Tekton)entitas );
 
     }
 

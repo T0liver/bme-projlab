@@ -208,6 +208,10 @@ public class GameWindow extends JFrame {
         gbc.insets = new Insets(10, 50, 10, 50);
     }
 
+    public Jatekvezerlo getJatekVezerlo() {
+        return jatekvezerlo;
+    }
+
     /**
      * Belső osztály, amely külön ablakban jelenít meg egy játékmezőt.
      */

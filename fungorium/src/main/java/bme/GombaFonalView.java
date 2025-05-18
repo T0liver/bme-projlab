@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GombaFonalView extends EntitasView {
 
-    public GombaFonalView(Object entitas, Mezo mezo, Jatekos jatekos) {
+    public GombaFonalView(GombaFonal entitas, Mezo mezo, Gombasz jatekos) {
         super(entitas, mezo, jatekos);
 
         try {
@@ -16,6 +16,9 @@ public class GombaFonalView extends EntitasView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        jatekos.addGombaFonal((GombaFonal)entitas);
+
     }
 
     @Override
@@ -70,12 +73,6 @@ public class GombaFonalView extends EntitasView {
 
             this.kinezet = result;
         }
-
-
-
-
-
-
     }
 
 }
