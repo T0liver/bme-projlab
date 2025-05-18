@@ -204,12 +204,12 @@ public class GombaFonal implements Jatekelem {
 
   /** A gombafonal elpusztul, így kitörli az őt tartalmazó kollekciókból. */
   public void elpusztul() {
-    for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
-      Mezo t = entry.getKey();
-      t.fonalak.remove(this);
-      entry.getValue().forEach(szomszed -> szomszed.fonalak.remove(this));
-    }
-    vezet.clear();
+    //for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
+      //Mezo t = entry.getKey();
+      //t.fonalak.remove(this);
+      //entry.getValue().forEach(szomszed -> szomszed.fonalak.remove(this));
+    //}
+    //vezet.clear();
   }
 
   /**
@@ -223,7 +223,7 @@ public class GombaFonal implements Jatekelem {
         ujVezet.put(entry, vezet.get(entry));
       }
     }
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 22*22; ++i) {
       Set<Mezo> ujKeys = new HashSet<>(ujVezet.keySet());
       for (Mezo entry : vezet.keySet()) {
         for (Mezo ujEntry : ujKeys) {

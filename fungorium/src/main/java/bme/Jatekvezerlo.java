@@ -3,6 +3,7 @@ package bme;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -262,7 +263,9 @@ public class Jatekvezerlo implements Serializable {
         System.out.println("Elméletileg nem kéne ennek történnie, a loop valid tektont keres.");
         e.printStackTrace();
       }
-      gom.addGombaFonal(new GombaFonal(t.getMezok().get(0)));
+      GombaFonal gf = new GombaFonal(t.getMezok().get(0));
+      gf.setGombasz(gom);
+      gom.addGombaFonal(gf);
       jatekosok.add(gom);
       gom.setId(jatekosok.size());
     }

@@ -252,8 +252,14 @@ public class Tekton implements Jatekelem {
     // Assign split Mezo sets to two new Tektons
     Tekton t1 = createTekton();
     Tekton t2 = createTekton();
-    for (Mezo m : elso) t1.addMezo(m);
-    for (Mezo m : masodik) t2.addMezo(m);
+    for (Mezo m : elso) {
+      t1.addMezo(m);
+      m.setTekton(t1);
+    }
+    for (Mezo m : masodik) {
+      t2.addMezo(m);
+      m.setTekton(t2);
+    }
 
     // Separate disconnected subregions
     List<List<Mezo>> szigetek = new ArrayList<>();
@@ -264,6 +270,7 @@ public class Tekton implements Jatekelem {
         Tekton uj = createTekton();
         for (Mezo m : sziget) {
             uj.addMezo(m);
+            m.setTekton(uj);
         }
         ret.add(uj);
     }
@@ -281,7 +288,7 @@ public class Tekton implements Jatekelem {
     if (ret.isEmpty()) {
         ret.add(this);
     }
-    
+
     return ret;
 }
 
