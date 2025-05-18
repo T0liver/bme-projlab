@@ -219,6 +219,7 @@ public class JatekosMenuView {
         nameLabel.setText("Játékos "+jatekosMenu.getJatekos().getNev());
 
         playerColor = jatekvezerloview.getSoronLevoJatekos().getSzin();
+        nameLabel.setForeground(colorContrast(playerColor, Color.BLACK) ? Color.BLACK : Color.WHITE);
         playerinfoPanel.setBackground(playerColor);
     }
 
@@ -233,6 +234,11 @@ public class JatekosMenuView {
             pontLabel.setHorizontalAlignment(SwingConstants.CENTER);
             pontLabel.setOpaque(true);
         }
+
+        playerColor = jatekvezerloview.getSoronLevoJatekos().getSzin();
+        boolean isContrast = colorContrast(playerColor, Color.BLACK);
+        pontLabel.setForeground(isContrast ? Color.BLACK : Color.WHITE);
+        typeLabel.setForeground(isContrast ? Color.BLACK : Color.WHITE);
     }
 
     void frissitAkciok(){
@@ -259,5 +265,26 @@ public class JatekosMenuView {
         label.setPreferredSize(new Dimension(200, 30));
         label.setFont(new Font("Serif", Font.BOLD, 20));
         return label;
+    }
+
+    
+
+    private boolean colorContrast(Color c1, Color c2) {
+        double r1c = (c1.getRed() / 255.0 <= 0.03928) ? c1.getRed() / 12.92 : Math.pow((c1.getRed() + 0.055) / 1.055, 2.4);
+        double g1c = (c1.getGreen() / 255.0 <= 0.03928) ? c1.getGreen() / 12.92 : Math.pow((c1.getGreen() + 0.055) / 1.055, 2.4);
+        double b1c = (c1.getBlue() / 255.0 <= 0.03928) ? c1.getBlue() / 12.92 : Math.pow((c1.getBlue() + 0.055) / 1.055, 2.4);
+        double luminance1 = 0.2126 * r1c + 0.7152 * g1c + 0.0722 * b1c;
+
+        double r2c = (c2.getRed() / 255.0 <= 0.03928) ? c2.getRed() / 12.92 : Math.pow((c2.getRed() + 0.055) / 1.055, 2.4);
+        double g2c = (c2.getGreen() / 255.0 <= 0.03928) ? c2.getGreen() / 12.92 : Math.pow((c2.getGreen() + 0.055) / 1.055, 2.4);
+        double b2c = (c2.getBlue() / 255.0 <= 0.03928) ? c2.getBlue() / 12.92 : Math.pow((c2.getBlue() + 0.055) / 1.055, 2.4);
+        double luminance2 = 0.2126 * r2c + 0.7152 * g2c + 0.0722 * b2c;
+
+        double brighter = Math.max(luminance1, luminance2);
+        double darker = Math.min(luminance1, luminance2);
+        double contrastRatio = (brighter + 0.05) / (darker + 0.05);
+
+        contrastRatio = contrastRatio / 100000.0;
+        return contrastRatio >= 6.0;
     }
 }
