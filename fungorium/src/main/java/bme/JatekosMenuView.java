@@ -237,6 +237,7 @@ public class JatekosMenuView {
 
     void frissitAkciok(){
         akcioPanel.removeAll();
+        akcioPanel.revalidate();
         setupAkciok();
     }
 
