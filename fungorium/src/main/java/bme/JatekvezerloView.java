@@ -53,7 +53,7 @@ public class JatekvezerloView {
 
     public void kovetkezoKor() {
         jatekvezerlo.korVege();
-        System.out.println("Következő kör: " + jatekvezerlo.getJelenlegiKor());
+        //System.out.println("Következő kör: " + jatekvezerlo.getJelenlegiKor());
         if (jatekvezerlo.getJelenlegiKor() == jatekvezerlo.getJatekHossz()) {
             jatekvezerlo.jatekVege();
             return;

@@ -163,12 +163,7 @@ public class Jatekvezerlo implements Serializable {
     int hasad = r.nextInt(tektonok.size());
     List<Tekton> hasadt = tektonok.get(hasad).hasad();
     List<Mezo> mezok = tektonok.get(hasad).getMezok();
-    for (Mezo m : mezok) {
-      System.out.println(String.valueOf(m.getPos().get(0)) + ", " + String.valueOf(m.getPos().get(1)) + m.getTekton());
-    }
-    System.out.println(String.valueOf(hasadt.size()));
     if (hasadt.size() > 1) {
-      System.out.println("asd");
       terkep.addTektonok(hasadt);
       terkep.removeTekton(hasad);
     }
