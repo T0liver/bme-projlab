@@ -32,7 +32,7 @@ public class GameWindow extends JFrame {
     //private Jatekos JelenlegiJatekos;
 
     private JatekosMenu jelenlegiJatekosMenu = new JatekosMenu(new Gombasz());
-    private JatekosMenuView jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu);
+    private JatekosMenuView jelenlegiJatekosMenuView = new JatekosMenuView(jelenlegiJatekosMenu, this);
     private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
@@ -236,7 +236,7 @@ public class GameWindow extends JFrame {
     private void drawJatekvezerlo() {
         jatekvezerloView.draw(this);
         jelenlegiJatekosMenu = new JatekosMenu(jatekvezerlo.getSoronLevoJatekos());
-        jelenlegiJatekosMenuView.setJatekVezerlo(jatekvezerlo);
+        jelenlegiJatekosMenuView.setJatekVezerloView(jatekvezerloView);
         jelenlegiJatekosMenuView.draw(playerMenuPanel);
         add(playerMenuPanel);
         revalidate();

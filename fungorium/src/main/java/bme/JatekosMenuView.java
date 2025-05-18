@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 public class JatekosMenuView {
     private JatekosMenu jatekosMenu;
     private JPanel panel;
-    private Jatekvezerlo jatekvezerlo;
+    private JatekvezerloView jatekvezerloview;
 
     GroupLayout layout;
 
@@ -29,7 +29,7 @@ public class JatekosMenuView {
     JButton exitBtn;
     JButton endTurnBtn;
 
-    public JatekosMenuView(JatekosMenu jatekosMenu) {
+    public JatekosMenuView(JatekosMenu jatekosMenu, JFrame gw) {
         this.jatekosMenu = jatekosMenu;
 
         panel = new JPanel();
@@ -70,7 +70,7 @@ public class JatekosMenuView {
         exitSavePanel.setLayout(new GridLayout(2, 1));
         exitSavePanel.setPreferredSize(new Dimension(200, 100));
 
-        setupEndTurnBtn();
+        setupEndTurnBtn(gw);
         setupSaveBtn();
         setupExitBtn();
 
@@ -103,8 +103,8 @@ public class JatekosMenuView {
         );
     }
 
-    public void setJatekVezerlo(Jatekvezerlo jv) {
-        jatekvezerlo = jv;
+    public void setJatekVezerloView(JatekvezerloView jvV) {
+        jatekvezerloview = jvV;
     }
 
     public void changeJatekos(Jatekos ujJatekos){
@@ -163,14 +163,15 @@ public class JatekosMenuView {
 
     }
 
-    private void setupEndTurnBtn() {
+    private void setupEndTurnBtn(JFrame gw) {
         endTurnBtn = new JButton("KÖR VÉGE");
         endTurnBtn.setFocusable(false);
         endTurnBtn.setPreferredSize(new Dimension(200, 50));
         endTurnBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         endTurnBtn.addActionListener(e -> {
-            jatekvezerlo.korVege();
+            jatekvezerloview.kovetkezoKor();
+            jatekvezerloview.draw(gw);
         });
     }
 
