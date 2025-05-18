@@ -29,7 +29,7 @@ public class JatekosMenuView {
     JButton exitBtn;
     JButton endTurnBtn;
 
-    public JatekosMenuView(JatekosMenu jatekosMenu, JFrame gw) {
+    public JatekosMenuView(JatekosMenu jatekosMenu) {
         this.jatekosMenu = jatekosMenu;
 
         panel = new JPanel();
@@ -70,7 +70,7 @@ public class JatekosMenuView {
         exitSavePanel.setLayout(new GridLayout(2, 1));
         exitSavePanel.setPreferredSize(new Dimension(200, 100));
 
-        setupEndTurnBtn(gw);
+        setupEndTurnBtn();
         setupSaveBtn();
         setupExitBtn();
 
@@ -113,7 +113,6 @@ public class JatekosMenuView {
 
     public void changeJatekos(Jatekos ujJatekos){
         jatekosMenu.setJatekos(ujJatekos);
-        draw(panel);
     }
 
     //AKCIOK BILLENTYUZHOZ KOTESE
@@ -168,7 +167,7 @@ public class JatekosMenuView {
 
     }
 
-    private void setupEndTurnBtn(JFrame gw) {
+    private void setupEndTurnBtn() {
         endTurnBtn = new JButton("KÖR VÉGE");
         endTurnBtn.setFocusable(false);
         endTurnBtn.setPreferredSize(new Dimension(200, 50));
