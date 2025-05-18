@@ -238,6 +238,7 @@ public class GombaFonal implements Jatekelem {
         entry.fonalak.remove(this);
     }
     vezet = ujVezet;
+    novekszik();
   }
 
   /** Ekkor a kiválasztott gombafonal terjeszkedik a tektonon belül. */
@@ -247,8 +248,9 @@ public class GombaFonal implements Jatekelem {
       mezok.add(m0);
     }
     for (Mezo m0 : mezok) {
-      for (Mezo m1 : m0.getTekton().getMezok())
-        m0.fonalNovekszik(this, m1);
+      for (Mezo m1 : m0.getTekton().getMezok()) {
+        m1.fonalNovekszik(this, m0);
+      }
     }
     return;
   }

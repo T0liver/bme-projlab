@@ -8,7 +8,9 @@ public class Mezo {
     public Tekton tartozik;
     public List<GombaFonal> fonalak = new ArrayList<>();
     Terkep terkep;
+
     public Mezo(int _x, int _y) {x = _x; y = _y;}
+
     int milyenSzomszed(Mezo m) {
       List<Integer> mpos = m.getPos();
       if (Math.abs(mpos.get(0) - x) > 1 || Math.abs(mpos.get(1) - y) > 1 || (mpos.get(1) == y && mpos.get(0) == x))
@@ -70,14 +72,18 @@ public class Mezo {
          * @param melyik melyik gombafonál próbál áthidalni a tektonra
          */
         public void fonalNovekszik(GombaFonal melyik, Mezo honnan) {
-          if (fonalak.contains(melyik))
-            return;
-          if (milyenSzomszed(honnan) > 2)
+          //if (fonalak.contains(melyik)) {
+            //return;
+          //}
+          if (milyenSzomszed(honnan) > 2) {
             if (melyik.getVezet(honnan, honnan)) { // Ellenőrzés, hogy szomszédról hidal-e át
-              fonalak.add(melyik);
+              if (!fonalak.contains(melyik))
+                fonalak.add(melyik);
+              melyik.athidal(honnan, this);
               // melyik.athidal(this); //ez kérdőjeles
             }
           }
+        }
 
           void setTerkep(Terkep t) {
             terkep = t;

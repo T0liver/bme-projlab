@@ -109,6 +109,8 @@ public class JatekosView {
         }
 
         gw.repaint();
+        gw.revalidate();
+        gw.repaint();
     }
 
     private String getDirection(Mezo from, Mezo to) {
@@ -117,7 +119,7 @@ public class JatekosView {
     
         int dx = p2.get(0) - p1.get(0);
         int dy = p2.get(1) - p1.get(1);
-    
+
         if (dx == 0 && dy == -1) return "Up";
         if (dx == 0 && dy == 1) return "Down";
         if (dx == -1 && dy == 0) return "Left";
