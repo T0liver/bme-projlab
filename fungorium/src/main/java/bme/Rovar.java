@@ -1,5 +1,11 @@
 package bme;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 /**
  * Rovar osztály definíciója.
  *
@@ -215,5 +221,9 @@ public class Rovar implements Jatekelem {
    */
   public boolean isBenult() {
     return (!vaghat && sebesseg == 0);
+  }
+
+  public BufferedImage getImg() throws IOException {
+    return ImageIO.read(new File("textures/Rovar.png"));
   }
 }

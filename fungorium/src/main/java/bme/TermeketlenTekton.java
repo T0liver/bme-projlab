@@ -40,6 +40,11 @@ public class TermeketlenTekton extends Tekton {
     return new TermeketlenTekton();
   }
 
+  @Override
+  public boolean getTermeketlen() {
+    return true;
+  }
+
   /**
    * A class adatait kiiro fuggveny.
    *

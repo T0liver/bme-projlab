@@ -191,7 +191,8 @@ public class Tekton implements Jatekelem {
    *         nem tudott hasadni
    */
   public List<Tekton> hasad() {
-  // TODO: rovar tartózkodását megtartani, gombatest van nem lehet hasadni, fonalak elvágódnak, spórák eltűnnek (vagy a sporatFelhasznalban az összes mezőt megvizsgálni, hogy van-e rajta olyan rovar a tekton vizsgálata helyett)
+  // TODO: rovar tartózkodását megtartani
+  //gombatest van nem lehet hasadni, fonalak elvágódnak, spórák eltűnnek (vagy a sporatFelhasznalban az összes mezőt megvizsgálni, hogy van-e rajta olyan rovar a tekton vizsgálata helyett)
     List<Tekton> ret = new ArrayList<>();
     if (foglalt) {
       ret.add(this);
@@ -502,5 +503,10 @@ public class Tekton implements Jatekelem {
         ret.add(csoport);
       }
       return ret;
+  }
+
+  //inithez kell
+  public boolean getTermeketlen() {
+    return false;
   }
 }

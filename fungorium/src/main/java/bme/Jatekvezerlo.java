@@ -15,7 +15,7 @@ public class Jatekvezerlo implements Serializable {
   private int jelenlegiKor;
 
   /** Tektonok listája */
-  private List<Tekton> tektonok;
+  //private List<Tekton> tektonok;
 
   /** Játékosok listája */
   List<Jatekos> jatekosok;
@@ -34,13 +34,13 @@ public class Jatekvezerlo implements Serializable {
 
   /** Felvett random osztály */
   @SuppressWarnings("unused")
-  private Random r;
+  private Random r = new Random();
 
 
   public Jatekvezerlo() {
     jatekosok = new ArrayList<Jatekos>();
     jelenlegiKor = 0;
-    tektonok = new ArrayList<Tekton>();
+    //tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
@@ -54,7 +54,7 @@ public class Jatekvezerlo implements Serializable {
   public Jatekvezerlo(List<Jatekos> jatekosok){
     this.jatekosok = jatekosok;
     jelenlegiKor = 0;
-    tektonok = new ArrayList<Tekton>();
+    //tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
@@ -69,7 +69,7 @@ public class Jatekvezerlo implements Serializable {
       r = new Random();
     }
     jelenlegiKor = 0;
-    tektonok = new ArrayList<Tekton>();
+    //tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     terkep =  new Terkep();
   }
@@ -86,15 +86,16 @@ public class Jatekvezerlo implements Serializable {
    * Publikus getter a tektonok listájára.
    * @return a játékban szereplő tektonok listája
    */
-  public List<Tekton> getTektonok() {
-    return tektonok;
-  }
+  //public List<Tekton> getTektonok() {
+    //return tektonok;
+  //}
 
   /**
    * Publikus getter a játékosok listájára.
    * @return a játékban szereplő játékosok listája
    */
   public List<Jatekos> getJatekosok() {
+    //System.out.println("\n" + String.valueOf(jatekosok.size()));
     return jatekosok;
   }
 
@@ -156,7 +157,9 @@ public class Jatekvezerlo implements Serializable {
    * A kör eleji lefutásokért felelős, minden körben meghívódik.
    */
   public void tick() {
-    for (int i = 0; i < tektonok.size(); ++i)
+    List<Tekton> tektonok = terkep.getTektonok();
+    int n = tektonok.size();
+    for (int i = 0; i < n; ++i)
       tektonok.get(i).tick();
   }
 
@@ -205,13 +208,11 @@ public class Jatekvezerlo implements Serializable {
   /**
    * Függvény a játék kezdésére és pörgetésére.
    */
-  public void jatekKezdes() {
+  public void jatekKezdes(int g, int r) {
     jatekHossz = 50;
-    if (!init()) {
-      return;
-    }
+    init(g, r);
 
-    try {
+    /*try {
       for (jelenlegiKor = 0; jelenlegiKor < 50; ++jelenlegiKor) {
         if (korMenete()) {
           return;
@@ -222,7 +223,7 @@ public class Jatekvezerlo implements Serializable {
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
-    }
+    }*/
   }
 
 
@@ -240,9 +241,30 @@ public class Jatekvezerlo implements Serializable {
    * 
    * @throws InvalidAttributeValueException
    */
-  public boolean init() {
+  public boolean init(int gombasznum, int rovarasznum) {
     terkep.init();
-    System.out.println("Térkép inicializálva.");
+    List<Tekton> tektonok = terkep.getTektonok();
+    List<Mezo> mezok = terkep.getMezok();
+    for (int i = 0; i < gombasznum; ++i) {
+      Gombasz gom = new Gombasz();
+      Tekton t = tektonok.get(r.nextInt(tektonok.size()));
+      while (t.getTermeketlen() || t.getFoglalt()) {
+        t = tektonok.get(r.nextInt(tektonok.size()));
+      }
+      try {
+        gom.addGombaTest(new GombaTest(gom, 5, t));
+      } catch (Exception e) {
+        System.out.println("Elméletileg nem kéne ennek történnie, a loop valid tektont keres.");
+        e.printStackTrace();
+      }
+      gom.addGombaFonal(new GombaFonal(t.getMezok().get(0)));
+      jatekosok.add(gom);
+    }
+    for (int i = 0; i < rovarasznum; ++i) {
+      Rovarasz rov = new Rovarasz();
+      rov.addRovar(new Rovar(rov, mezok.get(r.nextInt(mezok.size()))));
+      jatekosok.add(rov);
+    }
     return true;
   } // 22x22 mezős, random tektonos pálya
 
@@ -253,6 +275,7 @@ public class Jatekvezerlo implements Serializable {
    * @return a keresett id
    */
   public int getIDof(Tekton t) {
+    List<Tekton> tektonok = terkep.getTektonok();
     for (int i = 0; i < tektonok.size(); ++i) {
       if (t == tektonok.get(i))
         return i;

@@ -20,8 +20,8 @@ public class GombaTestView extends EntitasView{
     }
 
 
-    @Override
-    public void draw(GameWindow gw, Graphics g){
+    //@Override
+    /*public void draw(GameWindow gw, Graphics g){
         Color jszin = jatekos.getSzin();
         BufferedImage image = color(kinezet, jszin);
         kinezet = image;
@@ -37,6 +37,6 @@ public class GombaTestView extends EntitasView{
 
 
 
-    }
+    }*/
 
 }

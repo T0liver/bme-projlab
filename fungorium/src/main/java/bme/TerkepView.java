@@ -8,7 +8,7 @@ public class TerkepView {
     private Terkep terkep;
 
     public TerkepView() {
-        this.terkep = new Terkep();
+        //this.terkep = new Terkep();
         //terkep.init();
     }
 
@@ -18,6 +18,7 @@ public class TerkepView {
 
     public void draw(JFrame window) {
         Container content = window.getContentPane(); // Fix: use the content pane
+        //content.removeAll();
         content.setLayout(null); // Ensure absolute positioning
     
         window.setSize(960, 760);
@@ -45,8 +46,8 @@ public class TerkepView {
             if (right != null && !mezo.getTekton().equals(right.getTekton())) {
                 JPanel line = new JPanel();
                 line.setBackground(new Color(0, 0, 100));
-                int drawX = 9 + x * 32 + 30;
-                int drawY = 9 + y * 32;
+                int drawX = 8 + x * 32 + 30;
+                int drawY = 8 + y * 32;
                 line.setBounds(drawX, drawY, 4, 32);
                 content.add(line); 
             }
@@ -55,8 +56,8 @@ public class TerkepView {
             if (down != null && !mezo.getTekton().equals(down.getTekton())) {
                 JPanel line = new JPanel();
                 line.setBackground(new Color(0, 0, 100));
-                int drawX = 9 + x * 32;
-                int drawY = 9 + y * 32 + 30;
+                int drawX = 8 + x * 32;
+                int drawY = 8 + y * 32 + 30;
                 line.setBounds(drawX, drawY, 32, 4);
                 content.add(line);
             }
@@ -67,8 +68,8 @@ public class TerkepView {
             BufferedImage img = mezo.getTekton().getImage();
             JLabel jl = new JLabel(new ImageIcon(img));
             List<Integer> pos = mezo.getPos();
-            int x = 9 + pos.get(0) * 32;
-            int y = 9 + pos.get(1) * 32;
+            int x = 8 + pos.get(0) * 32;
+            int y = 8 + pos.get(1) * 32;
             jl.setBounds(x, y, 32, 32);
             content.add(jl); // Fix: add to content pane
         }

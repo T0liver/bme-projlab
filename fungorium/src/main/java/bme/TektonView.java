@@ -13,11 +13,11 @@ public class TektonView extends EntitasView{
         kinezet = entitas.getImage();
     }
 
-    @Override
+    /*@Override
     public void draw(GameWindow gw, Graphics g){
 
         Tekton tk = new Tekton();
 
-    }
+    }*/
 
 }

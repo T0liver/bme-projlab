@@ -1,7 +1,12 @@
 package bme;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 //import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * GombaTest osztály definíciója.
@@ -300,6 +305,10 @@ public class GombaTest implements Jatekelem {
     if (sporadarab < 5)
       sporadarab++;
     novekszik();
+  }
+
+  public BufferedImage getImg() throws IOException {
+    return ImageIO.read(new File("textures/GombaTest.png"));
   }
 
   /**

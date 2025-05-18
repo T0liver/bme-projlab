@@ -24,7 +24,7 @@ public class GameWindow extends JFrame {
     public static final int GRID_SIZE = 50;
 
     private int screenWidth = 960;
-    private int screenHeight = 720;
+    private int screenHeight = 740;
     private JPanel mainPanel;
     private CardLayout cardLayout;
     private JPanel gamePanel;
@@ -38,6 +38,12 @@ public class GameWindow extends JFrame {
     private List<EntitasView> entitasok = new ArrayList<>();
     private TerkepView terkepView;
 
+    
+    private int gombaszok = 2;
+    private int rovaraszok = 2;
+    private JLabel gombaszokLabel;
+    private JLabel rovaraszokLabel;
+
     /**
      * Konstruktor, amely inicializálja az ablakot és a főmenüt.
      */
@@ -49,7 +55,7 @@ public class GameWindow extends JFrame {
         setTitle("Fungorium");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(screenWidth, screenHeight);
-        setResizable(false);
+        //setResizable(false);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -105,7 +111,7 @@ public class GameWindow extends JFrame {
      */
     public void drawSprite(EntitasView entitasView, Graphics g) {
 
-        entitasView.draw(this, g);
+        //entitasView.draw(this, g);
 
         BufferedImage image = entitasView.getKinezet();
         int x = (entitasView.mezo.getPos().get(0)) * CELL_SIZE;
@@ -230,6 +236,7 @@ public class GameWindow extends JFrame {
             if (terkepView == null) {
                 terkepView = new TerkepView(jatekvezerlo.getTerkep());
             }
+            jatekvezerlo.init(2, 2);
             terkepView.draw(this);
 
             /*gridColors = new Color[GRID_SIZE][GRID_SIZE];
@@ -653,7 +660,7 @@ public class GameWindow extends JFrame {
                                     } else {
                                         jatekvezerlo.setJatekosok(players);
                                     }
-                                    jatekvezerlo.jatekKezdes();
+                                    jatekvezerlo.jatekKezdes(2, 2);
                                 } catch (Exception ex) {
                                     SwingUtilities.invokeLater(() -> {
                                         JOptionPane.showMessageDialog(MainMenu.this,
@@ -964,6 +971,177 @@ public class GameWindow extends JFrame {
         }
 
 
+    }
+
+    public void altMenu() {
+        Container content = getContentPane();
+        content.removeAll();
+        setSize(960, 760);  // teljes ablakméret
+        content.setLayout(null);
+
+        // Cím
+        JLabel title = new JLabel("FUNGORIUM", SwingConstants.CENTER);
+        title.setFont(new Font("Rockwell", Font.BOLD, 36));
+        title.setBounds(0, 50, 960, 50);
+        content.add(title);
+
+        // GOMBÁSZOK beállítás
+        gombaszokLabel = new JLabel("GOMBÁSZOK: " + gombaszok);
+        gombaszokLabel.setFont(new Font("Rockwell", Font.BOLD, 24));
+        gombaszokLabel.setBounds(320, 150, 300, 30);
+        content.add(gombaszokLabel);
+
+        JButton gombaszokMinus = new JButton("-");
+        gombaszokMinus.setBounds(260, 150, 50, 30);
+        gombaszokMinus.addActionListener(e -> {
+            if (gombaszok > 2) {
+                gombaszok--;
+                updateLabels();
+            }
+        });
+        content.add(gombaszokMinus);
+
+        JButton gombaszokPlus = new JButton("+");
+        gombaszokPlus.setBounds(630, 150, 50, 30);
+        gombaszokPlus.addActionListener(e -> {
+            if (gombaszok < 5) {
+                gombaszok++;
+                updateLabels();
+            }
+        });
+        content.add(gombaszokPlus);
+
+        // ROVARÁSZOK beállítás
+        rovaraszokLabel = new JLabel("ROVARÁSZOK: " + rovaraszok);
+        rovaraszokLabel.setFont(new Font("Rockwell", Font.BOLD, 24));
+        rovaraszokLabel.setBounds(320, 200, 300, 30);
+        content.add(rovaraszokLabel);
+
+        JButton rovaraszokMinus = new JButton("-");
+        rovaraszokMinus.setBounds(260, 200, 50, 30);
+        rovaraszokMinus.addActionListener(e -> {
+            if (rovaraszok > 2) {
+                rovaraszok--;
+                updateLabels();
+            }
+        });
+        content.add(rovaraszokMinus);
+
+        JButton rovaraszokPlus = new JButton("+");
+        rovaraszokPlus.setBounds(630, 200, 50, 30);
+        rovaraszokPlus.addActionListener(e -> {
+            if (rovaraszok < 5) {
+                rovaraszok++;
+                updateLabels();
+            }
+        });
+        content.add(rovaraszokPlus);
+
+        // Menü gombok
+        JButton startGame = new JButton("JÁTÉK KEZDÉSE");
+        startGame.setFont(new Font("Rockwell", Font.BOLD, 20));
+        startGame.setBounds(330, 280, 300, 40);
+        startGame.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jatekvezerlo.jatekKezdes(gombaszok, rovaraszok);
+                jatekvezerloView = new JatekvezerloView(jatekvezerlo);
+                gwClearAll();
+                drawJatekvezerlo();
+            } 
+        });
+        content.add(startGame);
+
+        JButton loadGame = new JButton("BETÖLTÉS");
+        loadGame.setFont(new Font("Rockwell", Font.BOLD, 20));
+        loadGame.setBounds(330, 340, 300, 40);
+        //ezt fentről másoltam ki, nem fogok gameboardot használni, kevesebb, mint felesleges
+        loadGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File mentesiMappa = new File("saves");
+
+                // Ha a mappa nem létezik vagy üres
+                if (!mentesiMappa.exists() || !mentesiMappa.isDirectory()) {
+                    JOptionPane.showMessageDialog(GameWindow.this, "Nincs elérhető mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Csak .dat fájlok listázása
+                File[] mentettFajlok = mentesiMappa.listFiles((dir, name) -> name.endsWith(".dat"));
+
+                if (mentettFajlok == null || mentettFajlok.length == 0) {
+                    JOptionPane.showMessageDialog(GameWindow.this, "Nem található mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Fájlnevek kilistázása
+                String[] fajlNevek = Arrays.stream(mentettFajlok)
+                        .map(File::getName)
+                        .toArray(String[]::new);
+
+                // Megjelenítjük a választó ablakot
+                String kivalasztottFajl = (String) JOptionPane.showInputDialog(
+                        GameWindow.this,
+                        "Válassz egy mentést:",
+                        "Mentés betöltése",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        fajlNevek,
+                        fajlNevek[0]);
+
+                // Ha nem választott semmit (cancel)
+                if (kivalasztottFajl == null) {
+                    return;
+                }
+
+                // Kiválasztott mentés betöltése
+                try {
+                    File file = new File("saves", kivalasztottFajl);
+                    FileInputStream fis = new FileInputStream(file);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    Jatekvezerlo betoltottJatek = (Jatekvezerlo) ois.readObject();
+                    ois.close();
+
+                    List<Jatekos> betoltottJatekosok = betoltottJatek.getJatekosok();
+
+                    SwingUtilities.invokeLater(() -> {
+                        GameBoard gameBoard = new GameWindow.GameBoard(betoltottJatekosok);
+                        gameBoard.setVisible(true);
+                    });
+
+                } catch (IOException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(GameWindow.this,
+                            "Hiba történt a játék betöltése közben: " + ex.getMessage(),
+                            "Hiba",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        content.add(loadGame);
+
+        JButton exit = new JButton("KILÉPÉS");
+        exit.setFont(new Font("Rockwell", Font.BOLD, 20));
+        exit.setBounds(330, 400, 300, 40);
+        exit.addActionListener(e -> System.exit(0));
+        content.add(exit);
+
+        content.revalidate();
+        content.repaint();
+    }
+
+    private void updateLabels() {
+        gombaszokLabel.setText("GOMBÁSZOK: " + gombaszok);
+        rovaraszokLabel.setText("ROVARÁSZOK: " + rovaraszok);
+    }
+
+    private void drawJatekvezerlo() {
+        jatekvezerloView.draw(this);
+    }
+
+    private void gwClearAll() {
+        this.getContentPane().removeAll();
     }
 }
 

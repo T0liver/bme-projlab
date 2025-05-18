@@ -18,10 +18,10 @@ public class SporaView extends EntitasView {
         }
     }
 
-    @Override
+    /*@Override
     public void draw(GameWindow gw, Graphics g){
         Color jszin = jatekos.getSzin();
         BufferedImage image = color(kinezet, jszin);
         kinezet = image;
-    }
+    }*/
 }

@@ -104,4 +104,6 @@ public class Terkep {
         ret.setTerkep(this);
         return ret;
     }
+
+    public List<Tekton> getTektonok() { return tektonok; }
 }

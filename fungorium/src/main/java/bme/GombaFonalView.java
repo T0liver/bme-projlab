@@ -12,9 +12,9 @@ public class GombaFonalView extends EntitasView {
         super(entitas, mezo, jatekos);
     }
 
-    @Override
-    public void draw(GameWindow gw, Graphics g){
+    //@Override
+    //public void draw(GameWindow gw, Graphics g){
 
-    }
+    //}
 
 }

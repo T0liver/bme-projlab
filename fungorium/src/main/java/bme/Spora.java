@@ -1,5 +1,11 @@
 package bme;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 /**
  * Spóra osztály definíciója.
  *
@@ -162,5 +168,9 @@ public class Spora implements Jatekelem {
    */
   public Tekton getTartozkodik() {
     return tartozkodik;
+  }
+
+  public BufferedImage getImg() throws IOException {
+    return ImageIO.read(new File("textures/Spora.png"));
   }
 }

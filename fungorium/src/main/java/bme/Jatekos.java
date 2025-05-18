@@ -3,6 +3,7 @@ package bme;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Játékos osztály definíciója.
@@ -15,6 +16,7 @@ public abstract class Jatekos implements Jatekelem{
   protected int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
   protected Color szin;
+  private Random random = new Random();
 
 
   private int id;
@@ -43,6 +45,7 @@ public abstract class Jatekos implements Jatekelem{
    */
   public Jatekos() {
     this.nev = "not given";
+    this.szin = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
   }
 
   /**
@@ -112,4 +115,22 @@ public abstract class Jatekos implements Jatekelem{
    * @return rovarok üres listája
    */
   public List<Rovar> getRovarok() {return new ArrayList<>();}
+
+  /**
+   * publikus fuggveny gombatestek lekerdezesere, gombasz hasznalja.
+   * @return gombatestek üres listája
+   */
+  public List<GombaTest> getGombaTestek() {return new ArrayList<>();}
+
+  /**
+   * publikus fuggveny gombafonalak lekerdezesere, gombasz hasznalja.
+   * @return gombafonalak üres listája
+   */
+  public List<GombaFonal> getGombaFonalak() {return new ArrayList<>();}
+
+  /**
+   * publikus fuggveny sporak lekerdezesere, gombasz hasznalja.
+   * @return sporak üres listája
+   */
+  public List<Spora> getSporak() {return new ArrayList<>();}
 }

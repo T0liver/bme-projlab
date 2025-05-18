@@ -15,7 +15,7 @@ public class EntitasView {
         this.jatekos = jatekos;
     }
 
-    public void draw(GameWindow gw, Graphics g) {}
+    public void draw(GameWindow gw) {}
 
     public BufferedImage getKinezet() {return kinezet;}
 
@@ -23,14 +23,14 @@ public class EntitasView {
     public BufferedImage color(BufferedImage image, Color csere) {
 
         BufferedImage ujKep = new BufferedImage(
-                kinezet.getWidth(),
-                kinezet.getHeight(),
+                32,
+                32,
                 BufferedImage.TYPE_INT_ARGB
         );
 
-        for (int y = 0; y < kinezet.getHeight(); y++) {
-            for (int x = 0; x < kinezet.getWidth(); x++) {
-                int rgb = kinezet.getRGB(x, y);
+        for (int y = 0; y < 32; y++) {
+            for (int x = 0; x < 32; x++) {
+                int rgb = image.getRGB(x, y);
                 Color szin = new Color(rgb, true);
 
                 int r = szin.getRed();

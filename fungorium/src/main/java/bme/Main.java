@@ -5,5 +5,6 @@ public class Main {
 
     GameWindow gameWindow = new GameWindow();
     gameWindow.setTitle("Fungorium");
+    gameWindow.altMenu();
   }
 }
