@@ -176,6 +176,9 @@ public class JatekosMenuView {
         endTurnBtn.addActionListener(e -> {
             jatekvezerloview.kovetkezoKor();
             changeJatekos(jatekvezerloview.getSoronLevoJatekos());
+            frissitNameLabel();
+            frissitPontLabel();
+            frissitHelp();
         });
     }
 
