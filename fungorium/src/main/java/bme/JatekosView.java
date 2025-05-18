@@ -30,19 +30,27 @@ public class JatekosView {
 
         //GombaFonalak rajzolása
         for (int i = 0; i < gfs.size(); ++i) {
+            System.out.println(String.valueOf(gfs.get(0).getVezet().keySet().size()));
             GombaFonal gf = gfs.get(i);
             Map<Mezo, List<Mezo>> vezet = gf.getVezet();
+            for (Mezo m : vezet.keySet()) {
+                System.out.println(String.valueOf(m.getPos().get(0)) + String.valueOf(m.getPos().get(1))); //ez már van
+                for (int f = 0; f < vezet.get(m).size(); ++f) {
+                    System.out.println(String.valueOf(vezet.get(m).get(f).getPos().get(0)) + String.valueOf(vezet.get(m).get(f).getPos().get(1))); //ez nincs
+                }
+            }
             BufferedImage negxnegy, negy, posxnegy, negx, neut, posx, negxposy, posy, posxposy;
             try {
-                negxnegy = ImageIO.read(new File("textures/FonalDiagUL.png"));
-                negy = ImageIO.read(new File("textures/FonalUp.png"));
-                posxnegy = ImageIO.read(new File("textures/FonalDiagUR.png"));
-                negx = ImageIO.read(new File("textures/FonalLeft.png"));
-                neut = ImageIO.read(new File("textures/FonalNeut.png"));
-                posx = ImageIO.read(new File("textures/FonalRight.png"));
-                negxposy = ImageIO.read(new File("textures/FonalDiagDL.png"));
-                posy = ImageIO.read(new File("textures/FonalDown.png"));
-                posxposy = ImageIO.read(new File("textures/FonalDiagDR.png"));
+                EntitasView ev = new EntitasView(null, null, jatekos); // dummy entity for colorizing
+                negxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUL.png")), jatekos.getSzin());
+                negy     = ev.color(ImageIO.read(new File("textures/FonalUp.png")), jatekos.getSzin());
+                posxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUR.png")), jatekos.getSzin());
+                negx     = ev.color(ImageIO.read(new File("textures/FonalLeft.png")), jatekos.getSzin());
+                neut     = ev.color(ImageIO.read(new File("textures/FonalNeut.png")), jatekos.getSzin());
+                posx     = ev.color(ImageIO.read(new File("textures/FonalRight.png")), jatekos.getSzin());
+                negxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDL.png")), jatekos.getSzin());
+                posy     = ev.color(ImageIO.read(new File("textures/FonalDown.png")), jatekos.getSzin());
+                posxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDR.png")), jatekos.getSzin());
                 for (Mezo m : vezet.keySet()) {
                     JLabel label = createCompositeLabel(
                         gf.getVezet(),
@@ -50,6 +58,8 @@ public class JatekosView {
                         neut, negy, posy, negx, posx,
                         negxnegy, posxnegy, negxposy, posxposy
                     );
+                    List<Integer> pos = m.getPos();
+                    label.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
                     gw.add(label);
                 }
             } catch (IOException e) {

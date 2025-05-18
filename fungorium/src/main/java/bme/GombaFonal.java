@@ -74,6 +74,7 @@ public class GombaFonal implements Jatekelem {
     vezet = new HashMap<>();
     vezet.put(kezdet, new ArrayList<>());
     kezdet.fonalak.add(this);
+    addVezet(kezdet, kezdet);
   }
 
   public void addVezet(Mezo honnan, Mezo hova) {
