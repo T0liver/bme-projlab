@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 public class JatekosMenuView {
     private JatekosMenu jatekosMenu;
     private JPanel panel;
+    private Jatekvezerlo jatekvezerlo;
 
     JLabel nameLabel;
     JLabel pontLabel;
@@ -22,6 +23,7 @@ public class JatekosMenuView {
     JPanel exitSavePanel = new JPanel();
     JButton saveBtn;
     JButton exitBtn;
+    JButton endTurnBtn;
 
     public JatekosMenuView(JatekosMenu jatekosMenu) {
         this.jatekosMenu = jatekosMenu;
@@ -62,13 +64,19 @@ public class JatekosMenuView {
         exitSavePanel.setLayout(new GridLayout(2, 1));
         exitSavePanel.setMaximumSize(new Dimension(200, 100));
 
+        setupEndTurnBtn();
         setupSaveBtn();
         setupExitBtn();
 
+        exitSavePanel.add(endTurnBtn);
         exitSavePanel.add(saveBtn);
         exitSavePanel.add(exitBtn);
 
         panel.add(exitSavePanel);
+    }
+
+    public void setJatekVezerlo(Jatekvezerlo jv) {
+        jatekvezerlo = jv;
     }
 
     public void changeJatekos(Jatekos ujJatekos){
@@ -125,6 +133,17 @@ public class JatekosMenuView {
             /// TODO
         });
 
+    }
+
+    private void setupEndTurnBtn() {
+        endTurnBtn = new JButton("KÖR VÉGE");
+        endTurnBtn.setFocusable(false);
+        endTurnBtn.setPreferredSize(new Dimension(200, 50));
+        endTurnBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        endTurnBtn.addActionListener(e -> {
+            jatekvezerlo.korVege();
+        });
     }
 
     //FElrakás mainPanel-re

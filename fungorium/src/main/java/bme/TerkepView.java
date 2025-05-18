@@ -73,13 +73,10 @@ public class TerkepView {
             jl.setBounds(x, y, 32, 32);
             content.add(jl); // Fix: add to content pane
         }
-
-    
         window.setVisible(true);
         window.revalidate();
         window.repaint();
     }
-    
 
     // Helper method to find a Mezo at a specific grid position
     private Mezo getMezoAt(List<Mezo> mezok, int x, int y) {
