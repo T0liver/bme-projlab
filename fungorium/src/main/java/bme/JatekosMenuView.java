@@ -63,6 +63,7 @@ public class JatekosMenuView {
 
         //HELP
         help = new JTextArea();
+        help.setFocusable(false);
         help.setLineWrap(true);
         help.setWrapStyleWord(true);
         help.setEditable(false);
@@ -202,6 +203,7 @@ public class JatekosMenuView {
         endTurnBtn.addActionListener(e -> {
             jatekvezerloview.kovetkezoKor();
             changeJatekos(jatekvezerloview.getSoronLevoJatekos());
+            selectedAkcio = null;
             frissitNameLabel();
             frissitPontLabel();
             frissitHelp();
