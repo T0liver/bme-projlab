@@ -27,3 +27,5 @@ replay_pid*
 settings.json
 
 output.txt
+
+*.dat
