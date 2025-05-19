@@ -76,6 +76,10 @@ public class TerkepView {
         // Add all tiles
         for (Mezo mezo : mezok) {
             BufferedImage img = mezo.getTekton().getImage();
+            if (img == null) {
+                mezo.getTekton().loadImage();
+                img = mezo.getTekton().getImage();
+            }
             JLabel jl = new JLabel(new ImageIcon(img));
             List<Integer> pos = mezo.getPos();
             int x = 8 + pos.get(0) * 32;
