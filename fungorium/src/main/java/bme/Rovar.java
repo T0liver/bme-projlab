@@ -137,7 +137,7 @@ public class Rovar implements Jatekelem, Serializable {
    * @param tekton a kezdő tartózkodási hely
    */
   public Rovar(Rovarasz rovarasz, Mezo mezo) {
-    sebesseg = 1;
+    sebesseg = 3;
     vaghat = true;
     ujravaghat = 0;
     tartozkodik = mezo;

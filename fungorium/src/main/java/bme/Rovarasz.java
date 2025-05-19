@@ -17,7 +17,7 @@ public class Rovarasz extends Jatekos implements Serializable {
   private List<Boolean> cselekedhet = new ArrayList<>();
   private List<Integer> lepesek = new ArrayList<>();
 
-    /**
+  /**
    * @param nev Konstruktorában megadható a név paraméter
    *            A leszármazottakban fognak kezelődni
    */
@@ -43,16 +43,12 @@ public class Rovarasz extends Jatekos implements Serializable {
   public boolean lep() {
     cselekedhet = new ArrayList<>();
     lepesek = new ArrayList<>();
-    boolean endOfTurn = false;
     for (int i = 0; i < rovarok.size(); ++i) {
       rovarok.get(i).tick();
       cselekedhet.add(true);
       lepesek.add(rovarok.get(i).getSebesseg());
     }
     printData();
-      //while(!endOfTurn) {
-        //kör
-      //}
     return false;
   }
 
@@ -64,14 +60,19 @@ public class Rovarasz extends Jatekos implements Serializable {
   public int mozgat(Mezo m0, Mezo m1) {
 
     Rovar rovar = null;
+    int index = -1;
     for (int i = 0; i < rovarok.size(); ++i) {
       if (rovarok.get(i).getTartozkodik() == m0) {
         rovar = rovarok.get(i);
+        index = i;
         break;
       }
     }
-    if (rovar == null) return 0;
-    if (rovar.mozog(m1)) return 1;
+    if (rovar == null || lepesek.get(index) < 1) return 0;
+    if (rovar.mozog(m1)) {
+      lepesek.set(index, lepesek.get(index) - 1);
+      return 1;
+    }
     return 0;
   }
 
@@ -84,16 +85,21 @@ public class Rovarasz extends Jatekos implements Serializable {
   public int megetet(Mezo m0) {
 
     Rovar rovar = null;
+    int index = -1;
     for (int i = 0; i < rovarok.size(); ++i) {
       if (rovarok.get(i).getTartozkodik() == m0) {
+        if (!cselekedhet.get(i)) return 0;
         rovar = rovarok.get(i);
+        index = i;
         break;
       }
     }
     if (rovar == null) return 0;
     Spora spora = rovar.getTartozkodik().getTekton().getBestSpora();
 
-    return rovar.eszik(spora);
+    int ret = rovar.eszik(spora);
+    if (ret > 0) cselekedhet.set(index, false);
+    return ret;
   }
 
   /**
@@ -103,9 +109,12 @@ public class Rovarasz extends Jatekos implements Serializable {
    */
   public boolean elvagat(Mezo m0, Mezo m1) {
     Rovar rovar = null;
+    int index = -1;
     for (int i = 0; i < rovarok.size(); ++i) {
       if (rovarok.get(i).getTartozkodik() == m0) {
         rovar = rovarok.get(i);
+        index = i;
+        if (!cselekedhet.get(i)) return false;
         break;
       }
     }
@@ -114,13 +123,16 @@ public class Rovarasz extends Jatekos implements Serializable {
     GombaFonal gombaFonal = null;
     for (int i = 0; i < gombaFonalak.size(); ++i) {
       if (gombaFonalak.get(i).getVezet(m0, m1)) {
-        System.out.println("asSd");
         gombaFonal = gombaFonalak.get(i);
         break;
       }
     }
     if (gombaFonal == null) return false;
-    return rovar.vag(gombaFonal, m1);
+    if (rovar.vag(gombaFonal, m1)) {
+      cselekedhet.set(index, false);
+      return true;
+    }
+    return false;
   }
 
   /**

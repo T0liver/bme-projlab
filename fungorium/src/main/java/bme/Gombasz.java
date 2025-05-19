@@ -22,6 +22,10 @@ public class Gombasz extends Jatekos implements Serializable {
   //* Jatekos sporainak listaja */
   private List<Spora> sporak = new ArrayList<>();
 
+  private int hanyatNoveszt = 0;
+  private List<Boolean> sporaHasznalt = new ArrayList<>();
+  private List<Boolean> testCselekedett = new ArrayList<>();
+
   /**
    * @param nev Konstruktorában megadható a név paraméter
    *            A leszármazottakban fognak kezelődni
@@ -81,9 +85,9 @@ public class Gombasz extends Jatekos implements Serializable {
    */
   @Override
   public boolean lep() {
-    List<Boolean> testCselekedett = new ArrayList<>();
-    int fonalCselekedetek = gombaTestek.size();
-    List<Boolean> sporaHasznalt = new ArrayList<>();
+    testCselekedett = new ArrayList<>();
+    hanyatNoveszt = gombaTestek.size();
+    sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) {testCselekedett.add(false); gombaTestek.get(i).tick();}
     if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) {
