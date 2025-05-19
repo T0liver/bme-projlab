@@ -472,7 +472,7 @@ public class Tekton implements Jatekelem, Serializable {
     //return sporak.contains(mit) && mit.csokken(5) == mit.getTapanyag() * 10;
 
     if (sporak.contains(mit)) {
-      return  mit.csokken(5) == mit.getTapanyag();
+      return  mit.csokken(5) == mit.getTapanyag() * 5;
     }
 
     return false;
@@ -559,4 +559,6 @@ public class Tekton implements Jatekelem, Serializable {
     }
     return false;
   }
+
+  public boolean fonalNohet(GombaFonal gf) { return true; }
 }

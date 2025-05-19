@@ -23,13 +23,16 @@ public class EgyetlenFonalTekton extends Tekton {
    *
    * @param melyik melyik gombafonál próbál áthidalni a tektonra
    */
-  //@Override
-  //public void fonalNo(GombaFonal melyik) {
-    //if (!fonalak.isEmpty()) { // ha van már nyilvántartott fonál a tektonon, nem lehet új
-    //  return;
-    //}
-    //super.fonalNo(melyik); // ha nincs, mehet, mint ha rendes lenne
-  //}
+  @Override
+  public boolean fonalNohet(GombaFonal melyik) {
+    boolean vanMasFonal = false;
+    for (Mezo m : mezok) {
+      for (GombaFonal gf : m.getFonalak()) {
+        if (gf != melyik) vanMasFonal = true;
+      }
+    }
+    return !vanMasFonal;
+  }
 
   public EgyetlenFonalTekton() {
     loadImage();

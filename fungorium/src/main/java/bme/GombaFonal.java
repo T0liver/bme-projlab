@@ -146,7 +146,7 @@ public class GombaFonal implements Jatekelem, Serializable {
    *         nem sikerül a művelet.
    */
   public boolean athidal(Mezo honnan, Mezo hova) {
-    if (honnan.milyenSzomszed(hova) == 0 || honnan == hova)
+    if (honnan.milyenSzomszed(hova) == 0 || honnan == hova || !hova.getTekton().fonalNohet(this))
         return false;
 
     boolean ret = false;
