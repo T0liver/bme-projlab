@@ -86,7 +86,12 @@ public class Gombasz extends Jatekos implements Serializable {
     List<Boolean> sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
     for (int i = 0; i < gombaTestek.size(); ++i) {testCselekedett.add(false); gombaTestek.get(i).tick();}
-    if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) gombaFonalak.get(i).tick();
+    if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) {
+      for (GombaTest gt : gombaTestek) {
+        gombaFonalak.get(i).addVezet(gt.getTartozkodik().getMezok().get(0), gt.getTartozkodik().getMezok().get(0));
+      }
+      gombaFonalak.get(i).tick();
+    }
     boolean endOfTurn = false;
     //while(!endOfTurn) {
       //kör
@@ -174,7 +179,7 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
           e.printStackTrace();
           return false;
         }
-      } else {System.out.println("asd");}
+      }
     }
 
     return false;

@@ -94,11 +94,9 @@ public class Mezo implements Serializable {
             List<Mezo> ret = new ArrayList<>();
             for (int i = 0; i < terkep.getMezok().size(); ++i) {
               if (Math.abs(terkep.getMezok().get(i).getPos().get(0) - x) < 2 && Math.abs(terkep.getMezok().get(i).getPos().get(1) - y) < 2) {
-                System.out.println("ASD");
                 ret.add(terkep.getMezok().get(i));
               }
             }
-            System.out.println(ret.size());
             return ret;
           }
   

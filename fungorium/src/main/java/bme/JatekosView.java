@@ -89,7 +89,8 @@ public class JatekosView {
             }
             List<Integer> pos = s.getTartozkodik().getMezok().get(r.nextInt(s.getTartozkodik().getMezok().size())).getPos();
             jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
-            gw.add(jl);
+            if (s.getDarabszam() > 0)
+                gw.add(jl);
         }
 
         //Rovarok rajzolása

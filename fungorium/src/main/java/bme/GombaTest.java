@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 //import java.util.Random;
 
@@ -201,24 +202,32 @@ public class GombaTest implements Jatekelem, Serializable {
    * @param hova melyik tektonra szórjon spórát
    */
   public boolean sporatSzor(Tekton hova) {
-    List<Tekton> szomszedok = tartozkodik.getSzomszed(1);
-    if (fejlett) {
-      szomszedok = tartozkodik.getSzomszed(2);
-      if (!szomszedok.contains(hova)) {
-        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.2");
-        return false;
-      }
-    } else {
-      szomszedok = tartozkodik.getSzomszed(1);
-      System.out.println(szomszedok.size());
-      if (!szomszedok.contains(hova)) {
-        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.1");
-        return false;
+    List<Tekton> szomszedok = new ArrayList<>(); //= tartozkodik.getSzomszed(1);
+    for (Mezo m0 : tartozkodik.getMezok()) {
+      for (Mezo m1 : m0.getSzomszedok()) {
+        if (m1.getTekton() != tartozkodik && !szomszedok.contains(m1.getTekton())) {
+          szomszedok.add(m1.getTekton());
+        }
       }
     }
+    if (fejlett) {
+      for (Tekton t : szomszedok)
+      for (Mezo m0 : t.getMezok()) {
+        for (Mezo m1 : m0.getSzomszedok()) {
+          if (m1.getTekton() != tartozkodik && !szomszedok.contains(m1.getTekton())) {
+            szomszedok.add(m1.getTekton());
+          }
+        }
+      }
+    }
+    //System.out.println(szomszedok.size());
+    if (!szomszedok.contains(hova)) {
+      //System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.");
+      return false;
+    }
     hova.addSpora(sporadarab, this);
-    System.out.println("Spóraszórás sikeres:");
-    hova.getSpora(gombasz).printData();;
+    //System.out.println("Spóraszórás sikeres:");
+    //hova.getSpora(gombasz).printData();
     eletcsokken();
     sporadarab = 0;
     return true;
