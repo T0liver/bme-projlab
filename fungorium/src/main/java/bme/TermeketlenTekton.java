@@ -11,10 +11,14 @@ public class TermeketlenTekton extends Tekton {
 
   public TermeketlenTekton() {
     super();
+    loadImage();
+  }
+
+  public void loadImage() {
     try {
       img = ImageIO.read(new File("textures/termeketlen.png"));
     } catch (IOException e) {
-      byte[] r = {(byte) 255};
+      byte[] r = {0};
       byte[] g = {(byte) 255};
       byte[] b = {0};
       img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));

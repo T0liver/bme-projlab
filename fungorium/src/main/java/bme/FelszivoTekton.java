@@ -33,25 +33,21 @@ public class FelszivoTekton extends Tekton {
   public FelszivoTekton(int ido) { // majd hardcoded is lehet
     hatralevoido = ido;
     maxido = ido;
-    try {
-      img = ImageIO.read(new File("textures/Felszivo.png"));
-    } catch (IOException e) {
-      byte[] r = {(byte)255};
-      byte[] g = {0};
-      byte[] b = {0};
-      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
-      e.printStackTrace();
-    }
+    loadImage();
   }
 
   public FelszivoTekton() {
     hatralevoido = 2;
     maxido = 2;
+    loadImage();
+  }
+
+  public void loadImage() {
     try {
       img = ImageIO.read(new File("textures/Felszivo.png"));
     } catch (IOException e) {
-      byte[] r = {(byte)255};
-      byte[] g = {0};
+      byte[] r = {0};
+      byte[] g = {(byte) 255};
       byte[] b = {0};
       img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
       e.printStackTrace();

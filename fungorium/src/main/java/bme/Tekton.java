@@ -39,7 +39,7 @@ public class Tekton implements Jatekelem, Serializable {
     this.id = id;
   }
 
-  protected BufferedImage img;
+  protected transient BufferedImage img;
 
   /** boolean, ami megadja, hogy a tektonon van-e gombatest */
   protected boolean foglalt;
@@ -69,15 +69,7 @@ public class Tekton implements Jatekelem, Serializable {
     fonalak = new ArrayList<>();
     mezok = new ArrayList<>();
     rovarok = new ArrayList<>();
-    try {
-      img = ImageIO.read(new File("textures/Normalis.png"));
-    } catch (IOException e) {
-      byte[] r = {0};
-      byte[] g = {(byte) 255};
-      byte[] b = {0};
-      img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
-      e.printStackTrace();
-    }
+    loadImage();
   }
 
   public Tekton(Terkep terkep) {
@@ -88,6 +80,10 @@ public class Tekton implements Jatekelem, Serializable {
     mezok = new ArrayList<>();
     rovarok = new ArrayList<>();
     this.terkep = terkep;
+    loadImage();
+  }
+
+  public void loadImage() {
     try {
       img = ImageIO.read(new File("textures/Normalis.png"));
     } catch (IOException e) {

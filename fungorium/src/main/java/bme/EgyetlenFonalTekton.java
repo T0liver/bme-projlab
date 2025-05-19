@@ -32,12 +32,16 @@ public class EgyetlenFonalTekton extends Tekton {
   //}
 
   public EgyetlenFonalTekton() {
+    loadImage();
+  }
+
+  public void loadImage() {
     try {
       img = ImageIO.read(new File("textures/EgyetlenFonal.png"));
     } catch (IOException e) {
       byte[] r = {0};
       byte[] g = {(byte) 255};
-      byte[] b = {(byte) 255};
+      byte[] b = {0};
       img = new BufferedImage(32, 32, 0, new IndexColorModel(1, 1, r, g, b));
       e.printStackTrace();
     }

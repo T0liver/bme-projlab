@@ -162,6 +162,9 @@ public class GameWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(loadGame()){
+                    for (Tekton t: jatekvezerloView.getJatekvezerlo().getTerkep().getTektonok()){
+                        t.loadImage();
+                    }
                     drawJatekvezerlo();
                 }
             }
