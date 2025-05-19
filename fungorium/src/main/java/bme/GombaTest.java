@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 //import java.util.Random;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -202,6 +204,7 @@ public class GombaTest implements Jatekelem, Serializable {
    * @param hova melyik tektonra szórjon spórát
    */
   public boolean sporatSzor(Tekton hova) {
+    if (sporadarab < 1) return false;
     List<Tekton> szomszedok = new ArrayList<>(); //= tartozkodik.getSzomszed(1);
     for (Mezo m0 : tartozkodik.getMezok()) {
       for (Mezo m1 : m0.getSzomszedok()) {
@@ -211,14 +214,18 @@ public class GombaTest implements Jatekelem, Serializable {
       }
     }
     if (fejlett) {
-      for (Tekton t : szomszedok)
-      for (Mezo m0 : t.getMezok()) {
-        for (Mezo m1 : m0.getSzomszedok()) {
-          if (m1.getTekton() != tartozkodik && !szomszedok.contains(m1.getTekton())) {
-            szomszedok.add(m1.getTekton());
-          }
+    Set<Tekton> ujSzomszedok = new HashSet<>();
+    for (Tekton t : szomszedok) {
+        for (Mezo m0 : t.getMezok()) {
+            for (Mezo m1 : m0.getSzomszedok()) {
+                Tekton t2 = m1.getTekton();
+                if (t2 != tartozkodik && !szomszedok.contains(t2) && !ujSzomszedok.contains(t2)) {
+                    ujSzomszedok.add(t2);
+                }
+            }
         }
-      }
+    }
+    szomszedok.addAll(ujSzomszedok);
     }
     //System.out.println(szomszedok.size());
     if (!szomszedok.contains(hova)) {

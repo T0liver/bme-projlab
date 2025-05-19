@@ -96,10 +96,6 @@ public class Gombasz extends Jatekos implements Serializable {
       }
       gombaFonalak.get(i).tick();
     }
-    boolean endOfTurn = false;
-    //while(!endOfTurn) {
-      //kör
-    //}
     return false;
   }
 
@@ -129,7 +125,18 @@ public class Gombasz extends Jatekos implements Serializable {
   }
 */
 public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
-  return gTest.sporatSzor(tekton);
+  int index = -1;
+  for (int i = 0; i < gombaTestek.size(); ++i) {
+    if (gombaTestek.get(i) == gTest) {
+      if (testCselekedett.size() > i && testCselekedett.get(i)) return false;
+      index = i;
+    }
+  }
+  if (gTest.sporatSzor(tekton)) {
+    testCselekedett.set(index, true);
+    return true;
+  }
+  return false;
 }
 
   /**
@@ -138,12 +145,14 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
    * @return 1, ha sikeres volt, 0, ha nem
   */
   public int fonalatNoveszt(Mezo m0, Mezo m1) {
+    if (hanyatNoveszt > 0)
       for (int i = 0; i < gombaFonalak.size(); ++i) {
         if (gombaFonalak.get(i).athidal(m0, m1)) {
+          hanyatNoveszt--;
           return 1;
         }
       }
-      return 0;
+    return 0;
   }
 
   /**
@@ -170,18 +179,20 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
     if (hova.getFoglalt()) {
       return false;
     }
-
     for (int i = 0; i < sporak.size(); i++) {
-      if (hova.getSporak().contains(sporak.get(i)) && hova.sporatFelhasznal(sporak.get(i))) {
-        try {
-          GombaTest gt = new GombaTest(this, 0, 5, false, 0, hova);
-          gombaTestek.add(gt);
-          hova.setFoglalt(true);
-          pontok += 1;
-          return true;
-        } catch (Exception e) {
-          e.printStackTrace();
-          return false;
+      if (hova.getSporak().contains(sporak.get(i))) {
+        if (sporaHasznalt.size() > i && !sporaHasznalt.get(i) && hova.sporatFelhasznal(sporak.get(i))) {
+          sporaHasznalt.set(i, true);
+          try {
+            GombaTest gt = new GombaTest(this, 0, 5, false, 0, hova);
+            gombaTestek.add(gt);
+            hova.setFoglalt(true);
+            pontok += 1;
+            return true;
+          } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+          }
         }
       }
     }
