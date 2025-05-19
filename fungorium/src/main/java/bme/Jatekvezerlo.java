@@ -32,6 +32,8 @@ public class Jatekvezerlo implements Serializable {
 
   private GameWindow gameWindow;
 
+  private JatekvezerloView jatekvezerloview;
+
   /** Felvett random osztály */
   @SuppressWarnings("unused")
   private Random r = new Random();
@@ -46,6 +48,8 @@ public class Jatekvezerlo implements Serializable {
     random = false;
     terkep = new Terkep();
   }
+
+  public void setJatekvezerloView (JatekvezerloView jvv) { jatekvezerloview = jvv; }
 
   /**
    * Konstruktor, ami játékosok inicializásával
@@ -193,9 +197,14 @@ public class Jatekvezerlo implements Serializable {
       jelenlegiJatekos = 0;
       tick();
     }
-    jatekosok.get(jelenlegiJatekos).lep();
-    if (gameWindow != null) {
-      gameWindow.drawJatekvezerlo();
+    if (jelenlegiKor >= jatekHossz) {
+      jatekvezerloview.jatekVege();
+      jatekvezerloview.getJatekvezerlo().getGameWindow().altMenu();
+    } else {
+      jatekosok.get(jelenlegiJatekos).lep();
+      if (gameWindow != null) {
+        gameWindow.drawJatekvezerlo();
+      }
     }
   }
 
@@ -240,7 +249,7 @@ public class Jatekvezerlo implements Serializable {
   public void jatekKezdes(int g, int r) {
     jatekHossz = 50;
     jelenlegiJatekos = 0;
-    jelenlegiKor = 1;
+    jelenlegiKor = 0;
     init(g, r);
     jatekosok.get(0).lep();
   }

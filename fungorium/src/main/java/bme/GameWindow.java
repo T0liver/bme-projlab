@@ -75,6 +75,7 @@ public class GameWindow extends JFrame {
     }
 
     public void altMenu() {
+        //removeAll();
         Container content = getContentPane();
         content.removeAll();
         setSize(960, 760);

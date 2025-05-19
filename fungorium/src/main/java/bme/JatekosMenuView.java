@@ -142,7 +142,7 @@ public class JatekosMenuView {
     }
 
     public void frissitKorSzamlalo(){
-        roundLabel.setText("Kör: " + jatekvezerloview.getJatekvezerlo().getJelenlegiKor() + "/50");
+        roundLabel.setText("Kör: " + (jatekvezerloview.getJatekvezerlo().getJelenlegiKor() + 1) + "/50");
     }
 
     public void setJatekosMenu(JatekosMenu jm) {

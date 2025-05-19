@@ -25,6 +25,7 @@ public class JatekvezerloView {
     public JatekvezerloView(Jatekvezerlo jatekvezerlo, GameWindow gw) {
         this.jatekvezerlo = jatekvezerlo;
         gameWindow = gw;
+        jatekvezerlo.setJatekvezerloView(this);
         //jatekvezerlo.init();
         //terkepView = new TerkepView(jatekvezerlo.getTerkep());
     }
@@ -80,7 +81,7 @@ public class JatekvezerloView {
         int[] nyertesek = jatekvezerlo.jatekVege(); // 0. gombasz 1. rovarasz
 
         JOptionPane.showMessageDialog(null, "Nyertesek:\n"+
-                "Gombász "+nyertesek[0] + "\n"
-                +"Rovarász "+ nyertesek[1]);
+                "Gombász "+ (nyertesek[0] + 1) + "\n"
+                +"Rovarász "+ (nyertesek[1] + 1));
     }
 }

@@ -257,6 +257,11 @@ public class GombaFonal implements Jatekelem, Serializable {
         m1.fonalNovekszik(this, m0);
       }
     }
+    mezok = new ArrayList<>();
+    for (Mezo m0 : vezet.keySet()) {
+      mezok.add(m0);
+      m0.addFonal(this);
+    }
     for (Mezo m0 : mezok) {
       if (m0.getTekton().hasSpora(this)) {
         for (Mezo m1 : m0.getTekton().getMezok()) {
@@ -264,7 +269,6 @@ public class GombaFonal implements Jatekelem, Serializable {
         }
       }
     }
-    return;
   }
 
   /**
