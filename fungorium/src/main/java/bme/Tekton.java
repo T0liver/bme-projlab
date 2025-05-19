@@ -281,7 +281,7 @@ public class Tekton implements Jatekelem {
             m.setTekton(t);
         }
         t.setTerkep(terkep);
-        t.collectSzomszedok();
+        t.collectSzomszedok(terkep);
     }
 
 
@@ -506,15 +506,17 @@ public class Tekton implements Jatekelem {
 
   public void removeSpora(Spora s) {sporak.remove(s);}
 
-  public void collectSzomszedok() {
+  public void collectSzomszedok(Terkep t) {
     szomszedok.clear();
-    List<Mezo> osszes = terkep.getMezok();
-    for (int i = 0; i < osszes.size(); ++i) {
-      for (int e = 0; e < mezok.size() - 1; ++e) {
-        if (mezok.get(e).milyenSzomszed(osszes.get(i)) > 2)
-          szomszedok.add(osszes.get(i).getTekton());
+    List<Mezo> osszes = t.getMezok();
+    for (int i = 0; i < mezok.size(); ++i) {
+      for (int e = 0; e < osszes.size(); ++e) {
+        if (osszes.get(e).milyenSzomszed(mezok.get(i)) > 0 && !szomszedok.contains(mezok.get(i).getTekton())) {
+          szomszedok.add(osszes.get(e).getTekton());
+        }
       }
     }
+    System.out.println(szomszedok.size());
   }
 
   public List<List<Mezo>> getOsszefuggo() {
