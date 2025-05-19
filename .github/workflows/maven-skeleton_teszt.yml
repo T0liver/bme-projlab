@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "grafikus-interface" ]
+    branches: [ "we-ball" ]
   pull_request:
-    branches: [ "grafikus-interface" ]
+    branches: [ "we-ball" ]
 
 jobs:
   build:
