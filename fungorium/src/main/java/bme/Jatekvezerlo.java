@@ -226,15 +226,16 @@ public class Jatekvezerlo implements Serializable {
   public int[] jatekVege() {
     int gombaszIndex = -1;
     int rovaraszIndex = -1;
+    int gP = -1, rP = -1;
     for (int i = 0; i < jatekosok.size(); ++i) {
-      if (jatekosok.get(i).getType() == 0
-          && (gombaszIndex == -1
-              || jatekosok.get(i).getPontok() > jatekosok.get(gombaszIndex).getPontok())) {
+      int type = jatekosok.get(i).getType();
+      int points = jatekosok.get(i).getPontok();
+      if (type == 0 && points > gP) {
+        gP = points;
         gombaszIndex = jatekosok.get(i).getId();
       }
-      if (jatekosok.get(i).getType() == 1
-          && (rovaraszIndex == -1
-              || jatekosok.get(i).getPontok() > jatekosok.get(rovaraszIndex).getPontok())) {
+      if (type == 1 && points > rP) {
+        rP = points;
         rovaraszIndex = jatekosok.get(i).getId();
       }
     }
