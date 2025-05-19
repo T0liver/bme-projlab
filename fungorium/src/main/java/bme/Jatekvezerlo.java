@@ -232,11 +232,11 @@ public class Jatekvezerlo implements Serializable {
       int points = jatekosok.get(i).getPontok();
       if (type == 0 && points > gP) {
         gP = points;
-        gombaszIndex = jatekosok.get(i).getId() - 1;
+        gombaszIndex = jatekosok.get(i).getId();
       }
       if (type == 1 && points > rP) {
         rP = points;
-        rovaraszIndex = jatekosok.get(i).getId() - 1;
+        rovaraszIndex = jatekosok.get(i).getId();
       }
     }
     System.out.println("Nyertes Rovarász: " + rovaraszIndex + ". játékos!");
