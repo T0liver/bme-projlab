@@ -4,7 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Save implements Serializable {
+
     int jelenlegiKor;
+    int jelenlegiJatekos;
+    List<Jatekos> jatekos;
+    Terkep terkep;
+
+    public Save(int jelenlegiKor, int jelenlegiJatekos, List<Jatekos> jatekos, Terkep terkep) {
+        this.jelenlegiKor = jelenlegiKor;
+        this.jelenlegiJatekos = jelenlegiJatekos;
+        this.jatekos = jatekos;
+        this.terkep = terkep;
+    }
 
     public int getJelenlegiKor() {
         return jelenlegiKor;
@@ -37,18 +48,5 @@ public class Save implements Serializable {
     public void setJelenlegiJatekos(int jelenlegiJatekos) {
         this.jelenlegiJatekos = jelenlegiJatekos;
     }
-
-    int jelenlegiJatekos;
-    List<Jatekos> jatekos;
-    Terkep terkep;
-
-    public Save(int jelenlegiKor, int jelenlegiJatekos, List<Jatekos> jatekos, Terkep terkep) {
-        this.jelenlegiKor = jelenlegiKor;
-        this.jelenlegiJatekos = jelenlegiJatekos;
-        this.jatekos = jatekos;
-        this.terkep = terkep;
-    }
-
-
 }
 

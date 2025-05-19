@@ -1,6 +1,8 @@
 package bme;
 
-public class Akcio {
+import java.io.Serializable;
+
+public class Akcio implements Serializable {
     protected String nev;
     protected Jatekos jatekos;
     protected char betu;

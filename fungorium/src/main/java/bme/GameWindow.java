@@ -269,7 +269,9 @@ public class GameWindow extends JFrame {
             File file = new File("saves", kivalasztottFajl);
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            jatekvezerloView = new JatekvezerloView(new Jatekvezerlo((Save) ois.readObject()), this);
+            jatekvezerlo = new Jatekvezerlo((Save) ois.readObject());
+            jatekvezerlo.setGameWindow(this);
+            jatekvezerloView = new JatekvezerloView(jatekvezerlo, GameWindow.this);
             ois.close();
             return true;
 

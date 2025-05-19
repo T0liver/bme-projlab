@@ -1,6 +1,7 @@
 package bme;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +12,7 @@ import java.util.Random;
  * <p>A kétféle játékos (Gombász és Rovarász) ősosztálya, tárolja a játékos pontszámát és deklarálja
  * a lépésért felelős függvényt
  */
-public abstract class Jatekos implements Jatekelem {
+public abstract class Jatekos implements Jatekelem, Serializable {
 
   protected int pontok = 0; // -ról indul a játék
   private String nev; // a játékos neve
