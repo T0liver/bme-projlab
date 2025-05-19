@@ -1,5 +1,6 @@
 package bme;
 
+import java.io.Serializable;
 import java.util.List;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.Set;
  *
  * @author Oliver
  */
-public class GombaFonal implements Jatekelem {
+public class GombaFonal implements Jatekelem, Serializable {
 
   private int id;
 

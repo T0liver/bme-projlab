@@ -61,6 +61,19 @@ public class Jatekvezerlo implements Serializable {
     terkep = new Terkep();
   }
 
+  /**
+   * Konstruktor mentéshez
+   * @param s - save
+   */
+  public Jatekvezerlo(Save s){
+    this.jatekosok = s.getJatekos();
+    this.jelenlegiKor = s.getJelenlegiKor();
+    this.jelenlegiJatekos = s.getJelenlegiJatekos();
+    jatekHossz = 50;
+    random = false;
+    this.terkep = s.getTerkep();
+  }
+
   public Jatekvezerlo(List<Jatekos> jatekosok, int jatekHossz, boolean random) {
     this.jatekosok = jatekosok;
     this.jatekHossz = jatekHossz;

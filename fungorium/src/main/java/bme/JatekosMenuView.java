@@ -216,7 +216,7 @@ public class JatekosMenuView {
         saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         saveBtn.addActionListener(e -> {
-            /// TODO
+            jatekvezerloview.getJatekvezerlo().getGameWindow().saveGame();
         });
 
     }

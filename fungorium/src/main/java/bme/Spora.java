@@ -3,6 +3,7 @@ package bme;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
@@ -23,7 +24,7 @@ import javax.imageio.ImageIO;
  *
  * @author Oliver
  */
-public class Spora implements Jatekelem {
+public class Spora implements Jatekelem, Serializable {
 
   private int id;
 

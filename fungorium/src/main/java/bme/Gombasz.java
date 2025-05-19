@@ -1,6 +1,7 @@
 package bme;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.util.Scanner;
  * 
  * Gombaszok gombakat (gombatesteket, gombafonalakat es sporakat) iranyitanak a jatekban, es lekerdezhetik annak allasat.
  */
-public class Gombasz extends Jatekos {
+public class Gombasz extends Jatekos implements Serializable {
 
   //* Jatekos gombatestjeinek listaja */
   private List<GombaTest> gombaTestek = new ArrayList<>();

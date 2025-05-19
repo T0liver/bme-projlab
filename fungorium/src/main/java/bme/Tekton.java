@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +26,7 @@ import javax.imageio.ImageIO;
  *
  * @author Vid
  */
-public class Tekton implements Jatekelem {
+public class Tekton implements Jatekelem, Serializable {
 
   Random r = new Random();
   private int id;

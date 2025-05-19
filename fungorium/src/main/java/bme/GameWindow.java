@@ -6,10 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -164,58 +161,8 @@ public class GameWindow extends JFrame {
         loadGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File mentesiMappa = new File("saves");
-
-                // Ha a mappa nem létezik vagy üres
-                if (!mentesiMappa.exists() || !mentesiMappa.isDirectory()) {
-                    JOptionPane.showMessageDialog(GameWindow.this, "Nincs elérhető mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Csak .dat fájlok listázása
-                File[] mentettFajlok = mentesiMappa.listFiles((dir, name) -> name.endsWith(".dat"));
-
-                if (mentettFajlok == null || mentettFajlok.length == 0) {
-                    JOptionPane.showMessageDialog(GameWindow.this, "Nem található mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Fájlnevek kilistázása
-                String[] fajlNevek = Arrays.stream(mentettFajlok)
-                        .map(File::getName)
-                        .toArray(String[]::new);
-
-                // Megjelenítjük a választó ablakot
-                String kivalasztottFajl = (String) JOptionPane.showInputDialog(
-                        GameWindow.this,
-                        "Válassz egy mentést:",
-                        "Mentés betöltése",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        fajlNevek,
-                        fajlNevek[0]);
-
-                // Ha nem választott semmit (cancel)
-                if (kivalasztottFajl == null) {
-                    return;
-                }
-
-                // Kiválasztott mentés betöltése
-                try {
-                    File file = new File("saves", kivalasztottFajl);
-                    FileInputStream fis = new FileInputStream(file);
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    Jatekvezerlo betoltottJatek = (Jatekvezerlo) ois.readObject();
-                    ois.close();
-
-                    List<Jatekos> betoltottJatekosok = betoltottJatek.getJatekosok();
-
-                } catch (IOException | ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(GameWindow.this,
-                            "Hiba történt a játék betöltése közben: " + ex.getMessage(),
-                            "Hiba",
-                            JOptionPane.ERROR_MESSAGE);
+                if(loadGame()){
+                    drawJatekvezerlo();
                 }
             }
         });
@@ -246,6 +193,92 @@ public class GameWindow extends JFrame {
         jelenlegiJatekosMenuView.draw(playerMenuPanel);
         add(playerMenuPanel);
         revalidate();
+    }
+
+    public void saveGame() {
+        File mentesiMappa = new File("saves");
+        if (!mentesiMappa.exists()) {
+            if (!mentesiMappa.mkdir()) {
+                System.out.println("Mentés mappa létrehozás sikertelen");
+            }
+            return;
+        }
+
+        String mentesName = JOptionPane.showInputDialog("Mentés neve:");
+        File mentesMap = new File(mentesiMappa, mentesName+".dat");
+        try {
+            mentesMap.createNewFile();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Mentés file létrehozás sikertelen\n" + e);
+            throw new RuntimeException(e);
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(mentesMap))) {
+            Jatekvezerlo jw = jatekvezerloView.getJatekvezerlo();
+            Save s = new Save(jw.getJelenlegiKor(), jw.getJelenlegiJatekos(), jw.jatekosok, jw.getTerkep());
+            out.writeObject(s); // Serialize the object
+            System.out.println("Mentés sikeres");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean loadGame() {
+
+        File mentesiMappa = new File("saves");
+        if (!mentesiMappa.exists()) {
+            if (!mentesiMappa.mkdir()) {
+                System.out.println("Mentés mappa létrehozás sikertelen");
+            }
+            return false;
+        }
+
+        // Csak .dat fájlok listázása
+        File[] mentettFajlok = mentesiMappa.listFiles((dir, name) -> name.endsWith(".dat"));
+
+        if (mentettFajlok == null || mentettFajlok.length == 0) {
+            JOptionPane.showMessageDialog(GameWindow.this, "Nem található mentés.", "Hiba", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Fájlnevek kilistázása
+        String[] fajlNevek = Arrays.stream(mentettFajlok)
+                .map(File::getName)
+                .toArray(String[]::new);
+
+        // Megjelenítjük a választó ablakot
+        String kivalasztottFajl = (String) JOptionPane.showInputDialog(
+                GameWindow.this,
+                "Válassz egy mentést:",
+                "Mentés betöltése",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                fajlNevek,
+                fajlNevek[0]);
+
+        // Ha nem választott semmit (cancel)
+        if (kivalasztottFajl == null) {
+            return false;
+        }
+
+        // Kiválasztott mentés betöltése
+        try {
+            File file = new File("saves", kivalasztottFajl);
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            jatekvezerloView = new JatekvezerloView(new Jatekvezerlo((Save) ois.readObject()), this);
+            ois.close();
+            return true;
+
+
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(GameWindow.this,
+                    "Hiba történt a játék betöltése közben: " + ex.getMessage(),
+                    "Hiba",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     private void gwClearAll() {

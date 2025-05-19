@@ -1,9 +1,10 @@
 package bme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mezo {
+public class Mezo implements Serializable {
     private int x, y;
     public Tekton tartozik;
     public List<GombaFonal> fonalak = new ArrayList<>();

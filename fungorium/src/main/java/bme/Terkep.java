@@ -1,5 +1,6 @@
 package bme;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -8,7 +9,7 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
-public class Terkep {
+public class Terkep implements Serializable {
     private Random rand = new Random();
     private List<Tekton> tektonok = new ArrayList<>();
     private List<Mezo> mezok = new ArrayList<>();

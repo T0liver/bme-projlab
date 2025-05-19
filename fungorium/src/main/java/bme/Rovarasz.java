@@ -1,6 +1,7 @@
 package bme;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.util.Scanner;
  * 
  * Rovaraszok rovarokat iranyitanak a jatekban, es lekerdezhetik annak allasat.
  */
-public class Rovarasz extends Jatekos {
+public class Rovarasz extends Jatekos implements Serializable {
   //* Jatekos rovarainak listaja */
   private List<Rovar> rovarok = new ArrayList<>();
   private List<Boolean> cselekedhet = new ArrayList<>();

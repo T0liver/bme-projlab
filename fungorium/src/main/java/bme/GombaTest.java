@@ -3,6 +3,7 @@ package bme;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 //import java.util.Random;
 
@@ -28,7 +29,7 @@ import javax.imageio.ImageIO;
  *
  * @author Oliver
  */
-public class GombaTest implements Jatekelem {
+public class GombaTest implements Jatekelem, Serializable {
 
   private int id;
 

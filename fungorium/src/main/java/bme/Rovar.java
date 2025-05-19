@@ -3,6 +3,7 @@ package bme;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author Oliver
  */
-public class Rovar implements Jatekelem {
+public class Rovar implements Jatekelem, Serializable {
 
   private int id;
 
