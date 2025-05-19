@@ -62,6 +62,7 @@ public class GameWindow extends JFrame {
 
         gamePanel = new JPanel();
         terkepView = new TerkepView(jatekvezerlo.getTerkep());
+        terkepView.setJatekvezerlo(jatekvezerlo);
 
         playerMenuPanel = new JPanel();
         playerMenuPanel.setOpaque(true);
@@ -237,6 +238,7 @@ public class GameWindow extends JFrame {
 
     public void drawJatekvezerlo() {
         getContentPane().removeAll();
+        jatekvezerloView.setJatekosMenuView(jelenlegiJatekosMenuView);
         jatekvezerloView.draw(this);
 
         jelenlegiJatekosMenuView.setJatekVezerloView(jatekvezerloView);

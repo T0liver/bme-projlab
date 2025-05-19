@@ -147,18 +147,22 @@ public class GombaFonal implements Jatekelem {
    */
   public boolean athidal(Mezo honnan, Mezo hova) {
     if (honnan.milyenSzomszed(hova) == 0 || honnan == hova)
-      return false;
-    for (Map.Entry<Mezo, List<Mezo>> entry : vezet.entrySet()) {
-      if (entry.getKey() == honnan) {
+        return false;
+
+    boolean ret = false;
+
+    if (vezet.containsKey(honnan)) {
         addVezet(honnan, hova);
-        return true;
-      } else if (entry.getKey() == hova) {
-        addVezet(hova, honnan);
-        return true;
-      }
+        ret = true;
     }
-    return false;
-  }
+    if (vezet.containsKey(hova)) {
+        addVezet(hova, honnan);
+        ret = true;
+    }
+
+    return ret;
+}
+
 
   /**
    * A gombafonalat elvágták az adott tektonon, ekkor kiveszi az elért tektonjai

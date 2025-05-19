@@ -16,6 +16,8 @@ public class JatekvezerloView {
     private TerkepView terkepView;
     boolean[] jatekoslatszik = {true, true, true, true, true, true, true, true, true, true};
 
+    private JatekosMenuView jatekosMenuView;
+
     /**
      * Publikus konstruktor a view inicializálására
      * @param jatekvezerlo a körök lebonyolításáért felelős vezérlő
@@ -35,7 +37,9 @@ public class JatekvezerloView {
         return jatekvezerlo;
     }
 
-    public void draw(JFrame gw) {
+    public void setJatekosMenuView(JatekosMenuView jmv) { jatekosMenuView = jmv; }
+
+    public void draw(GameWindow gw) {
         if (terkepView == null) terkepView = new TerkepView(jatekvezerlo.getTerkep());
         List<Jatekos> jatekosok = jatekvezerlo.getJatekosok();
         for (int i = 0; i < jatekosok.size(); ++i) {
@@ -44,6 +48,8 @@ public class JatekvezerloView {
                 jv.draw(gw);
             }
         }
+        terkepView.setJatekvezerlo(jatekvezerlo);
+        terkepView.setJatekosMenuView(jatekosMenuView);
         terkepView.draw(gw);
         
         /*JatekosMenu jm = new JatekosMenu(jatekosok.get(jatekvezerlo.getJelenlegiJatekos()));

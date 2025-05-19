@@ -4,6 +4,7 @@ public class Akcio {
     protected String nev;
     protected Jatekos jatekos;
     protected char betu;
+    protected Mezo prevMezo = null;
 
     public Akcio(Jatekos j) {jatekos = j;}
 
@@ -18,4 +19,14 @@ public class Akcio {
     }
 
     public String getHelp() {return "ez egy mukodest magyarazo szoveg";}
+
+    public void ujInput(Mezo clicked) {
+        if (prevMezo == null) {
+            prevMezo = clicked;
+            return;
+        }
+        csinal(prevMezo, clicked);
+        prevMezo = null;
+        jatekos.setAktivAkcio(null);
+    }
 }

@@ -149,4 +149,14 @@ public abstract class Jatekos implements Jatekelem {
     }
     return null;
   }
+
+ public Akcio setAktivAkcio(Akcio a) {
+  aktivAkcio = a;
+  return aktivAkcio;
+ }
+
+  public void akcio(Mezo clicked) {
+    if (aktivAkcio != null) aktivAkcio.ujInput(clicked);
+    //else System.out.println("asd");
+  }
 }

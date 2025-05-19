@@ -132,6 +132,7 @@ public class JatekosMenuView {
 
     public void setJatekVezerloView(JatekvezerloView jvV) {
         jatekvezerloview = jvV;
+        //jvV.setJatekosMenuView(this);
     }
 
     public void setJatekosMenu(JatekosMenu jm) {
@@ -166,6 +167,7 @@ public class JatekosMenuView {
             akcioButton.setFocusPainted(false);
             akcioButton.addActionListener(e -> {
                 selectedAkcio = a;
+                jatekvezerloview.getSoronLevoJatekos().setAktivAkcio(selectedAkcio);
                 //a.csinal(new Mezo(-10, -10), new Mezo(-10, -10));
                 frissitHelp();
             });
@@ -278,7 +280,8 @@ public class JatekosMenuView {
         setupAkciok();
     }
 
-    void frissitHelp(){
+    public void frissitHelp(){
+        selectedAkcio = jatekvezerloview.getSoronLevoJatekos().getAktivAkcio();
         if(selectedAkcio == null){
             help.setText("");
         } else{

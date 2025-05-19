@@ -129,7 +129,10 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
   */
   public int fonalatNoveszt(Mezo m0, Mezo m1) {
       for (int i = 0; i < gombaFonalak.size(); ++i) {
-        if (gombaFonalak.get(i).athidal(m0, m1)) return 1;
+        if (gombaFonalak.get(i).athidal(m0, m1)) {
+          System.out.println("asd");
+          return 1;
+        }
       }
       return 0;
   }
