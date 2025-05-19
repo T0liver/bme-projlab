@@ -113,6 +113,7 @@ public class Rovarasz extends Jatekos {
     GombaFonal gombaFonal = null;
     for (int i = 0; i < gombaFonalak.size(); ++i) {
       if (gombaFonalak.get(i).getVezet(m0, m1)) {
+        System.out.println("asSd");
         gombaFonal = gombaFonalak.get(i);
         break;
       }

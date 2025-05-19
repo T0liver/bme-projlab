@@ -89,8 +89,7 @@ public class GombaFonal implements Jatekelem {
       vezet.get(hova).add(hova);
     if (!vezet.get(hova).contains(honnan))
       vezet.get(hova).add(honnan);
-
-    // honnan.fonalak.add(this); //TODO ???
+    honnan.fonalak.add(this);
   }
 
   /**
@@ -102,7 +101,7 @@ public class GombaFonal implements Jatekelem {
    * @return a paraméterként megadott két tekton között vezet-e.
    */
   public boolean getVezet(Mezo honnan, Mezo hova) {
-    return vezet.containsKey(honnan) && vezet.get(honnan).contains(hova);
+    return (vezet.containsKey(honnan) && vezet.get(honnan).contains(hova)) || (vezet.containsKey(hova) && vezet.get(hova).contains(honnan));
   }
 
   /**
