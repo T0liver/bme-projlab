@@ -205,13 +205,14 @@ public class GombaTest implements Jatekelem, Serializable {
     if (fejlett) {
       szomszedok = tartozkodik.getSzomszed(2);
       if (!szomszedok.contains(hova)) {
-        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.");
+        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.2");
         return false;
       }
     } else {
       szomszedok = tartozkodik.getSzomszed(1);
+      System.out.println(szomszedok.size());
       if (!szomszedok.contains(hova)) {
-        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.");
+        System.out.println("Spóraszórás sikertelen: Nem elérhető tektonra próbált.1");
         return false;
       }
     }

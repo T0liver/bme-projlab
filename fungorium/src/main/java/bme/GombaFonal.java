@@ -250,6 +250,7 @@ public class GombaFonal implements Jatekelem, Serializable {
     List<Mezo> mezok = new ArrayList<>();
     for (Mezo m0 : vezet.keySet()) {
       mezok.add(m0);
+      m0.addFonal(this);
     }
     for (Mezo m0 : mezok) {
       for (Mezo m1 : m0.getTekton().getMezok()) {

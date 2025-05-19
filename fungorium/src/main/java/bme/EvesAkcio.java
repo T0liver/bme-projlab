@@ -21,4 +21,9 @@ public class EvesAkcio extends Akcio {
     public String getHelp() {
         return "Spóraevés:\nKattints a rovarra, ami spórát egyen!";
     }
+
+    @Override
+    public void ujInput(Mezo clicked) {
+        csinal(clicked, null);
+    } 
 }

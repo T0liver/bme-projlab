@@ -66,18 +66,17 @@ public class FelszivoTekton extends Tekton {
   @Override
   public void tick() {
     hatralevoido--;
-    if (hatralevoido == 0) {
-      for (GombaFonal fonal : fonalak) {
-        List<Tekton> szomszedok = this.getSzomszed(1);
-        for (Tekton tekton : szomszedok) {
-          for (Mezo m0 : mezok) {
-            for (Mezo m1 : tekton.getMezok()) {
-              fonal.elvagodik(m1, m0);
-            }
+    if (hatralevoido <= 0) {
+      List<GombaFonal> fonalak0 = new ArrayList<>();
+      for (Mezo m0 : mezok) {
+        fonalak0.addAll(m0.getFonalak());
+      }
+      for (GombaFonal fonal : fonalak0) {
+        for (Mezo m0 : mezok) {
+          for (Mezo m1 : terkep.getMezok()) {
+            fonal.elvagodik(m0, m1);
           }
         }
-        for (Mezo m0 : mezok)
-          fonal.elvagodik(m0, m0);
       }
       for (int i = 0; i < sporak.size(); ++i) {
         sporak

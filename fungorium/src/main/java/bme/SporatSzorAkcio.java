@@ -21,6 +21,7 @@ public class SporatSzorAkcio extends Akcio {
                 break;
             }
         }
+        if (gt == null) return false;
         return g.sporatSzorat(m1.getTekton(), gt);
     }
 
