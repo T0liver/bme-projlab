@@ -4,27 +4,35 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import javax.imageio.ImageIO;
 
 /**
  * Rovar osztály definíciója.
  *
- * <p>
- * Rovarok tektonokon mozognak, tektonok között vezető gombafonalakon átkelnek,
- * azokat
+ * <p>Rovarok tektonokon mozognak, tektonok között vezető gombafonalakon átkelnek, azokat
  * elvághatják és spóákat esznek, melyek különböző hatásall vannak rájuk
  *
  * @author Oliver
  */
 public class Rovar implements Jatekelem, Serializable {
 
+  /** Objektum azonosító. */
   private int id;
 
+  /**
+   * Publikus getter az objektum azonosítóra.
+   *
+   * @return az objektum azonosítója.
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * Publikus setter az objektum azonosítóra.
+   *
+   * @param id a beállítandó azonosító.
+   */
   public void setId(int id) {
     this.id = id;
   }
@@ -145,12 +153,10 @@ public class Rovar implements Jatekelem, Serializable {
   }
 
   /**
-   * Átállítja a rovar tartozkodik változólyát a megadott tektonra, amennyiben az
-   * elérhető a rovar
+   * Átállítja a rovar tartozkodik változólyát a megadott tektonra, amennyiben az elérhető a rovar
    * számára
    *
-   * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal
-   *               áthidalt tekton
+   * @param tekton az úticél, egy szomszédos, de jelenlegiről gombafonallal áthidalt tekton
    */
   public boolean mozog(Mezo mezo) {
     if (mezo.milyenSzomszed(tartozkodik) < 2) return false;
@@ -159,15 +165,16 @@ public class Rovar implements Jatekelem, Serializable {
   }
 
   /**
-   * Elvágja a gombaFonal gombafonalat a jelenlegi tartózkodási tekton és egy
-   * szomszédos tekton
+   * Elvágja a gombaFonal gombafonalat a jelenlegi tartózkodási tekton és egy szomszédos tekton
    * között
    *
    * @param gombaFonal az elvágandó GombaFonal
    * @return hogy elvágta-e a fonalat
    */
   public boolean vag(GombaFonal gombaFonal, Mezo merre) {
-    if (vaghat && gombaFonal.getVezet(tartozkodik, merre) && tartozkodik.getTekton() != merre.getTekton()) {
+    if (vaghat
+        && gombaFonal.getVezet(tartozkodik, merre)
+        && tartozkodik.getTekton() != merre.getTekton()) {
       gombaFonal.elvagodik(tartozkodik, merre);
       return true;
     }
@@ -176,9 +183,9 @@ public class Rovar implements Jatekelem, Serializable {
 
   /**
    * Fuggveny spora megevesere
-   * 
+   *
    * @param spora melyik sporat
-   * @param db    mennyit belole
+   * @param db mennyit belole
    * @return a kapott pontszam
    */
   public int eszik(Spora spora, int db) {
@@ -188,7 +195,7 @@ public class Rovar implements Jatekelem, Serializable {
 
   /**
    * Fuggveny spora megevesere
-   * 
+   *
    * @param spora melyik sporat
    * @return a kapott pontszam
    */
@@ -198,8 +205,7 @@ public class Rovar implements Jatekelem, Serializable {
   }
 
   /**
-   * Kör elején meghívott függvény, ami ha a rovar nem tud vágni csökkenti az
-   * ujravaghat értékét,
+   * Kör elején meghívott függvény, ami ha a rovar nem tud vágni csökkenti az ujravaghat értékét,
    * majd ha az elérte a 0-t, visszaállítja a vaghat értékét true-ra
    */
   public void tick() {
@@ -213,6 +219,7 @@ public class Rovar implements Jatekelem, Serializable {
 
   /**
    * Függvény, ami megadja, hogy a rovar bénult állapotban van-e
+   *
    * @return true, ha a rovar bénult; false, ha nem
    */
   public boolean isBenult() {

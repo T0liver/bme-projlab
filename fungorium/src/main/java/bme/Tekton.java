@@ -10,31 +10,39 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 
 /**
  * Tekton osztály definíciója.
  *
- * <p>
- * A pálya Tektonokból áll. A tektonok kettéhasadhatnak (csak, ha nincs rajta
- * gombatest), ekkor
- * minden rajtuk levő életforma elpusztul, közöttük gombafonál hidalhat át,
- * rajtuk rovarok
- * mozoghatnak, és gombatestek spórát helyezhetnek el, melyek segítségével új
- * gombatest nőhet
+ * <p>A pálya Tektonokból áll. A tektonok kettéhasadhatnak (csak, ha nincs rajta gombatest), ekkor
+ * minden rajtuk levő életforma elpusztul, közöttük gombafonál hidalhat át, rajtuk rovarok
+ * mozoghatnak, és gombatestek spórát helyezhetnek el, melyek segítségével új gombatest nőhet
  *
  * @author Vid
  */
 public class Tekton implements Jatekelem, Serializable {
 
+  /** random */
   Random r = new Random();
+
+  /** Objektum azonosító. */
   private int id;
 
+  /**
+   * Publikus getter az objektum azonosítóra.
+   *
+   * @return az objektum azonosítója.
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * Publikus setter az objektum azonosítóra.
+   *
+   * @param id a beállítandó azonosító.
+   */
   public void setId(int id) {
     this.id = id;
   }
@@ -59,9 +67,7 @@ public class Tekton implements Jatekelem, Serializable {
 
   protected Terkep terkep;
 
-  /**
-   * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
-   */
+  /** Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait. */
   public Tekton() {
     foglalt = false;
     szomszedok = new ArrayList<>();
@@ -115,7 +121,9 @@ public class Tekton implements Jatekelem, Serializable {
     if (rovarok.contains(r)) rovarok.remove(r);
   }
 
-  public List<Mezo> getMezok() { return mezok; }
+  public List<Mezo> getMezok() {
+    return mezok;
+  }
 
   /** Publikus getter a tekton foglaltsaganak lekerdezesere */
   public boolean getFoglalt() {
@@ -142,9 +150,9 @@ public class Tekton implements Jatekelem, Serializable {
    *
    * @param tekton egy szomszédként beállítandó tekton
    */
-  public void addSzomszed(Tekton tekton) { // legyen inkább csak setter? ez nincs az uml diagramon - jó ez [Vid]
-    if (!szomszedok.contains(tekton)) { // ellenőrzés, ne legyen loop (redundancia)
-      szomszedok.add(tekton); // csináljuk visszairányba
+  public void addSzomszed(Tekton tekton) {
+    if (!szomszedok.contains(tekton)) {
+      szomszedok.add(tekton);
       tekton.addSzomszed(this);
     }
   }
@@ -154,9 +162,9 @@ public class Tekton implements Jatekelem, Serializable {
    *
    * @param fonal a lehelyezendő függvény
    */
-  public void addFonal(GombaFonal gf) { // legyen inkább csak setter? ez nincs az uml diagramon - jó ez [Vid]
-    if (!fonalak.contains(gf)) { // ellenőrzés, ne legyen loop (redundancia)
-      fonalak.add(gf); // csináljuk visszairányba
+  public void addFonal(GombaFonal gf) {
+    if (!fonalak.contains(gf)) {
+      fonalak.add(gf);
     }
   }
 
@@ -164,18 +172,15 @@ public class Tekton implements Jatekelem, Serializable {
    * A tekton másik tektonhoz való kapcsolatát megadó függvény
    *
    * @param tekton a másik tekton
-   * @return a szomszédsági státus: 0 - nem szomszéd, 1 - szomszéd és fonállal
-   *         össze nem kötött, 2
-   *         szomszéd és fonállal összekötött
+   * @return a szomszédsági státus: 0 - nem szomszéd, 1 - szomszéd és fonállal össze nem kötött, 2
+   *     szomszéd és fonállal összekötött
    */
   public int milyenszomszed(Tekton tekton) {
-    if (!szomszedok.contains(tekton))
-      return 0;
+    if (!szomszedok.contains(tekton)) return 0;
     for (int i = 0; i < fonalak.size(); ++i)
       for (Mezo m0 : mezok) {
         for (Mezo m1 : tekton.getMezok()) {
-          if (fonalak.get(i).getVezet(m0, m1))
-            return 2;
+          if (fonalak.get(i).getVezet(m0, m1)) return 2;
         }
       }
     return 1;
@@ -184,25 +189,24 @@ public class Tekton implements Jatekelem, Serializable {
   /**
    * A tektont hasadásra utasító függvény
    *
-   * @return lista, aminek tartalma: a két új létrejött tekton, vagy önmaga, ha
-   *         nem tudott hasadni
+   * @return lista, aminek tartalma: a két új létrejött tekton, vagy önmaga, ha nem tudott hasadni
    */
   public List<Tekton> hasad() {
     List<Tekton> ret = new ArrayList<>();
 
     // If this Tekton is reserved, do not split
     if (foglalt) {
-        ret.add(this);
-        return ret;
+      ret.add(this);
+      return ret;
     }
 
     // Cut threads
     for (Mezo mezo : mezok) {
-        for (Mezo target : terkep.getMezok()) {
-          for (GombaFonal fonal : new ArrayList<>(mezo.getFonalak())) {
-            fonal.elvagodik(mezo, target);
-          }          
+      for (Mezo target : terkep.getMezok()) {
+        for (GombaFonal fonal : new ArrayList<>(mezo.getFonalak())) {
+          fonal.elvagodik(mezo, target);
         }
+      }
     }
 
     // Decide whether to split along Y or X axis
@@ -212,38 +216,37 @@ public class Tekton implements Jatekelem, Serializable {
     int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
     int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
     for (Mezo m : mezok) {
-        int x = m.getPos().get(0);
-        int y = m.getPos().get(1);
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
+      int x = m.getPos().get(0);
+      int y = m.getPos().get(1);
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
     }
 
     List<Mezo> elso = new ArrayList<>();
     List<Mezo> masodik = new ArrayList<>();
     if (yAxis && minY < maxY) {
-        int split = r.nextInt(minY, maxY);
-        for (Mezo m : mezok) {
-            if (m.getPos().get(1) <= split) {
-                elso.add(m);
-            } else {
-                masodik.add(m);
-            }
+      int split = r.nextInt(minY, maxY);
+      for (Mezo m : mezok) {
+        if (m.getPos().get(1) <= split) {
+          elso.add(m);
+        } else {
+          masodik.add(m);
         }
+      }
     } else if (!yAxis && minX < maxX) {
-        int split = r.nextInt(minX, maxX);
-        for (Mezo m : mezok) {
-            if (m.getPos().get(0) <= split) {
-                elso.add(m);
-            } else {
-                masodik.add(m);
-            }
+      int split = r.nextInt(minX, maxX);
+      for (Mezo m : mezok) {
+        if (m.getPos().get(0) <= split) {
+          elso.add(m);
+        } else {
+          masodik.add(m);
         }
+      }
     } else {
-        // Cannot split (region too small), return self
-        ret.add(this);
-        return ret;
+      ret.add(this);
+      return ret;
     }
 
     // Assign split Mezo sets to two new Tektons
@@ -264,31 +267,29 @@ public class Tekton implements Jatekelem, Serializable {
     szigetek.addAll(t2.getOsszefuggo());
 
     for (List<Mezo> sziget : szigetek) {
-        Tekton uj = createTekton();
-        for (Mezo m : sziget) {
-            uj.addMezo(m);
-            m.setTekton(uj);
-        }
-        ret.add(uj);
+      Tekton uj = createTekton();
+      for (Mezo m : sziget) {
+        uj.addMezo(m);
+        m.setTekton(uj);
+      }
+      ret.add(uj);
     }
 
     // Finalize each Tekton
     for (Tekton t : ret) {
-        for (Mezo m : t.getMezok()) {
-            m.setTekton(t);
-        }
-        t.setTerkep(terkep);
-        t.collectSzomszedok(terkep);
+      for (Mezo m : t.getMezok()) {
+        m.setTekton(t);
+      }
+      t.setTerkep(terkep);
+      t.collectSzomszedok(terkep);
     }
 
-
     if (ret.isEmpty()) {
-        ret.add(this);
+      ret.add(this);
     }
 
     return ret;
-}
-
+  }
 
   public Tekton createTekton() {
     return new Tekton(terkep);
@@ -304,18 +305,15 @@ public class Tekton implements Jatekelem, Serializable {
   }
 
   /**
-   * A tekton maximum x. szomszédait megkereső függvény. Ez a gombatest
-   * spórázásánál hasznos.
+   * A tekton maximum x. szomszédait megkereső függvény. Ez a gombatest spórázásánál hasznos.
    *
-   * @param hanyadik hanyadik szomszéd a maximális elfogadott (ha 1, akkor csak
-   *                 közvetlen
-   *                 szomszédok; ha 2, akkor szomszédok szomszédai, stb)
+   * @param hanyadik hanyadik szomszéd a maximális elfogadott (ha 1, akkor csak közvetlen
+   *     szomszédok; ha 2, akkor szomszédok szomszédai, stb)
    * @return a megtalált szomszédok
    */
   public List<Tekton> getSzomszed(int hanyadik) {
     List<Tekton> ret = new ArrayList<>();
-    if (hanyadik <= 0)
-      return ret;
+    if (hanyadik <= 0) return ret;
     if (hanyadik == 1) return szomszedok;
     for (int i = 0; i < szomszedok.size(); ++i) {
       ret.add(szomszedok.get(i));
@@ -333,21 +331,20 @@ public class Tekton implements Jatekelem, Serializable {
    * Spórák tektonon való elhelyezését megoldó függvény
    *
    * @param mennyiseg mennyi spórát rakunk rá
-   * @param gt        melyik gombatest szórta
-   * @param random    random spóratípus-e, vagy csak alapértelmezett
+   * @param gt melyik gombatest szórta
+   * @param random random spóratípus-e, vagy csak alapértelmezett
    * @return valami booleant
    */
   public boolean addSpora(int mennyiseg, GombaTest gt, boolean random) {
     for (int i = 0; i < sporak.size(); ++i) {
-      if (sporak.get(i).getGombasz() == gt.getGombasz()) { // keresünk azonos fajú spórát
+      if (sporak.get(i).getGombasz() == gt.getGombasz()) {
         sporak.get(i).novel(mennyiseg);
         return false;
       }
     }
     Spora ujSpora = null;
     int adandoSporaTipus = 0;
-    if (random)
-      adandoSporaTipus = r.nextInt(6);
+    if (random) adandoSporaTipus = r.nextInt(6);
     switch (adandoSporaTipus) {
       case 0:
         ujSpora = new Spora(10, mennyiseg, gt.getGombasz());
@@ -393,7 +390,7 @@ public class Tekton implements Jatekelem, Serializable {
    * Spórák tektonon való elhelyezését megoldó függvény
    *
    * @param mennyiseg mennyi spórát rakunk rá
-   * @param gt        melyik gombatest szórta
+   * @param gt melyik gombatest szórta
    * @return új spóra-e a tektonon
    */
   public boolean addSpora(int mennyiseg, GombaTest gt) {
@@ -414,7 +411,7 @@ public class Tekton implements Jatekelem, Serializable {
    * Spórák tektonon való elhelyezését megoldó függvény
    *
    * @param mennyiseg mennyi spórát rakunk rá
-   * @param s         melyik spórát
+   * @param s melyik spórát
    * @return új spóra-e a tektonon
    */
   public boolean addSpora(int mennyiseg, Spora s) {
@@ -439,25 +436,21 @@ public class Tekton implements Jatekelem, Serializable {
   }
 
   /**
-   * A tektonon levő legmagasabb tápanyagtartalmú spóra lekérdezésére használt
-   * függvény
+   * A tektonon levő legmagasabb tápanyagtartalmú spóra lekérdezésére használt függvény
    *
    * @return a tekton spóra listájában levő legmagasabb tápanyagtartalmú spóra
    */
   public Spora getBestSpora() {
-    if (sporak.isEmpty())
-      throw new IndexOutOfBoundsException();
+    if (sporak.isEmpty()) throw new IndexOutOfBoundsException();
     int reti = 0;
     for (int i = 1; i < sporak.size(); ++i) {
-      if (sporak.get(reti).getTapanyag() < sporak.get(i).getTapanyag())
-        reti = i;
+      if (sporak.get(reti).getTapanyag() < sporak.get(i).getTapanyag()) reti = i;
     }
     return sporak.get(reti);
   }
 
   /**
-   * Függvény, ami felhasználja a gombatest készítéséhez megfelelő mennyiségű
-   * spórát
+   * Függvény, ami felhasználja a gombatest készítéséhez megfelelő mennyiségű spórát
    *
    * @param mit melyik spórát használja fel
    * @return hogy a spóra felhasználása sikeres volt-e (volt e elég)
@@ -469,24 +462,24 @@ public class Tekton implements Jatekelem, Serializable {
       }
     }
 
-    //return sporak.contains(mit) && mit.csokken(5) == mit.getTapanyag() * 10;
-
     if (sporak.contains(mit)) {
-      return  mit.csokken(5) == mit.getTapanyag() * 5;
+      return mit.csokken(5) == mit.getTapanyag() * 5;
     }
 
     return false;
   }
 
   /**
-   * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a
-   * tektonon
-   * 
+   * Függvény, ami megadja, hogy van-e gobafonál túléléséhez szükséges gombatest a tektonon
+   *
    * @param gombaFonal a gombafonal, amire vizsgájuk
    * @return hogy van-e rajta olyan gombatest, ami kell a fonal túléléséhez
    */
   public boolean vanGombaTest(GombaFonal gombaFonal) {
-    if (!foglalt || gombaFonal.getGombasz() == null || gombaFonal.getGombasz().getGombaTestek() == null || gombaFonal.getGombasz().getGombaTestek().isEmpty()) {
+    if (!foglalt
+        || gombaFonal.getGombasz() == null
+        || gombaFonal.getGombasz().getGombaTestek() == null
+        || gombaFonal.getGombasz().getGombaTestek().isEmpty()) {
       return false;
     }
 
@@ -499,23 +492,24 @@ public class Tekton implements Jatekelem, Serializable {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+
     return false;
   }
 
-  /**
-   * A kör elején meghívott függvény, felszívó tekton használja
-   */
+  /** A kör elején meghívott függvény, felszívó tekton használja */
   public void tick() {}
 
-  public void removeSpora(Spora s) {sporak.remove(s);}
+  public void removeSpora(Spora s) {
+    sporak.remove(s);
+  }
 
   public void collectSzomszedok(Terkep t) {
     szomszedok.clear();
     List<Mezo> osszes = t.getMezok();
     for (int i = 0; i < mezok.size(); ++i) {
       for (int e = 0; e < osszes.size(); ++e) {
-        if (osszes.get(e).milyenSzomszed(mezok.get(i)) > 0 && !szomszedok.contains(mezok.get(i).getTekton())) {
+        if (osszes.get(e).milyenSzomszed(mezok.get(i)) > 0
+            && !szomszedok.contains(mezok.get(i).getTekton())) {
           szomszedok.add(osszes.get(e).getTekton());
         }
       }
@@ -523,32 +517,34 @@ public class Tekton implements Jatekelem, Serializable {
   }
 
   public List<List<Mezo>> getOsszefuggo() {
-      List<List<Mezo>> ret = new ArrayList<>();
-      List<Mezo> talalt = new ArrayList<>();
-      List<Mezo> csoport = new ArrayList<>();
-      while (talalt.size() < mezok.size()) {
-        csoport.clear();
-        for (int i = 0; i < mezok.size(); ++i) {
-          if (!talalt.contains(mezok.get(i))) {
+    List<List<Mezo>> ret = new ArrayList<>();
+    List<Mezo> talalt = new ArrayList<>();
+    List<Mezo> csoport = new ArrayList<>();
+    while (talalt.size() < mezok.size()) {
+      csoport.clear();
+      for (int i = 0; i < mezok.size(); ++i) {
+        if (!talalt.contains(mezok.get(i))) {
+          csoport.add(mezok.get(i));
+          break;
+        }
+      }
+      for (int i = 0; i < mezok.size(); ++i) {
+        for (int e = 0; e < csoport.size(); ++e) {
+          if (!talalt.contains(mezok.get(i))
+              && !csoport.contains(mezok.get(e))
+              && csoport.get(e).getOrtoSzomszedok().contains(mezok.get(i))) {
             csoport.add(mezok.get(i));
             break;
           }
         }
-        for (int i = 0; i < mezok.size(); ++i) {
-          for (int e = 0; e < csoport.size(); ++e) {
-            if (!talalt.contains(mezok.get(i)) && !csoport.contains(mezok.get(e)) && csoport.get(e).getOrtoSzomszedok().contains(mezok.get(i))) {
-              csoport.add(mezok.get(i));
-              break;
-            }
-          }
-        }
-        talalt.addAll(csoport);
-        ret.add(csoport);
       }
-      return ret;
+      talalt.addAll(csoport);
+      ret.add(csoport);
+    }
+    return ret;
   }
 
-  //inithez kell
+  // inithez kell
   public boolean getTermeketlen() {
     return false;
   }
@@ -560,5 +556,7 @@ public class Tekton implements Jatekelem, Serializable {
     return false;
   }
 
-  public boolean fonalNohet(GombaFonal gf) { return true; }
+  public boolean fonalNohet(GombaFonal gf) {
+    return true;
+  }
 }

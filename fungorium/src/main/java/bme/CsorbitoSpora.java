@@ -29,12 +29,4 @@ public class CsorbitoSpora extends Spora {
   public void hatas(Rovar mire) {
     mire.nemVaghat();
   }
-
-  /**
-   * A class adatait kiiro fuggveny.
-   */
-  @Override
-  public void printData() {
-    System.out.println("Csorbito Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
-  }
 }

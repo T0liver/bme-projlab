@@ -1,6 +1,5 @@
 package bme;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,159 +8,223 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
+/**
+ * Játékos nézeti osztály implementációja
+ *
+ * <p>Játékoshoz tartozó nézeti osztály
+ *
+ * @author JDB
+ */
 public class JatekosView {
-    private Jatekos jatekos;
-    private Random r = new Random();
-    public JatekosView(Jatekos j) {
-        jatekos = j;
-    }
-    public void draw(JFrame gw) {
-        List<GombaTest> gts = jatekos.getGombaTestek();
-        List<GombaFonal> gfs = jatekos.getGombaFonalak();
-        List<Spora> ss = jatekos.getSporak();
-        List<Rovar> rs = jatekos.getRovarok();
 
-        //GombaFonalak rajzolása
-        for (int i = 0; i < gfs.size(); ++i) {
-            GombaFonal gf = gfs.get(i);
-            Map<Mezo, List<Mezo>> vezet = gf.getVezet();
-            BufferedImage negxnegy, negy, posxnegy, negx, neut, posx, negxposy, posy, posxposy;
-            try {
-                EntitasView ev = new EntitasView(null, null, jatekos); // dummy entity for colorizing
-                negxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUL.png")), jatekos.getSzin());
-                negy     = ev.color(ImageIO.read(new File("textures/FonalUp.png")), jatekos.getSzin());
-                posxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUR.png")), jatekos.getSzin());
-                negx     = ev.color(ImageIO.read(new File("textures/FonalLeft.png")), jatekos.getSzin());
-                neut     = ev.color(ImageIO.read(new File("textures/FonalNeut.png")), jatekos.getSzin());
-                posx     = ev.color(ImageIO.read(new File("textures/FonalRight.png")), jatekos.getSzin());
-                negxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDL.png")), jatekos.getSzin());
-                posy     = ev.color(ImageIO.read(new File("textures/FonalDown.png")), jatekos.getSzin());
-                posxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDR.png")), jatekos.getSzin());
-                for (Mezo m : vezet.keySet()) {
-                    JLabel label = createCompositeLabel(
-                        gf.getVezet(),
-                        m,
-                        neut, negy, posy, negx, posx,
-                        negxnegy, posxnegy, negxposy, posxposy
-                    );
-                    List<Integer> pos = m.getPos();
-                    label.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
-                    gw.add(label);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+  /** a játékos, akihez tartozik. */
+  private Jatekos jatekos;
+
+  /**
+   * Publikus konstruktor
+   *
+   * @param j a játékos akihez a nézet tartozik.
+   */
+  public JatekosView(Jatekos j) {
+    jatekos = j;
+  }
+
+  /**
+   * Kirajzoló függvény
+   *
+   * @param gw a JFrame, amire kirajzolja.
+   */
+  public void draw(JFrame gw) {
+    List<GombaTest> gts = jatekos.getGombaTestek();
+    List<GombaFonal> gfs = jatekos.getGombaFonalak();
+    List<Spora> ss = jatekos.getSporak();
+    List<Rovar> rs = jatekos.getRovarok();
+
+    // GombaFonalak rajzolása
+    for (int i = 0; i < gfs.size(); ++i) {
+      GombaFonal gf = gfs.get(i);
+      Map<Mezo, List<Mezo>> vezet = gf.getVezet();
+      BufferedImage negxnegy, negy, posxnegy, negx, neut, posx, negxposy, posy, posxposy;
+      try {
+        EntitasView ev = new EntitasView(null, null, jatekos); // dummy entity for colorizing
+        negxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUL.png")), jatekos.getSzin());
+        negy = ev.color(ImageIO.read(new File("textures/FonalUp.png")), jatekos.getSzin());
+        posxnegy = ev.color(ImageIO.read(new File("textures/FonalDiagUR.png")), jatekos.getSzin());
+        negx = ev.color(ImageIO.read(new File("textures/FonalLeft.png")), jatekos.getSzin());
+        neut = ev.color(ImageIO.read(new File("textures/FonalNeut.png")), jatekos.getSzin());
+        posx = ev.color(ImageIO.read(new File("textures/FonalRight.png")), jatekos.getSzin());
+        negxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDL.png")), jatekos.getSzin());
+        posy = ev.color(ImageIO.read(new File("textures/FonalDown.png")), jatekos.getSzin());
+        posxposy = ev.color(ImageIO.read(new File("textures/FonalDiagDR.png")), jatekos.getSzin());
+        for (Mezo m : vezet.keySet()) {
+          JLabel label =
+              createCompositeLabel(
+                  gf.getVezet(),
+                  m,
+                  neut,
+                  negy,
+                  posy,
+                  negx,
+                  posx,
+                  negxnegy,
+                  posxnegy,
+                  negxposy,
+                  posxposy);
+          List<Integer> pos = m.getPos();
+          label.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
+          gw.add(label);
         }
-
-        //GombaTestek rajzolása
-        for (int i = 0; i < gts.size(); ++i) {
-            GombaTest gt = gts.get(i);
-            JLabel jl = new JLabel();
-            BufferedImage colouredImage;
-            try {
-                colouredImage = new EntitasView(gt, gt.getTartozkodik().getMezok().get(0), jatekos).color(gt.getImg(), jatekos.getSzin());
-                jl.setIcon(new ImageIcon(colouredImage));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            List<Integer> pos = gt.getTartozkodik().getMezok().get(0).getPos();
-            jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
-            gw.add(jl);
-        }
-
-        //Spórák rajzolása
-        for (int i = 0; i < ss.size(); ++i) {
-            Spora s = ss.get(i);
-            JLabel jl = new JLabel();
-            BufferedImage colouredImage;
-            try {
-                colouredImage = new EntitasView(s, s.getTartozkodik().getMezok().get(0), jatekos).color(s.getImg(), jatekos.getSzin());
-                jl.setIcon(new ImageIcon(colouredImage));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            List<Integer> pos = s.getTartozkodik().getMezok().get(r.nextInt(s.getTartozkodik().getMezok().size())).getPos();
-            jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
-            if (s.getDarabszam() > 0)
-                gw.add(jl);
-        }
-
-        //Rovarok rajzolása
-        for (int i = 0; i < rs.size(); ++i) {
-            Rovar r = rs.get(i);
-            JLabel jl = new JLabel();
-            BufferedImage colouredImage;
-            try {
-                colouredImage = new EntitasView(r, r.getTartozkodik(), jatekos).color(r.getImg(), jatekos.getSzin());
-                jl.setIcon(new ImageIcon(colouredImage));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            List<Integer> pos = r.getTartozkodik().getPos();
-            jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
-            gw.add(jl);
-        }
-
-        gw.repaint();
-        gw.revalidate();
-        gw.repaint();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
 
-    private String getDirection(Mezo from, Mezo to) {
-        List<Integer> p1 = from.getPos();
-        List<Integer> p2 = to.getPos();
-    
-        int dx = p2.get(0) - p1.get(0);
-        int dy = p2.get(1) - p1.get(1);
-
-        if (dx == 0 && dy == -1) return "Up";
-        if (dx == 0 && dy == 1) return "Down";
-        if (dx == -1 && dy == 0) return "Left";
-        if (dx == 1 && dy == 0) return "Right";
-        if (dx == -1 && dy == -1) return "DiagUL";
-        if (dx == 1 && dy == -1) return "DiagUR";
-        if (dx == -1 && dy == 1) return "DiagDL";
-        if (dx == 1 && dy == 1) return "DiagDR";
-        return null;
+    // GombaTestek rajzolása
+    for (int i = 0; i < gts.size(); ++i) {
+      GombaTest gt = gts.get(i);
+      JLabel jl = new JLabel();
+      BufferedImage colouredImage;
+      try {
+        colouredImage =
+            new EntitasView(gt, gt.getTartozkodik().getMezok().get(0), jatekos)
+                .color(gt.getImg(), jatekos.getSzin());
+        jl.setIcon(new ImageIcon(colouredImage));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      List<Integer> pos = gt.getTartozkodik().getMezok().get(0).getPos();
+      jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
+      gw.add(jl);
     }
 
-    private JLabel createCompositeLabel(Map<Mezo, List<Mezo>> vezet, Mezo current,
-                                   BufferedImage mid, BufferedImage up, BufferedImage down,
-                                   BufferedImage left, BufferedImage right,
-                                   BufferedImage diagUL, BufferedImage diagUR,
-                                   BufferedImage diagDL, BufferedImage diagDR) {
-        int width = mid.getWidth();
-        int height = mid.getHeight();
-        BufferedImage composed = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g = composed.createGraphics();
-        g.drawImage(mid, 0, 0, null); // base texture
-
-        List<Mezo> neighbors = vezet.getOrDefault(current, new ArrayList<>());
-        for (Mezo neighbor : neighbors) {
-            String dir = getDirection(current, neighbor);
-            if (dir == null) continue;
-
-            switch (dir) {
-                case "Up" -> g.drawImage(up, 0, 0, null);
-                case "Down" -> g.drawImage(down, 0, 0, null);
-                case "Left" -> g.drawImage(left, 0, 0, null);
-                case "Right" -> g.drawImage(right, 0, 0, null);
-                case "DiagUL" -> g.drawImage(diagUL, 0, 0, null);
-                case "DiagUR" -> g.drawImage(diagUR, 0, 0, null);
-                case "DiagDL" -> g.drawImage(diagDL, 0, 0, null);
-                case "DiagDR" -> g.drawImage(diagDR, 0, 0, null);
-            }
-        }
-
-        g.dispose();
-        return new JLabel(new ImageIcon(composed));
+    // Spórák rajzolása
+    for (int i = 0; i < ss.size(); ++i) {
+      Spora s = ss.get(i);
+      JLabel jl = new JLabel();
+      BufferedImage colouredImage;
+      try {
+        colouredImage =
+            new EntitasView(s, s.getTartozkodik().getMezok().get(0), jatekos)
+                .color(s.getImg(), jatekos.getSzin());
+        jl.setIcon(new ImageIcon(colouredImage));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      Random r = new Random();
+      List<Integer> pos =
+          s.getTartozkodik()
+              .getMezok()
+              .get(r.nextInt(s.getTartozkodik().getMezok().size()))
+              .getPos();
+      jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
+      if (s.getDarabszam() > 0) gw.add(jl);
     }
+
+    // Rovarok rajzolása
+    for (int i = 0; i < rs.size(); ++i) {
+      Rovar r = rs.get(i);
+      JLabel jl = new JLabel();
+      BufferedImage colouredImage;
+      try {
+        colouredImage =
+            new EntitasView(r, r.getTartozkodik(), jatekos).color(r.getImg(), jatekos.getSzin());
+        jl.setIcon(new ImageIcon(colouredImage));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      List<Integer> pos = r.getTartozkodik().getPos();
+      jl.setBounds(8 + pos.get(0) * 32, 8 + pos.get(1) * 32, 32, 32);
+      gw.add(jl);
+    }
+
+    gw.repaint();
+    gw.revalidate();
+    gw.repaint();
+  }
+
+  /**
+   * Irány gettere
+   *
+   * @param from honnan indul
+   * @param to hova tart
+   * @return az irány szövegesen
+   */
+  private String getDirection(Mezo from, Mezo to) {
+    List<Integer> p1 = from.getPos();
+    List<Integer> p2 = to.getPos();
+
+    int dx = p2.get(0) - p1.get(0);
+    int dy = p2.get(1) - p1.get(1);
+
+    if (dx == 0 && dy == -1) return "Up";
+    if (dx == 0 && dy == 1) return "Down";
+    if (dx == -1 && dy == 0) return "Left";
+    if (dx == 1 && dy == 0) return "Right";
+    if (dx == -1 && dy == -1) return "DiagUL";
+    if (dx == 1 && dy == -1) return "DiagUR";
+    if (dx == -1 && dy == 1) return "DiagDL";
+    if (dx == 1 && dy == 1) return "DiagDR";
+    return null;
+  }
+
+  /**
+   * Composite felirat elkészítése
+   *
+   * @param vezet vezet mezők
+   * @param current jelenlegi mező
+   * @param mid középen textúra
+   * @param up fel textúra
+   * @param down le textúra
+   * @param left balra textúra
+   * @param right jobbra textúra
+   * @param diagUL srégen balra fel textúra
+   * @param diagUR srégen jobbra fel textúra
+   * @param diagDL srégen balra le textúra
+   * @param diagDR srégen jobbra le textúra
+   * @return elkészített felirat
+   */
+  private JLabel createCompositeLabel(
+      Map<Mezo, List<Mezo>> vezet,
+      Mezo current,
+      BufferedImage mid,
+      BufferedImage up,
+      BufferedImage down,
+      BufferedImage left,
+      BufferedImage right,
+      BufferedImage diagUL,
+      BufferedImage diagUR,
+      BufferedImage diagDL,
+      BufferedImage diagDR) {
+    int width = mid.getWidth();
+    int height = mid.getHeight();
+    BufferedImage composed = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+    Graphics2D g = composed.createGraphics();
+    g.drawImage(mid, 0, 0, null); // base texture
+
+    List<Mezo> neighbors = vezet.getOrDefault(current, new ArrayList<>());
+    for (Mezo neighbor : neighbors) {
+      String dir = getDirection(current, neighbor);
+      if (dir == null) continue;
+
+      switch (dir) {
+        case "Up" -> g.drawImage(up, 0, 0, null);
+        case "Down" -> g.drawImage(down, 0, 0, null);
+        case "Left" -> g.drawImage(left, 0, 0, null);
+        case "Right" -> g.drawImage(right, 0, 0, null);
+        case "DiagUL" -> g.drawImage(diagUL, 0, 0, null);
+        case "DiagUR" -> g.drawImage(diagUR, 0, 0, null);
+        case "DiagDL" -> g.drawImage(diagDL, 0, 0, null);
+        case "DiagDR" -> g.drawImage(diagDR, 0, 0, null);
+      }
+    }
+
+    g.dispose();
+    return new JLabel(new ImageIcon(composed));
+  }
 }

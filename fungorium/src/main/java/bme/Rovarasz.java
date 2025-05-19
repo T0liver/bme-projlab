@@ -1,33 +1,30 @@
 package bme;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Rovarasz osztaly definicioja
- * 
- * Rovaraszok rovarokat iranyitanak a jatekban, es lekerdezhetik annak allasat.
+ *
+ * <p>Rovaraszok rovarokat iranyitanak a jatekban, es lekerdezhetik annak allasat.
+ *
+ * @author Vid
  */
-public class Rovarasz extends Jatekos implements Serializable {
-  //* Jatekos rovarainak listaja */
+public class Rovarasz extends Jatekos {
+  // * Jatekos rovarainak listaja */
   private List<Rovar> rovarok = new ArrayList<>();
   private List<Boolean> cselekedhet = new ArrayList<>();
   private List<Integer> lepesek = new ArrayList<>();
 
   /**
-   * @param nev Konstruktorában megadható a név paraméter
-   *            A leszármazottakban fognak kezelődni
+   * @param nev Konstruktorában megadható a név paraméter A leszármazottakban fognak kezelődni
    */
   public Rovarasz(String nev, Color szin) {
     super(nev, szin);
   }
 
-  /**
-   * Parameter nelkuli konstruktor
-   */
+  /** Parameter nelkuli konstruktor */
   public Rovarasz() {
     super();
     akciok.add(new MozgasAkcio(this));
@@ -35,10 +32,7 @@ public class Rovarasz extends Jatekos implements Serializable {
     akciok.add(new VagasAkcio(this));
   }
 
-
-  /**
-   * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
-   */
+  /** A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal) */
   @Override
   public boolean lep() {
     cselekedhet = new ArrayList<>();
@@ -54,6 +48,7 @@ public class Rovarasz extends Jatekos implements Serializable {
 
   /**
    * fuggveny, amiben egy rovart mozgat egy masik tektonra
+   *
    * @param args parancssori argumentumok
    * @return 1, ha mozgott, 0, ha nem
    */
@@ -76,9 +71,9 @@ public class Rovarasz extends Jatekos implements Serializable {
     return 0;
   }
 
-
   /**
    * fuggveny, amiben egy rovarral megetet sporat tartozkodasi tektonjan
+   *
    * @param args parancssori argumentumok
    * @return evesert kapott pontszam
    */
@@ -104,6 +99,7 @@ public class Rovarasz extends Jatekos implements Serializable {
 
   /**
    * fuggveny, amiben egy rovarral elvagat egy fonalat egy tekton iranyaban
+   *
    * @param args parancssori argumentumok
    * @return sikeresen vagott-e
    */
@@ -135,15 +131,13 @@ public class Rovarasz extends Jatekos implements Serializable {
     return false;
   }
 
-  /**
-   * jatekos tipusat megado fuggveny
-   */
+  /** jatekos tipusat megado fuggveny */
   @Override
   public int getType() {
     return 1;
   }
 
-  /*
+  /**
    * Publikus getter függvény a Rovarász rovarjainak listájának lekérdezésére.
    *
    * @return a Rovarász rovarjainak listája
@@ -160,24 +154,4 @@ public class Rovarasz extends Jatekos implements Serializable {
   public void addRovar(Rovar rovar) {
     rovarok.add(rovar);
   }
-
-  /**
-   * A class adatait kiiro fuggveny.
-   *
-  public void printData() {
-    System.out.println("Rovarasz\npontok: " + pontok);
-    listRovar();
-  }
-
-  /**
-   * A rovarasz rovarainak adatait kiiro fuggveny.
-   *
-  private void listRovar() {
-    for (int i = 0; i < rovarok.size(); ++i) {
-      System.out.println("Rovar:\nID: " + i + "\nElhelyezkedesi tekton ID: " + Jatekvezerlo.getIDof(rovarok.get(i).getTartozkodik()) + "\nMozások: " + lepesek.get(i) + "\nEhet/Vághat-e ebben a körben: " + cselekedhet.get(i) + "\nKépes vágni: " + rovarok.get(i).getVaghat());
-    }
-  }
-  private void listRovar(int i) {
-    System.out.println("Rovar:\nID: " + i + "\nElhelyezkedesi tekton ID: " + Jatekvezerlo.getIDof(rovarok.get(i).getTartozkodik()) + "\nMozások: " + lepesek.get(i) + "\nEhet/Vághat-e ebben a körben: " + cselekedhet.get(i) + "\nKépes vágni: " + rovarok.get(i).getVaghat());
-  }*/
 }

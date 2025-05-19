@@ -1,25 +1,26 @@
 package bme;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Gombasz osztaly definicioja
- * 
- * Gombaszok gombakat (gombatesteket, gombafonalakat es sporakat) iranyitanak a jatekban, es lekerdezhetik annak allasat.
+ *
+ * <p>Gombaszok gombakat (gombatesteket, gombafonalakat es sporakat) iranyitanak a jatekban, es
+ * lekerdezhetik annak állasat.
+ *
+ * @author Vid
  */
-public class Gombasz extends Jatekos implements Serializable {
+public class Gombasz extends Jatekos {
 
-  //* Jatekos gombatestjeinek listaja */
+  /** Jatekos gombatestjeinek listaja */
   private List<GombaTest> gombaTestek = new ArrayList<>();
-  
-  //* Jatekos gombafonalainak listaja */
+
+  /** Jatekos gombafonalainak listaja */
   private List<GombaFonal> gombaFonalak = new ArrayList<>();
-  
-  //* Jatekos sporainak listaja */
+
+  /** Jatekos sporainak listaja */
   private List<Spora> sporak = new ArrayList<>();
 
   private int hanyatNoveszt = 0;
@@ -27,16 +28,13 @@ public class Gombasz extends Jatekos implements Serializable {
   private List<Boolean> testCselekedett = new ArrayList<>();
 
   /**
-   * @param nev Konstruktorában megadható a név paraméter
-   *            A leszármazottakban fognak kezelődni
+   * @param nev Konstruktorában megadható a név paraméter A leszármazottakban fognak kezelődni
    */
   public Gombasz(String nev, Color szin) {
     super(nev, szin);
   }
 
-  /**
-   * Parameter nelkuli konstruktor
-   */
+  /** Parameter nelkuli konstruktor */
   public Gombasz() {
     super();
     akciok.add(new SporatSzorAkcio(this));
@@ -45,43 +43,36 @@ public class Gombasz extends Jatekos implements Serializable {
   }
 
   /**
+   * Publikus getter a gombatestekre.
    *
    * @return visszaadja a GombaTestek listáját
    */
-  public List<GombaTest> getGombaTestek() { return gombaTestek; }
+  public List<GombaTest> getGombaTestek() {
+    return gombaTestek;
+  }
 
   /**
+   * Publikus getter a spórákra.
    *
    * @return visszaadja a Spórák listáját
    */
-  public List<Spora> getSporak() { return sporak; }
+  public List<Spora> getSporak() {
+    return sporak;
+  }
 
   /**
+   * Publikus getter a gombafonalakra.
    *
    * @return visszaadja a Gombafonalak listáját
    */
-  public List<GombaFonal> getGombaFonalak() {return gombaFonalak;}
+  public List<GombaFonal> getGombaFonalak() {
+    return gombaFonalak;
+  }
 
   /**
+   * A jatekos lépéséért felelős metódus (parancssort kezeli, akciopontokkal)
    *
-   * @param gombaTestek megadható a Gombatestek listája
-   */
-  public void setGombaTestek(List<GombaTest> gombaTestek) { this.gombaTestek = gombaTestek; }
-
-  /**
-   *
-   * @param sporak megadható a Srórák listája
-   */
-  public void setSporak(List<Spora> sporak) {this.sporak = sporak; }
-
-  /**
-   * @param gombaFonalak megadható a GombaFonalak listája
-   */
-
-  public void setGombaFonalak(List<GombaFonal> gombaFonalak){this.gombaFonalak = gombaFonalak;  }
-
-  /**
-   * A jatekos lepeseert felelos fuggveny (parancssort kezeli, akciopontokkal)
+   * @return true, ha sikerült a lépés; különben false
    */
   @Override
   public boolean lep() {
@@ -89,61 +80,57 @@ public class Gombasz extends Jatekos implements Serializable {
     hanyatNoveszt = gombaTestek.size();
     sporaHasznalt = new ArrayList<>();
     for (int i = 0; i < sporak.size(); ++i) sporaHasznalt.add(false);
-    for (int i = 0; i < gombaTestek.size(); ++i) {testCselekedett.add(false); gombaTestek.get(i).tick();}
-    if (gombaFonalak != null) for (int i = 0; i < gombaFonalak.size(); ++i) {
-      for (GombaTest gt : gombaTestek) {
-        gombaFonalak.get(i).addVezet(gt.getTartozkodik().getMezok().get(0), gt.getTartozkodik().getMezok().get(0));
-      }
-      gombaFonalak.get(i).tick();
+    for (int i = 0; i < gombaTestek.size(); ++i) {
+      testCselekedett.add(false);
+      gombaTestek.get(i).tick();
     }
+    if (gombaFonalak != null)
+      for (int i = 0; i < gombaFonalak.size(); ++i) {
+        for (GombaTest gt : gombaTestek) {
+          gombaFonalak
+              .get(i)
+              .addVezet(
+                  gt.getTartozkodik().getMezok().get(0), gt.getTartozkodik().getMezok().get(0));
+        }
+        gombaFonalak.get(i).tick();
+      }
     return false;
   }
 
-  /**
-   * jatekos tipusat megado fuggveny
-   */
+  /** Publikus getter a játékos típusára. */
   @Override
   public int getType() {
     return 0;
   }
 
   /**
-   * Gombatesttel sporat szorato fuggveny
-   * @param args parancssori argumentumok
-   * @return sikeres volt-e a szoras
+   * Spóra szóratása a gombatesttel.
    *
-  private boolean sporatSzorat(String[] args) {
-    GombaTest gt = gombaTestek.get(Integer.parseInt(args[1]));
-    int tektonid = -1;
-    for (int i = 0; i < args.length; i++) {
-      if (args[i].equals("-tk")) {
-        tektonid = Integer.parseInt(args[i + 1]);
+   * @param tekton a tekton, ahova a gombász spórát akar szórni.
+   * @param gTest a gombatest, amelyik elvégzi a spóraszórást.
+   * @return true, ha sikerült (lehetséges) a spóraszórás; különben false
+   */
+  public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
+    int index = -1;
+    for (int i = 0; i < gombaTestek.size(); ++i) {
+      if (gombaTestek.get(i) == gTest) {
+        if (testCselekedett.size() > i && testCselekedett.get(i)) return false;
+        index = i;
       }
     }
-    if (tektonid == -1) return false;
-    return gt.sporatSzor(Jatekvezerlo.tektonok.get(tektonid));
-  }
-*/
-public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
-  int index = -1;
-  for (int i = 0; i < gombaTestek.size(); ++i) {
-    if (gombaTestek.get(i) == gTest) {
-      if (testCselekedett.size() > i && testCselekedett.get(i)) return false;
-      index = i;
+    if (gTest.sporatSzor(tekton)) {
+      testCselekedett.set(index, true);
+      return true;
     }
+    return false;
   }
-  if (gTest.sporatSzor(tekton)) {
-    testCselekedett.set(index, true);
-    return true;
-  }
-  return false;
-}
 
   /**
    * Gombafonalat noveszto fuggveny
+   *
    * @param args parancssori argumentumok
    * @return 1, ha sikeres volt, 0, ha nem
-  */
+   */
   public int fonalatNoveszt(Mezo m0, Mezo m1) {
     if (hanyatNoveszt > 0)
       for (int i = 0; i < gombaFonalak.size(); ++i) {
@@ -156,32 +143,20 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
   }
 
   /**
-   * Gombatestet noveszto fuggveny
-   * @param args parancssori argumentumok
+   * Gombatest növesztésére szolgáló metódus.
    *
-  private void testetNoveszt(String[] args) {
-    for (int i = 0; i < sporak.size(); ++i) {
-      if (Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).sporatFelhasznal(sporak.get(i))) {
-        try {
-          gombaTestek.add(new GombaTest(this, 0, 5, false, 0, Jatekvezerlo.tektonok.get(Integer.parseInt(args[1]))));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        Jatekvezerlo.tektonok.get(Integer.parseInt(args[1])).setFoglalt(true); //addGombaTest(gombaTestek.get(gombaTestek.size() - 1));
-      }
-    }
-  }
-  */
-
+   * @param hova a tekton, ahová a gombász a gombatestet akarja növeszteni.
+   * @return true, ha sikerült (lehetséges) a gombatest növesztése; különben false.
+   */
   public boolean testetNoveszt(Tekton hova) {
     if (hova.getFoglalt()) {
       return false;
     }
     for (int i = 0; i < sporak.size(); i++) {
       if (hova.getSporak().contains(sporak.get(i))) {
-        if (sporaHasznalt.size() > i && !sporaHasznalt.get(i) && hova.sporatFelhasznal(sporak.get(i))) {
+        if (sporaHasznalt.size() > i
+            && !sporaHasznalt.get(i)
+            && hova.sporatFelhasznal(sporak.get(i))) {
           sporaHasznalt.set(i, true);
           try {
             GombaTest gt = new GombaTest(this, 0, 5, false, 0, hova);
@@ -198,21 +173,52 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
     }
 
     return false;
-    
   }
 
-  /** publikus tagfuggveny gombatest hozzaaadasahoz */
+  /**
+   * Publikus tagfuggveny gombatest hozzaaadasahoz
+   *
+   * @param gt a hozzáadandó gombatest
+   */
   @Override
-  public void addGombaTest(GombaTest gt) {gombaTestek.add(gt);}
+  public void addGombaTest(GombaTest gt) {
+    gombaTestek.add(gt);
+  }
 
-  /** publikus tagfuggveny gombafonal hozzaaadasahoz */
+  /**
+   * Publikus tagfuggveny gombafonal hozzaaadasahoz
+   *
+   * @param gf a hozzáadandó gombafonal
+   */
   @Override
-  public void addGombaFonal(GombaFonal gf) {gombaFonalak.add(gf);}
+  public void addGombaFonal(GombaFonal gf) {
+    gombaFonalak.add(gf);
+  }
 
-  /** publikus tagfuggveny spora hozzaaadasahoz */
-  public void addSpora(Spora ujSpora) {sporak.add(ujSpora);}
+  /**
+   * Publikus tagfuggveny spóra hozzaaadasahoz
+   *
+   * @param ujSpora a hozzáadandó spóra
+   */
+  public void addSpora(Spora ujSpora) {
+    sporak.add(ujSpora);
+  }
 
-  public void removeTest(GombaTest gt) {gombaTestek.remove(gt);}
+  /**
+   * Gombatest eltávolítására szolgáló függvény.
+   *
+   * @param gt az eltávolítandó gombatest.
+   */
+  public void removeTest(GombaTest gt) {
+    gombaTestek.remove(gt);
+  }
 
-  public void removeSpora(Spora s) {sporak.remove(s);}
-} 
+  /**
+   * Spóra eltávolítására szolgáló függvény.
+   *
+   * @param gt az eltávolítandó spóra.
+   */
+  public void removeSpora(Spora s) {
+    sporak.remove(s);
+  }
+}

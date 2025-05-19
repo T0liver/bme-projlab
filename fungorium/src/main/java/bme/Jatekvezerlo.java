@@ -3,15 +3,21 @@ package bme;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
- * Jatekvezerlo osztály definiciója
+ * Jatekvezerlo osztály implementációja
+ *
+ * <p>A játékmenethez tartozó fontos információk tárolásáért, nyilvántartásáért, a körök és
+ * játékosok léptetéséért, pontok számolásáért, és a játék menetéért felelős osztály.
+ *
+ * @author Oliver
  */
 public class Jatekvezerlo implements Serializable {
 
+  /** Szerializáláshoz szükséges azonosító */
   private static final long serialVersionUID = 1L;
+
   /** A jelenlegi kör száma */
   private int jelenlegiKor;
 
@@ -25,40 +31,49 @@ public class Jatekvezerlo implements Serializable {
   private int jatekHossz;
 
   /** Engedélyezve van-e a random */
+  @SuppressWarnings("unused")
   private boolean random;
 
   /** A játék térképje */
   private Terkep terkep;
 
+  /** a játék ablaka */
   private GameWindow gameWindow;
 
+  /** a játékvezérlő nézeti osztálya */
   private JatekvezerloView jatekvezerloview;
 
   /** Felvett random osztály */
   @SuppressWarnings("unused")
   private Random r = new Random();
 
-
   public Jatekvezerlo() {
     jatekosok = new ArrayList<Jatekos>();
     jelenlegiKor = 0;
-    //tektonok = new ArrayList<Tekton>();
+    // tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
     terkep = new Terkep();
   }
 
-  public void setJatekvezerloView (JatekvezerloView jvv) { jatekvezerloview = jvv; }
+  /**
+   * Publikus setter a játékvezérlőview-ra
+   *
+   * @param jvv a beállítandó játékvezérlőview
+   */
+  public void setJatekvezerloView(JatekvezerloView jvv) {
+    jatekvezerloview = jvv;
+  }
 
   /**
    * Konstruktor, ami játékosok inicializásával
+   *
    * @param jatekosok a játékosok listája
    */
-  public Jatekvezerlo(List<Jatekos> jatekosok){
+  public Jatekvezerlo(List<Jatekos> jatekosok) {
     this.jatekosok = jatekosok;
     jelenlegiKor = 0;
-    //tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
     jatekHossz = 50;
     random = false;
@@ -67,9 +82,10 @@ public class Jatekvezerlo implements Serializable {
 
   /**
    * Konstruktor mentéshez
+   *
    * @param s - save
    */
-  public Jatekvezerlo(Save s){
+  public Jatekvezerlo(Save s) {
     this.jatekosok = s.getJatekos();
     this.jelenlegiKor = s.getJelenlegiKor();
     this.jelenlegiJatekos = s.getJelenlegiJatekos();
@@ -78,6 +94,13 @@ public class Jatekvezerlo implements Serializable {
     this.terkep = s.getTerkep();
   }
 
+  /**
+   * Egyik paraméteres konstruktor
+   *
+   * @param jatekosok a beállítandó játékosok listája
+   * @param jatekHossz a beállítandó játékhossz
+   * @param random a random lesz-e
+   */
   public Jatekvezerlo(List<Jatekos> jatekosok, int jatekHossz, boolean random) {
     this.jatekosok = jatekosok;
     this.jatekHossz = jatekHossz;
@@ -86,13 +109,13 @@ public class Jatekvezerlo implements Serializable {
       r = new Random();
     }
     jelenlegiKor = 0;
-    //tektonok = new ArrayList<Tekton>();
     jelenlegiJatekos = 0;
-    terkep =  new Terkep();
+    terkep = new Terkep();
   }
 
   /**
    * Publikus getter a jelenlegi körre.
+   *
    * @return a jelenlegi kör
    */
   public int getJelenlegiKor() {
@@ -100,25 +123,17 @@ public class Jatekvezerlo implements Serializable {
   }
 
   /**
-   * Publikus getter a tektonok listájára.
-   * @return a játékban szereplő tektonok listája
-   */
-  //public List<Tekton> getTektonok() {
-    //return tektonok;
-  //}
-
-  /**
    * Publikus getter a játékosok listájára.
+   *
    * @return a játékban szereplő játékosok listája
    */
   public List<Jatekos> getJatekosok() {
-    //System.out.println("\n" + String.valueOf(jatekosok.size()));
     return jatekosok;
   }
 
-
   /**
    * publikus setter a jatekosok listara.
+   *
    * @param jatekosok listát kell megadni paraméterként.
    */
   public void setJatekosok(List<Jatekos> jatekosok) {
@@ -127,16 +142,25 @@ public class Jatekvezerlo implements Serializable {
 
   /**
    * Publikus getter a jelenlegi játékosra.
+   *
    * @return a jelenlegi játékos száma
    */
   public int getJelenlegiJatekos() {
     return jelenlegiJatekos;
   }
 
-  public Jatekos getSoronLevoJatekos(){return jatekosok.get(jelenlegiJatekos);}
+  /**
+   * Publikus getter a soron lévő játékosra
+   *
+   * @return a soron lévő játékos
+   */
+  public Jatekos getSoronLevoJatekos() {
+    return jatekosok.get(jelenlegiJatekos);
+  }
 
   /**
    * Publikus getter a játékhosszra.
+   *
    * @return a játék hosszúsága körökben.
    */
   public int getJatekHossz() {
@@ -144,52 +168,28 @@ public class Jatekvezerlo implements Serializable {
   }
 
   /**
-   * Publikus getter a randomra.
-   * @return true, ha random engedélyezve van; false, ha nem.
-   */
-  public boolean getRandom() {
-    return random;
-  }
-
-  /**
    * Publikus getter a térképre.
+   *
    * @return a játék térképe
    */
   public Terkep getTerkep() {
     return terkep;
   }
 
-  /**
-   * Setter a random változóra.
-   * @param random true, ha random engedélyezve van; false, ha nem.
-   */
-  public void setRandom(boolean random) {
-    this.random = random;
-    if (random) {
-      r = new Random();
-    }
-  }
-
-  /**
-   * A kör eleji lefutásokért felelős, minden körben meghívódik.
-   */
+  /** A kör eleji lefutásokért felelős, minden körben meghívódik. */
   public void tick() {
     List<Tekton> tektonok = terkep.getTektonok();
     int n = tektonok.size();
-    for (int i = 0; i < n; ++i)
-      tektonok.get(i).tick();
+    for (int i = 0; i < n; ++i) tektonok.get(i).tick();
     int hasad = r.nextInt(tektonok.size());
     List<Tekton> hasadt = tektonok.get(hasad).hasad();
-    List<Mezo> mezok = tektonok.get(hasad).getMezok();
     if (hasadt.size() > 1) {
       terkep.addTektonok(hasadt);
       terkep.removeTekton(hasad);
     }
   }
 
-  /**
-   *  A kör végén lefutó metódus, ami lezárja a kört.
-   */
+  /** A kör végén lefutó metódus, ami lezárja a kört. */
   public void korVege() {
     jelenlegiJatekos++;
     if (jelenlegiJatekos >= jatekosok.size()) {
@@ -210,19 +210,17 @@ public class Jatekvezerlo implements Serializable {
 
   /**
    * Függvény egy körben a játékosok léptetésére.
+   *
    * @return true, ha volt játékos, aki lépett; false ha nem volt
    */
   public boolean korMenete() {
     for (int i = 0; i < jatekosok.size(); ++i) {
-      if (jatekosok.get(i).lep())
-        return true;
+      if (jatekosok.get(i).lep()) return true;
     }
     return false;
   }
 
-  /**
-   * Függveny a játek lezárására, és a nyertesek kiírására.
-   */
+  /** Függveny a játek lezárására, és a nyertesek kiírására. */
   public int[] jatekVege() {
     int gombaszIndex = -1;
     int rovaraszIndex = -1;
@@ -241,12 +239,10 @@ public class Jatekvezerlo implements Serializable {
     }
     System.out.println("Nyertes Rovarász: " + rovaraszIndex + ". játékos!");
     System.out.println("Nyertes Gombász: " + gombaszIndex + ". játékos!");
-    return new int[]{gombaszIndex, rovaraszIndex};
+    return new int[] {gombaszIndex, rovaraszIndex};
   }
 
-  /**
-   * Függvény a játék kezdésére és pörgetésére.
-   */
+  /** Függvény a játék kezdésére és pörgetésére. */
   public void jatekKezdes(int g, int r) {
     jatekHossz = 50;
     jelenlegiJatekos = 0;
@@ -255,10 +251,9 @@ public class Jatekvezerlo implements Serializable {
     jatekosok.get(0).lep();
   }
 
-
   /**
    * Játékos hozzáadása a nyilvántartáshoz.
-   * 
+   *
    * @param jatekos a hozáadandó játékos
    */
   public void addJatekos(Jatekos jatekos) {
@@ -267,12 +262,12 @@ public class Jatekvezerlo implements Serializable {
 
   /**
    * fuggveny a jatek inicializalasahoz parancssorrol
-   * 
-   * @throws InvalidAttributeValueException
+   *
+   * @throws InvalidAttributeValueException ha nem létezik az érték, hiba
    */
   public boolean init(int gombasznum, int rovarasznum) {
     terkep.init();
-    jatekosok.clear(); //edited
+    jatekosok.clear();
     List<Tekton> tektonok = terkep.getTektonok();
     List<Mezo> mezok = terkep.getMezok();
     for (int i = 0; i < gombasznum; ++i) {
@@ -300,26 +295,25 @@ public class Jatekvezerlo implements Serializable {
       rov.setId(jatekosok.size());
     }
     return true;
-  } // 22x22 mezős, random tektonos pálya
+  }
 
   /**
    * fuggveny tekton id-jenek lekerdezesere
-   * 
+   *
    * @param t a tekton, aminek idjere kivancsiak vagyunk
    * @return a keresett id
    */
   public int getIDof(Tekton t) {
     List<Tekton> tektonok = terkep.getTektonok();
     for (int i = 0; i < tektonok.size(); ++i) {
-      if (t == tektonok.get(i))
-        return i;
+      if (t == tektonok.get(i)) return i;
     }
     return -1;
   }
 
   /**
    * Függvény egy játékos azonosítójának lekérdezésére.
-   * 
+   *
    * @param j a jatekos, aminek idjere kivancsiak vagyunk
    * @return a keresett id, -1, ha nincs ilyen játékos
    */
@@ -330,10 +324,20 @@ public class Jatekvezerlo implements Serializable {
     return -1;
   }
 
+  /**
+   * Publikus setter a játékablakra
+   *
+   * @param gw a beállítandó játékablak
+   */
   public void setGameWindow(GameWindow gw) {
     gameWindow = gw;
   }
 
+  /**
+   * Publikus getter a játékablakra
+   *
+   * @return a játékablak
+   */
   public GameWindow getGameWindow() {
     return gameWindow;
   }

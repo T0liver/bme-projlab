@@ -4,34 +4,38 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import javax.imageio.ImageIO;
 
 /**
  * Spóra osztály definíciója.
  *
- * <p>
- * Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak
- * elhelyezni.
- * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra
- * található. A spórák
- * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert
- * fajtái felgyorsítják,
- * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó
- * rovarokat. A spórák különböző
- * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok
- * szerzésében.
+ * <p>Gombatestek termelik a spórákat, melyeket majd szomszédos tektonokon tudnak elhelyezni.
+ * Lehetővé teszik új gombatestek kifejlődését olyan tektonon melyen spóra található. A spórák
+ * továbbá hatással vannak a rovarokra is. Több fajta spóra van, eddig ismert fajtái felgyorsítják,
+ * lelassítják, megbénítják vagy nem engedik rágni az őket elfogyasztó rovarokat. A spórák különböző
+ * tápanyagtartalommal rendelkeznek, amik a rovaroknak fontosak a pontok szerzésében.
  *
  * @author Oliver
  */
 public class Spora implements Jatekelem, Serializable {
 
+  /** Objektum azonosító. */
   private int id;
 
+  /**
+   * Publikus getter az objektum azonosítóra.
+   *
+   * @return az objektum azonosítója.
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * Publikus setter az objektum azonosítóra.
+   *
+   * @param id a beállítandó azonosító.
+   */
   public void setId(int id) {
     this.id = id;
   }
@@ -51,7 +55,7 @@ public class Spora implements Jatekelem, Serializable {
    * Ez a publikus konstruktor függvény, ami beállítja az objektum tulajdonságait.
    *
    * @param kcal a spóra tápanyagtartalma
-   * @param db   a spóra darabszáma
+   * @param db a spóra darabszáma
    */
   public Spora(int kcal, int db, Gombasz gombasz) {
     tapanyagtartalom = kcal;
@@ -61,7 +65,7 @@ public class Spora implements Jatekelem, Serializable {
 
   /**
    * Publikus getter a spora elhelyezkedesi tektonjanak megadasara.
-   * 
+   *
    * @param t a tekton
    */
   public void setTartozkodik(Tekton t) {
@@ -70,7 +74,7 @@ public class Spora implements Jatekelem, Serializable {
 
   /**
    * Publikus getter a spora darabszamanak megadasara.
-   * 
+   *
    * @param db a darabszam
    */
   public void setDarabszam(int db) {
@@ -79,7 +83,7 @@ public class Spora implements Jatekelem, Serializable {
 
   /**
    * Publikus getter a spora tapanyagertekenek megadasara.
-   * 
+   *
    * @param kcal a tapertek
    */
   public void setTapanyag(int kcal) {
@@ -114,10 +118,8 @@ public class Spora implements Jatekelem, Serializable {
   }
 
   /**
-   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a
-   * mennyivel értéke,
-   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető
-   * mennyiséget adja vissza.
+   * Csökkenti a spóra objektum darabszámát, amikor megeszik. Ammenyiben nagyobb a mennyivel értéke,
+   * mint a darabszám, akkor a a darabszám beáll 0-ra és csak az elérhető mennyiséget adja vissza.
    *
    * @param mennyivel annak a száma, hogy mennyivel csökken a spóra.
    * @return a megevett spóraák tápanyagértéke.
@@ -143,8 +145,7 @@ public class Spora implements Jatekelem, Serializable {
    *
    * @param mire a rovar, amire kifejti a hatását
    */
-  public void hatas(Rovar mire) {
-  }
+  public void hatas(Rovar mire) {}
 
   /**
    * Növeli a spóra darabszámát a megadott értékkel.
@@ -155,17 +156,20 @@ public class Spora implements Jatekelem, Serializable {
     darabszam += mennyivel;
   }
 
-  /**
-   * A class adatait kiiro fuggveny.
-   */
+  /** A class adatait kiiro fuggveny. */
   public void printData() {
-    System.out.println("Normalis Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam
-        + "\nTapanyagtartalom: " + tapanyagtartalom);
+    System.out.println(
+        "Normalis Spora\nElhelyezkedes: "
+            + tartozkodik.getId()
+            + "\ndb: "
+            + darabszam
+            + "\nTapanyagtartalom: "
+            + tapanyagtartalom);
   }
 
   /**
    * publikus getter a spora tartozkodai helyenek lekerdezesehez
-   * 
+   *
    * @return
    */
   public Tekton getTartozkodik() {

@@ -1,23 +1,16 @@
 package bme;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+/**
+ * Tekton nézeti osztály implementációja.
+ *
+ * <p>Tekton nézet
+ *
+ * @author JDB
+ */
+public class TektonView extends EntitasView {
 
-public class TektonView extends EntitasView{
-
-    public TektonView(Tekton entitas, Mezo mezo, Jatekos jatekos) {
-        super(entitas, mezo, jatekos);
-        kinezet = entitas.getImage();
-    }
-
-    /*@Override
-    public void draw(GameWindow gw, Graphics g){
-
-        Tekton tk = new Tekton();
-
-    }*/
-
+  public TektonView(Tekton entitas, Mezo mezo, Jatekos jatekos) {
+    super(entitas, mezo, jatekos);
+    kinezet = entitas.getImage();
+  }
 }

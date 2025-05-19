@@ -31,12 +31,4 @@ public class BenitoSpora extends Spora {
     mire.setSebesseg(0);
     mire.nemVaghat();
   }
-
-  /**
-   * A class adatait kiiro fuggveny.
-   */
-  @Override
-  public void printData() {
-    System.out.println("Benito Spora\nElhelyezkedes: " + tartozkodik.getId() + "\ndb: " + darabszam + "\nTapanyagtartalom: " + tapanyagtartalom);
-  }
 }
