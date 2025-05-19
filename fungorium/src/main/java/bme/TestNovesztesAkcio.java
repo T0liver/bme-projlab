@@ -18,4 +18,9 @@ public class TestNovesztesAkcio extends Akcio {
     public String getHelp() {
         return "Gombatest növesztés:\nKattints a tektonra, amin gombatestet növesztenél!";
     }
+
+    @Override
+    public void ujInput(Mezo clicked) {
+        csinal(clicked, null);
+    } 
 }

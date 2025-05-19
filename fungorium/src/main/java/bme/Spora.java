@@ -125,6 +125,7 @@ public class Spora implements Jatekelem {
     if (darabszam > mennyivel) {
       int ret = mennyivel * tapanyagtartalom;
       darabszam -= mennyivel;
+      System.out.println(ret);
       return ret;
     } else {
       int ret = darabszam * tapanyagtartalom;

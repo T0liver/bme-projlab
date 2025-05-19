@@ -88,7 +88,7 @@ public class Terkep {
         // Collect neighbours for all tektons
         for (int i = 0; i < tektonok.size(); ++i) {
             tektonok.get(i).collectSzomszedok(this);
-            System.out.println("asd");
+            tektonok.get(i).setTerkep(this);
         }
     }
 

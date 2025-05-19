@@ -130,7 +130,6 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
   public int fonalatNoveszt(Mezo m0, Mezo m1) {
       for (int i = 0; i < gombaFonalak.size(); ++i) {
         if (gombaFonalak.get(i).athidal(m0, m1)) {
-          System.out.println("asd");
           return 1;
         }
       }
@@ -163,16 +162,18 @@ public boolean sporatSzorat(Tekton tekton, GombaTest gTest) {
     }
 
     for (int i = 0; i < sporak.size(); i++) {
-      if (hova.sporatFelhasznal(sporak.get(i))) {
+      if (hova.getSporak().contains(sporak.get(i)) && hova.sporatFelhasznal(sporak.get(i))) {
         try {
-          gombaTestek.add(new GombaTest(this, 0, 5, false, 0, hova));
+          GombaTest gt = new GombaTest(this, 0, 5, false, 0, hova);
+          gombaTestek.add(gt);
           hova.setFoglalt(true);
+          pontok += 1;
           return true;
         } catch (Exception e) {
           e.printStackTrace();
           return false;
         }
-      }
+      } else {System.out.println("asd");}
     }
 
     return false;

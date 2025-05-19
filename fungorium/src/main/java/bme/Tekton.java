@@ -202,9 +202,9 @@ public class Tekton implements Jatekelem {
     // Cut threads
     for (Mezo mezo : mezok) {
         for (Mezo target : terkep.getMezok()) {
-            for (GombaFonal fonal : mezo.getFonalak()) {
-                fonal.elvagodik(mezo, target); // cuts connections
-            }
+          for (GombaFonal fonal : new ArrayList<>(mezo.getFonalak())) {
+            fonal.elvagodik(mezo, target);
+          }          
         }
     }
 
@@ -319,6 +319,7 @@ public class Tekton implements Jatekelem {
     List<Tekton> ret = new ArrayList<>();
     if (hanyadik <= 0)
       return ret;
+    if (hanyadik == 1) return szomszedok;
     for (int i = 0; i < szomszedok.size(); ++i) {
       ret.add(szomszedok.get(i));
       List<Tekton> check = szomszedok.get(i).getSzomszed(hanyadik - 1);
@@ -471,7 +472,7 @@ public class Tekton implements Jatekelem {
       }
     }
 
-    return sporak.contains(mit) && mit.csokken(10) == mit.getTapanyag() * 10;
+    return sporak.contains(mit) && mit.csokken(5) == mit.getTapanyag() * 10;
   }
 
   /**
@@ -516,7 +517,6 @@ public class Tekton implements Jatekelem {
         }
       }
     }
-    System.out.println(szomszedok.size());
   }
 
   public List<List<Mezo>> getOsszefuggo() {
