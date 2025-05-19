@@ -14,6 +14,8 @@ public class JatekosMenuView {
 
     GroupLayout layout;
 
+    JLabel roundLabel = createLabel();
+
     JPanel playerinfoPanel = new JPanel();
     JLabel nameLabel;
     JLabel typeLabel;
@@ -40,6 +42,7 @@ public class JatekosMenuView {
         panel.setPreferredSize(new Dimension(200, 800));
         this.jatekosMenu = jatekosMenu;
 
+        roundLabel.setMaximumSize(new Dimension(200, 30));
 
         //Jatekos info (name, points)
         playerinfoPanel.setLayout(new GridLayout(3, 1));
@@ -112,6 +115,7 @@ public class JatekosMenuView {
         // GroupLayout horizontal group
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(roundLabel)
                         .addComponent(playerinfoPanel)
                         .addComponent(akcioPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -121,6 +125,7 @@ public class JatekosMenuView {
 // GroupLayout vertical group
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
+                        .addComponent(roundLabel)
                         .addComponent(playerinfoPanel)
                         .addComponent(akcioPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(help, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -132,7 +137,12 @@ public class JatekosMenuView {
 
     public void setJatekVezerloView(JatekvezerloView jvV) {
         jatekvezerloview = jvV;
+        frissitKorSzamlalo();
         //jvV.setJatekosMenuView(this);
+    }
+
+    public void frissitKorSzamlalo(){
+        roundLabel.setText("Kör: " + jatekvezerloview.getJatekvezerlo().getJelenlegiKor() + "/50");
     }
 
     public void setJatekosMenu(JatekosMenu jm) {
@@ -151,6 +161,7 @@ public class JatekosMenuView {
         frissitNameLabel();
         frissitPontLabel();
         frissitHelp();
+        frissitKorSzamlalo();
         selectedAkcio = null;
     }
 
@@ -220,10 +231,11 @@ public class JatekosMenuView {
             jatekvezerloview.kovetkezoKor();
             changeJatekos(jatekvezerloview.getSoronLevoJatekos());
             selectedAkcio = null;
-            frissitNameLabel();
-            frissitPontLabel();
-            frissitHelp();
-            frissitAkciok();
+//            frissitNameLabel();
+//            frissitPontLabel();
+//            frissitHelp();
+//            frissitAkciok();
+//            frissitKorSzamlalo();
         });
     }
 
